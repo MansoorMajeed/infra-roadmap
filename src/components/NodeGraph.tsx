@@ -18,6 +18,7 @@ import type { RoadmapNode } from "@/lib/types";
 import { getNodeProgress } from "@/lib/progress";
 import NodeCard from "./NodeCard";
 import ContentPanel from "./ContentPanel";
+import QuestionEdge from "./QuestionEdge";
 
 interface NodeGraphProps {
   nodes: RoadmapNode[];
@@ -28,6 +29,36 @@ interface NodeGraphProps {
 }
 
 const nodeTypes = { roadmapNode: NodeCard };
+const edgeTypes = { question: QuestionEdge };
+
+const VISIBLE_NODES_STORAGE_KEY = "sre-roadmap-visible-nodes";
+
+function saveVisibleNodes(zoneId: string, ids: Set<string>): void {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = localStorage.getItem(VISIBLE_NODES_STORAGE_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    data[zoneId] = Array.from(ids);
+    localStorage.setItem(VISIBLE_NODES_STORAGE_KEY, JSON.stringify(data));
+  } catch {
+    // ignore
+  }
+}
+
+function loadVisibleNodes(zoneId: string): Set<string> | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(VISIBLE_NODES_STORAGE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (data[zoneId] && Array.isArray(data[zoneId]) && data[zoneId].length > 0) {
+      return new Set(data[zoneId] as string[]);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
 
 // Find root nodes (no incoming edges from within this zone)
 function findRoots(roadmapNodes: RoadmapNode[]): string[] {
@@ -79,7 +110,6 @@ function layoutNodes(
 ): Node[] {
   const visibleNodes = roadmapNodes.filter((n) => visibleIds.has(n.frontmatter.id));
   const nodeMap = new Map(visibleNodes.map((n) => [n.frontmatter.id, n]));
-  const allNodeMap = new Map(roadmapNodes.map((n) => [n.frontmatter.id, n]));
   const allNodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
 
   // Calculate depth via BFS from roots
@@ -142,8 +172,8 @@ function layoutNodes(
   }
 
   const flowNodes: Node[] = [];
-  const xSpacing = 260;
-  const ySpacing = 140;
+  const xSpacing = 320;
+  const ySpacing = 200;
 
   for (const [depth, nodesAtDepth] of byDepth) {
     const totalWidth = (nodesAtDepth.length - 1) * xSpacing;
@@ -175,13 +205,14 @@ function layoutNodes(
     });
   }
 
-  // Suppress unused variable warning
-  void allNodeMap;
-
   return flowNodes;
 }
 
-function buildEdges(roadmapNodes: RoadmapNode[], visibleIds: Set<string>): Edge[] {
+function buildEdges(
+  roadmapNodes: RoadmapNode[],
+  visibleIds: Set<string>,
+  allEdgesExpanded: boolean
+): Edge[] {
   const edges: Edge[] = [];
 
   for (const node of roadmapNodes) {
@@ -193,22 +224,12 @@ function buildEdges(roadmapNodes: RoadmapNode[], visibleIds: Set<string>): Edge[
             id: `${node.frontmatter.id}-${edge.id}`,
             source: node.frontmatter.id,
             target: edge.id,
-            label:
-              edge.question.length > 50
-                ? edge.question.slice(0, 47) + "..."
-                : edge.question,
-            labelStyle: {
-              fontSize: 10,
-              fill: "#6b7280",
-              fontStyle: "italic",
+            type: "question",
+            data: {
+              question: edge.question,
+              detail: edge.detail || "",
+              forceExpanded: allEdgesExpanded,
             },
-            labelBgStyle: {
-              fill: "white",
-              fillOpacity: 0.85,
-            },
-            labelBgPadding: [6, 3] as [number, number],
-            labelBgBorderRadius: 4,
-            style: { stroke: "#94a3b8", strokeWidth: 1.5 },
             markerEnd: {
               type: MarkerType.ArrowClosed,
               width: 16,
@@ -231,12 +252,26 @@ function NodeGraphInner({
   onBack,
   highlightNodeId,
 }: NodeGraphProps) {
+  const zoneId = roadmapNodes[0]?.frontmatter.zone || "unknown";
   const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null);
-  const [visibleIds, setVisibleIds] = useState<Set<string>>(() =>
-    getInitialVisibleNodes(roadmapNodes)
-  );
+  const [visibleIds, setVisibleIds] = useState<Set<string>>(() => {
+    const saved = loadVisibleNodes(zoneId);
+    if (saved) {
+      // Filter out any stale IDs that no longer exist
+      const validIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
+      const filtered = new Set([...saved].filter((id) => validIds.has(id)));
+      if (filtered.size > 0) return filtered;
+    }
+    return getInitialVisibleNodes(roadmapNodes);
+  });
+  const [allEdgesExpanded, setAllEdgesExpanded] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const { fitView } = useReactFlow();
+
+  // Persist visible nodes whenever they change
+  useEffect(() => {
+    saveVisibleNodes(zoneId, visibleIds);
+  }, [zoneId, visibleIds]);
 
   const handleExpand = useCallback(
     (nodeId: string) => {
@@ -259,8 +294,8 @@ function NodeGraphInner({
     [roadmapNodes, visibleIds, handleExpand, refreshKey]
   );
   const flowEdges = useMemo(
-    () => buildEdges(roadmapNodes, visibleIds),
-    [roadmapNodes, visibleIds]
+    () => buildEdges(roadmapNodes, visibleIds, allEdgesExpanded),
+    [roadmapNodes, visibleIds, allEdgesExpanded]
   );
 
   // Track node positions for dragging, but re-layout when visibleIds changes
@@ -330,6 +365,7 @@ function NodeGraphInner({
         onNodesChange={onNodesChange}
         onNodeClick={handleNodeClick}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         fitViewOptions={{ padding: 0.4 }}
         proOptions={{ hideAttribution: true }}
@@ -356,8 +392,14 @@ function NodeGraphInner({
         </h2>
       </div>
 
-      {/* Expand All button */}
-      <div className="absolute top-4 right-4">
+      {/* Top-right buttons */}
+      <div className="absolute top-4 right-4 flex items-center gap-2">
+        <button
+          onClick={() => setAllEdgesExpanded((prev) => !prev)}
+          className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
+        >
+          {allEdgesExpanded ? "Hide Questions" : "Show Questions"}
+        </button>
         <button
           onClick={() => {
             setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));

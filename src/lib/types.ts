@@ -1,6 +1,7 @@
 export interface EdgeConnection {
   id: string;
   question: string;
+  detail?: string;
 }
 
 export interface NodeFrontmatter {
