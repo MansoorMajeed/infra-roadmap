@@ -1,0 +1,74 @@
+zones:
+  - id: "foundations"
+    title: "Foundations: Code & Computers"
+    coreQuestion: "What even is code?"
+    description: "Start from zero. Understand what code is, how computers execute it, and learn the essential tools every engineer uses daily."
+    color: "#10b981"
+    position: { x: 0, y: 0 }
+    active: true
+
+  - id: "building"
+    title: "Building Real Software"
+    coreQuestion: "Let me build something real"
+    description: "Go from scripts to real applications. Learn about web services, databases, APIs, and the architecture that holds it all together."
+    color: "#3b82f6"
+    position: { x: 400, y: 0 }
+    active: false
+
+  - id: "networking"
+    title: "Networks & The Internet"
+    coreQuestion: "How do I put it on the internet?"
+    description: "Understand how data travels across networks, how DNS works, what the cloud really is, and how to deploy your first app."
+    color: "#8b5cf6"
+    position: { x: 800, y: 0 }
+    active: false
+
+  - id: "scaling"
+    title: "Scale & Reliability"
+    coreQuestion: "More users are coming"
+    description: "One server isn't enough. Learn about load balancing, replication, CDNs, and the fundamentals of distributed systems."
+    color: "#f59e0b"
+    position: { x: 400, y: 300 }
+    active: false
+
+  - id: "delivery"
+    title: "Delivery & Automation"
+    coreQuestion: "Deploying manually is painful"
+    description: "From VMs to containers to Kubernetes. CI/CD pipelines, GitOps, Infrastructure as Code - automate everything."
+    color: "#ef4444"
+    position: { x: 800, y: 300 }
+    active: false
+
+  - id: "observability"
+    title: "Observability & Security"
+    coreQuestion: "How do I know it's healthy?"
+    description: "Logging, metrics, tracing, alerting. Plus security fundamentals - secrets management, IAM, and compliance."
+    color: "#06b6d4"
+    position: { x: 400, y: 600 }
+    active: false
+
+  - id: "platform"
+    title: "Platform & SRE Practices"
+    coreQuestion: "How do I do this professionally?"
+    description: "SRE philosophy, SLOs, incident management, chaos engineering, and building platforms that other engineers love."
+    color: "#ec4899"
+    position: { x: 800, y: 600 }
+    active: false
+
+zoneEdges:
+  - from: "foundations"
+    to: "building"
+  - from: "building"
+    to: "networking"
+  - from: "building"
+    to: "scaling"
+  - from: "networking"
+    to: "delivery"
+  - from: "scaling"
+    to: "delivery"
+  - from: "scaling"
+    to: "observability"
+  - from: "delivery"
+    to: "observability"
+  - from: "observability"
+    to: "platform"
