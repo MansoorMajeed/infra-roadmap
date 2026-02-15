@@ -6,8 +6,10 @@ import {
   Background,
   type Node,
   type Edge,
-  useNodesState,
-  useEdgesState,
+  type NodeChange,
+  applyNodeChanges,
+  useReactFlow,
+  ReactFlowProvider,
   BackgroundVariant,
   MarkerType,
 } from "@xyflow/react";
@@ -27,19 +29,68 @@ interface NodeGraphProps {
 
 const nodeTypes = { roadmapNode: NodeCard };
 
-// Simple layout: arrange nodes in rows based on topological depth
-function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
-  const nodeMap = new Map(roadmapNodes.map((n) => [n.frontmatter.id, n]));
+// Find root nodes (no incoming edges from within this zone)
+function findRoots(roadmapNodes: RoadmapNode[]): string[] {
+  const nodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
+  const hasIncoming = new Set<string>();
 
-  // Calculate depth for each node (BFS from roots)
+  for (const n of roadmapNodes) {
+    if (n.frontmatter.edges.to) {
+      for (const edge of n.frontmatter.edges.to) {
+        if (nodeIds.has(edge.id)) {
+          hasIncoming.add(edge.id);
+        }
+      }
+    }
+  }
+
+  return roadmapNodes
+    .map((n) => n.frontmatter.id)
+    .filter((id) => !hasIncoming.has(id));
+}
+
+// Get direct children of a node (within the zone)
+function getChildren(nodeId: string, roadmapNodes: RoadmapNode[]): string[] {
+  const nodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
+  const node = roadmapNodes.find((n) => n.frontmatter.id === nodeId);
+  if (!node?.frontmatter.edges.to) return [];
+  return node.frontmatter.edges.to.map((e) => e.id).filter((id) => nodeIds.has(id));
+}
+
+// Get the initial visible set: roots + their direct children
+function getInitialVisibleNodes(roadmapNodes: RoadmapNode[]): Set<string> {
+  const roots = findRoots(roadmapNodes);
+  const visible = new Set(roots);
+
+  for (const rootId of roots) {
+    for (const childId of getChildren(rootId, roadmapNodes)) {
+      visible.add(childId);
+    }
+  }
+
+  return visible;
+}
+
+// Layout only visible nodes using topological depth
+function layoutNodes(
+  roadmapNodes: RoadmapNode[],
+  visibleIds: Set<string>,
+  onExpand: (nodeId: string) => void
+): Node[] {
+  const visibleNodes = roadmapNodes.filter((n) => visibleIds.has(n.frontmatter.id));
+  const nodeMap = new Map(visibleNodes.map((n) => [n.frontmatter.id, n]));
+  const allNodeMap = new Map(roadmapNodes.map((n) => [n.frontmatter.id, n]));
+  const allNodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
+
+  // Calculate depth via BFS from roots
   const depths = new Map<string, number>();
   const inDegree = new Map<string, number>();
 
-  for (const n of roadmapNodes) {
+  for (const n of visibleNodes) {
     inDegree.set(n.frontmatter.id, 0);
   }
 
-  for (const n of roadmapNodes) {
+  for (const n of visibleNodes) {
     if (n.frontmatter.edges.to) {
       for (const edge of n.frontmatter.edges.to) {
         if (nodeMap.has(edge.id)) {
@@ -49,7 +100,6 @@ function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
     }
   }
 
-  // Find roots (no incoming edges within this zone)
   const queue: string[] = [];
   for (const [id, deg] of inDegree) {
     if (deg === 0) {
@@ -58,7 +108,6 @@ function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
     }
   }
 
-  // BFS
   while (queue.length > 0) {
     const current = queue.shift()!;
     const node = nodeMap.get(current);
@@ -78,8 +127,7 @@ function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
     }
   }
 
-  // Assign depths to any remaining nodes (disconnected)
-  for (const n of roadmapNodes) {
+  for (const n of visibleNodes) {
     if (!depths.has(n.frontmatter.id)) {
       depths.set(n.frontmatter.id, 0);
     }
@@ -87,7 +135,7 @@ function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
 
   // Group by depth
   const byDepth = new Map<number, RoadmapNode[]>();
-  for (const n of roadmapNodes) {
+  for (const n of visibleNodes) {
     const d = depths.get(n.frontmatter.id) || 0;
     if (!byDepth.has(d)) byDepth.set(d, []);
     byDepth.get(d)!.push(n);
@@ -95,7 +143,7 @@ function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
 
   const flowNodes: Node[] = [];
   const xSpacing = 260;
-  const ySpacing = 120;
+  const ySpacing = 140;
 
   for (const [depth, nodesAtDepth] of byDepth) {
     const totalWidth = (nodesAtDepth.length - 1) * xSpacing;
@@ -103,6 +151,13 @@ function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
 
     nodesAtDepth.forEach((n, i) => {
       const progress = getNodeProgress(n.frontmatter.id);
+
+      // Check if this node has children that are not yet visible
+      const childrenInZone = (n.frontmatter.edges.to || [])
+        .map((e) => e.id)
+        .filter((id) => allNodeIds.has(id));
+      const hasHiddenChildren = childrenInZone.some((id) => !visibleIds.has(id));
+
       flowNodes.push({
         id: n.frontmatter.id,
         type: "roadmapNode",
@@ -112,27 +167,36 @@ function layoutNodes(roadmapNodes: RoadmapNode[]): Node[] {
           difficulty: n.frontmatter.difficulty,
           category: n.frontmatter.category,
           status: progress.status,
+          hasHiddenChildren,
+          onExpand,
+          nodeId: n.frontmatter.id,
         },
       });
     });
   }
 
+  // Suppress unused variable warning
+  void allNodeMap;
+
   return flowNodes;
 }
 
-function buildEdges(roadmapNodes: RoadmapNode[]): Edge[] {
-  const nodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
+function buildEdges(roadmapNodes: RoadmapNode[], visibleIds: Set<string>): Edge[] {
   const edges: Edge[] = [];
 
   for (const node of roadmapNodes) {
+    if (!visibleIds.has(node.frontmatter.id)) continue;
     if (node.frontmatter.edges.to) {
       for (const edge of node.frontmatter.edges.to) {
-        if (nodeIds.has(edge.id)) {
+        if (visibleIds.has(edge.id)) {
           edges.push({
             id: `${node.frontmatter.id}-${edge.id}`,
             source: node.frontmatter.id,
             target: edge.id,
-            label: edge.question.length > 50 ? edge.question.slice(0, 47) + "..." : edge.question,
+            label:
+              edge.question.length > 50
+                ? edge.question.slice(0, 47) + "..."
+                : edge.question,
             labelStyle: {
               fontSize: 10,
               fill: "#6b7280",
@@ -151,7 +215,6 @@ function buildEdges(roadmapNodes: RoadmapNode[]): Edge[] {
               height: 16,
               color: "#94a3b8",
             },
-            animated: false,
           });
         }
       }
@@ -161,7 +224,7 @@ function buildEdges(roadmapNodes: RoadmapNode[]): Edge[] {
   return edges;
 }
 
-export default function NodeGraph({
+function NodeGraphInner({
   nodes: roadmapNodes,
   zoneTitle,
   zoneColor,
@@ -169,17 +232,61 @@ export default function NodeGraph({
   highlightNodeId,
 }: NodeGraphProps) {
   const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null);
+  const [visibleIds, setVisibleIds] = useState<Set<string>>(() =>
+    getInitialVisibleNodes(roadmapNodes)
+  );
   const [refreshKey, setRefreshKey] = useState(0);
+  const { fitView } = useReactFlow();
 
-  const initialNodes = useMemo(() => layoutNodes(roadmapNodes), [roadmapNodes, refreshKey]);
-  const initialEdges = useMemo(() => buildEdges(roadmapNodes), [roadmapNodes]);
+  const handleExpand = useCallback(
+    (nodeId: string) => {
+      setVisibleIds((prev) => {
+        const next = new Set(prev);
+        const children = getChildren(nodeId, roadmapNodes);
+        for (const childId of children) {
+          next.add(childId);
+        }
+        return next;
+      });
+      // Fit view after expansion with a small delay for the layout to settle
+      setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+    },
+    [roadmapNodes, fitView]
+  );
 
-  const [flowNodes, , onNodesChange] = useNodesState(initialNodes);
-  const [flowEdges, , onEdgesChange] = useEdgesState(initialEdges);
+  const layoutedNodes = useMemo(
+    () => layoutNodes(roadmapNodes, visibleIds, handleExpand),
+    [roadmapNodes, visibleIds, handleExpand, refreshKey]
+  );
+  const flowEdges = useMemo(
+    () => buildEdges(roadmapNodes, visibleIds),
+    [roadmapNodes, visibleIds]
+  );
+
+  // Track node positions for dragging, but re-layout when visibleIds changes
+  const [nodes, setNodes] = useState<Node[]>(layoutedNodes);
+
+  useEffect(() => {
+    setNodes(layoutedNodes);
+  }, [layoutedNodes]);
+
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) => {
+      setNodes((nds) => applyNodeChanges(changes, nds));
+    },
+    []
+  );
 
   // Highlight starting node
   useEffect(() => {
     if (highlightNodeId) {
+      // Make sure highlighted node is visible
+      setVisibleIds((prev) => {
+        if (prev.has(highlightNodeId)) return prev;
+        const next = new Set(prev);
+        next.add(highlightNodeId);
+        return next;
+      });
       const node = roadmapNodes.find((n) => n.frontmatter.id === highlightNodeId);
       if (node) setSelectedNode(node);
     }
@@ -195,6 +302,13 @@ export default function NodeGraph({
 
   const handleNavigate = useCallback(
     (nodeId: string) => {
+      // Ensure the node is visible first
+      setVisibleIds((prev) => {
+        if (prev.has(nodeId)) return prev;
+        const next = new Set(prev);
+        next.add(nodeId);
+        return next;
+      });
       const node = roadmapNodes.find((n) => n.frontmatter.id === nodeId);
       if (node) setSelectedNode(node);
     },
@@ -205,16 +319,15 @@ export default function NodeGraph({
     setRefreshKey((k) => k + 1);
   }, []);
 
-  // Suppress lint warning for refreshKey - it's used to trigger re-layout
+  // Suppress lint warning
   void refreshKey;
 
   return (
     <div className="w-full h-full relative">
       <ReactFlow
-        nodes={flowNodes}
+        nodes={nodes}
         edges={flowEdges}
         onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
         onNodeClick={handleNodeClick}
         nodeTypes={nodeTypes}
         fitView
@@ -243,21 +356,36 @@ export default function NodeGraph({
         </h2>
       </div>
 
-      {/* Content Panel */}
+      {/* Expand All button */}
+      <div className="absolute top-4 right-4">
+        <button
+          onClick={() => {
+            setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));
+            setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+          }}
+          className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
+        >
+          Show All
+        </button>
+      </div>
+
+      {/* Content Modal */}
       {selectedNode && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/20 z-40"
-            onClick={() => setSelectedNode(null)}
-          />
-          <ContentPanel
-            node={selectedNode}
-            onClose={() => setSelectedNode(null)}
-            onNavigate={handleNavigate}
-            onProgressChange={handleProgressChange}
-          />
-        </>
+        <ContentPanel
+          node={selectedNode}
+          onClose={() => setSelectedNode(null)}
+          onNavigate={handleNavigate}
+          onProgressChange={handleProgressChange}
+        />
       )}
     </div>
+  );
+}
+
+export default function NodeGraph(props: NodeGraphProps) {
+  return (
+    <ReactFlowProvider>
+      <NodeGraphInner {...props} />
+    </ReactFlowProvider>
   );
 }

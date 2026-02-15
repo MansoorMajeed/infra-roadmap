@@ -4,6 +4,8 @@ import { useCallback, useMemo, useState, useEffect } from "react";
 import {
   ReactFlow,
   Background,
+  Handle,
+  Position,
   type Node,
   type Edge,
   useNodesState,
@@ -41,6 +43,7 @@ function ZoneNode({ data }: { data: Record<string, unknown> }) {
       }`}
       style={{ borderColor: zone.color, backgroundColor: `${zone.color}10` }}
     >
+      <Handle type="target" position={Position.Top} className="!bg-transparent !border-0 !w-0 !h-0" />
       <div
         className="text-xs font-bold uppercase tracking-wider mb-1"
         style={{ color: zone.color }}
@@ -69,6 +72,7 @@ function ZoneNode({ data }: { data: Record<string, unknown> }) {
           </div>
         )}
       </div>
+      <Handle type="source" position={Position.Bottom} className="!bg-transparent !border-0 !w-0 !h-0" />
     </div>
   );
 }

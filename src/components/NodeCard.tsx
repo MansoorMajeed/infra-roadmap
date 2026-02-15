@@ -9,6 +9,9 @@ export interface NodeCardData {
   difficulty: 1 | 2 | 3;
   category: string;
   status: NodeStatus;
+  hasHiddenChildren: boolean;
+  onExpand?: (nodeId: string) => void;
+  nodeId: string;
   [key: string]: unknown;
 }
 
@@ -37,9 +40,14 @@ function NodeCard({ data }: NodeProps) {
   const statusClass = statusStyles[cardData.status] || "";
   const icon = categoryIcons[cardData.category] || "";
 
+  const handleExpand = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    cardData.onExpand?.(cardData.nodeId);
+  };
+
   return (
     <div
-      className={`rounded-lg border-2 ${colors.border} ${colors.bg} ${statusClass} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md`}
+      className={`rounded-lg border-2 ${colors.border} ${colors.bg} ${statusClass} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md relative`}
     >
       <Handle type="target" position={Position.Top} className="!bg-gray-400 !w-2 !h-2" />
       <div className="flex items-start gap-2">
@@ -52,6 +60,15 @@ function NodeCard({ data }: NodeProps) {
         <div className="text-xs text-green-600 dark:text-green-400 mt-1 font-medium">
           ✓ Completed
         </div>
+      )}
+      {cardData.hasHiddenChildren && (
+        <button
+          onClick={handleExpand}
+          className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md transition-colors z-10"
+          title="Expand to see more topics"
+        >
+          +
+        </button>
       )}
       <Handle type="source" position={Position.Bottom} className="!bg-gray-400 !w-2 !h-2" />
     </div>
