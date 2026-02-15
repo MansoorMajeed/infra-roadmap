@@ -6,11 +6,14 @@ edges:
   from:
     - id: "operating-system-basics"
       question: "The OS is running. How do I talk to it?"
+      detail: "You know the OS is managing everything behind the scenes, but so far you've only interacted with it through a graphical interface — clicking icons and dragging windows. There's a much more powerful way to communicate with your OS: typing commands directly into a terminal. It lets you automate tasks, work on remote servers, and do things that GUIs simply can't. For SRE/DevOps work, the terminal is your primary tool."
   to:
     - id: "processes-and-memory"
       question: "I can run commands. But what's actually happening under the hood?"
+      detail: "Every time you run a command in the terminal, the OS creates a process — a running instance of a program with its own chunk of memory. But what exactly is a process? How does the OS juggle hundreds of them at once? And what happens when one of them eats up all your RAM? Understanding processes and memory is how you go from 'my server is slow' to actually diagnosing and fixing the problem."
     - id: "text-editors-and-ides"
       question: "I need to write and edit files. What tools do I use?"
+      detail: "You can navigate the filesystem and run commands, but now you need to actually create and modify files — code, config files, scripts. Choosing the right editor shapes your daily workflow. You'll need at least one terminal-based editor (like vim or nano) because you'll inevitably SSH into a remote server where VS Code isn't available."
 difficulty: 1
 tags: ["terminal", "shell", "command-line", "bash", "cli"]
 category: "tool"

@@ -6,9 +6,11 @@ edges:
   from:
     - id: "operating-system-basics"
       question: "The OS manages files. How does that work?"
+      detail: "Everything on your computer is a file — your code, your configs, your logs, even your devices. The OS organizes all of this through a filesystem: a hierarchical structure that determines where things live, who can access them, and how data is physically stored on disk. Understanding the filesystem is essential because in SRE work, you'll constantly be reading logs, editing configs, and managing storage."
   to:
     - id: "processes-and-memory"
       question: "Files exist on disk. But what about things running in memory?"
+      detail: "You understand how data is stored on disk, but when a program actually runs, it lives in memory (RAM) — a much faster but temporary space. The OS constantly shuffles data between disk and memory, creates processes, and allocates resources. Understanding this relationship between disk and memory, and how the OS manages running programs, is key to troubleshooting performance issues."
 difficulty: 1
 tags: ["filesystem", "permissions", "inodes", "linux", "ext4", "directory-structure"]
 category: "concept"

@@ -5,10 +5,15 @@ zone: "foundations"
 edges:
   from:
     - id: "the-terminal"
+      question: "I can run commands. But what's actually happening under the hood?"
+      detail: "Every time you run a command in the terminal, the OS creates a process — a running instance of a program with its own chunk of memory. But what exactly is a process? How does the OS juggle hundreds of them at once? And what happens when one of them eats up all your RAM? Understanding processes and memory is how you go from 'my server is slow' to actually diagnosing and fixing the problem."
     - id: "files-and-filesystems"
+      question: "Files exist on disk. But what about things running in memory?"
+      detail: "You understand how data is stored on disk, but when a program actually runs, it lives in memory (RAM) — a much faster but temporary space. The OS constantly shuffles data between disk and memory, creates processes, and allocates resources. Understanding this relationship between disk and memory, and how the OS manages running programs, is key to troubleshooting performance issues."
   to:
     - id: "programming-fundamentals"
       question: "I understand how the computer runs things. Now how do I write real programs?"
+      detail: "You know how the OS manages processes, memory, and files. Now it's time to actually write programs that leverage all of this. Programming fundamentals — variables, loops, functions, data structures — are the building blocks of every script, tool, and service you'll build as an SRE. This isn't about becoming a software engineer; it's about being dangerous enough with code to automate your work and solve problems."
 difficulty: 1
 tags: ["processes", "memory", "ram", "pid", "linux", "system-resources"]
 category: "concept"

@@ -5,9 +5,12 @@ zone: "foundations"
 edges:
   from:
     - id: "the-terminal"
+      question: "I need to write and edit files. What tools do I use?"
+      detail: "You can navigate the filesystem and run commands, but now you need to actually create and modify files — code, config files, scripts. Choosing the right editor shapes your daily workflow. You'll need at least one terminal-based editor (like vim or nano) because you'll inevitably SSH into a remote server where VS Code isn't available."
   to:
     - id: "version-control-git"
       question: "I can edit files. But how do I track changes and collaborate?"
+      detail: "You're editing code and config files, but what happens when you break something and need to go back? Or when multiple people need to work on the same files? You need a system that tracks every change, lets you rewind mistakes, and enables collaboration without chaos. That system is Git — the foundation of every modern development and infrastructure workflow."
 difficulty: 1
 tags: ["vim", "nano", "vscode", "editors", "ide", "tools"]
 category: "tool"

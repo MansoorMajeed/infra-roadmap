@@ -7,6 +7,7 @@ edges:
   to:
     - id: "how-computers-run-code"
       question: "I wrote code and it ran... but how?"
+      detail: "You typed some text, hit run, and words appeared on screen. But what actually happened between pressing 'run' and seeing output? Your code went through a journey — from human-readable text to something a CPU can execute. Understanding that journey explains why different languages exist and why some programs are fast while others are slow."
 difficulty: 1
 tags: ["programming", "beginner", "first-program"]
 category: "concept"

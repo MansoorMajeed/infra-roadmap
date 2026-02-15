@@ -5,10 +5,15 @@ zone: "foundations"
 edges:
   from:
     - id: "programming-fundamentals"
+      question: "I know the theory. Let me apply it to automate real tasks."
+      detail: "You understand variables, loops, functions, and data structures. Now it's time to put that knowledge to work with the two languages SREs use most: Bash for quick terminal automation and Python for anything more complex. Scripting is where programming stops being academic and starts saving you hours of repetitive work every week."
     - id: "version-control-git"
+      question: "I can track my code. Now let me write something more powerful."
+      detail: "You have your editor, you have version control — now it's time to write scripts that actually do useful work. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. Together, they're the bread and butter of SRE automation — turning repetitive manual tasks into one-command solutions."
   to:
     - id: "what-is-a-web-service"
       question: "Scripts are great, but how do I build a real service?"
+      detail: "You can automate tasks with scripts, but the systems you'll be managing as an SRE are web services — applications that listen on a port, handle HTTP requests, and serve users 24/7. Understanding how a service works from the inside (request handling, routing, middleware) is essential for debugging production issues and knowing what's actually happening when things go wrong."
 difficulty: 1
 tags: ["bash", "python", "scripting", "automation", "cron", "shell-scripting"]
 category: "practice"

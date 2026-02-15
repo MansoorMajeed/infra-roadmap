@@ -5,11 +5,15 @@ zone: "foundations"
 edges:
   from:
     - id: "processes-and-memory"
+      question: "I understand how the computer runs things. Now how do I write real programs?"
+      detail: "You know how the OS manages processes, memory, and files. Now it's time to actually write programs that leverage all of this. Programming fundamentals — variables, loops, functions, data structures — are the building blocks of every script, tool, and service you'll build as an SRE. This isn't about becoming a software engineer; it's about being dangerous enough with code to automate your work and solve problems."
   to:
     - id: "scripting-bash-python"
       question: "I know the theory. Let me apply it to automate real tasks."
+      detail: "You understand variables, loops, functions, and data structures. Now it's time to put that knowledge to work with the two languages SREs use most: Bash for quick terminal automation and Python for anything more complex. Scripting is where programming stops being academic and starts saving you hours of repetitive work every week."
     - id: "what-is-a-web-service"
       question: "I can write code. How do I build something people can use?"
+      detail: "You can write programs that run on your machine, but most software people actually use runs as a service — accessible over the network, always on, serving many users at once. Understanding how web services work (HTTP, APIs, servers, clients) is the bridge from writing local scripts to operating production infrastructure."
 difficulty: 1
 tags: ["programming", "variables", "loops", "functions", "data-structures", "logic"]
 category: "concept"

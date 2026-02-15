@@ -6,9 +6,11 @@ edges:
   from:
     - id: "hello-world"
       question: "I wrote code and it ran... but how?"
+      detail: "You typed some text, hit run, and words appeared on screen. But what actually happened between pressing 'run' and seeing output? Your code went through a journey — from human-readable text to something a CPU can execute. Understanding that journey explains why different languages exist and why some programs are fast while others are slow."
   to:
     - id: "operating-system-basics"
       question: "Code runs on hardware. But what manages all that?"
+      detail: "The CPU executes instructions, but it can't do everything alone. Hundreds of programs want to run at the same time, they all need memory, and they all want to access the disk and network. Something has to coordinate all of this — deciding who runs when, protecting programs from each other, and providing a clean interface to the hardware. That something is the operating system."
 difficulty: 1
 tags: ["cpu", "compilation", "interpretation", "machine-code", "hardware"]
 category: "concept"

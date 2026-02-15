@@ -5,9 +5,12 @@ zone: "foundations"
 edges:
   from:
     - id: "text-editors-and-ides"
+      question: "I can edit files. But how do I track changes and collaborate?"
+      detail: "You're editing code and config files, but what happens when you break something and need to go back? Or when multiple people need to work on the same files? You need a system that tracks every change, lets you rewind mistakes, and enables collaboration without chaos. That system is Git — the foundation of every modern development and infrastructure workflow."
   to:
     - id: "scripting-bash-python"
       question: "I can track my code. Now let me write something more powerful."
+      detail: "You have your editor, you have version control — now it's time to write scripts that actually do useful work. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. Together, they're the bread and butter of SRE automation — turning repetitive manual tasks into one-command solutions."
 difficulty: 1
 tags: ["git", "version-control", "github", "collaboration", "commits", "branches"]
 category: "tool"
