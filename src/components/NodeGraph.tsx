@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useMemo, useState, useEffect } from "react";
+import { useCallback, useMemo, useState, useEffect, useRef } from "react";
 import {
   ReactFlow,
   Background,
   type Node,
   type Edge,
   type NodeChange,
+  type Viewport,
   applyNodeChanges,
   useReactFlow,
   ReactFlowProvider,
@@ -32,6 +33,7 @@ const nodeTypes = { roadmapNode: NodeCard };
 const edgeTypes = { question: QuestionEdge };
 
 const VISIBLE_NODES_STORAGE_KEY = "sre-roadmap-visible-nodes";
+const VIEWPORT_STORAGE_KEY = "sre-roadmap-viewport";
 
 function saveVisibleNodes(zoneId: string, ids: Set<string>): void {
   if (typeof window === "undefined") return;
@@ -53,6 +55,33 @@ function loadVisibleNodes(zoneId: string): Set<string> | null {
     const data = JSON.parse(raw);
     if (data[zoneId] && Array.isArray(data[zoneId]) && data[zoneId].length > 0) {
       return new Set(data[zoneId] as string[]);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function saveViewport(zoneId: string, viewport: Viewport): void {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = localStorage.getItem(VIEWPORT_STORAGE_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    data[zoneId] = viewport;
+    localStorage.setItem(VIEWPORT_STORAGE_KEY, JSON.stringify(data));
+  } catch {
+    // ignore
+  }
+}
+
+function loadViewport(zoneId: string): Viewport | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(VIEWPORT_STORAGE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (data[zoneId] && typeof data[zoneId].zoom === "number") {
+      return data[zoneId] as Viewport;
     }
     return null;
   } catch {
@@ -88,6 +117,19 @@ function getChildren(nodeId: string, roadmapNodes: RoadmapNode[]): string[] {
   return node.frontmatter.edges.to.map((e) => e.id).filter((id) => nodeIds.has(id));
 }
 
+// Get all descendants of a node recursively
+function getDescendants(nodeId: string, roadmapNodes: RoadmapNode[]): Set<string> {
+  const descendants = new Set<string>();
+  const queue = getChildren(nodeId, roadmapNodes);
+  while (queue.length > 0) {
+    const child = queue.shift()!;
+    if (descendants.has(child)) continue;
+    descendants.add(child);
+    queue.push(...getChildren(child, roadmapNodes));
+  }
+  return descendants;
+}
+
 // Get the initial visible set: roots + their direct children
 function getInitialVisibleNodes(roadmapNodes: RoadmapNode[]): Set<string> {
   const roots = findRoots(roadmapNodes);
@@ -102,11 +144,27 @@ function getInitialVisibleNodes(roadmapNodes: RoadmapNode[]): Set<string> {
   return visible;
 }
 
+// Check if a node has any visible children
+function hasVisibleChildren(
+  nodeId: string,
+  roadmapNodes: RoadmapNode[],
+  visibleIds: Set<string>
+): boolean {
+  const children = getChildren(nodeId, roadmapNodes);
+  return children.some((id) => visibleIds.has(id));
+}
+
+// Check if a node is a root (cannot be collapsed)
+function isRoot(nodeId: string, roadmapNodes: RoadmapNode[]): boolean {
+  return findRoots(roadmapNodes).includes(nodeId);
+}
+
 // Layout only visible nodes using topological depth
 function layoutNodes(
   roadmapNodes: RoadmapNode[],
   visibleIds: Set<string>,
-  onExpand: (nodeId: string) => void
+  onExpand: (nodeId: string) => void,
+  onCollapse: (nodeId: string) => void
 ): Node[] {
   const visibleNodes = roadmapNodes.filter((n) => visibleIds.has(n.frontmatter.id));
   const nodeMap = new Map(visibleNodes.map((n) => [n.frontmatter.id, n]));
@@ -181,15 +239,19 @@ function layoutNodes(
 
     nodesAtDepth.forEach((n, i) => {
       const progress = getNodeProgress(n.frontmatter.id);
+      const nodeId = n.frontmatter.id;
 
       // Check if this node has children that are not yet visible
       const childrenInZone = (n.frontmatter.edges.to || [])
         .map((e) => e.id)
         .filter((id) => allNodeIds.has(id));
       const hasHiddenChildren = childrenInZone.some((id) => !visibleIds.has(id));
+      const canCollapse =
+        !isRoot(nodeId, roadmapNodes) &&
+        hasVisibleChildren(nodeId, roadmapNodes, visibleIds);
 
       flowNodes.push({
-        id: n.frontmatter.id,
+        id: nodeId,
         type: "roadmapNode",
         position: { x: startX + i * xSpacing, y: depth * ySpacing },
         data: {
@@ -198,8 +260,10 @@ function layoutNodes(
           category: n.frontmatter.category,
           status: progress.status,
           hasHiddenChildren,
+          canCollapse,
           onExpand,
-          nodeId: n.frontmatter.id,
+          onCollapse,
+          nodeId,
         },
       });
     });
@@ -257,7 +321,6 @@ function NodeGraphInner({
   const [visibleIds, setVisibleIds] = useState<Set<string>>(() => {
     const saved = loadVisibleNodes(zoneId);
     if (saved) {
-      // Filter out any stale IDs that no longer exist
       const validIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
       const filtered = new Set([...saved].filter((id) => validIds.has(id)));
       if (filtered.size > 0) return filtered;
@@ -265,13 +328,48 @@ function NodeGraphInner({
     return getInitialVisibleNodes(roadmapNodes);
   });
   const [allEdgesExpanded, setAllEdgesExpanded] = useState(false);
+  const [zoomLocked, setZoomLocked] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem("sre-roadmap-zoom-lock") === "true";
+    } catch {
+      return false;
+    }
+  });
+  const [zoomPercent, setZoomPercent] = useState(100);
   const [refreshKey, setRefreshKey] = useState(0);
-  const { fitView } = useReactFlow();
+  const { fitView, zoomIn, zoomOut, zoomTo, getZoom } = useReactFlow();
+
+  // Load saved viewport on mount (only once)
+  const savedViewport = useRef(loadViewport(zoneId));
+  const hasSavedViewport = savedViewport.current !== null;
 
   // Persist visible nodes whenever they change
   useEffect(() => {
     saveVisibleNodes(zoneId, visibleIds);
   }, [zoneId, visibleIds]);
+
+  // Persist zoom lock preference
+  const toggleZoomLock = useCallback(() => {
+    setZoomLocked((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem("sre-roadmap-zoom-lock", String(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  }, []);
+
+  // Save viewport on changes and track zoom percentage
+  const handleViewportChange = useCallback(
+    (viewport: Viewport) => {
+      setZoomPercent(Math.round(viewport.zoom * 100));
+      saveViewport(zoneId, viewport);
+    },
+    [zoneId]
+  );
 
   const handleExpand = useCallback(
     (nodeId: string) => {
@@ -283,15 +381,30 @@ function NodeGraphInner({
         }
         return next;
       });
-      // Fit view after expansion with a small delay for the layout to settle
-      setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+      if (!zoomLocked) {
+        setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+      }
     },
-    [roadmapNodes, fitView]
+    [roadmapNodes, fitView, zoomLocked]
+  );
+
+  const handleCollapse = useCallback(
+    (nodeId: string) => {
+      setVisibleIds((prev) => {
+        const descendants = getDescendants(nodeId, roadmapNodes);
+        const next = new Set([...prev].filter((id) => !descendants.has(id)));
+        return next;
+      });
+      if (!zoomLocked) {
+        setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+      }
+    },
+    [roadmapNodes, fitView, zoomLocked]
   );
 
   const layoutedNodes = useMemo(
-    () => layoutNodes(roadmapNodes, visibleIds, handleExpand),
-    [roadmapNodes, visibleIds, handleExpand, refreshKey]
+    () => layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse),
+    [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey]
   );
   const flowEdges = useMemo(
     () => buildEdges(roadmapNodes, visibleIds, allEdgesExpanded),
@@ -315,7 +428,6 @@ function NodeGraphInner({
   // Highlight starting node
   useEffect(() => {
     if (highlightNodeId) {
-      // Make sure highlighted node is visible
       setVisibleIds((prev) => {
         if (prev.has(highlightNodeId)) return prev;
         const next = new Set(prev);
@@ -327,6 +439,14 @@ function NodeGraphInner({
     }
   }, [highlightNodeId, roadmapNodes]);
 
+  // Sync zoom percent on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setZoomPercent(Math.round(getZoom() * 100));
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [getZoom]);
+
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
       const roadmapNode = roadmapNodes.find((n) => n.frontmatter.id === node.id);
@@ -337,7 +457,6 @@ function NodeGraphInner({
 
   const handleNavigate = useCallback(
     (nodeId: string) => {
-      // Ensure the node is visible first
       setVisibleIds((prev) => {
         if (prev.has(nodeId)) return prev;
         const next = new Set(prev);
@@ -357,6 +476,9 @@ function NodeGraphInner({
   // Suppress lint warning
   void refreshKey;
 
+  const btnClass =
+    "h-8 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-sm transition-colors flex items-center justify-center";
+
   return (
     <div className="w-full h-full relative">
       <ReactFlow
@@ -364,10 +486,12 @@ function NodeGraphInner({
         edges={flowEdges}
         onNodesChange={onNodesChange}
         onNodeClick={handleNodeClick}
+        onViewportChange={handleViewportChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        fitView
+        fitView={!hasSavedViewport}
         fitViewOptions={{ padding: 0.4 }}
+        defaultViewport={savedViewport.current || undefined}
         proOptions={{ hideAttribution: true }}
         nodesDraggable={true}
         nodesConnectable={false}
@@ -403,11 +527,60 @@ function NodeGraphInner({
         <button
           onClick={() => {
             setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));
-            setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+            if (!zoomLocked) {
+              setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+            }
           }}
           className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
         >
           Show All
+        </button>
+      </div>
+
+      {/* Zoom controls — bottom right, Excalidraw-style */}
+      <div className="absolute bottom-4 right-4 flex items-center gap-0.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-0.5">
+        <button
+          onClick={() => zoomOut({ duration: 200 })}
+          className={`${btnClass} w-8 rounded-r-none`}
+          title="Zoom out"
+        >
+          −
+        </button>
+        <button
+          onClick={() => zoomTo(1, { duration: 200 })}
+          className={`${btnClass} w-14 rounded-none border-x-0 text-xs tabular-nums`}
+          title="Reset to 100%"
+        >
+          {zoomPercent}%
+        </button>
+        <button
+          onClick={() => zoomIn({ duration: 200 })}
+          className={`${btnClass} w-8 rounded-l-none`}
+          title="Zoom in"
+        >
+          +
+        </button>
+        <div className="w-px h-5 bg-gray-200 dark:bg-gray-700 mx-1" />
+        <button
+          onClick={() => fitView({ padding: 0.4, duration: 300 })}
+          className={`${btnClass} w-8 text-xs`}
+          title="Fit to view"
+        >
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="2" width="12" height="12" rx="1" />
+            <path d="M2 6h12M6 2v12" />
+          </svg>
+        </button>
+        <button
+          onClick={toggleZoomLock}
+          className={`${btnClass} w-8 text-xs ${
+            zoomLocked
+              ? "!bg-blue-50 dark:!bg-blue-950/40 !border-blue-300 dark:!border-blue-600 !text-blue-600 dark:!text-blue-400"
+              : ""
+          }`}
+          title={zoomLocked ? "Unlock — auto-zoom on expand" : "Lock — keep zoom level on expand"}
+        >
+          {zoomLocked ? "🔒" : "🔓"}
         </button>
       </div>
 

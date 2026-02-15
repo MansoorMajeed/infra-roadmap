@@ -10,7 +10,9 @@ export interface NodeCardData {
   category: string;
   status: NodeStatus;
   hasHiddenChildren: boolean;
+  canCollapse: boolean;
   onExpand?: (nodeId: string) => void;
+  onCollapse?: (nodeId: string) => void;
   nodeId: string;
   [key: string]: unknown;
 }
@@ -57,6 +59,11 @@ function NodeCard({ data }: NodeProps) {
     cardData.onExpand?.(cardData.nodeId);
   };
 
+  const handleCollapse = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    cardData.onCollapse?.(cardData.nodeId);
+  };
+
   return (
     <div
       className={`rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md relative`}
@@ -74,15 +81,27 @@ function NodeCard({ data }: NodeProps) {
           ✓ Completed
         </div>
       )}
-      {cardData.hasHiddenChildren && (
-        <button
-          onClick={handleExpand}
-          className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md transition-colors z-10"
-          title="Expand to see more topics"
-        >
-          +
-        </button>
-      )}
+      {/* Bottom buttons: expand and/or collapse */}
+      <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10">
+        {cardData.canCollapse && (
+          <button
+            onClick={handleCollapse}
+            className="w-6 h-6 rounded-full bg-gray-400 hover:bg-gray-500 text-white text-xs font-bold flex items-center justify-center shadow-md transition-colors"
+            title="Collapse children"
+          >
+            −
+          </button>
+        )}
+        {cardData.hasHiddenChildren && (
+          <button
+            onClick={handleExpand}
+            className="w-6 h-6 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md transition-colors"
+            title="Expand to see more topics"
+          >
+            +
+          </button>
+        )}
+      </div>
       <Handle type="source" position={Position.Bottom} className="!bg-gray-400 !w-2 !h-2" />
     </div>
   );
