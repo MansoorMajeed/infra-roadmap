@@ -15,16 +15,28 @@ export interface NodeCardData {
   [key: string]: unknown;
 }
 
-const difficultyColors = {
-  1: { border: "border-green-400", bg: "bg-green-50 dark:bg-green-950/30" },
-  2: { border: "border-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-950/30" },
-  3: { border: "border-red-400", bg: "bg-red-50 dark:bg-red-950/30" },
+const difficultyDots = {
+  1: "bg-green-400",
+  2: "bg-yellow-400",
+  3: "bg-red-400",
 };
 
-const statusStyles: Record<NodeStatus, string> = {
-  "not-started": "opacity-80",
-  "in-progress": "ring-2 ring-blue-400 ring-offset-1",
-  completed: "ring-2 ring-green-500 ring-offset-1 opacity-90",
+const statusStyles: Record<NodeStatus, { border: string; bg: string; extra: string }> = {
+  "not-started": {
+    border: "border-rose-300 dark:border-rose-500/60",
+    bg: "bg-rose-50 dark:bg-rose-950/20",
+    extra: "",
+  },
+  "in-progress": {
+    border: "border-blue-400 dark:border-blue-500/60",
+    bg: "bg-blue-50 dark:bg-blue-950/20",
+    extra: "ring-2 ring-blue-300 ring-offset-1",
+  },
+  completed: {
+    border: "border-green-400 dark:border-green-500/60",
+    bg: "bg-green-50 dark:bg-green-950/20",
+    extra: "",
+  },
 };
 
 const categoryIcons: Record<string, string> = {
@@ -36,8 +48,8 @@ const categoryIcons: Record<string, string> = {
 
 function NodeCard({ data }: NodeProps) {
   const cardData = data as unknown as NodeCardData;
-  const colors = difficultyColors[cardData.difficulty] || difficultyColors[1];
-  const statusClass = statusStyles[cardData.status] || "";
+  const status = statusStyles[cardData.status] || statusStyles["not-started"];
+  const diffDot = difficultyDots[cardData.difficulty] || difficultyDots[1];
   const icon = categoryIcons[cardData.category] || "";
 
   const handleExpand = (e: React.MouseEvent) => {
@@ -47,14 +59,15 @@ function NodeCard({ data }: NodeProps) {
 
   return (
     <div
-      className={`rounded-lg border-2 ${colors.border} ${colors.bg} ${statusClass} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md relative`}
+      className={`rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md relative`}
     >
       <Handle type="target" position={Position.Top} className="!bg-gray-400 !w-2 !h-2" />
       <div className="flex items-start gap-2">
         {icon && <span className="text-sm mt-0.5">{icon}</span>}
-        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 leading-tight">
+        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 leading-tight flex-1">
           {cardData.label}
         </span>
+        <span className={`w-2 h-2 rounded-full mt-1 shrink-0 ${diffDot}`} title={`Difficulty ${cardData.difficulty}`} />
       </div>
       {cardData.status === "completed" && (
         <div className="text-xs text-green-600 dark:text-green-400 mt-1 font-medium">
