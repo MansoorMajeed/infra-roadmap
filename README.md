@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Interactive SRE/DevOps Roadmap
+
+A graph-based, question-driven learning tool for SRE and DevOps. Each topic connects to the next through natural questions like "VMs are heavy... is there something lighter?" — guiding learners through a structured yet exploratory path.
+
+## Tech Stack
+
+- **Next.js 16** (App Router, TypeScript, Tailwind CSS v4)
+- **@xyflow/react** (React Flow) for graph visualization
+- **gray-matter** + **react-markdown** for markdown content
+- **Zod** for content validation
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the roadmap.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
+| `npm run test` | Run unit tests |
+| `npm run test:watch` | Run tests in watch mode |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+content/
+  _zones.yaml          # Zone definitions (7 zones, colors, positions)
+  foundations/          # Markdown files for Zone 1 (10 nodes)
+src/
+  app/
+    page.tsx            # Home — zone map (server component)
+    HomeClient.tsx      # Client wrapper for ZoneMap
+    zone/[zoneId]/      # Dynamic route for zone detail view
+      page.tsx          # Server component — loads zone data
+      ZoneClient.tsx    # Client wrapper for NodeGraph
+    error.tsx           # Error boundary
+    not-found.tsx       # Custom 404
+  components/
+    ZoneMap.tsx          # Bird's-eye view of all zones
+    NodeGraph.tsx        # Zone detail — progressive disclosure graph
+    NodeCard.tsx         # Custom React Flow node component
+    ContentPanel.tsx     # Modal for node content
+    EntryPointSelector.tsx # "Where do I start?" selector
+  lib/
+    content.ts           # Server-side content parsing
+    validation.ts        # Zod schemas for content validation
+    progress.ts          # localStorage progress tracking
+    types.ts             # TypeScript types
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Adding Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**New node in an existing zone:**
+1. Create `content/<zone-id>/<node-slug>.md` with YAML frontmatter (id, title, zone, edges, difficulty, tags, category, milestones)
+2. Add body content with `<!-- DEEP_DIVE -->` and `<!-- RESOURCES -->` section markers
+3. Ensure edge references match existing node IDs
 
-## Deploy on Vercel
+**Activate a new zone:**
+1. Create `content/<zone-id>/` directory with node markdown files
+2. Set `active: true` for that zone in `content/_zones.yaml`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [PLAN.md](./PLAN.md) for full architecture details.
