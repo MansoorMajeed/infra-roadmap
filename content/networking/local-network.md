@@ -1,34 +1,40 @@
 ---
 id: "local-network"
-title: "Your Local Network"
+title: "Connecting Two Computers"
 zone: "networking"
 edges:
   from:
     - id: "it-works-on-my-laptop"
       question: "Why can't anyone else reach my app? What even is a network?"
-      detail: "Your app runs on localhost — your machine talking to itself. But your laptop is connected to other devices right now. Your phone, your smart TV, your roommate's laptop — they are all on the same WiFi network. Understanding what a local network is and how devices on it communicate is the first step to getting your app off localhost."
+      detail: "Your app runs on localhost — your machine talking to itself. But your laptop is connected to other devices right now. Your phone, your smart TV, your roommate's laptop — they are all on the same WiFi network. Understanding what a network is and how devices physically connect is the first step to getting your app off localhost."
   to:
-    - id: "tcp-udp-basics"
-      question: "Devices can find each other on my network. But how does the data actually get there reliably?"
-      detail: "You know your phone and laptop are on the same network and can reach each other by IP address. But when your browser loads a page, how does the data actually travel? How does the server know what order to reassemble the pieces? How does it know if something got lost? That is where transport protocols — TCP and UDP — come in."
+    - id: "network-protocols"
+      question: "My computers are connected. But how do they actually understand each other?"
+      detail: "You have two machines on the same network — they can see each other. But seeing each other is not the same as communicating. When your laptop sends data to your phone, how does the phone know what the data means? How do they agree on the format? They need rules — protocols. Understanding what protocols are and why they exist is the key to understanding everything in networking."
 difficulty: 1
-tags: ["networking", "lan", "wifi", "router", "local-network", "arp"]
+tags: ["networking", "lan", "wifi", "router", "local-network", "ethernet"]
 category: "concept"
 milestones:
-  - "Understand what a LAN is and how WiFi connects devices"
+  - "Understand how devices physically connect via Ethernet and WiFi"
   - "Find your machine's local IP address and your router's IP"
   - "Ping another device on your local network"
 ---
 
-Your laptop, your phone, and your smart speaker are all connected to the same WiFi. They are on the same **local network** — a small group of devices that can talk directly to each other without going through the internet. Understanding this network is the first step to understanding all of networking.
+Before the internet, before web servers, before any of that — there is a simpler question: **how do you connect two computers?** Take your laptop and your phone. They are both sitting in the same room, connected to the same WiFi. How are they actually connected, and what does that connection even look like?
 
 <!-- DEEP_DIVE -->
 
-A **Local Area Network (LAN)** is a group of devices connected together in a small area — your home, an office, a coffee shop. When you connect to WiFi, your device joins a LAN. Every device on that network can potentially communicate with every other device on it.
+At the most basic level, connecting two computers requires a physical medium — something for data to travel through. There are two ways:
 
-Your **router** is the center of your home network. It does two jobs: it connects your local devices to each other, and it connects your entire network to the internet. When you buy internet service, your ISP gives you a connection to the outside world. Your router is the bridge between your private little network and the public internet.
+**Wired (Ethernet):** You plug a cable into both machines. Literally. An Ethernet cable carries electrical signals between two network cards. This is how servers in data centers are connected, how your desktop connects to your router, and how the backbone of most networks works. It is simple, fast, and reliable.
 
-When your device joins the network, the router assigns it an **IP address** using a protocol called **DHCP** (Dynamic Host Configuration Protocol). Your laptop might get `192.168.1.42`, your phone `192.168.1.43`, and the router itself is usually `192.168.1.1`:
+**Wireless (WiFi):** Instead of a cable, your device uses radio waves to communicate with a WiFi access point (usually built into your router). The data is the same — just transmitted through the air instead of through copper. Convenient, but slower and less reliable than a cable.
+
+Either way, the result is the same: your device can send bits to another device.
+
+**Your home network** is called a **LAN (Local Area Network)** — a small group of devices connected together. Your router is the hub of this network. It does two things: it lets your local devices talk to each other, and it connects your entire network to the internet.
+
+When your laptop connects to WiFi, the router gives it an **IP address** — a number that identifies your device on the network. Your laptop might be `192.168.1.42`, your phone `192.168.1.43`, and the router itself is usually `192.168.1.1`:
 
 ```bash
 # Find your local IP address
@@ -42,37 +48,37 @@ ip addr show | grep "inet 192"
 ipconfig
 ```
 
-These `192.168.x.x` addresses are **private IP addresses** — they only exist within your local network. Your phone at `192.168.1.43` cannot be reached from the internet. Another house's network might also have a device at `192.168.1.43` — no conflict, because private addresses only matter within their own network.
-
-**How devices find each other on a LAN:** When your laptop wants to talk to your phone, it needs to know two things — the phone's IP address and its **MAC address** (a hardware identifier burned into every network card). **ARP** (Address Resolution Protocol) handles the translation: your laptop broadcasts "Who has 192.168.1.43?" and the phone responds "That's me, here's my MAC address." Now they can communicate directly.
-
-You can see this happening:
+You can check if another device is reachable with **ping** — one of the simplest networking tools. It sends a tiny message and waits for a reply:
 
 ```bash
-# View the ARP table — what MAC addresses your machine knows about
-arp -a
+# Ping your router
+ping 192.168.1.1
 
-# Ping another device on your network
-ping 192.168.1.1   # your router
-ping 192.168.1.43  # your phone (if you know its IP)
+# Ping your phone (if you know its IP)
+ping 192.168.1.43
+
+# You should see responses like:
+# 64 bytes from 192.168.1.1: icmp_seq=0 ttl=64 time=2.3 ms
 ```
 
-**The practical test:** Your Flask app is running on `localhost:5000`. If you change it to listen on `0.0.0.0:5000`, other devices on your WiFi can reach it. Grab your phone, make sure it is on the same WiFi, and open `http://192.168.1.42:5000` (using your laptop's IP). Your phone is talking to your laptop over the local network — no internet involved.
+If you get a response, the two machines can reach each other. They are connected.
+
+**The practical test:** Your Flask app is running on `localhost:5000`. Change it to listen on `0.0.0.0:5000`, grab your phone (on the same WiFi), and visit `http://192.168.1.42:5000`. Your phone loads the page. Two devices, communicating over a network.
 
 ```python
-# Change from localhost to all interfaces
+# Listen on all network interfaces, not just localhost
 app.run(host="0.0.0.0", port=5000)
 ```
 
-This is real networking. Two different devices, communicating over a network. Everything that follows — TCP, HTTP, DNS, the entire internet — is built on top of this same basic idea: devices with addresses, sending messages to each other.
+**But here is the thing.** Your phone loaded the page — great. But how? What actually happened between "your phone sent a request" and "the page appeared"? Your phone sent some bytes over WiFi, and your laptop received them and sent some bytes back. But how did both sides know what those bytes meant? How did they agree on the format, the order, the rules?
 
-**Switches and WiFi access points** are the physical infrastructure. A **switch** connects wired devices on a LAN — it learns which devices are on which port and sends traffic only where it needs to go. A WiFi **access point** does the same thing wirelessly. Your home router typically combines a switch, WiFi access point, DHCP server, and internet gateway into one box.
+That is where protocols come in. The physical connection is step one — but without agreed-upon rules for communication, two connected computers are just two machines shouting into the void.
 
-**Why this matters for SRE/DevOps:** Data centers are just big, sophisticated LANs. Servers are connected by switches, organized into network segments, and managed with the same fundamental concepts — IP addresses, MAC addresses, ARP, routing. The networking tools you learn on your home WiFi are the same tools you will use to debug production network issues.
+**Switches** are worth mentioning because they are the physical infrastructure of wired networks. A switch connects multiple devices via Ethernet cables. When your laptop sends data to another device, the switch figures out which port that device is on and sends the data only there — not to every device. In a data center, switches connect hundreds of servers. At home, your router has a small switch built in (those Ethernet ports on the back).
 
 <!-- RESOURCES -->
 
 - [Cloudflare - What is a LAN?](https://www.cloudflare.com/learning/network-layer/what-is-a-lan/) -- type: article, time: 10m
 - [How WiFi Works - Explain That Stuff](https://www.explainthatstuff.com/howwifiworks.html) -- type: article, time: 15m
 - [Practical Networking - Networking Fundamentals](https://www.practicalnetworking.net/series/packet-traveling/packet-traveling/) -- type: series, time: 1h
-- [Julia Evans - How does the Internet work?](https://jvns.ca/blog/2021/05/11/what-s-a-network-interface-/) -- type: article, time: 10m
+- [Cloudflare - What is Ethernet?](https://www.cloudflare.com/learning/network-layer/what-is-ethernet/) -- type: article, time: 10m

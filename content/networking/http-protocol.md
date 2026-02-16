@@ -4,13 +4,13 @@ title: "HTTP: How Browsers Talk to Servers"
 zone: "networking"
 edges:
   from:
-    - id: "web-servers"
-      question: "My web server is running. But how does the browser actually know how to talk to it?"
-      detail: "You have Nginx serving your app on the local network. Your phone can reach it. But what exactly is the browser sending, and what is the server sending back? There is a protocol on top of TCP that defines the language — HTTP. Understanding HTTP methods, status codes, headers, and the request-response cycle is fundamental to everything on the web."
+    - id: "tcp-udp-basics"
+      question: "I understand TCP and ports. But what is my browser actually saying to the server?"
+      detail: "TCP delivers bytes reliably between two machines. But what are those bytes? When your browser connects to a web server, it is not sending random data — it is speaking HTTP, a structured protocol that defines how to request pages, submit forms, and get responses. HTTP rides on top of TCP, and understanding it is how you understand the web."
   to:
-    - id: "ip-addresses-and-subnets"
-      question: "HTTP works great on my local network. But how do IP addresses actually work beyond my WiFi?"
-      detail: "You can make HTTP requests to your server using its local IP. But IP addresses are more than just numbers your router hands out. How are they structured? What is a subnet? How does a packet know which network to go to? Understanding IP addressing is how you go from 'it works on my WiFi' to understanding how the internet routes traffic globally."
+    - id: "web-servers"
+      question: "I understand HTTP. But my Flask dev server is not meant for real traffic. What actually serves web content?"
+      detail: "You know the protocol — HTTP methods, status codes, headers. But your Flask app's built-in server is a toy. Real websites are served by dedicated web server software like Nginx or Apache — programs designed to handle thousands of connections, serve static files efficiently, and keep running reliably. Understanding web servers is the next step toward running a real service."
 difficulty: 1
 tags: ["http", "https", "protocol", "status-codes", "methods", "curl", "application-layer"]
 category: "concept"
@@ -119,7 +119,7 @@ HTTP does not care how TCP delivers the bytes. TCP does not care what the bytes 
 - `X-Request-ID: abc-123` — unique ID for tracing requests through systems
 - `User-Agent: curl/7.68.0` — what client made the request
 
-**HTTPS** is HTTP with encryption (TLS/SSL). The data is the same, but it is encrypted in transit so nobody between the client and server can read it. Port 443 instead of 80. Every production website uses HTTPS — browsers now warn users about sites that do not.
+One important thing to notice: **HTTP is plaintext**. Every request and response — including passwords, cookies, personal data — travels across the network as readable text. Run `curl -v` and you can see every byte. Anyone between you and the server (the WiFi operator, your ISP, any router along the way) can read it all. This is a serious problem, and solving it requires encryption — which is a topic on its own.
 
 <!-- RESOURCES -->
 

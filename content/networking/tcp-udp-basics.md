@@ -4,13 +4,13 @@ title: "TCP, UDP & How Data Travels"
 zone: "networking"
 edges:
   from:
-    - id: "local-network"
-      question: "Devices can find each other on my network. But how does the data actually get there reliably?"
-      detail: "You know your phone and laptop are on the same network and can reach each other by IP address. But when your browser loads a page, how does the data actually travel? How does the server know what order to reassemble the pieces? How does it know if something got lost? That is where transport protocols — TCP and UDP — come in."
+    - id: "network-protocols"
+      question: "I get why protocols exist. Now what are the actual protocols that move data around?"
+      detail: "You understand that protocols are agreed-upon rules, and that networking uses layers. Now it is time to learn the actual protocols. TCP and UDP are the two transport protocols that handle moving data between machines — one is reliable and careful, the other is fast and reckless. Every application on the internet uses one of them."
   to:
-    - id: "web-servers"
-      question: "I understand how data travels. Now what sits between the internet and my app?"
-      detail: "Your app can listen on a port and speak TCP, but you should not expose it directly to the internet. Web servers like Nginx and Apache sit in front of your application — they handle SSL, serve static files, manage connections, and forward requests to your app. Understanding reverse proxies is essential for deploying any web application properly."
+    - id: "http-protocol"
+      question: "I understand TCP and ports. But what is my browser actually saying to the server?"
+      detail: "TCP delivers bytes reliably between two machines. But what are those bytes? When your browser connects to a web server, it is not sending random data — it is speaking HTTP, a structured protocol that defines how to request pages, submit forms, and get responses. HTTP rides on top of TCP, and understanding it is how you understand the web."
 difficulty: 1
 tags: ["tcp", "udp", "networking", "ports", "ip-addresses", "protocols"]
 category: "concept"

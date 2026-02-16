@@ -4,13 +4,13 @@ title: "IP Addresses & Subnets"
 zone: "networking"
 edges:
   from:
-    - id: "http-protocol"
-      question: "HTTP works great on my local network. But how do IP addresses actually work beyond my WiFi?"
-      detail: "You can make HTTP requests to your server using its local IP. But IP addresses are more than just numbers your router hands out. How are they structured? What is a subnet? How does a packet know which network to go to? Understanding IP addressing is how you go from 'it works on my WiFi' to understanding how the internet routes traffic globally."
+    - id: "network-protocols"
+      question: "Protocols have layers, and one layer handles addressing. How do IP addresses actually work?"
+      detail: "You learned that the network layer handles addressing — getting packets to the right machine. IP addresses are how that works. But they are more than random numbers your router assigns. They have structure — network portions, host portions, subnet masks. Understanding IP addressing is how you understand how networks are organized and how the internet routes traffic."
   to:
-    - id: "dns-and-domain-names"
-      question: "I understand IP addresses, but nobody wants to type 73.42.100.15 into a browser. How do domain names work?"
-      detail: "IP addresses are how machines find each other, but humans do not think in numbers. We type google.com, not 142.250.80.46. Something has to translate human-readable domain names into IP addresses. That system is DNS, and it is one of the most critical and fascinating pieces of internet infrastructure."
+    - id: "web-servers"
+      question: "I understand addressing and transport. What software actually serves web content?"
+      detail: "You know how IP addressing works and how TCP delivers data reliably. You understand HTTP. Now you need the actual software that ties it all together — a web server. Programs like Nginx and Apache listen for HTTP requests, serve files, and handle thousands of connections simultaneously. This is what runs behind every website you have ever visited."
 difficulty: 2
 tags: ["ip", "subnets", "cidr", "ipv4", "ipv6", "routing", "network"]
 category: "concept"

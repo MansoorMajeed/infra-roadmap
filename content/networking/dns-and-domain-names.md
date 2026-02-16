@@ -4,13 +4,13 @@ title: "DNS & Domain Names"
 zone: "networking"
 edges:
   from:
-    - id: "ip-addresses-and-subnets"
-      question: "I understand IP addresses, but nobody wants to type 73.42.100.15 into a browser. How do domain names work?"
-      detail: "IP addresses are how machines find each other, but humans do not think in numbers. We type google.com, not 142.250.80.46. Something has to translate human-readable domain names into IP addresses. That system is DNS, and it is one of the most critical and fascinating pieces of internet infrastructure."
+    - id: "web-servers"
+      question: "My web server works, but I'm using raw IP addresses. How do I give my site a real name?"
+      detail: "Your Nginx server is running and serving pages. But you are accessing it by IP address — 192.168.1.42 on your LAN, or 73.42.100.15 on a cloud server. Nobody wants to type that. Every real website has a domain name — google.com, github.com. Something has to translate those names into IP addresses, and that system is DNS."
   to:
     - id: "exposing-your-app"
-      question: "I understand DNS and domain names. How do I actually put my app on the internet with a real domain?"
-      detail: "You know how DNS translates names to IPs, how to register a domain, and how records work. Now it is time to put it all together — get a server with a public IP, point your domain at it, set up HTTPS, and make your app accessible to the world. This is the final step from 'I understand networking' to 'my app is live.'"
+      question: "I have a domain name and understand DNS. How do I actually deploy my app to the internet?"
+      detail: "You know how DNS translates names to IPs, how to register a domain, and how records work. Now it is time to put it all together — get a server with a public IP, point your domain at it, configure Nginx, and make your app accessible to the world. Combined with HTTPS, this is the final step from understanding networking to running a real, public-facing application."
 difficulty: 1
 tags: ["dns", "domain-names", "nameservers", "udp", "dig", "nslookup"]
 category: "concept"

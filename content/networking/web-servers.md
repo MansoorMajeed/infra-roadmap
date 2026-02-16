@@ -1,79 +1,132 @@
 ---
 id: "web-servers"
-title: "Web Servers & Reverse Proxies"
+title: "Web Servers"
 zone: "networking"
 edges:
   from:
-    - id: "tcp-udp-basics"
-      question: "I understand how data travels. Now what sits between the internet and my app?"
-      detail: "Your app can listen on a port and speak TCP, but you should not expose it directly to the internet. Web servers like Nginx and Apache sit in front of your application — they handle SSL, serve static files, manage connections, and forward requests to your app. Understanding reverse proxies is essential for deploying any web application properly."
-  to:
     - id: "http-protocol"
-      question: "My web server is running. But how does the browser actually know how to talk to it?"
-      detail: "You have Nginx serving your app on the local network. Your phone can reach it. But what exactly is the browser sending, and what is the server sending back? There is a protocol on top of TCP that defines the language — HTTP. Understanding HTTP methods, status codes, headers, and the request-response cycle is fundamental to everything on the web."
+      question: "I understand HTTP. But my Flask dev server is not meant for real traffic. What actually serves web content?"
+      detail: "You know the protocol — HTTP methods, status codes, headers. But your Flask app's built-in server is a toy. Real websites are served by dedicated web server software like Nginx or Apache — programs designed to handle thousands of connections, serve static files efficiently, and keep running reliably. Understanding web servers is the next step toward running a real service."
+    - id: "ip-addresses-and-subnets"
+      question: "I understand addressing and transport. What software actually serves web content?"
+      detail: "You know how IP addressing works and how TCP delivers data reliably. You understand HTTP. Now you need the actual software that ties it all together — a web server. Programs like Nginx and Apache listen for HTTP requests, serve files, and handle thousands of connections simultaneously. This is what runs behind every website you have ever visited."
+  to:
+    - id: "dns-and-domain-names"
+      question: "My web server works, but I'm using raw IP addresses. How do I give my site a real name?"
+      detail: "Your Nginx server is running and serving pages. But you are accessing it by IP address — 192.168.1.42 on your LAN, or 73.42.100.15 on a cloud server. Nobody wants to type that. Every real website has a domain name — google.com, github.com. Something has to translate those names into IP addresses, and that system is DNS."
+    - id: "encryption-basics"
+      question: "My web server works, but HTTP is plaintext. Can anyone read my traffic?"
+      detail: "Your web server is happily serving pages over HTTP. But every request and response — passwords, cookies, personal data — travels across the network as readable text. Anyone between the client and server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
 difficulty: 1
-tags: ["nginx", "apache", "reverse-proxy", "web-server", "http", "ssl"]
+tags: ["nginx", "apache", "web-server", "http", "static-files", "serving"]
 category: "tool"
 milestones:
   - "Install Nginx and serve a static HTML page"
-  - "Configure Nginx as a reverse proxy to a backend app"
-  - "Understand the difference between a web server and an application server"
+  - "Configure Nginx to serve different content based on URL path"
+  - "Understand the difference between a web server and your Flask dev server"
 ---
 
-You understand TCP, ports, and how data travels. Your Flask app listens on port 5000 and responds to HTTP requests. But you should not point the internet directly at your Flask app. Between the internet and your application sits a **web server** — software like Nginx or Apache that handles connections, serves static files, terminates SSL, and forwards dynamic requests to your app. This is called a **reverse proxy**, and it is a fundamental piece of every production deployment.
+Your Flask app has a built-in web server — you run `python app.py` and it serves pages on port 5000. But that server is designed for development. It handles one request at a time, crashes without helpful errors, and has no concept of security or performance. Real websites are served by dedicated **web server** software — programs that are built from the ground up to handle HTTP traffic reliably and efficiently.
 
 <!-- DEEP_DIVE -->
 
-A **web server** is software that listens on port 80 (HTTP) or 443 (HTTPS) and responds to web requests. In the early days, that meant serving HTML files from a directory. You put `index.html` in `/var/www/html/`, and when someone visited your domain, the web server would read that file and send it back. This still works and is how many static sites are served.
+A **web server** is a program that listens for HTTP requests and sends back HTTP responses. That is it. At its core, it is surprisingly simple: a client asks for a file, and the server sends it back.
 
-**Nginx** (pronounced "engine-x") is the most popular web server today. Install it on Ubuntu with `sudo apt install nginx`, and it immediately starts serving a default welcome page on port 80. Its configuration lives in `/etc/nginx/`:
+In the early web, that was literally all web servers did — serve files. You put `index.html` in a directory, and when someone visited your site, the web server read that file from disk and sent it back over HTTP. This still works and is how many static sites are served today.
+
+**Nginx** (pronounced "engine-x") is the most popular web server. Install it on Ubuntu with `sudo apt install nginx`, and it immediately starts serving a default welcome page on port 80:
+
+```bash
+# Install Nginx
+sudo apt install nginx
+
+# Check it is running
+sudo systemctl status nginx
+
+# The default page is served from:
+ls /var/www/html/
+# index.nginx-debian.html
+```
+
+Visit `http://your-ip` in a browser and you see the Nginx welcome page. That is a web server doing its job — listening on port 80 and serving an HTML file.
+
+**Nginx configuration** lives in `/etc/nginx/`. Here is a simple config that serves a website:
 
 ```nginx
 server {
     listen 80;
     server_name mystore.com;
 
-    # Serve static files directly
-    location /static/ {
-        root /var/www/mystore;
+    root /var/www/mystore;
+    index index.html;
+
+    # Serve files from the /var/www/mystore directory
+    location / {
+        try_files $uri $uri/ =404;
     }
 
-    # Forward everything else to Flask
-    location / {
-        proxy_pass http://127.0.0.1:5000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
+    # Serve static assets with caching headers
+    location /static/ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
     }
 }
 ```
 
-This configuration does two things: it serves static files (CSS, JS, images) directly from disk — which is much faster than routing them through Python — and it forwards all other requests to your Flask app running on port 5000. Your Flask app never talks to the internet directly; Nginx handles that.
+Put your HTML, CSS, JavaScript, and images in `/var/www/mystore/`, reload Nginx (`sudo nginx -s reload`), and your site is live. Nginx will serve those files to anyone who connects.
 
-**Why not expose Flask directly?** Several reasons:
+**Why not just use Flask's built-in server?** The differences are enormous:
 
-1. **Performance** — Nginx is written in C and designed to handle tens of thousands of simultaneous connections. Flask's built-in server is single-threaded and meant for development.
-2. **Static files** — Nginx serves static content extremely efficiently. Your Flask app does not need to waste time sending CSS files.
-3. **SSL/TLS** — Nginx handles HTTPS encryption. Your app does not need to worry about certificates.
-4. **Security** — Nginx can rate-limit requests, block bad actors, and hide your application server's details from the outside world.
-5. **Buffering** — Nginx buffers slow client connections so your app does not have to wait for users on slow networks.
+| | Flask dev server | Nginx |
+|---|---|---|
+| **Connections** | One at a time (single-threaded) | Thousands simultaneously |
+| **Static files** | Slow (goes through Python) | Blazing fast (reads directly from disk) |
+| **Stability** | Crashes on errors | Keeps running, logs errors |
+| **Performance** | Written in Python | Written in C, highly optimized |
+| **Security** | No built-in protections | Rate limiting, access control, header management |
 
-**Apache** (`httpd`) is the other major web server. It has been around since 1995 and still powers a large portion of the internet. Apache uses a different configuration style (`.htaccess` files, `<VirtualHost>` blocks) and a different processing model, but serves the same fundamental purpose. Nginx tends to be preferred for reverse proxy setups and high-concurrency scenarios, while Apache has deeper module support.
-
-The **reverse proxy** pattern is worth understanding deeply because it appears everywhere in production systems. In its simplest form, it is what we showed above — Nginx forwards requests to a single backend. But reverse proxies can also load-balance across multiple backends, cache responses, compress content, rewrite URLs, and route requests to different services based on the URL path. This is the entry point to more complex architectures.
-
-When you run your app in production, the typical setup is: **Nginx** listens on port 80/443, terminates SSL, serves static files, and proxies dynamic requests to **Gunicorn** (a production Python WSGI server) which runs your **Flask/Django** app. The chain is: Internet → Nginx (port 443) → Gunicorn (port 5000) → Your Python code.
+For your Flask or Django app, the production setup uses a **WSGI server** like Gunicorn to run your Python code, and Nginx in front to handle the HTTP layer:
 
 ```bash
-# Install and run gunicorn for production
+# Run your Flask app with Gunicorn (production Python server)
 pip install gunicorn
 gunicorn -w 4 -b 127.0.0.1:5000 app:app
 ```
 
-This runs 4 worker processes, each handling requests to your app. Nginx distributes incoming requests across these workers, giving you much better performance than Flask's development server.
+Gunicorn runs 4 worker processes of your app, each able to handle requests. Nginx receives HTTP requests from the network and passes them to Gunicorn. This separation of concerns — Nginx handles HTTP, Gunicorn handles Python — is how virtually every Python web application is deployed.
+
+**Apache** (`httpd`) is the other major web server. It has been around since 1995 and still powers a significant portion of the internet. Apache uses a different configuration style (`.htaccess` files, `<VirtualHost>` blocks) and a different architecture, but serves the same fundamental purpose. You will encounter Apache in legacy environments, WordPress hosting, and PHP applications.
+
+```apache
+# Apache virtual host configuration
+<VirtualHost *:80>
+    ServerName mystore.com
+    DocumentRoot /var/www/mystore
+
+    <Directory /var/www/mystore>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+**Virtual hosts** let a single web server handle multiple websites. One Nginx instance can serve `mystore.com` from one directory and `myblog.com` from another, routing requests based on the `Host` header. This is how shared hosting works — hundreds of websites on one server.
+
+**Access logs** are one of the most useful things a web server gives you. Every request is logged:
+
+```
+192.168.1.43 - - [15/Jan/2024:14:30:00 +0000] "GET /products HTTP/1.1" 200 4523
+192.168.1.43 - - [15/Jan/2024:14:30:01 +0000] "GET /static/style.css HTTP/1.1" 304 0
+10.0.0.5 - - [15/Jan/2024:14:30:05 +0000] "POST /api/order HTTP/1.1" 500 128
+```
+
+Each line tells you: who connected (IP), when, what they requested (method + path), the status code, and the response size. When something goes wrong, this is the first place you look. As an SRE, you will spend a lot of time reading web server logs.
+
+**Why SREs care:** Web servers are the front door to almost every service. Nginx and Apache configuration, log analysis, performance tuning, and troubleshooting are core SRE skills. Understanding how a web server handles requests — from accepting the TCP connection to sending the response — helps you debug everything from slow pages to connection timeouts to 502 errors.
 
 <!-- RESOURCES -->
 
 - [Nginx Beginner's Guide](https://nginx.org/en/docs/beginners_guide.html) -- type: tutorial, time: 30m
-- [DigitalOcean - How To Set Up Nginx as a Reverse Proxy](https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-on-ubuntu-22-04) -- type: tutorial, time: 30m
-- [Gunicorn Documentation](https://docs.gunicorn.org/en/stable/) -- type: reference, time: 20m
+- [DigitalOcean - How To Install Nginx](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04) -- type: tutorial, time: 20m
 - [Apache vs Nginx - DigitalOcean](https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations) -- type: article, time: 15m
+- [Nginx Documentation](https://nginx.org/en/docs/) -- type: reference, time: varies
