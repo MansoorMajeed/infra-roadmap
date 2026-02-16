@@ -48,11 +48,26 @@ const categoryIcons: Record<string, string> = {
   principle: "\u{1F3AF}",
 };
 
+const categoryStyles: Record<string, { accent: string; border?: string }> = {
+  concept: { accent: "" },
+  tool: {
+    accent: "border-l-4 !border-l-indigo-400 dark:!border-l-indigo-500",
+    border: "border-dashed",
+  },
+  practice: {
+    accent: "border-l-4 !border-l-purple-400 dark:!border-l-purple-500",
+  },
+  principle: {
+    accent: "border-l-4 !border-l-amber-400 dark:!border-l-amber-500",
+  },
+};
+
 function NodeCard({ data }: NodeProps) {
   const cardData = data as unknown as NodeCardData;
   const status = statusStyles[cardData.status] || statusStyles["not-started"];
   const diffDot = difficultyDots[cardData.difficulty] || difficultyDots[1];
   const icon = categoryIcons[cardData.category] || "";
+  const catStyle = categoryStyles[cardData.category] || categoryStyles.concept;
 
   const handleExpand = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -66,7 +81,7 @@ function NodeCard({ data }: NodeProps) {
 
   return (
     <div
-      className={`rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md relative`}
+      className={`rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} ${catStyle.accent} ${catStyle.border || ""} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md relative`}
     >
       <Handle type="target" position={Position.Top} className="!bg-gray-400 !w-2 !h-2" />
       <div className="flex items-start gap-2">

@@ -610,6 +610,17 @@ function NodeGraphInner({
         >
           Show All
         </button>
+        <button
+          onClick={() => {
+            setVisibleIds(getInitialVisibleNodes(roadmapNodes));
+            if (!zoomLocked) {
+              setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+            }
+          }}
+          className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
+        >
+          Collapse All
+        </button>
       </div>
 
       {/* Zoom controls — bottom right, Excalidraw-style */}
