@@ -167,7 +167,8 @@ function layoutNodes(
   visibleIds: Set<string>,
   onExpand: (nodeId: string) => void,
   onCollapse: (nodeId: string) => void,
-  previousNodes?: Node[]
+  previousNodes?: Node[],
+  anchorNodeId?: string | null
 ): Node[] {
   const visibleNodes = roadmapNodes.filter((n) => visibleIds.has(n.frontmatter.id));
   const allNodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
@@ -203,29 +204,38 @@ function layoutNodes(
     }
   }
 
-  // Compute offset to anchor existing nodes: use the centroid of nodes that
-  // existed in both layouts so the graph doesn't jump around on expand/collapse
+  // Anchor the layout so the clicked node stays in place.
+  // If no specific anchor, fall back to centroid of shared nodes.
   let offsetX = 0;
   let offsetY = 0;
   if (prevPosMap.size > 0) {
-    let sumDx = 0;
-    let sumDy = 0;
-    let count = 0;
-    for (const n of visibleNodes) {
-      const id = n.frontmatter.id;
-      const prev = prevPosMap.get(id);
-      if (prev) {
-        const dagrePos = g.node(id);
-        const newX = dagrePos.x - nodeWidth / 2;
-        const newY = dagrePos.y - nodeHeight / 2;
-        sumDx += prev.x - newX;
-        sumDy += prev.y - newY;
-        count++;
+    const anchorId = anchorNodeId && prevPosMap.has(anchorNodeId) && g.node(anchorNodeId)
+      ? anchorNodeId
+      : null;
+
+    if (anchorId) {
+      const prev = prevPosMap.get(anchorId)!;
+      const dagrePos = g.node(anchorId);
+      offsetX = prev.x - (dagrePos.x - nodeWidth / 2);
+      offsetY = prev.y - (dagrePos.y - nodeHeight / 2);
+    } else {
+      let sumDx = 0;
+      let sumDy = 0;
+      let count = 0;
+      for (const n of visibleNodes) {
+        const id = n.frontmatter.id;
+        const prev = prevPosMap.get(id);
+        if (prev) {
+          const dagrePos = g.node(id);
+          sumDx += prev.x - (dagrePos.x - nodeWidth / 2);
+          sumDy += prev.y - (dagrePos.y - nodeHeight / 2);
+          count++;
+        }
       }
-    }
-    if (count > 0) {
-      offsetX = sumDx / count;
-      offsetY = sumDy / count;
+      if (count > 0) {
+        offsetX = sumDx / count;
+        offsetY = sumDy / count;
+      }
     }
   }
 
@@ -394,8 +404,11 @@ function NodeGraphInner({
     [zoneId]
   );
 
+  const anchorNodeRef = useRef<string | null>(null);
+
   const handleExpand = useCallback(
     (nodeId: string) => {
+      anchorNodeRef.current = nodeId;
       setVisibleIds((prev) => {
         const next = new Set(prev);
         const children = getChildren(nodeId, roadmapNodes);
@@ -413,6 +426,7 @@ function NodeGraphInner({
 
   const handleCollapse = useCallback(
     (nodeId: string) => {
+      anchorNodeRef.current = nodeId;
       setVisibleIds((prev) => {
         const descendants = getDescendants(nodeId, roadmapNodes);
         const next = new Set([...prev].filter((id) => !descendants.has(id)));
@@ -453,7 +467,11 @@ function NodeGraphInner({
   const nodesRef = useRef<Node[]>([]);
 
   const layoutedNodes = useMemo(
-    () => layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse, nodesRef.current),
+    () => {
+      const result = layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse, nodesRef.current, anchorNodeRef.current);
+      anchorNodeRef.current = null;
+      return result;
+    },
     [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey]
   );
   const flowEdges = useMemo(
