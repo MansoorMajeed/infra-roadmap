@@ -4,9 +4,9 @@ title: "Processes & Memory"
 zone: "foundations"
 edges:
   from:
-    - id: "the-terminal"
-      question: "I can run commands. But what's actually happening under the hood?"
-      detail: "Every time you run a command in the terminal, the OS creates a process — a running instance of a program with its own chunk of memory. But what exactly is a process? How does the OS juggle hundreds of them at once? And what happens when one of them eats up all your RAM? Understanding processes and memory is how you go from 'my server is slow' to actually diagnosing and fixing the problem."
+    - id: "what-is-a-process"
+      question: "A process is running. How does it use memory?"
+      detail: "You know what a process is and how it is created. But every process needs memory to work — space for its code, its variables, its stack, and its heap. The OS gives each process its own virtual address space, manages physical RAM, and steps in when memory runs out. Understanding memory management is how you diagnose memory leaks, OOM kills, and why your Java app needs 4 GB of RAM to do seemingly nothing."
     - id: "files-and-filesystems"
       question: "Files exist on disk. But what about things running in memory?"
       detail: "You understand how data is stored on disk, but when a program actually runs, it lives in memory (RAM) — a much faster but temporary space. The OS constantly shuffles data between disk and memory, creates processes, and allocates resources. Understanding this relationship between disk and memory, and how the OS manages running programs, is key to troubleshooting performance issues."

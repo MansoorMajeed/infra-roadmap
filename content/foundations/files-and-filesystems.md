@@ -11,6 +11,9 @@ edges:
     - id: "processes-and-memory"
       question: "Files exist on disk. But what about things running in memory?"
       detail: "You understand how data is stored on disk, but when a program actually runs, it lives in memory (RAM) — a much faster but temporary space. The OS constantly shuffles data between disk and memory, creates processes, and allocates resources. Understanding this relationship between disk and memory, and how the OS manages running programs, is key to troubleshooting performance issues."
+    - id: "log-files"
+      question: "I understand files. Where do systems keep their logs?"
+      detail: "You know how the filesystem is organized and where things live. One of the most important categories of files for an SRE is logs — the records that every service, daemon, and system component writes to tell you what it is doing. Logs live in specific locations, follow specific formats, and can grow to enormous sizes. Understanding the logging ecosystem is essential because logs are your primary tool for understanding what happened when things go wrong."
 difficulty: 1
 tags: ["filesystem", "permissions", "inodes", "linux", "ext4", "directory-structure"]
 category: "concept"

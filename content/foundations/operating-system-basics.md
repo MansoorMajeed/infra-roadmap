@@ -8,9 +8,9 @@ edges:
       question: "Code runs on hardware. But what manages all that?"
       detail: "The CPU executes instructions, but it can't do everything alone. Hundreds of programs want to run at the same time, they all need memory, and they all want to access the disk and network. Something has to coordinate all of this — deciding who runs when, protecting programs from each other, and providing a clean interface to the hardware. That something is the operating system."
   to:
-    - id: "the-terminal"
-      question: "The OS is running. How do I talk to it?"
-      detail: "You know the OS is managing everything behind the scenes, but so far you've only interacted with it through a graphical interface — clicking icons and dragging windows. There's a much more powerful way to communicate with your OS: typing commands directly into a terminal. It lets you automate tasks, work on remote servers, and do things that GUIs simply can't. For SRE/DevOps work, the terminal is your primary tool."
+    - id: "linux-and-distros"
+      question: "I know what an OS does. Which one matters for SRE?"
+      detail: "You understand that an operating system manages hardware and provides an interface for programs. But in the real world, you need to pick one. The answer for SRE and DevOps is overwhelmingly Linux. But Linux is not one thing — it is a kernel with hundreds of distributions built on top of it. Understanding why Linux won the server world, what a distribution actually is, and why you will probably never see a Windows or macOS server in production is foundational knowledge."
     - id: "files-and-filesystems"
       question: "The OS manages files. How does that work?"
       detail: "Everything on your computer is a file — your code, your configs, your logs, even your devices. The OS organizes all of this through a filesystem: a hierarchical structure that determines where things live, who can access them, and how data is physically stored on disk. Understanding the filesystem is essential because in SRE work, you'll constantly be reading logs, editing configs, and managing storage."

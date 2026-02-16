@@ -10,6 +10,9 @@ edges:
     - id: "version-control-git"
       question: "I can track my code. Now let me write something more powerful."
       detail: "You have your editor, you have version control — now it's time to write scripts that actually do useful work. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. Together, they're the bread and butter of SRE automation — turning repetitive manual tasks into one-command solutions."
+    - id: "environment-and-shell-config"
+      question: "My environment is set up. Now let me automate things."
+      detail: "You understand how the shell works — environment variables, config files, PATH, aliases. Now it is time to go from typing commands interactively to writing scripts that run unattended. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. This is where all the shell knowledge you have built up becomes genuinely productive."
   to:
     - id: "what-is-a-web-service"
       question: "Scripts are great, but how do I build a real service?"
