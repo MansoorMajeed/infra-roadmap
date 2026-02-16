@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState, useEffect } from "react";
+import { useCallback, useMemo, useState, useEffect, useRef } from "react";
 import {
   ReactFlow,
   Background,
@@ -15,6 +15,7 @@ import {
   MarkerType,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import Dagre from "@dagrejs/dagre";
 import type { RoadmapNode } from "@/lib/types";
 import { getNodeProgress } from "@/lib/progress";
 import NodeCard from "./NodeCard";
@@ -160,114 +161,108 @@ function isRoot(nodeId: string, roadmapNodes: RoadmapNode[]): boolean {
   return findRoots(roadmapNodes).includes(nodeId);
 }
 
-// Layout only visible nodes using topological depth
+// Layout only visible nodes using dagre for edge-crossing minimization
 function layoutNodes(
   roadmapNodes: RoadmapNode[],
   visibleIds: Set<string>,
   onExpand: (nodeId: string) => void,
-  onCollapse: (nodeId: string) => void
+  onCollapse: (nodeId: string) => void,
+  previousNodes?: Node[]
 ): Node[] {
   const visibleNodes = roadmapNodes.filter((n) => visibleIds.has(n.frontmatter.id));
-  const nodeMap = new Map(visibleNodes.map((n) => [n.frontmatter.id, n]));
   const allNodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
 
-  // Calculate depth via BFS from roots
-  const depths = new Map<string, number>();
-  const inDegree = new Map<string, number>();
+  const nodeWidth = 200;
+  const nodeHeight = 70;
+
+  // Build dagre graph
+  const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
+  g.setGraph({ rankdir: "TB", ranksep: 180, nodesep: 80, edgesep: 40 });
 
   for (const n of visibleNodes) {
-    inDegree.set(n.frontmatter.id, 0);
+    g.setNode(n.frontmatter.id, { width: nodeWidth, height: nodeHeight });
   }
 
   for (const n of visibleNodes) {
     if (n.frontmatter.edges.to) {
       for (const edge of n.frontmatter.edges.to) {
-        if (nodeMap.has(edge.id)) {
-          inDegree.set(edge.id, (inDegree.get(edge.id) || 0) + 1);
+        if (visibleIds.has(edge.id)) {
+          g.setEdge(n.frontmatter.id, edge.id);
         }
       }
     }
   }
 
-  const queue: string[] = [];
-  for (const [id, deg] of inDegree) {
-    if (deg === 0) {
-      queue.push(id);
-      depths.set(id, 0);
+  Dagre.layout(g);
+
+  // Build a map of previous positions for anchoring
+  const prevPosMap = new Map<string, { x: number; y: number }>();
+  if (previousNodes) {
+    for (const pn of previousNodes) {
+      prevPosMap.set(pn.id, pn.position);
     }
   }
 
-  while (queue.length > 0) {
-    const current = queue.shift()!;
-    const node = nodeMap.get(current);
-    if (!node) continue;
-    const currentDepth = depths.get(current) || 0;
-
-    if (node.frontmatter.edges.to) {
-      for (const edge of node.frontmatter.edges.to) {
-        if (nodeMap.has(edge.id)) {
-          const existingDepth = depths.get(edge.id);
-          if (existingDepth === undefined || existingDepth < currentDepth + 1) {
-            depths.set(edge.id, currentDepth + 1);
-            queue.push(edge.id);
-          }
-        }
+  // Compute offset to anchor existing nodes: use the centroid of nodes that
+  // existed in both layouts so the graph doesn't jump around on expand/collapse
+  let offsetX = 0;
+  let offsetY = 0;
+  if (prevPosMap.size > 0) {
+    let sumDx = 0;
+    let sumDy = 0;
+    let count = 0;
+    for (const n of visibleNodes) {
+      const id = n.frontmatter.id;
+      const prev = prevPosMap.get(id);
+      if (prev) {
+        const dagrePos = g.node(id);
+        const newX = dagrePos.x - nodeWidth / 2;
+        const newY = dagrePos.y - nodeHeight / 2;
+        sumDx += prev.x - newX;
+        sumDy += prev.y - newY;
+        count++;
       }
     }
-  }
-
-  for (const n of visibleNodes) {
-    if (!depths.has(n.frontmatter.id)) {
-      depths.set(n.frontmatter.id, 0);
+    if (count > 0) {
+      offsetX = sumDx / count;
+      offsetY = sumDy / count;
     }
   }
 
-  // Group by depth
-  const byDepth = new Map<number, RoadmapNode[]>();
-  for (const n of visibleNodes) {
-    const d = depths.get(n.frontmatter.id) || 0;
-    if (!byDepth.has(d)) byDepth.set(d, []);
-    byDepth.get(d)!.push(n);
-  }
-
+  // Convert dagre positions (center-based) to React Flow positions (top-left)
   const flowNodes: Node[] = [];
-  const xSpacing = 320;
-  const ySpacing = 200;
+  for (const n of visibleNodes) {
+    const nodeId = n.frontmatter.id;
+    const pos = g.node(nodeId);
+    const progress = getNodeProgress(nodeId);
 
-  for (const [depth, nodesAtDepth] of byDepth) {
-    const totalWidth = (nodesAtDepth.length - 1) * xSpacing;
-    const startX = -totalWidth / 2;
+    const childrenInZone = (n.frontmatter.edges.to || [])
+      .map((e) => e.id)
+      .filter((id) => allNodeIds.has(id));
+    const hasHiddenChildren = childrenInZone.some((id) => !visibleIds.has(id));
+    const canCollapse =
+      !hasHiddenChildren &&
+      !isRoot(nodeId, roadmapNodes) &&
+      hasVisibleChildren(nodeId, roadmapNodes, visibleIds);
 
-    nodesAtDepth.forEach((n, i) => {
-      const progress = getNodeProgress(n.frontmatter.id);
-      const nodeId = n.frontmatter.id;
-
-      // Check if this node has children that are not yet visible
-      const childrenInZone = (n.frontmatter.edges.to || [])
-        .map((e) => e.id)
-        .filter((id) => allNodeIds.has(id));
-      const hasHiddenChildren = childrenInZone.some((id) => !visibleIds.has(id));
-      const canCollapse =
-        !hasHiddenChildren &&
-        !isRoot(nodeId, roadmapNodes) &&
-        hasVisibleChildren(nodeId, roadmapNodes, visibleIds);
-
-      flowNodes.push({
-        id: nodeId,
-        type: "roadmapNode",
-        position: { x: startX + i * xSpacing, y: depth * ySpacing },
-        data: {
-          label: n.frontmatter.title,
-          difficulty: n.frontmatter.difficulty,
-          category: n.frontmatter.category,
-          status: progress.status,
-          hasHiddenChildren,
-          canCollapse,
-          onExpand,
-          onCollapse,
-          nodeId,
-        },
-      });
+    flowNodes.push({
+      id: nodeId,
+      type: "roadmapNode",
+      position: {
+        x: pos.x - nodeWidth / 2 + offsetX,
+        y: pos.y - nodeHeight / 2 + offsetY,
+      },
+      data: {
+        label: n.frontmatter.title,
+        difficulty: n.frontmatter.difficulty,
+        category: n.frontmatter.category,
+        status: progress.status,
+        hasHiddenChildren,
+        canCollapse,
+        onExpand,
+        onCollapse,
+        nodeId,
+      },
     });
   }
 
@@ -455,8 +450,10 @@ function NodeGraphInner({
     [setCenter, getZoom, reactFlowInstance]
   );
 
+  const nodesRef = useRef<Node[]>([]);
+
   const layoutedNodes = useMemo(
-    () => layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse),
+    () => layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse, nodesRef.current),
     [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey]
   );
   const flowEdges = useMemo(
@@ -469,11 +466,16 @@ function NodeGraphInner({
 
   useEffect(() => {
     setNodes(layoutedNodes);
+    nodesRef.current = layoutedNodes;
   }, [layoutedNodes]);
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      setNodes((nds) => applyNodeChanges(changes, nds));
+      setNodes((nds) => {
+        const updated = applyNodeChanges(changes, nds);
+        nodesRef.current = updated;
+        return updated;
+      });
     },
     []
   );
