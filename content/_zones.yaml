@@ -13,7 +13,7 @@ zones:
     description: "Go from scripts to real applications. Learn about web services, databases, APIs, and the architecture that holds it all together."
     color: "#3b82f6"
     position: { x: 400, y: 0 }
-    active: false
+    active: true
 
   - id: "networking"
     title: "Networks & The Internet"
@@ -21,7 +21,7 @@ zones:
     description: "Understand how data travels across networks, how DNS works, what the cloud really is, and how to deploy your first app."
     color: "#8b5cf6"
     position: { x: 800, y: 0 }
-    active: false
+    active: true
 
   - id: "scaling"
     title: "Scale & Reliability"
