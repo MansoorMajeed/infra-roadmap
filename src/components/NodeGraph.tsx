@@ -332,8 +332,9 @@ function NodeGraphInner({
   const [zoomPercent, setZoomPercent] = useState(100);
   const [refreshKey, setRefreshKey] = useState(0);
   const [hydrated, setHydrated] = useState(false);
+  const reactFlowInstance = useReactFlow();
   const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom, setCenter } =
-    useReactFlow();
+    reactFlowInstance;
 
   // After hydration, load saved state from localStorage
   useEffect(() => {
@@ -355,15 +356,19 @@ function NodeGraphInner({
       // ignore
     }
 
-    // Load saved viewport
+    // Load saved viewport, then reveal
     const vp = loadViewport(zoneId);
     if (vp) {
-      setTimeout(() => setViewport(vp, { duration: 0 }), 50);
+      setTimeout(() => {
+        setViewport(vp, { duration: 0 });
+        setHydrated(true);
+      }, 50);
     } else {
-      setTimeout(() => fitView({ padding: 0.4 }), 50);
+      setTimeout(() => {
+        fitView({ padding: 0.4 });
+        setHydrated(true);
+      }, 50);
     }
-
-    setHydrated(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Persist visible nodes whenever they change (only after hydration)
@@ -427,9 +432,27 @@ function NodeGraphInner({
 
   const handleEdgeExpand = useCallback(
     (x: number, y: number) => {
-      setCenter(x, y, { zoom: getZoom(), duration: 300 });
+      // Only recenter if the label would be near the edge of the viewport
+      const zoom = getZoom();
+      const vp = reactFlowInstance.getViewport();
+      const container = document.querySelector(".react-flow");
+      if (!container) return;
+      const { width, height } = container.getBoundingClientRect();
+      // Convert flow coords to screen coords
+      const screenX = x * zoom + vp.x;
+      const screenY = y * zoom + vp.y;
+      // Add margin for the popover (280px wide, ~120px tall)
+      const margin = 160;
+      if (
+        screenX < margin ||
+        screenX > width - margin ||
+        screenY < margin ||
+        screenY > height - margin
+      ) {
+        setCenter(x, y, { zoom, duration: 300 });
+      }
     },
-    [setCenter, getZoom]
+    [setCenter, getZoom, reactFlowInstance]
   );
 
   const layoutedNodes = useMemo(
@@ -513,7 +536,7 @@ function NodeGraphInner({
     "h-8 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-sm transition-colors flex items-center justify-center";
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative" style={{ opacity: hydrated ? 1 : 0 }}>
       <ReactFlow
         nodes={nodes}
         edges={flowEdges}

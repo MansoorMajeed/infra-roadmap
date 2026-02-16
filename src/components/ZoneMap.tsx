@@ -123,8 +123,13 @@ export default function ZoneMap({
     [zoneEdges]
   );
 
-  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, , onEdgesChange] = useEdgesState(initialEdges);
+
+  // Sync nodes when completedCounts change (useNodesState only initializes once)
+  useEffect(() => {
+    setNodes(initialNodes);
+  }, [completedCounts]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
