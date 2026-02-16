@@ -11,6 +11,18 @@ edges:
     - id: "it-works-on-my-laptop"
       question: "My app works locally. How do I let other people use it?"
       detail: "You have a working application on your laptop — a Flask app, a database, the whole thing. But it only works on localhost. Nobody else can access it. The moment you try to share it, you run into a wall: networking, servers, domains, ports. Getting from 'works on my machine' to 'works for everyone' is a fundamental challenge, and understanding it is the gateway to everything in DevOps and SRE."
+    - id: "databases-and-sql"
+      question: "Where does my data actually live? Variables disappear when the app restarts."
+      detail: "Your Flask app stores data in Python variables — lists, dictionaries, objects. But the moment you restart the app, everything is gone. Users, orders, cart items — all wiped. A database is a program specifically designed to store data permanently, organize it efficiently, and let you query it fast. Understanding databases is non-negotiable for anyone building or operating real software."
+    - id: "apis-and-rest"
+      question: "My frontend and backend are tangled together. How do different parts of a system talk to each other?"
+      detail: "Your Flask app renders HTML templates directly — the backend generates the page and sends it to the browser. This works, but it means your backend is doing two jobs: handling business logic and building the UI. Modern applications separate these concerns with APIs — clean interfaces that let the frontend, mobile apps, other services, and even third parties interact with your backend through structured requests and responses."
+    - id: "testing-basics"
+      question: "How do I know my code actually works before I ship it?"
+      detail: "You have been testing your app by running it, clicking around, and checking if things look right. That works when your app is small, but as it grows, manual testing becomes impossible. Did your new feature break checkout? Did changing that database query affect the search page? Automated tests catch these problems before your users do."
+    - id: "version-control-git"
+      question: "I keep overwriting my own code. How do I track changes?"
+      detail: "As your application grows, you will inevitably break something that used to work. Without version control, you are flying blind — you cannot undo mistakes, compare what changed, or collaborate without stepping on each other's toes. Git solves all of these problems, and every professional software team on the planet uses it."
 difficulty: 1
 tags: ["flask", "django", "backend", "database", "web-app", "python"]
 category: "concept"
