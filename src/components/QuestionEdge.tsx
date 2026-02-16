@@ -24,6 +24,7 @@ export default function QuestionEdge({
   const popoverRef = useRef<HTMLDivElement>(null);
   const question = (data?.question as string) || "";
   const detail = (data?.detail as string) || "";
+  const onExpand = data?.onExpand as ((x: number, y: number) => void) | undefined;
 
   // Allow parent to force expand via data prop
   const forceExpanded = (data?.forceExpanded as boolean) || false;
@@ -38,10 +39,19 @@ export default function QuestionEdge({
     targetPosition,
   });
 
-  const handleClick = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    setExpanded((prev) => !prev);
-  }, []);
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setExpanded((prev) => {
+        const next = !prev;
+        if (next && onExpand) {
+          onExpand(labelX, labelY);
+        }
+        return next;
+      });
+    },
+    [onExpand, labelX, labelY]
+  );
 
   // Close popover when clicking outside
   useEffect(() => {

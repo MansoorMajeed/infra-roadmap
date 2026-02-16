@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState, useEffect, useRef } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import {
   ReactFlow,
   Background,
@@ -27,6 +27,7 @@ interface NodeGraphProps {
   zoneColor: string;
   onBack: () => void;
   highlightNodeId?: string;
+  onNodeSelect?: (nodeId: string | null) => void;
 }
 
 const nodeTypes = { roadmapNode: NodeCard };
@@ -276,7 +277,8 @@ function layoutNodes(
 function buildEdges(
   roadmapNodes: RoadmapNode[],
   visibleIds: Set<string>,
-  allEdgesExpanded: boolean
+  allEdgesExpanded: boolean,
+  onEdgeExpand?: (x: number, y: number) => void
 ): Edge[] {
   const edges: Edge[] = [];
 
@@ -294,6 +296,7 @@ function buildEdges(
               question: edge.question,
               detail: edge.detail || "",
               forceExpanded: allEdgesExpanded,
+              onExpand: onEdgeExpand,
             },
             markerEnd: {
               type: MarkerType.ArrowClosed,
@@ -316,39 +319,58 @@ function NodeGraphInner({
   zoneColor,
   onBack,
   highlightNodeId,
+  onNodeSelect,
 }: NodeGraphProps) {
   const zoneId = roadmapNodes[0]?.frontmatter.zone || "unknown";
   const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null);
-  const [visibleIds, setVisibleIds] = useState<Set<string>>(() => {
+  // Initialize with deterministic defaults (no localStorage) to avoid hydration mismatch
+  const [visibleIds, setVisibleIds] = useState<Set<string>>(() =>
+    getInitialVisibleNodes(roadmapNodes)
+  );
+  const [allEdgesExpanded, setAllEdgesExpanded] = useState(false);
+  const [zoomLocked, setZoomLocked] = useState(true);
+  const [zoomPercent, setZoomPercent] = useState(100);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [hydrated, setHydrated] = useState(false);
+  const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom, setCenter } =
+    useReactFlow();
+
+  // After hydration, load saved state from localStorage
+  useEffect(() => {
+    // Load saved visible nodes
     const saved = loadVisibleNodes(zoneId);
     if (saved) {
       const validIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
       const filtered = new Set([...saved].filter((id) => validIds.has(id)));
-      if (filtered.size > 0) return filtered;
+      if (filtered.size > 0) setVisibleIds(filtered);
     }
-    return getInitialVisibleNodes(roadmapNodes);
-  });
-  const [allEdgesExpanded, setAllEdgesExpanded] = useState(false);
-  const [zoomLocked, setZoomLocked] = useState(() => {
-    if (typeof window === "undefined") return false;
+
+    // Load saved zoom lock preference
     try {
-      return localStorage.getItem("sre-roadmap-zoom-lock") === "true";
+      const savedLock = localStorage.getItem("sre-roadmap-zoom-lock");
+      if (savedLock !== null) {
+        setZoomLocked(savedLock === "true");
+      }
     } catch {
-      return false;
+      // ignore
     }
-  });
-  const [zoomPercent, setZoomPercent] = useState(100);
-  const [refreshKey, setRefreshKey] = useState(0);
-  const { fitView, zoomIn, zoomOut, zoomTo, getZoom } = useReactFlow();
 
-  // Load saved viewport on mount (only once)
-  const savedViewport = useRef(loadViewport(zoneId));
-  const hasSavedViewport = savedViewport.current !== null;
+    // Load saved viewport
+    const vp = loadViewport(zoneId);
+    if (vp) {
+      setTimeout(() => setViewport(vp, { duration: 0 }), 50);
+    } else {
+      setTimeout(() => fitView({ padding: 0.4 }), 50);
+    }
 
-  // Persist visible nodes whenever they change
+    setHydrated(true);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Persist visible nodes whenever they change (only after hydration)
   useEffect(() => {
+    if (!hydrated) return;
     saveVisibleNodes(zoneId, visibleIds);
-  }, [zoneId, visibleIds]);
+  }, [zoneId, visibleIds, hydrated]);
 
   // Persist zoom lock preference
   const toggleZoomLock = useCallback(() => {
@@ -403,13 +425,20 @@ function NodeGraphInner({
     [roadmapNodes, fitView, zoomLocked]
   );
 
+  const handleEdgeExpand = useCallback(
+    (x: number, y: number) => {
+      setCenter(x, y, { zoom: getZoom(), duration: 300 });
+    },
+    [setCenter, getZoom]
+  );
+
   const layoutedNodes = useMemo(
     () => layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse),
     [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey]
   );
   const flowEdges = useMemo(
-    () => buildEdges(roadmapNodes, visibleIds, allEdgesExpanded),
-    [roadmapNodes, visibleIds, allEdgesExpanded]
+    () => buildEdges(roadmapNodes, visibleIds, allEdgesExpanded, handleEdgeExpand),
+    [roadmapNodes, visibleIds, allEdgesExpanded, handleEdgeExpand]
   );
 
   // Track node positions for dragging, but re-layout when visibleIds changes
@@ -451,9 +480,12 @@ function NodeGraphInner({
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
       const roadmapNode = roadmapNodes.find((n) => n.frontmatter.id === node.id);
-      if (roadmapNode) setSelectedNode(roadmapNode);
+      if (roadmapNode) {
+        setSelectedNode(roadmapNode);
+        onNodeSelect?.(node.id);
+      }
     },
-    [roadmapNodes]
+    [roadmapNodes, onNodeSelect]
   );
 
   const handleNavigate = useCallback(
@@ -490,9 +522,8 @@ function NodeGraphInner({
         onViewportChange={handleViewportChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        fitView={!hasSavedViewport}
-        fitViewOptions={{ padding: 0.4 }}
-        defaultViewport={savedViewport.current || undefined}
+        fitView={false}
+        defaultViewport={{ x: 0, y: 0, zoom: 1 }}
         proOptions={{ hideAttribution: true }}
         nodesDraggable={true}
         nodesConnectable={false}
@@ -589,7 +620,10 @@ function NodeGraphInner({
       {selectedNode && (
         <ContentPanel
           node={selectedNode}
-          onClose={() => setSelectedNode(null)}
+          onClose={() => {
+            setSelectedNode(null);
+            onNodeSelect?.(null);
+          }}
           onNavigate={handleNavigate}
           onProgressChange={handleProgressChange}
         />
