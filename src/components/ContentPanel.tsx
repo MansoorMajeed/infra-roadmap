@@ -143,7 +143,8 @@ export default function ContentPanel({
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <div className="flex-1 overflow-y-auto p-6">
+          <div className={`space-y-6 ${isExpanded ? "max-w-3xl mx-auto" : ""}`}>
             {/* Summary */}
             <div className="content-prose">
               <Markdown remarkPlugins={[remarkGfm]}>{summary}</Markdown>
@@ -256,9 +257,11 @@ export default function ContentPanel({
               </div>
             )}
           </div>
+          </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
+          <div className={`p-4 border-t border-gray-100 dark:border-gray-800 ${isExpanded ? "flex justify-center" : ""}`}>
+          <div className={`space-y-2 ${isExpanded ? "max-w-3xl w-full" : ""}`}>
             <button
               onClick={handleMarkComplete}
               className={`w-full py-2.5 px-4 rounded-xl text-sm font-semibold transition-colors ${
@@ -282,6 +285,7 @@ export default function ContentPanel({
               </svg>
               Improve this page
             </a>
+          </div>
           </div>
         </div>
       </div>
