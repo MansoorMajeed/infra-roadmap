@@ -20,6 +20,7 @@ export default function ContentPanel({
   onProgressChange,
 }: ContentPanelProps) {
   const [showDeepDive, setShowDeepDive] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [progress, setProgress] = useState<NodeProgress>({
     status: "not-started",
     milestones: [],
@@ -62,6 +63,8 @@ export default function ContentPanel({
     onProgressChange();
   };
 
+  const editUrl = `https://github.com/MansoorMajeed/infra-roadmap/edit/main/content/${frontmatter.zone}/${frontmatter.id}.md`;
+
   const difficultyLabel = { 1: "Beginner", 2: "Intermediate", 3: "Advanced" };
   const difficultyColor = {
     1: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
@@ -73,14 +76,18 @@ export default function ContentPanel({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity"
+        className="fixed inset-0 bg-black/40 z-50"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 pointer-events-none">
         <div
-          className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col pointer-events-auto border border-gray-200 dark:border-gray-700"
+          className={`bg-white dark:bg-gray-900 shadow-2xl w-full flex flex-col pointer-events-auto border border-gray-200 dark:border-gray-700 transition-all duration-200 ${
+            isExpanded
+              ? "max-w-full max-h-full h-full rounded-none sm:m-4 sm:rounded-2xl sm:max-h-[calc(100vh-2rem)] sm:max-w-[calc(100vw-2rem)]"
+              : "max-w-2xl max-h-[100vh] h-full rounded-none sm:max-h-[85vh] sm:h-auto sm:rounded-2xl"
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -108,14 +115,31 @@ export default function ContentPanel({
                 ))}
               </div>
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 -m-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                title={isExpanded ? "Collapse" : "Expand"}
+              >
+                {isExpanded ? (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9L4 4m0 0v4m0-4h4m7 11l5 5m0 0v-4m0 4h-4" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 3h6m0 0v6m0-6L14 10M9 21H3m0 0v-6m0 6l7-7" />
+                  </svg>
+                )}
+              </button>
+              <button
+                onClick={onClose}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Content */}
@@ -234,7 +258,7 @@ export default function ContentPanel({
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-100 dark:border-gray-800">
+          <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
             <button
               onClick={handleMarkComplete}
               className={`w-full py-2.5 px-4 rounded-xl text-sm font-semibold transition-colors ${
@@ -247,6 +271,17 @@ export default function ContentPanel({
                 ? "✓ Completed — Click to Undo"
                 : "Mark as Complete"}
             </button>
+            <a
+              href={editUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.263 2.177a1.75 1.75 0 0 1 2.474 0l2.086 2.086a1.75 1.75 0 0 1 0 2.474L10.98 17.58a1.75 1.75 0 0 1-.765.455l-4.473 1.286a.75.75 0 0 1-.926-.927l1.287-4.473a1.75 1.75 0 0 1 .455-.764L17.263 2.177z" />
+              </svg>
+              Improve this page
+            </a>
           </div>
         </div>
       </div>
