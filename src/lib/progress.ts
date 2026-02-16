@@ -2,7 +2,7 @@
 
 import type { ProgressData, NodeProgress, NodeStatus } from "./types";
 
-const STORAGE_KEY = "sre-roadmap-progress";
+const STORAGE_KEY = "infra-roadmap-progress";
 
 function getDefaultProgress(): ProgressData {
   return { nodes: {} };

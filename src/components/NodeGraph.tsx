@@ -34,8 +34,8 @@ interface NodeGraphProps {
 const nodeTypes = { roadmapNode: NodeCard };
 const edgeTypes = { question: QuestionEdge };
 
-const VISIBLE_NODES_STORAGE_KEY = "sre-roadmap-visible-nodes";
-const VIEWPORT_STORAGE_KEY = "sre-roadmap-viewport";
+const VISIBLE_NODES_STORAGE_KEY = "infra-roadmap-visible-nodes";
+const VIEWPORT_STORAGE_KEY = "infra-roadmap-viewport";
 
 function saveVisibleNodes(zoneId: string, ids: Set<string>): void {
   if (typeof window === "undefined") return;
@@ -353,7 +353,7 @@ function NodeGraphInner({
 
     // Load saved zoom lock preference
     try {
-      const savedLock = localStorage.getItem("sre-roadmap-zoom-lock");
+      const savedLock = localStorage.getItem("infra-roadmap-zoom-lock");
       if (savedLock !== null) {
         setZoomLocked(savedLock === "true");
       }
@@ -387,7 +387,7 @@ function NodeGraphInner({
     setZoomLocked((prev) => {
       const next = !prev;
       try {
-        localStorage.setItem("sre-roadmap-zoom-lock", String(next));
+        localStorage.setItem("infra-roadmap-zoom-lock", String(next));
       } catch {
         // ignore
       }

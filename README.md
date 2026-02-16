@@ -1,6 +1,10 @@
-# Interactive SRE/DevOps Roadmap
+# Infra: Zero to Scale
 
-A graph-based, question-driven learning tool for SRE and DevOps. Each topic connects to the next through natural questions like "VMs are heavy... is there something lighter?" — guiding learners through a structured yet exploratory path.
+**SRE for everyone** — an interactive, graph-based roadmap for learning infrastructure, SRE, and DevOps.
+
+Software runs on infrastructure, but most engineers never learn how it works. Whether you're a frontend developer curious about what happens after `git push`, a vibe coder who wants to actually deploy and run their product, or a sysadmin looking to level up — this roadmap is for you.
+
+Instead of handing you a flat checklist of 200 tools to memorize, topics connect through natural questions like *"VMs are heavy... is there something lighter?"* — guiding you from first principles to production-grade infrastructure, one curiosity-driven step at a time.
 
 ## Tech Stack
 

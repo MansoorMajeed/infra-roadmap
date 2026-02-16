@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SRE/DevOps Roadmap — Connect the Dots",
+  title: "Infra: Zero to Scale — SRE for Everyone",
   description:
-    "An interactive, graph-based roadmap for learning SRE and DevOps. Follow your curiosity from 'what is code?' to production-grade infrastructure.",
+    "An interactive, graph-based roadmap for learning infrastructure, SRE, and DevOps. Whether you're a frontend dev, a vibe coder, or brand new to ops — follow your curiosity from 'what is code?' to production-grade infrastructure.",
 };
 
 export default function RootLayout({

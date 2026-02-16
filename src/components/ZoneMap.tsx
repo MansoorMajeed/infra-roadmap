@@ -171,10 +171,10 @@ export default function ZoneMap({
       <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            SRE/DevOps Roadmap
+            Infra: Zero to Scale
           </h1>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Click a zone to explore its topics
+            SRE for everyone — click a zone to explore
           </p>
         </div>
         <button

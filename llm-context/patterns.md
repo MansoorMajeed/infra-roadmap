@@ -45,10 +45,10 @@ markdown file → gray-matter (frontmatter + body) → Zod validate frontmatter 
 
 | Key | Purpose |
 |-----|---------|
-| `sre-roadmap-progress` | Node completion status + milestones |
-| `sre-roadmap-visible-nodes` | Which nodes are expanded per zone |
-| `sre-roadmap-viewport` | Zoom/pan position per zone |
-| `sre-roadmap-zoom-lock` | Boolean: lock zoom on expand |
+| `infra-roadmap-progress` | Node completion status + milestones |
+| `infra-roadmap-visible-nodes` | Which nodes are expanded per zone |
+| `infra-roadmap-viewport` | Zoom/pan position per zone |
+| `infra-roadmap-zoom-lock` | Boolean: lock zoom on expand |
 
 ## Cross-Zone Edges
 
