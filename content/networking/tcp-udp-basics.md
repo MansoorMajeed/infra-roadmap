@@ -4,9 +4,9 @@ title: "TCP, UDP & How Data Travels"
 zone: "networking"
 edges:
   from:
-    - id: "it-works-on-my-laptop"
-      question: "Why can't anyone else reach my app? How does data travel between computers?"
-      detail: "Your app is listening on localhost, but that is just your own machine talking to itself. For another computer to reach your app, data has to travel across a network — through cables, routers, switches, and protocols. Understanding TCP/IP, ports, and how packets move between machines is the foundation of networking."
+    - id: "local-network"
+      question: "Devices can find each other on my network. But how does the data actually get there reliably?"
+      detail: "You know your phone and laptop are on the same network and can reach each other by IP address. But when your browser loads a page, how does the data actually travel? How does the server know what order to reassemble the pieces? How does it know if something got lost? That is where transport protocols — TCP and UDP — come in."
   to:
     - id: "web-servers"
       question: "I understand how data travels. Now what sits between the internet and my app?"

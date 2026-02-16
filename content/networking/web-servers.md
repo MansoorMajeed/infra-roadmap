@@ -8,9 +8,9 @@ edges:
       question: "I understand how data travels. Now what sits between the internet and my app?"
       detail: "Your app can listen on a port and speak TCP, but you should not expose it directly to the internet. Web servers like Nginx and Apache sit in front of your application — they handle SSL, serve static files, manage connections, and forward requests to your app. Understanding reverse proxies is essential for deploying any web application properly."
   to:
-    - id: "exposing-your-app"
-      question: "I have a web server set up. How do I actually make my app accessible from the internet?"
-      detail: "You have Nginx reverse-proxying to your Flask app on a server. But the server only has an IP address, and nobody is going to type http://73.42.100.15 into their browser. You need a domain name, DNS records, HTTPS certificates, and firewall rules. This is the last mile — going from a running server to a real, publicly accessible website."
+    - id: "http-protocol"
+      question: "My web server is running. But how does the browser actually know how to talk to it?"
+      detail: "You have Nginx serving your app on the local network. Your phone can reach it. But what exactly is the browser sending, and what is the server sending back? There is a protocol on top of TCP that defines the language — HTTP. Understanding HTTP methods, status codes, headers, and the request-response cycle is fundamental to everything on the web."
 difficulty: 1
 tags: ["nginx", "apache", "reverse-proxy", "web-server", "http", "ssl"]
 category: "tool"

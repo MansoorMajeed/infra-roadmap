@@ -4,9 +4,9 @@ title: "Exposing Your App to the Internet"
 zone: "networking"
 edges:
   from:
-    - id: "web-servers"
-      question: "I have a web server set up. How do I actually make my app accessible from the internet?"
-      detail: "You have Nginx reverse-proxying to your Flask app on a server. But the server only has an IP address, and nobody is going to type http://73.42.100.15 into their browser. You need a domain name, DNS records, HTTPS certificates, and firewall rules. This is the last mile — going from a running server to a real, publicly accessible website."
+    - id: "dns-and-domain-names"
+      question: "I understand DNS and domain names. How do I actually put my app on the internet with a real domain?"
+      detail: "You know how DNS translates names to IPs, how to register a domain, and how records work. Now it is time to put it all together — get a server with a public IP, point your domain at it, set up HTTPS, and make your app accessible to the world. This is the final step from 'I understand networking' to 'my app is live.'"
   to: []
 difficulty: 2
 tags: ["dns", "domains", "deployment", "cloud", "firewall", "https", "ssl"]
