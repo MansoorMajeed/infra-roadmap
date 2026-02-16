@@ -1,27 +1,16 @@
-import { getZonesConfig, getNodesByZone } from "@/lib/content";
+import { getZonesConfig, getNodesByZone, validateEdgeReferences } from "@/lib/content";
 import HomeClient from "./HomeClient";
 
 export default function Home() {
+  validateEdgeReferences();
   const config = getZonesConfig();
 
-  // Pre-compute node IDs per zone and serialize node data for active zones
+  // Only compute node IDs per zone (for progress display), not full node data
   const zoneNodeIds: Record<string, string[]> = {};
-  const zoneNodes: Record<
-    string,
-    {
-      frontmatter: import("@/lib/types").NodeFrontmatter;
-      summary: string;
-      deepDive: string;
-      resources: string;
-    }[]
-  > = {};
 
   for (const zone of config.zones) {
     const nodes = getNodesByZone(zone.id);
     zoneNodeIds[zone.id] = nodes.map((n) => n.frontmatter.id);
-    if (zone.active) {
-      zoneNodes[zone.id] = nodes;
-    }
   }
 
   return (
@@ -29,7 +18,6 @@ export default function Home() {
       zones={config.zones}
       zoneEdges={config.zoneEdges}
       zoneNodeIds={zoneNodeIds}
-      zoneNodes={zoneNodes}
     />
   );
 }

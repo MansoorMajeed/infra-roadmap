@@ -247,6 +247,7 @@ function layoutNodes(
         .filter((id) => allNodeIds.has(id));
       const hasHiddenChildren = childrenInZone.some((id) => !visibleIds.has(id));
       const canCollapse =
+        !hasHiddenChildren &&
         !isRoot(nodeId, roadmapNodes) &&
         hasVisibleChildren(nodeId, roadmapNodes, visibleIds);
 

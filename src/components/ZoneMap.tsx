@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   ReactFlow,
   Background,
@@ -21,7 +22,6 @@ interface ZoneMapProps {
   zones: Zone[];
   zoneEdges: ZoneEdge[];
   zoneNodeIds: Record<string, string[]>;
-  onZoneClick: (zoneId: string) => void;
 }
 
 function ZoneNode({ data }: { data: Record<string, unknown> }) {
@@ -83,8 +83,8 @@ export default function ZoneMap({
   zones,
   zoneEdges,
   zoneNodeIds,
-  onZoneClick,
 }: ZoneMapProps) {
+  const router = useRouter();
   const [showEntrySelector, setShowEntrySelector] = useState(false);
   const [completedCounts, setCompletedCounts] = useState<Record<string, number>>({});
 
@@ -130,17 +130,17 @@ export default function ZoneMap({
     (_: React.MouseEvent, node: Node) => {
       const zone = zones.find((z) => z.id === node.id);
       if (zone?.active) {
-        onZoneClick(zone.id);
+        router.push(`/zone/${zone.id}`);
       }
     },
-    [zones, onZoneClick]
+    [zones, router]
   );
 
-  const handleEntrySelect = (zone: string) => {
+  const handleEntrySelect = (zone: string, nodeId: string) => {
     setShowEntrySelector(false);
     const targetZone = zones.find((z) => z.id === zone);
     if (targetZone?.active) {
-      onZoneClick(zone);
+      router.push(`/zone/${zone}?node=${nodeId}`);
     }
   };
 

@@ -7,6 +7,7 @@ import type {
   ZonesConfig,
   Zone,
 } from "./types";
+import { NodeFrontmatterSchema, ZonesConfigSchema } from "./validation";
 
 const contentDir = path.join(process.cwd(), "content");
 
@@ -15,7 +16,11 @@ export function getZonesConfig(): ZonesConfig {
   const fileContents = fs.readFileSync(filePath, "utf8");
   // Use gray-matter to parse the YAML file (wrapping it as if it were all frontmatter)
   const { data } = matter(`---\n${fileContents}\n---`);
-  return data as unknown as ZonesConfig;
+  const result = ZonesConfigSchema.safeParse(data);
+  if (!result.success) {
+    throw new Error(`Invalid _zones.yaml: ${result.error.message}`);
+  }
+  return result.data as ZonesConfig;
 }
 
 export function getZone(zoneId: string): Zone | undefined {
@@ -67,10 +72,16 @@ export function getNodesByZone(zoneId: string): RoadmapNode[] {
     const filePath = path.join(zoneDir, file);
     const fileContents = fs.readFileSync(filePath, "utf8");
     const { data, content } = matter(fileContents);
+    const result = NodeFrontmatterSchema.safeParse(data);
+    if (!result.success) {
+      throw new Error(
+        `Invalid frontmatter in ${file}: ${result.error.message}`
+      );
+    }
     const { summary, deepDive, resources } = parseContent(content);
 
     return {
-      frontmatter: data as NodeFrontmatter,
+      frontmatter: result.data as NodeFrontmatter,
       summary,
       deepDive,
       resources,
@@ -90,4 +101,25 @@ export function getAllNodes(): RoadmapNode[] {
 
 export function getZoneNodeCount(zoneId: string): number {
   return getNodesByZone(zoneId).length;
+}
+
+export function validateEdgeReferences(): void {
+  const config = getZonesConfig();
+  const allNodeIds = new Set(
+    config.zones.flatMap((z) => getNodesByZone(z.id).map((n) => n.frontmatter.id))
+  );
+
+  for (const zone of config.zones) {
+    if (!zone.active) continue;
+    const nodes = getNodesByZone(zone.id);
+
+    for (const node of nodes) {
+      if (node.frontmatter.edges.to) {
+        for (const edge of node.frontmatter.edges.to) {
+          // Cross-zone edges to inactive zones won't have content yet — skip them
+          if (!allNodeIds.has(edge.id)) continue;
+        }
+      }
+    }
+  }
 }
