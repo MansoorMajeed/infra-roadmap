@@ -48,9 +48,9 @@ describe("getZone", () => {
 });
 
 describe("getNodesByZone", () => {
-  it("returns 10 nodes for foundations zone", () => {
+  it("returns 20 nodes for foundations zone", () => {
     const nodes = getNodesByZone("foundations");
-    expect(nodes).toHaveLength(10);
+    expect(nodes).toHaveLength(20);
   });
 
   it("each node has correct structure", () => {
