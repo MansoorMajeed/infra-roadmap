@@ -1,16 +1,19 @@
 ---
 id: "tls-and-certificates"
 title: "TLS, Certificates & HTTPS"
-zone: "networking"
+zone: "running"
 edges:
   from:
+    - id: "web-servers"
+      question: "My web server works over HTTP, but I need HTTPS. How do I set up TLS?"
+      detail: "Your Nginx server is serving pages over HTTP. But HTTP is plaintext — anyone can read the traffic. You need TLS to encrypt the connection, and that means certificates. Let's Encrypt makes this free and automated, but you need to understand what certificates are and how TLS works."
     - id: "encryption-basics"
       question: "I understand encryption. How does the web actually use it to secure traffic?"
       detail: "You know about symmetric and asymmetric encryption, and why we need both. Now comes the real question: how do your browser and a server you have never talked to before establish an encrypted connection? That is what TLS does — it is the protocol that turns HTTP into HTTPS, and it uses everything you just learned about encryption in a clever handshake."
   to:
-    - id: "exposing-your-app"
-      question: "I understand HTTPS and TLS. Now how do I actually deploy my app with a real certificate?"
-      detail: "You know how TLS works, what certificates are, and why HTTPS matters. Now it is time to put it all together — get a server, configure Nginx with a TLS certificate, set up your domain, and make your app accessible to the world over HTTPS. This is the final step from understanding networking to running a real, secure, public-facing application."
+    - id: "running-your-store"
+      question: "I understand HTTPS and TLS. How do I put it all together and deploy?"
+      detail: "You know how TLS works, what certificates are, and how to get a free certificate with Let's Encrypt. Combined with DNS and web server knowledge, you have all the pieces. Now it is time to put it all together — deploy your Flask app with Gunicorn, configure Nginx, set up DNS, enable HTTPS, and make your store live."
 difficulty: 2
 tags: ["tls", "ssl", "https", "certificates", "certificate-authority", "lets-encrypt"]
 category: "concept"

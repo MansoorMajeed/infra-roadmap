@@ -1,22 +1,19 @@
 ---
 id: "web-servers"
 title: "Web Servers"
-zone: "networking"
+zone: "running"
 edges:
   from:
-    - id: "http-protocol"
-      question: "I understand HTTP. But my Flask dev server is not meant for real traffic. What actually serves web content?"
-      detail: "You know the protocol — HTTP methods, status codes, headers. But your Flask app's built-in server is a toy. Real websites are served by dedicated web server software like Nginx or Apache — programs designed to handle thousands of connections, serve static files efficiently, and keep running reliably. Understanding web servers is the next step toward running a real service."
-    - id: "ip-addresses-and-subnets"
-      question: "I understand addressing and transport. What software actually serves web content?"
-      detail: "You know how IP addressing works and how TCP delivers data reliably. You understand HTTP. Now you need the actual software that ties it all together — a web server. Programs like Nginx and Apache listen for HTTP requests, serve files, and handle thousands of connections simultaneously. This is what runs behind every website you have ever visited."
+    - id: "deploying-your-code"
+      question: "My code is on the server. What software actually serves it to users?"
+      detail: "You have your application running on the server, but it is using Flask's built-in development server. That is not production-ready — it handles one request at a time and crashes without useful errors. You need a real web server like Nginx to handle HTTP traffic, serve static files, and proxy requests to your application."
   to:
     - id: "dns-and-domain-names"
       question: "My web server works, but I'm using raw IP addresses. How do I give my site a real name?"
-      detail: "Your Nginx server is running and serving pages. But you are accessing it by IP address — 192.168.1.42 on your LAN, or 73.42.100.15 on a cloud server. Nobody wants to type that. Every real website has a domain name — google.com, github.com. Something has to translate those names into IP addresses, and that system is DNS."
-    - id: "encryption-basics"
-      question: "My web server works, but HTTP is plaintext. Can anyone read my traffic?"
-      detail: "Your web server is happily serving pages over HTTP. But every request and response — passwords, cookies, personal data — travels across the network as readable text. Anyone between the client and server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
+      detail: "Your Nginx server is running and serving pages. But you are accessing it by IP address. Nobody wants to type that. Every real website has a domain name — google.com, github.com. Something has to translate those names into IP addresses, and that system is DNS."
+    - id: "tls-and-certificates"
+      question: "My web server works over HTTP, but I need HTTPS. How do I set up TLS?"
+      detail: "Your Nginx server is serving pages over HTTP. But HTTP is plaintext — anyone can read the traffic. You need TLS to encrypt the connection, and that means certificates. Let's Encrypt makes this free and automated, but you need to understand what certificates are and how TLS works."
 difficulty: 1
 tags: ["nginx", "apache", "web-server", "http", "static-files", "serving"]
 category: "tool"

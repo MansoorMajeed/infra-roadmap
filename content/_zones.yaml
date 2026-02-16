@@ -18,9 +18,17 @@ zones:
   - id: "networking"
     title: "Networks & The Internet"
     coreQuestion: "How do I put it on the internet?"
-    description: "Understand how data travels across networks, how DNS works, what the cloud really is, and how to deploy your first app."
+    description: "Understand how data travels across networks — protocols, addressing, routing, and encryption fundamentals."
     color: "#8b5cf6"
     position: { x: 800, y: 0 }
+    active: true
+
+  - id: "running"
+    title: "Running Your Application"
+    coreQuestion: "How do I actually run this thing?"
+    description: "Go from understanding networks to actually running your app on a real server — servers, cloud, DNS, HTTPS, and a live deployment."
+    color: "#f97316"
+    position: { x: 1200, y: 0 }
     active: true
 
   - id: "scaling"
@@ -61,8 +69,12 @@ zoneEdges:
   - from: "building"
     to: "networking"
   - from: "building"
-    to: "scaling"
+    to: "running"
   - from: "networking"
+    to: "running"
+  - from: "running"
+    to: "scaling"
+  - from: "running"
     to: "delivery"
   - from: "scaling"
     to: "delivery"

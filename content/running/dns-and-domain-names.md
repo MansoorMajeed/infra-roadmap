@@ -1,16 +1,16 @@
 ---
 id: "dns-and-domain-names"
 title: "DNS & Domain Names"
-zone: "networking"
+zone: "running"
 edges:
   from:
     - id: "web-servers"
       question: "My web server works, but I'm using raw IP addresses. How do I give my site a real name?"
       detail: "Your Nginx server is running and serving pages. But you are accessing it by IP address — 192.168.1.42 on your LAN, or 73.42.100.15 on a cloud server. Nobody wants to type that. Every real website has a domain name — google.com, github.com. Something has to translate those names into IP addresses, and that system is DNS."
   to:
-    - id: "exposing-your-app"
-      question: "I have a domain name and understand DNS. How do I actually deploy my app to the internet?"
-      detail: "You know how DNS translates names to IPs, how to register a domain, and how records work. Now it is time to put it all together — get a server with a public IP, point your domain at it, configure Nginx, and make your app accessible to the world. Combined with HTTPS, this is the final step from understanding networking to running a real, public-facing application."
+    - id: "running-your-store"
+      question: "I have a domain name. How do I put it all together and deploy my app?"
+      detail: "You know how DNS translates names to IPs, how to register a domain, and how records work. Now it is time to put it all together — point your domain at your server, configure Nginx as a reverse proxy, get HTTPS with Certbot, and make your ecommerce store accessible to the world. This is the culmination of everything you have learned."
 difficulty: 1
 tags: ["dns", "domain-names", "nameservers", "udp", "dig", "nslookup"]
 category: "concept"

@@ -29,6 +29,9 @@ edges:
     - id: "local-network"
       question: "Why can't anyone else reach my app? What even is a network?"
       detail: "Your app runs on localhost — your machine talking to itself. But your laptop is connected to other devices right now. Your phone, your smart TV, your roommate's laptop — they are all on the same WiFi network. Understanding what a local network is and how devices on it communicate is the first step to getting your app off localhost."
+    - id: "where-do-i-run-this"
+      question: "My app works locally. Where do I actually run this for real?"
+      detail: "Your app works on your laptop, but nobody can reach it. You need it running somewhere that is always on, always connected, with a public IP. But where? What are your options, and why can't you just leave your laptop open?"
 difficulty: 1
 tags: ["localhost", "networking", "deployment", "ports", "development-environment"]
 category: "concept"

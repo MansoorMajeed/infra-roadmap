@@ -8,9 +8,12 @@ edges:
       question: "I understand TCP and ports. But what is my browser actually saying to the server?"
       detail: "TCP delivers bytes reliably between two machines. But what are those bytes? When your browser connects to a web server, it is not sending random data — it is speaking HTTP, a structured protocol that defines how to request pages, submit forms, and get responses. HTTP rides on top of TCP, and understanding it is how you understand the web."
   to:
-    - id: "web-servers"
-      question: "I understand HTTP. But my Flask dev server is not meant for real traffic. What actually serves web content?"
-      detail: "You know the protocol — HTTP methods, status codes, headers. But your Flask app's built-in server is a toy. Real websites are served by dedicated web server software like Nginx or Apache — programs designed to handle thousands of connections, serve static files efficiently, and keep running reliably. Understanding web servers is the next step toward running a real service."
+    - id: "where-do-i-run-this"
+      question: "I understand HTTP. But where do I actually run my app for real users?"
+      detail: "You know the protocol — HTTP methods, status codes, headers. But all of this is running on your laptop. Real websites need to run somewhere that is always on, always reachable. Where do you actually put your application so the world can use it?"
+    - id: "encryption-basics"
+      question: "HTTP is plaintext. Can anyone read my traffic?"
+      detail: "You just learned that HTTP sends everything — passwords, cookies, personal data — as readable text. Anyone between you and the server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
 difficulty: 1
 tags: ["http", "https", "protocol", "status-codes", "methods", "curl", "application-layer"]
 category: "concept"

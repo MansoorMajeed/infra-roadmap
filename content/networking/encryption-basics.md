@@ -4,9 +4,9 @@ title: "Encryption: Why and How"
 zone: "networking"
 edges:
   from:
-    - id: "web-servers"
-      question: "My web server works, but HTTP is plaintext. Can anyone read my traffic?"
-      detail: "Your web server is happily serving pages over HTTP. But every request and response — passwords, cookies, personal data — travels across the network as readable text. Anyone between the client and server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
+    - id: "http-protocol"
+      question: "HTTP is plaintext. Can anyone read my traffic?"
+      detail: "You just learned that HTTP sends everything — passwords, cookies, personal data — as readable text. Anyone between you and the server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
   to:
     - id: "tls-and-certificates"
       question: "I understand encryption. How does the web actually use it to secure traffic?"

@@ -8,9 +8,9 @@ edges:
       question: "Protocols have layers, and one layer handles addressing. How do IP addresses actually work?"
       detail: "You learned that the network layer handles addressing — getting packets to the right machine. IP addresses are how that works. But they are more than random numbers your router assigns. They have structure — network portions, host portions, subnet masks. Understanding IP addressing is how you understand how networks are organized and how the internet routes traffic."
   to:
-    - id: "web-servers"
-      question: "I understand addressing and transport. What software actually serves web content?"
-      detail: "You know how IP addressing works and how TCP delivers data reliably. You understand HTTP. Now you need the actual software that ties it all together — a web server. Programs like Nginx and Apache listen for HTTP requests, serve files, and handle thousands of connections simultaneously. This is what runs behind every website you have ever visited."
+    - id: "where-do-i-run-this"
+      question: "I understand addressing. But where do I actually run something that serves content?"
+      detail: "You know how IP addressing works, how subnets divide networks, and how routing moves packets. But what is sitting at the other end of those IP addresses? You need a machine with a public IP that is always on. Where does your app actually go?"
 difficulty: 2
 tags: ["ip", "subnets", "cidr", "ipv4", "ipv6", "routing", "network"]
 category: "concept"
