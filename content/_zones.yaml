@@ -68,8 +68,6 @@ zoneEdges:
     to: "building"
   - from: "building"
     to: "networking"
-  - from: "building"
-    to: "running"
   - from: "networking"
     to: "running"
   - from: "running"

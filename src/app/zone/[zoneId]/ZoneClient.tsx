@@ -1,9 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Suspense, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import type { RoadmapNode } from "@/lib/types";
-import NodeGraph from "@/components/NodeGraph";
+
+const NodeGraph = dynamic(() => import("@/components/NodeGraph"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-screen h-screen flex items-center justify-center">
+      <div className="text-gray-400 text-sm">Loading graph...</div>
+    </div>
+  ),
+});
 
 interface ZoneClientProps {
   nodes: RoadmapNode[];
