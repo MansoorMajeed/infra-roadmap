@@ -185,6 +185,32 @@ export default function ZoneMap({
         </button>
       </div>
 
+      {/* Bottom bar */}
+      <div className="absolute bottom-4 left-4 flex items-center gap-2 pointer-events-none">
+        <a
+          href="https://github.com/MansoorMajeed/infra-roadmap"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto px-3 py-1.5 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+        >
+          ★ GitHub
+        </a>
+        <a
+          href="https://blog.esc.sh"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto px-3 py-1.5 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+        >
+          Blog
+        </a>
+        <button
+          data-portal="signup"
+          className="pointer-events-auto px-3 py-1.5 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+        >
+          Subscribe
+        </button>
+      </div>
+
       {showEntrySelector && (
         <EntryPointSelector
           onSelect={handleEntrySelect}
