@@ -2,6 +2,13 @@ import { notFound } from "next/navigation";
 import { getZonesConfig, getNodesByZone } from "@/lib/content";
 import ZoneClient from "./ZoneClient";
 
+export function generateStaticParams() {
+  const config = getZonesConfig();
+  return config.zones
+    .filter((z) => z.active)
+    .map((z) => ({ zoneId: z.id }));
+}
+
 interface ZonePageProps {
   params: Promise<{ zoneId: string }>;
 }
