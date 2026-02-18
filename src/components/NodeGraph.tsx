@@ -334,6 +334,7 @@ function NodeGraphInner({
   const zoneId = roadmapNodes[0]?.frontmatter.zone || "unknown";
   const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null);
   const [showSearch, setShowSearch] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   // Initialize with deterministic defaults (no localStorage) to avoid hydration mismatch
   const [visibleIds, setVisibleIds] = useState<Set<string>>(() =>
     getInitialVisibleNodes(roadmapNodes)
@@ -636,7 +637,7 @@ function NodeGraphInner({
         >
           ← Back
         </button>
-        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+        <h2 className="hidden sm:block text-lg font-bold text-gray-900 dark:text-gray-100">
           <span
             className="inline-block w-3 h-3 rounded-full mr-2"
             style={{ backgroundColor: zoneColor }}
@@ -660,34 +661,78 @@ function NodeGraphInner({
           🔍 <span className="hidden sm:inline">Search</span>
           <kbd className="hidden sm:inline text-xs border border-gray-200 dark:border-gray-600 rounded px-1">⌘K</kbd>
         </button>
+
+        {/* Desktop-only action buttons */}
         <button
           onClick={() => setAllEdgesExpanded((prev) => !prev)}
-          className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
+          className="hidden sm:block px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
         >
           {allEdgesExpanded ? "Hide Questions" : "Show Questions"}
         </button>
         <button
           onClick={() => {
             setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));
-            if (!zoomLocked) {
-              setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
-            }
+            if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
           }}
-          className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
+          className="hidden sm:block px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
         >
           Show All
         </button>
         <button
           onClick={() => {
             setVisibleIds(getInitialVisibleNodes(roadmapNodes));
-            if (!zoomLocked) {
-              setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
-            }
+            if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
           }}
-          className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
+          className="hidden sm:block px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
         >
           Collapse All
         </button>
+
+        {/* Mobile-only ⋮ menu */}
+        <div className="relative sm:hidden">
+          <button
+            onClick={() => setShowMobileMenu((prev) => !prev)}
+            className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm"
+          >
+            ⋮
+          </button>
+          {showMobileMenu && (
+            <div className="absolute right-0 top-10 w-44 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden z-10">
+              <button
+                onClick={() => { setAllEdgesExpanded((prev) => !prev); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700"
+              >
+                {allEdgesExpanded ? "Hide Questions" : "Show Questions"}
+              </button>
+              <button
+                onClick={() => {
+                  setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));
+                  if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+                  setShowMobileMenu(false);
+                }}
+                className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700"
+              >
+                Show All
+              </button>
+              <button
+                onClick={() => {
+                  setVisibleIds(getInitialVisibleNodes(roadmapNodes));
+                  if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+                  setShowMobileMenu(false);
+                }}
+                className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700"
+              >
+                Collapse All
+              </button>
+              <button
+                onClick={() => { toggleZoomLock(); setShowMobileMenu(false); }}
+                className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                {zoomLocked ? "Unlock zoom" : "Lock zoom"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Zoom controls — bottom right, Excalidraw-style */}
@@ -720,8 +765,7 @@ function NodeGraphInner({
           title="Fit to view"
         >
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="2" width="12" height="12" rx="1" />
-            <path d="M2 6h12M6 2v12" />
+            <path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" />
           </svg>
         </button>
         <button
@@ -733,7 +777,17 @@ function NodeGraphInner({
           }`}
           title={zoomLocked ? "Unlock — auto-zoom on expand" : "Lock — keep zoom level on expand"}
         >
-          {zoomLocked ? "🔒" : "🔓"}
+          {zoomLocked ? (
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="7" width="10" height="8" rx="1.5" />
+              <path d="M5 7V5a3 3 0 0 1 6 0v2" />
+            </svg>
+          ) : (
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="7" width="10" height="8" rx="1.5" />
+              <path d="M5 7V5a3 3 0 0 1 6 0" />
+            </svg>
+          )}
         </button>
       </div>
 
