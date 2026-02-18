@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { Zone, ZoneEdge } from "@/lib/types";
+import type { Zone, ZoneEdge, SearchableNode } from "@/lib/types";
 
 const ZoneMap = dynamic(() => import("@/components/ZoneMap"), {
   ssr: false,
@@ -16,12 +16,14 @@ interface HomeClientProps {
   zones: Zone[];
   zoneEdges: ZoneEdge[];
   zoneNodeIds: Record<string, string[]>;
+  searchableNodes: SearchableNode[];
 }
 
 export default function HomeClient({
   zones,
   zoneEdges,
   zoneNodeIds,
+  searchableNodes,
 }: HomeClientProps) {
   return (
     <div className="w-screen h-screen">
@@ -29,6 +31,7 @@ export default function HomeClient({
         zones={zones}
         zoneEdges={zoneEdges}
         zoneNodeIds={zoneNodeIds}
+        searchableNodes={searchableNodes}
       />
     </div>
   );

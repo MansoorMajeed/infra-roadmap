@@ -14,14 +14,16 @@ import {
   BackgroundVariant,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import type { Zone, ZoneEdge } from "@/lib/types";
+import type { Zone, ZoneEdge, SearchableNode } from "@/lib/types";
 import { getCompletedCount } from "@/lib/progress";
 import EntryPointSelector from "./EntryPointSelector";
+import SearchModal from "./SearchModal";
 
 interface ZoneMapProps {
   zones: Zone[];
   zoneEdges: ZoneEdge[];
   zoneNodeIds: Record<string, string[]>;
+  searchableNodes: SearchableNode[];
 }
 
 
@@ -84,9 +86,11 @@ export default function ZoneMap({
   zones,
   zoneEdges,
   zoneNodeIds,
+  searchableNodes,
 }: ZoneMapProps) {
   const router = useRouter();
   const [showEntrySelector, setShowEntrySelector] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const [completedCounts, setCompletedCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -96,6 +100,17 @@ export default function ZoneMap({
     }
     setCompletedCounts(counts);
   }, [zoneNodeIds]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setShowSearch((prev) => !prev);
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   const initialNodes: Node[] = useMemo(
     () =>
@@ -178,12 +193,22 @@ export default function ZoneMap({
             SRE for everyone — click a zone to explore
           </p>
         </div>
-        <button
-          onClick={() => setShowEntrySelector(true)}
-          className="pointer-events-auto px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg"
-        >
-          Where do I start?
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowSearch(true)}
+            className="pointer-events-auto px-3 py-2 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 shadow-sm transition-colors flex items-center gap-2"
+          >
+            <span>🔍</span>
+            <span className="hidden sm:inline">Search</span>
+            <kbd className="hidden sm:inline text-xs border border-gray-200 dark:border-gray-600 rounded px-1">⌘K</kbd>
+          </button>
+          <button
+            onClick={() => setShowEntrySelector(true)}
+            className="pointer-events-auto px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg"
+          >
+            Where do I start?
+          </button>
+        </div>
       </div>
 
       {/* Bottom bar — hidden on mobile */}
@@ -213,6 +238,12 @@ export default function ZoneMap({
           Newsletter
         </a>
       </div>
+
+      <SearchModal
+        nodes={searchableNodes}
+        isOpen={showSearch}
+        onClose={() => setShowSearch(false)}
+      />
 
       {showEntrySelector && (
         <EntryPointSelector

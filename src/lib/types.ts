@@ -45,6 +45,18 @@ export interface ZonesConfig {
   zoneEdges: ZoneEdge[];
 }
 
+export interface SearchableNode {
+  id: string;
+  title: string;
+  zoneId: string;
+  zoneTitle: string;
+  zoneColor: string;
+  tags: string[];
+  category: string;
+  difficulty: number;
+  edgesTo: EdgeConnection[];
+}
+
 export type NodeStatus = "not-started" | "in-progress" | "completed";
 
 export interface NodeProgress {

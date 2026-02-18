@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { Suspense, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import type { RoadmapNode } from "@/lib/types";
+import type { RoadmapNode, SearchableNode } from "@/lib/types";
 
 const NodeGraph = dynamic(() => import("@/components/NodeGraph"), {
   ssr: false,
@@ -18,17 +18,20 @@ interface ZoneClientProps {
   nodes: RoadmapNode[];
   zoneTitle: string;
   zoneColor: string;
+  searchableNodes: SearchableNode[];
 }
 
 function ZoneClientInner({
   nodes,
   zoneTitle,
   zoneColor,
+  searchableNodes,
 }: ZoneClientProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const highlightNode = searchParams.get("node") ?? undefined;
+  const focusNode = searchParams.get("focus") ?? undefined;
 
   const handleNodeSelect = useCallback(
     (nodeId: string | null) => {
@@ -49,7 +52,9 @@ function ZoneClientInner({
         zoneColor={zoneColor}
         onBack={() => router.push("/")}
         highlightNodeId={highlightNode}
+        focusNodeId={focusNode}
         onNodeSelect={handleNodeSelect}
+        searchableNodes={searchableNodes}
       />
     </div>
   );

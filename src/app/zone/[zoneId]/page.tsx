@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getZonesConfig, getNodesByZone } from "@/lib/content";
+import type { SearchableNode } from "@/lib/types";
 import ZoneClient from "./ZoneClient";
 
 export function generateStaticParams() {
@@ -28,11 +29,33 @@ export default async function ZonePage({ params }: ZonePageProps) {
     notFound();
   }
 
+  const searchableNodes: SearchableNode[] = [];
+  const seenNodeIds = new Set<string>();
+  for (const z of config.zones) {
+    if (!z.active) continue;
+    for (const node of getNodesByZone(z.id)) {
+      if (seenNodeIds.has(node.frontmatter.id)) continue;
+      seenNodeIds.add(node.frontmatter.id);
+      searchableNodes.push({
+        id: node.frontmatter.id,
+        title: node.frontmatter.title,
+        zoneId: z.id,
+        zoneTitle: z.title,
+        zoneColor: z.color,
+        tags: node.frontmatter.tags,
+        category: node.frontmatter.category,
+        difficulty: node.frontmatter.difficulty,
+        edgesTo: node.frontmatter.edges.to ?? [],
+      });
+    }
+  }
+
   return (
     <ZoneClient
       nodes={nodes}
       zoneTitle={zone.title}
       zoneColor={zone.color}
+      searchableNodes={searchableNodes}
     />
   );
 }

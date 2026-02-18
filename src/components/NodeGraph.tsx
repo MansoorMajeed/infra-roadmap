@@ -16,11 +16,12 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import Dagre from "@dagrejs/dagre";
-import type { RoadmapNode } from "@/lib/types";
+import type { RoadmapNode, SearchableNode } from "@/lib/types";
 import { getNodeProgress } from "@/lib/progress";
 import NodeCard from "./NodeCard";
 import ContentPanel from "./ContentPanel";
 import QuestionEdge from "./QuestionEdge";
+import SearchModal from "./SearchModal";
 
 interface NodeGraphProps {
   nodes: RoadmapNode[];
@@ -28,7 +29,9 @@ interface NodeGraphProps {
   zoneColor: string;
   onBack: () => void;
   highlightNodeId?: string;
+  focusNodeId?: string;
   onNodeSelect?: (nodeId: string | null) => void;
+  searchableNodes: SearchableNode[];
 }
 
 const nodeTypes = { roadmapNode: NodeCard };
@@ -324,10 +327,13 @@ function NodeGraphInner({
   zoneColor,
   onBack,
   highlightNodeId,
+  focusNodeId,
   onNodeSelect,
+  searchableNodes,
 }: NodeGraphProps) {
   const zoneId = roadmapNodes[0]?.frontmatter.zone || "unknown";
   const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null);
+  const [showSearch, setShowSearch] = useState(false);
   // Initialize with deterministic defaults (no localStorage) to avoid hydration mismatch
   const [visibleIds, setVisibleIds] = useState<Set<string>>(() =>
     getInitialVisibleNodes(roadmapNodes)
@@ -498,7 +504,7 @@ function NodeGraphInner({
     []
   );
 
-  // Highlight starting node
+  // Highlight starting node (opens ContentPanel)
   useEffect(() => {
     if (highlightNodeId) {
       setVisibleIds((prev) => {
@@ -512,6 +518,43 @@ function NodeGraphInner({
     }
   }, [highlightNodeId, roadmapNodes]);
 
+  // Focus node from search (makes visible + centers, no ContentPanel)
+  useEffect(() => {
+    if (!focusNodeId) return;
+
+    // Build reverse adjacency map: child id -> parent ids
+    const parents = new Map<string, string[]>();
+    for (const node of roadmapNodes) {
+      for (const edge of node.frontmatter.edges.to ?? []) {
+        if (!parents.has(edge.id)) parents.set(edge.id, []);
+        parents.get(edge.id)!.push(node.frontmatter.id);
+      }
+    }
+
+    // BFS upward from focusNodeId to collect all ancestors
+    const toReveal = new Set<string>([focusNodeId]);
+    const queue = [focusNodeId];
+    while (queue.length > 0) {
+      const current = queue.shift()!;
+      for (const parentId of parents.get(current) ?? []) {
+        if (!toReveal.has(parentId)) {
+          toReveal.add(parentId);
+          queue.push(parentId);
+        }
+      }
+    }
+
+    setVisibleIds((prev) => {
+      const next = new Set(prev);
+      for (const id of toReveal) next.add(id);
+      return next;
+    });
+
+    setTimeout(() => {
+      fitView({ nodes: [{ id: focusNodeId }], padding: 0.8, duration: 500 });
+    }, 100);
+  }, [focusNodeId, roadmapNodes, fitView]);
+
   // Sync zoom percent on mount
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -519,6 +562,17 @@ function NodeGraphInner({
     }, 100);
     return () => clearTimeout(timer);
   }, [getZoom]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setShowSearch((prev) => !prev);
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
@@ -591,8 +645,21 @@ function NodeGraphInner({
         </h2>
       </div>
 
+      <SearchModal
+        nodes={searchableNodes}
+        isOpen={showSearch}
+        onClose={() => setShowSearch(false)}
+      />
+
       {/* Top-right buttons */}
       <div className="absolute top-4 right-4 flex items-center gap-2">
+        <button
+          onClick={() => setShowSearch(true)}
+          className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors flex items-center gap-1.5"
+        >
+          🔍 <span className="hidden sm:inline">Search</span>
+          <kbd className="hidden sm:inline text-xs border border-gray-200 dark:border-gray-600 rounded px-1">⌘K</kbd>
+        </button>
         <button
           onClick={() => setAllEdgesExpanded((prev) => !prev)}
           className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
