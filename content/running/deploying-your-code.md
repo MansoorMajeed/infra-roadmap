@@ -11,6 +11,9 @@ edges:
     - id: "web-servers"
       question: "My code is on the server. What software actually serves it to users?"
       detail: "You have your application running on the server, but it is using Flask's built-in development server. That is not production-ready — it handles one request at a time and crashes without useful errors. You need a real web server like Nginx to handle HTTP traffic, serve static files, and proxy requests to your application."
+    - id: "environment-variables"
+      question: "My code is on the server. How do I configure it without hardcoding secrets?"
+      detail: "Your app needs configuration that changes between environments — database URLs, API keys, secret tokens. These should never be in your code or committed to Git. Environment variables are the standard way to pass configuration to an application at runtime, keeping secrets out of your codebase."
 difficulty: 1
 tags: ["deploy", "git-clone", "scp", "rsync", "environment-variables", "secrets"]
 category: "practice"

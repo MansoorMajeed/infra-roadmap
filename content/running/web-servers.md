@@ -14,6 +14,9 @@ edges:
     - id: "tls-and-certificates"
       question: "My web server works over HTTP, but I need HTTPS. How do I set up TLS?"
       detail: "Your Nginx server is serving pages over HTTP. But HTTP is plaintext — anyone can read the traffic. You need TLS to encrypt the connection, and that means certificates. Let's Encrypt makes this free and automated, but you need to understand what certificates are and how TLS works."
+    - id: "reading-logs"
+      question: "Nginx is running and serving traffic. How do I see what requests are coming in?"
+      detail: "Nginx logs every request it handles and every error it encounters. These logs are your window into what users are actually doing — what URLs they are hitting, what errors they are getting, and what Nginx cannot handle. Reading access logs and error logs is a core skill."
 difficulty: 1
 tags: ["nginx", "apache", "web-server", "http", "static-files", "serving"]
 category: "tool"

@@ -11,6 +11,9 @@ edges:
     - id: "linux-server-basics"
       question: "I have a cloud VM. How do I actually use it?"
       detail: "You just created a virtual machine in the cloud. It has a public IP and is running Ubuntu. Now what? You need to SSH in, set up a user, install packages, configure services. These are the basics of operating a Linux server — the skills you need before you can deploy anything."
+    - id: "what-is-a-vps"
+      question: "What am I actually renting when I create a cloud server?"
+      detail: "Buying and maintaining physical servers is expensive and complicated. Cloud providers like AWS, DigitalOcean, and GCP let you rent virtual servers by the hour. You click a button, get a server with a public IP, and pay only for what you use. This is how most applications are deployed today."
 difficulty: 1
 tags: ["cloud", "aws", "gcp", "azure", "digitalocean", "vm", "iaas"]
 category: "concept"

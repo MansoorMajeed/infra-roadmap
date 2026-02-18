@@ -11,6 +11,9 @@ edges:
     - id: "linux-server-basics"
       question: "I know where servers live. How do I actually use one?"
       detail: "Whether your server is in a datacenter you colocate in or a cloud VM you just provisioned, you need to manage it. That means SSH, Linux commands, package management, file permissions, and systemd services. These are the basics of operating a Linux server."
+    - id: "what-is-a-vps"
+      question: "Servers live in datacenters. How do I actually get one without going there?"
+      detail: "Datacenters are full of physical machines. But you are not renting an entire machine — you are renting a virtualized slice of one. Cloud providers carve up their hardware into hundreds of virtual machines and rent them individually. This is what makes cloud computing affordable."
 difficulty: 1
 tags: ["datacenter", "colocation", "infrastructure", "power", "cooling", "redundancy"]
 category: "concept"
