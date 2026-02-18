@@ -24,6 +24,7 @@ interface ZoneMapProps {
   zoneNodeIds: Record<string, string[]>;
 }
 
+
 function ZoneNode({ data }: { data: Record<string, unknown> }) {
   const zone = data as unknown as Zone & {
     nodeCount: number;
@@ -185,13 +186,13 @@ export default function ZoneMap({
         </button>
       </div>
 
-      {/* Bottom bar */}
-      <div className="absolute bottom-4 left-4 flex items-center gap-2 pointer-events-none">
+      {/* Bottom bar — hidden on mobile */}
+      <div className="absolute bottom-4 left-4 hidden sm:flex items-stretch gap-2 pointer-events-none">
         <a
           href="https://github.com/MansoorMajeed/infra-roadmap"
           target="_blank"
           rel="noopener noreferrer"
-          className="pointer-events-auto px-3 py-1.5 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+          className="pointer-events-auto px-4 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors flex items-center"
         >
           ★ GitHub
         </a>
@@ -199,16 +200,18 @@ export default function ZoneMap({
           href="https://blog.esc.sh"
           target="_blank"
           rel="noopener noreferrer"
-          className="pointer-events-auto px-3 py-1.5 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+          className="pointer-events-auto px-4 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors flex items-center"
         >
           Blog
         </a>
-        <button
-          data-portal="signup"
-          className="pointer-events-auto px-3 py-1.5 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+        <a
+          href="https://blog.esc.sh/#/portal/signup"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto px-4 rounded-lg bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors flex items-center"
         >
-          Subscribe
-        </button>
+          Newsletter
+        </a>
       </div>
 
       {showEntrySelector && (
