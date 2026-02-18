@@ -11,6 +11,9 @@ edges:
     - id: "network-protocols"
       question: "My computers are connected. But how do they actually understand each other?"
       detail: "You have two machines on the same network — they can see each other. But seeing each other is not the same as communicating. When your laptop sends data to your phone, how does the phone know what the data means? How do they agree on the format? They need rules — protocols. Understanding what protocols are and why they exist is the key to understanding everything in networking."
+    - id: "dhcp"
+      question: "You connected to WiFi and got an IP address automatically. How does that work?"
+      detail: "When you join a network, you don't manually configure an IP address — one just appears. Something on the network noticed you arrived and handed you an address, a gateway, and a DNS server. That something is DHCP, and understanding it closes the loop on how devices actually join a network."
 difficulty: 1
 tags: ["networking", "lan", "wifi", "router", "local-network", "ethernet"]
 category: "concept"
