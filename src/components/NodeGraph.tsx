@@ -215,6 +215,74 @@ function layoutNodes(
 
   Dagre.layout(g);
 
+  // Fix fork-join layout: when a node has both a "skip" edge (spanning 2+ ranks)
+  // and a "branch" edge (one rank down), Dagre places all nodes in the same x-column
+  // since each intermediate rank has only one node. Shift branch nodes left to separate them.
+  {
+    const RANKSEP = 180; // must match g.setGraph ranksep above
+    const COLUMN_SHIFT = nodeWidth + 80; // nodeWidth + nodesep
+    const visibleNodeIds = new Set(visibleNodes.map((n) => n.frontmatter.id));
+
+    // Build in-zone child map for visible nodes
+    const childMap = new Map<string, string[]>();
+    for (const n of visibleNodes) {
+      const id = n.frontmatter.id;
+      childMap.set(
+        id,
+        (n.frontmatter.edges.to ?? []).map((e) => e.id).filter((id) => visibleNodeIds.has(id))
+      );
+    }
+
+    for (const n of visibleNodes) {
+      const nId = n.frontmatter.id;
+      const children = childMap.get(nId) ?? [];
+      if (children.length < 2) continue;
+
+      const nPos = g.node(nId);
+      if (!nPos) continue;
+
+      // Classify each child: "local" (one rank down) vs "skip" (2+ ranks down)
+      const localChildren: string[] = [];
+      const skipTargets: string[] = [];
+      for (const cId of children) {
+        const cPos = g.node(cId);
+        if (!cPos) continue;
+        if (cPos.y - nPos.y > RANKSEP * 1.5) {
+          skipTargets.push(cId);
+        } else {
+          localChildren.push(cId);
+        }
+      }
+
+      if (localChildren.length === 0 || skipTargets.length === 0) continue;
+
+      // BFS to collect branch nodes: descendants of localChildren, stopping at skipTargets
+      const branchNodes = new Set<string>();
+      const queue = [...localChildren];
+      const visited = new Set<string>();
+      while (queue.length > 0) {
+        const curr = queue.shift()!;
+        if (visited.has(curr)) continue;
+        visited.add(curr);
+        if (skipTargets.includes(curr)) continue;
+        branchNodes.add(curr);
+        for (const child of childMap.get(curr) ?? []) {
+          queue.push(child);
+        }
+      }
+
+      if (branchNodes.size === 0) continue;
+
+      // Shift branch nodes left by one column to separate them from the skip-edge path
+      for (const branchId of branchNodes) {
+        const pos = g.node(branchId);
+        if (pos) {
+          pos.x -= COLUMN_SHIFT;
+        }
+      }
+    }
+  }
+
   // Build a map of previous positions for anchoring
   const prevPosMap = new Map<string, { x: number; y: number }>();
   if (previousNodes) {
@@ -385,9 +453,7 @@ function NodeGraphInner({
   const [zoomPercent, setZoomPercent] = useState(100);
   const [refreshKey, setRefreshKey] = useState(0);
   const [hydrated, setHydrated] = useState(false);
-  const reactFlowInstance = useReactFlow();
-  const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom, setCenter } =
-    reactFlowInstance;
+  const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom, setCenter } = useReactFlow();
 
   // After hydration, load saved state from localStorage
   useEffect(() => {
@@ -489,27 +555,9 @@ function NodeGraphInner({
 
   const handleEdgeExpand = useCallback(
     (x: number, y: number) => {
-      // Only recenter if the label would be near the edge of the viewport
-      const zoom = getZoom();
-      const vp = reactFlowInstance.getViewport();
-      const container = document.querySelector(".react-flow");
-      if (!container) return;
-      const { width, height } = container.getBoundingClientRect();
-      // Convert flow coords to screen coords
-      const screenX = x * zoom + vp.x;
-      const screenY = y * zoom + vp.y;
-      // Add margin for the popover (280px wide, ~120px tall)
-      const margin = 160;
-      if (
-        screenX < margin ||
-        screenX > width - margin ||
-        screenY < margin ||
-        screenY > height - margin
-      ) {
-        setCenter(x, y, { zoom, duration: 300 });
-      }
+      setCenter(x, y, { zoom: getZoom(), duration: 300 });
     },
-    [setCenter, getZoom, reactFlowInstance]
+    [setCenter, getZoom]
   );
 
   const nodesRef = useRef<Node[]>([]);
@@ -660,9 +708,6 @@ function NodeGraphInner({
   const handleProgressChange = useCallback(() => {
     setRefreshKey((k) => k + 1);
   }, []);
-
-  // Suppress lint warning
-  void refreshKey;
 
   const btnClass =
     "h-8 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-sm transition-colors flex items-center justify-center";
