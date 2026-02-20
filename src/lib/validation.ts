@@ -4,6 +4,7 @@ const EdgeConnectionSchema = z.object({
   id: z.string(),
   question: z.string(),
   detail: z.string().optional(),
+  zone: z.string().optional(),
 });
 
 export const NodeFrontmatterSchema = z.object({

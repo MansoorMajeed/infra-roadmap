@@ -2,6 +2,7 @@ export interface EdgeConnection {
   id: string;
   question: string;
   detail?: string;
+  zone?: string; // set on cross-zone edges to render a zone portal node
 }
 
 export interface NodeFrontmatter {

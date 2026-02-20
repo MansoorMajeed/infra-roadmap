@@ -56,6 +56,7 @@ export default async function ZonePage({ params }: ZonePageProps) {
       zoneTitle={zone.title}
       zoneColor={zone.color}
       searchableNodes={searchableNodes}
+      zones={config.zones}
     />
   );
 }

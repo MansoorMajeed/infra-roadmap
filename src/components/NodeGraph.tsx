@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   ReactFlow,
   Background,
@@ -16,9 +17,10 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import Dagre from "@dagrejs/dagre";
-import type { RoadmapNode, SearchableNode } from "@/lib/types";
+import type { RoadmapNode, SearchableNode, Zone } from "@/lib/types";
 import { getNodeProgress } from "@/lib/progress";
 import NodeCard from "./NodeCard";
+import ZonePortalCard from "./ZonePortalCard";
 import ContentPanel from "./ContentPanel";
 import QuestionEdge from "./QuestionEdge";
 import SearchModal from "./SearchModal";
@@ -32,9 +34,10 @@ interface NodeGraphProps {
   focusNodeId?: string;
   onNodeSelect?: (nodeId: string | null) => void;
   searchableNodes: SearchableNode[];
+  zones: Zone[];
 }
 
-const nodeTypes = { roadmapNode: NodeCard };
+const nodeTypes = { roadmapNode: NodeCard, zonePortalNode: ZonePortalCard };
 const edgeTypes = { question: QuestionEdge };
 
 const VISIBLE_NODES_STORAGE_KEY = "infra-roadmap-visible-nodes";
@@ -171,10 +174,12 @@ function layoutNodes(
   onExpand: (nodeId: string) => void,
   onCollapse: (nodeId: string) => void,
   previousNodes?: Node[],
-  anchorNodeId?: string | null
+  anchorNodeId?: string | null,
+  zones: Zone[] = []
 ): Node[] {
   const visibleNodes = roadmapNodes.filter((n) => visibleIds.has(n.frontmatter.id));
   const allNodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
+  const zoneMap = new Map(zones.map((z) => [z.id, z]));
 
   const nodeWidth = 200;
   const nodeHeight = 70;
@@ -187,11 +192,22 @@ function layoutNodes(
     g.setNode(n.frontmatter.id, { width: nodeWidth, height: nodeHeight });
   }
 
+  // Track zone portals needed: zoneId -> source node
+  const portalZoneIds = new Set<string>();
+
   for (const n of visibleNodes) {
     if (n.frontmatter.edges.to) {
       for (const edge of n.frontmatter.edges.to) {
         if (visibleIds.has(edge.id)) {
           g.setEdge(n.frontmatter.id, edge.id);
+        } else if (edge.zone) {
+          // Cross-zone edge: inject a portal node into the layout
+          const portalId = `zone-portal-${edge.zone}`;
+          if (!portalZoneIds.has(edge.zone)) {
+            portalZoneIds.add(edge.zone);
+            g.setNode(portalId, { width: nodeWidth, height: nodeHeight });
+          }
+          g.setEdge(n.frontmatter.id, portalId);
         }
       }
     }
@@ -279,6 +295,27 @@ function layoutNodes(
     });
   }
 
+  // Inject zone portal nodes
+  for (const zoneId of portalZoneIds) {
+    const portalId = `zone-portal-${zoneId}`;
+    const zone = zoneMap.get(zoneId);
+    const pos = g.node(portalId);
+    if (!pos || !zone) continue;
+    flowNodes.push({
+      id: portalId,
+      type: "zonePortalNode",
+      position: {
+        x: pos.x - nodeWidth / 2 + offsetX,
+        y: pos.y - nodeHeight / 2 + offsetY,
+      },
+      data: {
+        zoneId,
+        zoneTitle: zone.title,
+        zoneColor: zone.color,
+      },
+    });
+  }
+
   return flowNodes;
 }
 
@@ -294,11 +331,13 @@ function buildEdges(
     if (!visibleIds.has(node.frontmatter.id)) continue;
     if (node.frontmatter.edges.to) {
       for (const edge of node.frontmatter.edges.to) {
-        if (visibleIds.has(edge.id)) {
+        const target = edge.zone ? `zone-portal-${edge.zone}` : edge.id;
+        const isPortal = !!edge.zone;
+        if (visibleIds.has(edge.id) || isPortal) {
           edges.push({
-            id: `${node.frontmatter.id}-${edge.id}`,
+            id: `${node.frontmatter.id}-${target}`,
             source: node.frontmatter.id,
-            target: edge.id,
+            target,
             type: "question",
             data: {
               question: edge.question,
@@ -330,7 +369,9 @@ function NodeGraphInner({
   focusNodeId,
   onNodeSelect,
   searchableNodes,
+  zones,
 }: NodeGraphProps) {
+  const router = useRouter();
   const zoneId = roadmapNodes[0]?.frontmatter.zone || "unknown";
   const [selectedNode, setSelectedNode] = useState<RoadmapNode | null>(null);
   const [showSearch, setShowSearch] = useState(false);
@@ -475,11 +516,11 @@ function NodeGraphInner({
 
   const layoutedNodes = useMemo(
     () => {
-      const result = layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse, nodesRef.current, anchorNodeRef.current);
+      const result = layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse, nodesRef.current, anchorNodeRef.current, zones);
       anchorNodeRef.current = null;
       return result;
     },
-    [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey]
+    [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey, zones]
   );
   const flowEdges = useMemo(
     () => buildEdges(roadmapNodes, visibleIds, allEdgesExpanded, handleEdgeExpand),
@@ -577,17 +618,33 @@ function NodeGraphInner({
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
+      if (node.id.startsWith("zone-portal-")) {
+        const zoneId = node.id.slice("zone-portal-".length);
+        router.push(`/zone/${zoneId}`);
+        return;
+      }
       const roadmapNode = roadmapNodes.find((n) => n.frontmatter.id === node.id);
       if (roadmapNode) {
         setSelectedNode(roadmapNode);
         onNodeSelect?.(node.id);
       }
     },
-    [roadmapNodes, onNodeSelect]
+    [roadmapNodes, onNodeSelect, router]
   );
 
   const handleNavigate = useCallback(
     (nodeId: string) => {
+      // Check if this is a cross-zone edge — if so, navigate to the zone
+      for (const n of roadmapNodes) {
+        const crossEdge = (n.frontmatter.edges.to ?? []).find(
+          (e) => e.id === nodeId && e.zone
+        );
+        if (crossEdge?.zone) {
+          router.push(`/zone/${crossEdge.zone}`);
+          return;
+        }
+      }
+      // Normal intra-zone navigation
       setVisibleIds((prev) => {
         if (prev.has(nodeId)) return prev;
         const next = new Set(prev);
@@ -597,7 +654,7 @@ function NodeGraphInner({
       const node = roadmapNodes.find((n) => n.frontmatter.id === nodeId);
       if (node) setSelectedNode(node);
     },
-    [roadmapNodes]
+    [roadmapNodes, router]
   );
 
   const handleProgressChange = useCallback(() => {

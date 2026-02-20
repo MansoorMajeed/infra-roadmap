@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { Suspense, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import type { RoadmapNode, SearchableNode } from "@/lib/types";
+import type { RoadmapNode, SearchableNode, Zone } from "@/lib/types";
 
 const NodeGraph = dynamic(() => import("@/components/NodeGraph"), {
   ssr: false,
@@ -19,6 +19,7 @@ interface ZoneClientProps {
   zoneTitle: string;
   zoneColor: string;
   searchableNodes: SearchableNode[];
+  zones: Zone[];
 }
 
 function ZoneClientInner({
@@ -26,6 +27,7 @@ function ZoneClientInner({
   zoneTitle,
   zoneColor,
   searchableNodes,
+  zones,
 }: ZoneClientProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -55,6 +57,7 @@ function ZoneClientInner({
         focusNodeId={focusNode}
         onNodeSelect={handleNodeSelect}
         searchableNodes={searchableNodes}
+        zones={zones}
       />
     </div>
   );
