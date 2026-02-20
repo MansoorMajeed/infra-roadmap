@@ -5,7 +5,9 @@ zone: "self-hosting"
 edges:
   from:
     - id: "docker-for-self-hosting"
-      question: "I ran a container — now how do I manage multiple services properly?"
+      question: "I know Docker — let's skip to managing services properly"
+    - id: "docker-networking"
+      question: "I understand how containers connect — now how do I manage all of this properly?"
   to:
     - id: "reverse-proxy"
       question: "Services are running but I'm tired of remembering port numbers"

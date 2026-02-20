@@ -8,8 +8,11 @@ edges:
       question: "Docker it is — how do I get started?"
   to:
     - id: "docker-compose"
-      question: "I ran a container — now how do I manage multiple services properly?"
-      detail: "Running containers with `docker run` by hand gets tedious fast. Docker Compose lets you define everything in a file and manage it with two commands."
+      question: "I know Docker — let's skip to managing services properly"
+      detail: "If you already understand ports, volumes, and networks, go straight to Docker Compose."
+    - id: "docker-ports"
+      question: "Wait — I don't really understand how Docker works yet"
+      detail: "Ports, storage, networking — these three concepts underpin everything. Worth understanding before moving on."
 difficulty: 1
 tags: ["self-hosting", "docker", "containers", "linux"]
 category: "tool"
