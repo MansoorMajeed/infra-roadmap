@@ -453,6 +453,7 @@ function NodeGraphInner({
   const [zoomPercent, setZoomPercent] = useState(100);
   const [refreshKey, setRefreshKey] = useState(0);
   const [hydrated, setHydrated] = useState(false);
+  const [hintDismissed, setHintDismissed] = useState(true); // default true avoids flash before localStorage loads
   const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom, setCenter } = useReactFlow();
 
   // After hydration, load saved state from localStorage
@@ -465,12 +466,11 @@ function NodeGraphInner({
       if (filtered.size > 0) setVisibleIds(filtered);
     }
 
-    // Load saved zoom lock preference
+    // Load saved zoom lock preference and hint dismissal
     try {
       const savedLock = localStorage.getItem("infra-roadmap-zoom-lock");
-      if (savedLock !== null) {
-        setZoomLocked(savedLock === "true");
-      }
+      if (savedLock !== null) setZoomLocked(savedLock === "true");
+      setHintDismissed(localStorage.getItem("infra-roadmap-hint-dismissed") === "true");
     } catch {
       // ignore
     }
@@ -709,6 +709,12 @@ function NodeGraphInner({
     setRefreshKey((k) => k + 1);
   }, []);
 
+  const dismissHint = useCallback(() => {
+    try { localStorage.setItem("infra-roadmap-hint-dismissed", "true"); } catch { /* ignore */ }
+    setHintDismissed(true);
+  }, []);
+
+
   const allVisible = roadmapNodes.every((n) => visibleIds.has(n.frontmatter.id));
   const toggleAllNodes = useCallback(() => {
     if (allVisible) {
@@ -876,6 +882,21 @@ function NodeGraphInner({
           )}
         </button>
       </div>
+
+      {/* First-visit hint banner */}
+      {hydrated && !hintDismissed && (
+        <div className="absolute top-16 right-4 z-20 flex items-start gap-2 max-w-[200px] sm:max-w-[240px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 shadow-md">
+          <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-snug">
+            <strong className="text-gray-700 dark:text-gray-200">Tap nodes</strong> to read content.{" "}
+            <strong className="text-gray-700 dark:text-gray-200">Tap edge labels</strong> to explore decision paths.
+          </p>
+          <button
+            onClick={dismissHint}
+            className="shrink-0 w-5 h-5 flex items-center justify-center rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors text-sm leading-none"
+            title="Got it, don't show again"
+          >×</button>
+        </div>
+      )}
 
       {/* Content Modal */}
       {selectedNode && (
