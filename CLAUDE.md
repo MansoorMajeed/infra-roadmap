@@ -37,4 +37,22 @@ Interactive SRE/DevOps roadmap — graph-based, question-driven learning tool. N
 2. Ensure intra-zone `edges.to` IDs reference existing nodes
 3. To activate a zone: set `active: true` in `content/_zones.yaml`
 
+## Graph Design Principles
+
+**Branch out, don't go linear.** The whole point of the graph format is that people at different levels can take different paths. When a topic needs deeper explanation, create a side branch — not extra steps on the main path.
+
+The pattern:
+- Main path: A → B → C (for people who already know the topic)
+- Side branch off A: A → A1 → A2 → A3 → B (for people who need to learn it)
+- B gets two incoming edges: one from A (skip), one from A3 (branch end)
+
+This means someone who knows Docker can go straight from `docker-for-self-hosting` → `docker-compose`. Someone who doesn't can branch through `docker-ports` → `docker-volumes` → `docker-networking` → `docker-compose`.
+
+**When to branch:**
+- A concept is a prerequisite but not everyone needs it explained
+- A topic is large enough to deserve 2+ nodes of explanation
+- You'd otherwise force knowledgeable users through beginner content
+
+**Never insert explanation nodes into the middle of the main path.** That forces everyone through them regardless of background.
+
 See `PLAN.md` for full architecture and `TASKS.md` for current work items.
