@@ -12,6 +12,7 @@ edges:
       question: "I have a Linux machine running at home. How do I connect to it?"
       detail: "Whether your server is in a datacenter or under your desk, the interface is the same: SSH. You get a terminal that runs on the remote machine, and every command you type executes there. The only difference is where the hardware lives."
     - id: "what-is-self-hosting"
+      zone: "self-hosting"
       question: "I have my own hardware. What can I actually run on it?"
       detail: "A Linux box at home is the foundation for self-hosting — running your own file sync, media server, home automation hub, and more. You own the hardware, you own the data, and there are no monthly fees. The rabbit hole goes deep."
 difficulty: 1

@@ -33,8 +33,8 @@ The short answer: almost anything. The longer answer is a list that keeps growin
 | Category | Cloud service it replaces | Self-hosted alternative |
 |---|---|---|
 | **File sync** | Dropbox, Google Drive | Nextcloud, Seafile |
-| **Photos** | Google Photos, iCloud | Immich, Photoprism |
-| **Media streaming** | Netflix, Spotify | Jellyfin, Navidrome |
+| **Photos** | Google Photos, iCloud | Immich |
+| **Media streaming** | Netflix, Spotify | Jellyfin, Plex, Navidrome |
 | **Password manager** | 1Password, LastPass | Vaultwarden (Bitwarden-compatible) |
 | **Home automation** | Google Home, Amazon Alexa | Home Assistant |
 | **RSS / reading** | Feedly | Miniflux, FreshRSS |
@@ -45,6 +45,8 @@ The short answer: almost anything. The longer answer is a list that keeps growin
 | **VPN** | Commercial VPN | WireGuard, Tailscale |
 
 This is not an exhaustive list. The [r/selfhosted](https://www.reddit.com/r/selfhosted/) community adds new ones every week.
+
+If you want an overwhelming list of apps you could self-host, check this out - [Awesome Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
 
 **Why do people self-host?**
 
@@ -111,5 +113,4 @@ The learning compounds. Every service you add teaches you something. Your second
 
 - [Awesome Self-Hosted (GitHub)](https://github.com/awesome-selfhosted/awesome-selfhosted) -- type: reference, time: ongoing
 - [r/selfhosted](https://www.reddit.com/r/selfhosted/) -- type: community, time: ongoing
-- [Docker Compose Getting Started](https://docs.docker.com/compose/gettingstarted/) -- type: tutorial, time: 30m
-- [Tailscale - How it works](https://tailscale.com/blog/how-tailscale-works) -- type: article, time: 20m
+

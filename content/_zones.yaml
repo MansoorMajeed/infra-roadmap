@@ -69,7 +69,7 @@ zones:
     description: "Spin up your own file sync, media server, smart home hub, and more — on hardware you own and control. Privacy by default, no subscriptions, and a rabbit hole that never ends."
     color: "#0ea5e9"
     position: { x: 850, y: 750 }
-    active: false
+    active: true
 
 zoneEdges:
   - from: "foundations"
