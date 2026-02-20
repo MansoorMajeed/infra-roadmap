@@ -28,7 +28,7 @@ zones:
     coreQuestion: "How do I actually run this thing?"
     description: "Go from understanding networks to actually running your app on a real server — servers, cloud, DNS, HTTPS, and a live deployment."
     color: "#f97316"
-    position: { x: 1200, y: 0 }
+    position: { x: 400, y: 350 }
     active: true
 
   - id: "scaling"
@@ -36,7 +36,7 @@ zones:
     coreQuestion: "More users are coming"
     description: "One server isn't enough. Learn about load balancing, replication, CDNs, and the fundamentals of distributed systems."
     color: "#f59e0b"
-    position: { x: 400, y: 300 }
+    position: { x: 0, y: 750 }
     active: false
 
   - id: "delivery"
@@ -44,7 +44,7 @@ zones:
     coreQuestion: "Deploying manually is painful"
     description: "From VMs to containers to Kubernetes. CI/CD pipelines, GitOps, Infrastructure as Code - automate everything."
     color: "#ef4444"
-    position: { x: 800, y: 300 }
+    position: { x: 400, y: 750 }
     active: false
 
   - id: "observability"
@@ -52,7 +52,7 @@ zones:
     coreQuestion: "How do I know it's healthy?"
     description: "Logging, metrics, tracing, alerting. Plus security fundamentals - secrets management, IAM, and compliance."
     color: "#06b6d4"
-    position: { x: 400, y: 600 }
+    position: { x: 0, y: 1150 }
     active: false
 
   - id: "platform"
@@ -60,7 +60,15 @@ zones:
     coreQuestion: "How do I do this professionally?"
     description: "SRE philosophy, SLOs, incident management, chaos engineering, and building platforms that other engineers love."
     color: "#ec4899"
-    position: { x: 800, y: 600 }
+    position: { x: 400, y: 1150 }
+    active: false
+
+  - id: "self-hosting"
+    title: "Self-Hosting"
+    coreQuestion: "I want to run my own services"
+    description: "Spin up your own file sync, media server, smart home hub, and more — on hardware you own and control. Privacy by default, no subscriptions, and a rabbit hole that never ends."
+    color: "#0ea5e9"
+    position: { x: 850, y: 750 }
     active: false
 
 zoneEdges:
@@ -74,6 +82,8 @@ zoneEdges:
     to: "scaling"
   - from: "running"
     to: "delivery"
+  - from: "running"
+    to: "self-hosting"
   - from: "scaling"
     to: "delivery"
   - from: "scaling"

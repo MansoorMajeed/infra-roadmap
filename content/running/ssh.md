@@ -7,6 +7,9 @@ edges:
     - id: "what-is-a-vps"
       question: "I have a VPS. How do I connect to it and run commands?"
       detail: "Your VPS is running in a datacenter somewhere. You do not have a monitor or keyboard plugged into it. The only way to interact with it is over the network, using SSH — a protocol that gives you a secure terminal session on a remote machine. Everything you do on the server goes through SSH."
+    - id: "own-hardware"
+      question: "I have a Linux machine running at home. How do I connect to it?"
+      detail: "Whether your server is in a datacenter or under your desk, the interface is the same: SSH. You get a terminal that runs on the remote machine, and every command you type executes there. The only difference is where the hardware lives."
   to:
     - id: "initial-server-setup"
       question: "I can SSH into my server. What should I do before anything else?"

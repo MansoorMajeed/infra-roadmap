@@ -20,6 +20,9 @@ edges:
     - id: "cloud-providers"
       question: "I don't want to buy hardware. Can I just rent a server?"
       detail: "Buying and maintaining physical servers is expensive and complicated. Cloud providers like AWS, DigitalOcean, and GCP let you rent virtual servers by the hour. You click a button, get a server with a public IP, and pay only for what you use. This is how most applications are deployed today."
+    - id: "own-hardware"
+      question: "What if I want to use hardware I already own?"
+      detail: "Renting isn't the only option. A Raspberry Pi, an old PC, or a cheap used mini PC can run Linux 24/7 as a home server. You own the hardware, you own the data, and you skip the monthly bill. The trade-offs are real, but so are the advantages."
 difficulty: 1
 tags: ["server", "hardware", "rack-server", "headless", "always-on", "deployment"]
 category: "concept"
