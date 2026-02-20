@@ -709,6 +709,16 @@ function NodeGraphInner({
     setRefreshKey((k) => k + 1);
   }, []);
 
+  const allVisible = roadmapNodes.every((n) => visibleIds.has(n.frontmatter.id));
+  const toggleAllNodes = useCallback(() => {
+    if (allVisible) {
+      setVisibleIds(getInitialVisibleNodes(roadmapNodes));
+    } else {
+      setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));
+    }
+    if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
+  }, [allVisible, roadmapNodes, zoomLocked, fitView]);
+
   const btnClass =
     "h-8 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-sm transition-colors flex items-center justify-center";
 
@@ -772,22 +782,10 @@ function NodeGraphInner({
           {allEdgesExpanded ? "Hide Questions" : "Show Questions"}
         </button>
         <button
-          onClick={() => {
-            setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));
-            if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
-          }}
+          onClick={toggleAllNodes}
           className="hidden sm:block px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
         >
-          Show All
-        </button>
-        <button
-          onClick={() => {
-            setVisibleIds(getInitialVisibleNodes(roadmapNodes));
-            if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
-          }}
-          className="hidden sm:block px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
-        >
-          Collapse All
+          {allVisible ? "Collapse All" : "Show All"}
         </button>
 
         {/* Mobile-only ⋮ menu */}
@@ -807,24 +805,10 @@ function NodeGraphInner({
                 {allEdgesExpanded ? "Hide Questions" : "Show Questions"}
               </button>
               <button
-                onClick={() => {
-                  setVisibleIds(new Set(roadmapNodes.map((n) => n.frontmatter.id)));
-                  if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
-                  setShowMobileMenu(false);
-                }}
+                onClick={() => { toggleAllNodes(); setShowMobileMenu(false); }}
                 className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700"
               >
-                Show All
-              </button>
-              <button
-                onClick={() => {
-                  setVisibleIds(getInitialVisibleNodes(roadmapNodes));
-                  if (!zoomLocked) setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
-                  setShowMobileMenu(false);
-                }}
-                className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700"
-              >
-                Collapse All
+                {allVisible ? "Collapse All" : "Show All"}
               </button>
               <button
                 onClick={() => { toggleZoomLock(); setShowMobileMenu(false); }}
