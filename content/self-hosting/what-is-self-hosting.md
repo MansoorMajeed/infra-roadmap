@@ -3,14 +3,11 @@ id: "what-is-self-hosting"
 title: "What Is Self-Hosting?"
 zone: "self-hosting"
 edges:
-  from:
-    - id: "own-hardware"
-      question: "I have my own hardware. What can I actually run on it?"
-      detail: "A Linux box at home is the foundation for self-hosting — running your own file sync, media server, home automation hub, and more. You own the hardware, you own the data, and there are no monthly fees. The rabbit hole goes deep."
+  from: []
   to:
-    - id: "docker-for-self-hosting"
-      question: "How do I actually run these services without breaking everything?"
-      detail: "Every self-hosted service has different dependencies, different config files, different ports. Docker Compose solves this: each service runs in an isolated container, defined in a single YAML file. You can start, stop, and update services without touching the rest of your system."
+    - id: "i-need-hardware"
+      question: "OK, I want to try this. Where do I actually run it?"
+      detail: "Before you can run Vaultwarden or anything else, you need a machine to run it on. That's the first real decision: do you have something lying around, or do you need to buy something?"
 difficulty: 1
 tags: ["self-hosting", "homelab", "docker", "privacy", "open-source"]
 category: "concept"
@@ -112,5 +109,6 @@ The learning compounds. Every service you add teaches you something. Your second
 <!-- RESOURCES -->
 
 - [Awesome Self-Hosted (GitHub)](https://github.com/awesome-selfhosted/awesome-selfhosted) -- type: reference, time: ongoing
+- [List of Apps to self host - Cleaner Look](https://selfh.st/apps/)
 - [r/selfhosted](https://www.reddit.com/r/selfhosted/) -- type: community, time: ongoing
 
