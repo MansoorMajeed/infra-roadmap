@@ -22,6 +22,12 @@ milestones:
 ---
 
 TODO: Write content for this node.
+pointers for claude:
+- you dont necessarily need to buy something new. old laptop? old PC? works
+- even if it is an ancient dual core cpu 4th gen intel whatever, that is enough
+- even anything, upgrade ram to something at least 8GB
+- ssd is good to have too. 
+- be mindful of how much power it will draw. 
 
 <!-- DEEP_DIVE -->
 

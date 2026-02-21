@@ -26,6 +26,7 @@ TODO: Write content for this node. Cover:
 - Walk through the Traefik config: certificatesResolvers, acme, dnsChallenge
 - Adding the HTTPS entrypoint and redirect from HTTP
 - Result: all your services get real, trusted HTTPS certs automatically
+- actually we should have a separate node for domain names for internal services. so what is a reverse proxy -> {getting a domain name, traefik as your reverse proxy} -> converting on tls/https with traefik
 
 <!-- DEEP_DIVE -->
 

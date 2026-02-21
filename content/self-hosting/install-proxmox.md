@@ -23,9 +23,9 @@ milestones:
 
 TODO: Write content for this node. Cover:
 - Download Proxmox VE ISO, flash to USB (Balena Etcher or dd)
-- Walk through the installer (IP, gateway, DNS, hostname)
+- basic Walk through the installer (IP, gateway, DNS, hostname) - no need in depth. Link https://pve.proxmox.com/wiki/Installation initially and ask them to follow it for in depth
 - Accessing the web UI (https://your-ip:8006)
-- Dismiss the "no valid subscription" warning
+- Dismiss the "no valid subscription" warning - explain this part too. that it is truly free. 
 - Upload Debian ISO to Proxmox, create a VM with reasonable defaults
 - Install Debian in the VM (minimal, no desktop)
 - Note about LXC containers as an alternative to full VMs (link to future node)
