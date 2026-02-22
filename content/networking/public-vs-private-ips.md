@@ -9,6 +9,7 @@ edges:
       detail: "You know how subnets organize IP addresses into groups. Now there's a deeper split: some IP address ranges are reserved for private networks (like your home), and others are public — routable across the entire internet. Understanding this distinction explains NAT, why you can't host a server at home easily, and how cloud infrastructure is designed."
   to:
     - id: "where-do-i-run-this"
+      zone: "running"
       question: "I understand addressing — private networks, public IPs, NAT. But where do I actually run something that serves content?"
       detail: "You know how IP addressing works: private addresses for internal networks, public addresses for the internet, NAT bridging the two. But what is sitting at the other end of those public IP addresses? You need a machine with a public IP that is always on — not hidden behind NAT. Where does your app actually go?"
     - id: "dns"

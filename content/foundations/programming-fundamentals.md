@@ -12,6 +12,7 @@ edges:
       question: "I know the theory. Let me apply it to automate real tasks."
       detail: "You understand variables, loops, functions, and data structures. Now it's time to put that knowledge to work with the two languages SREs use most: Bash for quick terminal automation and Python for anything more complex. Scripting is where programming stops being academic and starts saving you hours of repetitive work every week."
     - id: "what-is-a-web-service"
+      zone: "building"
       question: "I can write code. How do I build something people can use?"
       detail: "You can write programs that run on your machine, but most software people actually use runs as a service — accessible over the network, always on, serving many users at once. Understanding how web services work (HTTP, APIs, servers, clients) is the bridge from writing local scripts to operating production infrastructure."
 difficulty: 1

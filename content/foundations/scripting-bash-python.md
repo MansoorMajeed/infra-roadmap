@@ -15,6 +15,7 @@ edges:
       detail: "You understand how the shell works — environment variables, config files, PATH, aliases. Now it is time to go from typing commands interactively to writing scripts that run unattended. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. This is where all the shell knowledge you have built up becomes genuinely productive."
   to:
     - id: "static-site"
+      zone: "building"
       question: "Scripts are great, but I want to build something people can actually see."
       detail: "You can automate tasks with scripts, but at some point you want to build something visible — a website, an app, something you can share with people. The jump from scripts to building for the web starts with understanding how HTML, CSS, and JavaScript come together to create what users see in their browser. It is simpler than you think, and it is the first step toward building real software."
 difficulty: 1

@@ -9,6 +9,7 @@ edges:
       detail: "You just learned that HTTP sends everything — passwords, cookies, personal data — as readable text. Anyone between you and the server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
   to:
     - id: "tls-and-certificates"
+      zone: "running"
       question: "I understand encryption. How does the web actually use it to secure traffic?"
       detail: "You know about symmetric and asymmetric encryption, and why we need both. Now comes the real question: how do your browser and a server you have never talked to before establish an encrypted connection? That is what TLS does — it is the protocol that turns HTTP into HTTPS, and it uses everything you just learned about encryption in a clever handshake."
 difficulty: 2

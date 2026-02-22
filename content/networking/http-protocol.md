@@ -9,6 +9,7 @@ edges:
       detail: "TCP delivers bytes reliably between two machines. But what are those bytes? When your browser connects to a web server, it is not sending random data — it is speaking HTTP, a structured protocol that defines how to request pages, submit forms, and get responses. HTTP rides on top of TCP, and understanding it is how you understand the web."
   to:
     - id: "where-do-i-run-this"
+      zone: "running"
       question: "I understand HTTP. But where do I actually run my app for real users?"
       detail: "You know the protocol — HTTP methods, status codes, headers. But all of this is running on your laptop. Real websites need to run somewhere that is always on, always reachable. Where do you actually put your application so the world can use it?"
     - id: "encryption-basics"
