@@ -23,25 +23,42 @@ milestones:
 
 Your reverse proxy routes traffic by hostname — `passwords.yourdomain.com` to Vaultwarden, `photos.yourdomain.com` to Immich. For that to work, you need a domain name and you need DNS to resolve it.
 
-You have two paths: use a real domain (recommended), or use a free subdomain service.
+You have three paths: use a subdomain of a domain you already own (best), buy a new domain, or use a free subdomain service.
 
 <!-- DEEP_DIVE -->
 
-**Option 1: A real domain name (recommended)**
+## Option 1: Use a subdomain of a domain you already own (best)
 
-A `.com` domain costs around $10–12/year. That's less than a single month of most cloud services. It's worth it.
+If you already own a domain — for your blog, portfolio, side project, anything — you can carve out a subdomain for your homelab and never touch DNS again.
+
+The pattern: pick a subdomain like `home.yourdomain.com` and create a single wildcard DNS record pointing to your server's local IP:
+
+```
+Type: A
+Name: *.home
+Content: 192.168.1.100
+Proxy status: DNS only
+```
+
+Now `vaultwarden.home.yourdomain.com`, `immich.home.yourdomain.com`, `jellyfin.home.yourdomain.com` — all of them resolve to your server automatically. Add a new service in Traefik, and it just works with no DNS changes needed.
+
+For example, `*.home.esc.sh` pointing to a local IP is a perfectly valid setup. The DNS record is public — anyone can look it up — but all they learn is that it resolves to `192.168.1.x`, a private address they can't reach from outside your network. No security concern.
+
+The only requirement: your domain's DNS needs to be managed somewhere that supports wildcard records and the DNS challenge for TLS (Cloudflare is the easiest choice).
+
+## Option 2: Buy a new domain
+
+A `.com` domain costs around $10–12/year. That's less than a single month of most cloud services. It's worth it if you don't already own one.
 
 Register one at [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) — they charge at-cost with no markup, and using Cloudflare for both registration and DNS simplifies the TLS setup that comes next.
 
-Once you have a domain, you're not exposing your home IP to the world. You'll set up DNS records that point your domain to your server's **local IP** (`192.168.x.x`). These records only resolve correctly from inside your home network — from the outside, the domain leads nowhere useful (unless you want public access, which is a later decision).
-
-**Option 2: Free subdomain services**
+## Option 3: Free subdomain services
 
 If you don't want to pay for a domain yet, [DuckDNS](https://www.duckdns.org/) gives you a free `something.duckdns.org` subdomain. It works, and Traefik supports it for TLS. The downside is you're sharing a domain with everyone else on the service, and some features (like wildcard certs) require more config.
 
 For this guide, we'll assume you have a real domain on Cloudflare. The setup is cleaner and the skills transfer directly to production work.
 
-**Setting up DNS**
+## Setting up DNS
 
 Once your domain is on Cloudflare, create DNS records pointing your subdomains to your server's local IP:
 
@@ -63,11 +80,11 @@ Proxy status: DNS only
 
 The wildcard means `anything.yourdomain.com` resolves to your server — you don't need a new DNS record for every new service.
 
-**Why "DNS only" (not proxied)?**
+## Why "DNS only" (not proxied)?
 
 Cloudflare can proxy your traffic through their network (the orange cloud). For internal services you're not exposing publicly, set it to DNS only. The orange cloud is for publicly-accessible services and adds Cloudflare's WAF and CDN — overkill for a homelab.
 
-**Split-horizon DNS**
+## Split-horizon DNS
 
 Here's something that trips people up: your laptop inside your home asks "what's the IP of passwords.yourdomain.com?" — the DNS answer points to `192.168.1.100`. It connects to your server directly.
 

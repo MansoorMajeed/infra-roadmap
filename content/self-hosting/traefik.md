@@ -20,105 +20,44 @@ milestones:
   - "Access the Traefik dashboard"
 ---
 
-Traefik runs as a Docker container alongside your other services. It watches the Docker socket for containers with specific labels, and automatically creates routing rules from those labels. You don't edit Traefik's config every time you add a service — you add labels to the service itself.
+Traefik runs as a Docker container alongside your other services. It watches the Docker socket for running containers, reads their labels, and automatically creates routing rules — no config file to edit every time you add a service.
+
+The mental model: you add a few labels to any container telling Traefik "route `passwords.yourdomain.com` to me on port 80", and it picks that up immediately.
+
+For the full setup walkthrough, follow this guide: **[Traefik with Docker — blog.esc.sh](https://blog.esc.sh/traefik-docker/)**
 
 <!-- DEEP_DIVE -->
 
-**Setting up Traefik**
+## How Traefik works
 
-Create `~/apps/traefik/docker-compose.yml`:
+Traefik needs access to the Docker socket (`/var/run/docker.sock`) so it can watch what containers are running. When a container starts with `traefik.enable=true` in its labels, Traefik reads the rest of the labels and creates a router automatically.
 
-```yaml
-services:
-  traefik:
-    image: traefik:v3
-    container_name: traefik
-    command:
-      - "--api.insecure=true"          # enables the dashboard (disable in production)
-      - "--providers.docker=true"       # watch Docker for labeled containers
-      - "--providers.docker.exposedbydefault=false"  # don't expose everything automatically
-      - "--entrypoints.web.address=:80"
-    ports:
-      - "80:80"
-      - "8888:8080"    # Traefik dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    restart: unless-stopped
-```
-
-```bash
-cd ~/apps/traefik
-docker compose up -d
-```
-
-Open `http://YOUR-SERVER-IP:8888` to see the Traefik dashboard. It shows all detected routers, services, and middlewares.
-
-**Exposing a service through Traefik**
-
-Now update your Vaultwarden compose file to add Traefik labels:
+The key labels on any service you want to expose:
 
 ```yaml
-services:
-  vaultwarden:
-    image: vaultwarden/server:latest
-    container_name: vaultwarden
-    volumes:
-      - ./data:/data
-    # Remove the 'ports:' section — Traefik handles routing now
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.vaultwarden.rule=Host(`passwords.yourdomain.com`)"
-      - "traefik.http.services.vaultwarden.loadbalancer.server.port=80"
-    restart: unless-stopped
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.myservice.rule=Host(`myservice.yourdomain.com`)"
+  - "traefik.http.services.myservice.loadbalancer.server.port=80"
 ```
 
-What the labels do:
-- `traefik.enable=true`: tell Traefik to manage this container
-- `traefik.http.routers.vaultwarden.rule=Host(...)`: route requests for this hostname to this container
-- `traefik.http.services.vaultwarden.loadbalancer.server.port=80`: tell Traefik which port the container listens on
+That's the core of it. Traefik handles the rest.
 
-Apply the change:
+## The shared Docker network
 
-```bash
-cd ~/apps/vaultwarden
-docker compose up -d
-```
-
-Traefik detects the new labels immediately. Open `http://passwords.yourdomain.com` (once your DNS resolves to your server's IP) — it routes straight to Vaultwarden.
-
-**The Docker network**
-
-For Traefik to reach your containers, they need to be on the same Docker network. Create a shared network:
+Traefik needs to be on the same Docker network as the containers it routes to. The standard approach is a single shared network — create it once:
 
 ```bash
 docker network create proxy
 ```
 
-Add this to both your Traefik and Vaultwarden compose files:
+Then attach both Traefik and your services to it. The detailed setup in the blog post above covers this end to end.
 
-```yaml
-networks:
-  proxy:
-    external: true
+## Local DNS
 
-services:
-  traefik:   # or vaultwarden
-    networks:
-      - proxy
-```
-
-**Local DNS**
-
-For `passwords.yourdomain.com` to resolve to your server on your home network, you have a few options:
-
-- **Router DNS**: some routers let you set custom DNS entries. Add a wildcard `*.yourdomain.com → 192.168.1.100`.
-- **Pi-hole or AdGuard Home**: if you're running a local DNS server, add a local DNS entry there.
-- **`/etc/hosts` on each device**: not scalable, but works for a single machine.
-- **Real DNS at Cloudflare**: create an A record for `*.yourdomain.com` pointing to your server's local IP (`192.168.1.x`). Cloudflare resolves it, returns the local IP, your browser connects directly. Simple.
-
-The Cloudflare approach is what we'll use when we set up TLS.
+For `myservice.yourdomain.com` to resolve to your server on your home network, set up a wildcard DNS record pointing to your server's local IP — either in your router, in Pi-hole/AdGuard, or directly in Cloudflare (recommended, since Cloudflare is already managing your domain for TLS).
 
 <!-- RESOURCES -->
 
+- [Traefik with Docker — full setup guide](https://blog.esc.sh/traefik-docker/) -- type: guide, time: 30min
 - [Traefik Documentation](https://doc.traefik.io/traefik/) -- type: reference, time: ongoing
-- [Traefik Docker Provider](https://doc.traefik.io/traefik/providers/docker/) -- type: reference, time: 20min
