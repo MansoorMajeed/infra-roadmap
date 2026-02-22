@@ -22,12 +22,50 @@ milestones:
   - "Make the call: Proxmox or bare metal"
 ---
 
-TODO: Write content for this node. Cover:
-- What virtualization actually is (your machine runs a hypervisor; the hypervisor runs VMs; each VM is an isolated OS)
-- The key concern: performance overhead. Address it directly — for self-hosting workloads it's negligible.
-- Why Proxmox for homelabs: snapshots, easy rollback, run multiple isolated services, web UI
-- When bare metal makes sense: single-purpose machine, keeping it simple, Raspberry Pi
+Virtualization means running multiple isolated operating systems on a single physical machine. Instead of installing Linux directly on your hardware, you install a **hypervisor** — software that manages the hardware and runs virtual machines (VMs) on top of it.
+
+Each VM is a fully isolated system: its own kernel, its own processes, its own network interface. From inside the VM, it looks and behaves exactly like a real machine. From the hypervisor's perspective, it's just a process it controls.
 
 <!-- DEEP_DIVE -->
 
+**Why would you want this for a homelab?**
+
+Imagine you want to run Vaultwarden, Immich, and Home Assistant. Without virtualization, they all share the same operating system. A bad update to one can break others. Experimenting with configuration can leave your server in an unpredictable state.
+
+With virtualization, each service (or group of services) lives in its own VM:
+- One VM for your password manager
+- One VM for your photo library
+- One VM for everything else
+
+If you break the Immich VM, your Vaultwarden keeps running. You can snapshot a VM before making changes, and roll back if something goes wrong. You can delete a VM and start fresh without touching anything else.
+
+**The performance question**
+
+The most common concern: "won't VMs be slower?"
+
+For self-hosting workloads, the overhead is negligible. Modern hypervisors use hardware virtualization (Intel VT-x/AMD-V) which means the CPU runs VM instructions at near-native speed. Memory overhead is a few percent. For Vaultwarden, Nextcloud, Jellyfin — you will not notice.
+
+The only workload where it could matter is hardware transcoding in Jellyfin — passing your GPU/iGPU through to a VM requires extra configuration (PCIe passthrough). It's doable, but it's more advanced than this guide covers.
+
+**Proxmox: the homelab standard**
+
+[Proxmox VE](https://www.proxmox.com/en/proxmox-ve) is a free, open-source hypervisor that runs on your hardware. You install it like an OS, then manage everything through a web UI. It's what the majority of homelabbers run, and for good reason:
+
+- **Web UI**: create VMs, manage resources, view console — all from your browser
+- **Snapshots**: one click to save state, one click to restore
+- **LXC containers**: lightweight Linux containers (like VMs but sharing the host kernel) — less resource-intensive for simple services
+- **Community**: enormous amount of tutorials, scripts (like [tteck's Proxmox scripts](https://tteck.github.io/Proxmox/)), and documentation
+
+**When to skip Proxmox**
+
+Bare metal Linux is simpler and perfectly valid if:
+- You have a Raspberry Pi (Proxmox has limited Pi support)
+- You want to run exactly one thing and don't care about isolation
+- You want the simplest possible setup and don't anticipate expanding
+
+For everyone else: the recommendation here is Proxmox.
+
 <!-- RESOURCES -->
+
+- [Proxmox VE Documentation](https://pve.proxmox.com/pve-docs/) -- type: reference, time: ongoing
+- [tteck's Proxmox Helper Scripts](https://tteck.github.io/Proxmox/) -- type: tool, time: ongoing

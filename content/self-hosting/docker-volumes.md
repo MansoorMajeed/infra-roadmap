@@ -20,15 +20,83 @@ milestones:
   - "Know where to put your data on the host (e.g. /opt/stacks/vaultwarden/)"
 ---
 
-TODO: Write content for this node. Cover:
-- The core problem: containers are ephemeral. Delete the container, lose everything written inside it.
-- Two solutions:
-  1. Bind mount: `-v /host/path:/container/path` — a directory on your host mapped into the container. You control exactly where it is, easy to back up, easy to inspect.
-  2. Named volume: `-v mydata:/container/path` — Docker manages it under /var/lib/docker/volumes/. Harder to find, but works fine.
-- For self-hosting, recommend bind mounts: transparent, easy to backup with rsync or borgbackup
-- Where to put it: suggest /opt/stacks/<service>/ as a convention
-- Demonstrate: run Vaultwarden, write some data, delete the container, re-run with same -v flag, data is still there
+Containers are ephemeral. Every file written inside a container lives only as long as the container exists. Delete the container to update it, and everything written inside is gone.
+
+This is by design — containers are supposed to be disposable. Your data shouldn't live inside them.
 
 <!-- DEEP_DIVE -->
+
+**The problem, made concrete**
+
+Run Vaultwarden, create some passwords. Now update Vaultwarden (the standard way: delete the old container, start a new one with the new image). Without a volume, all your passwords are gone.
+
+Volumes solve this by storing data *outside* the container, on your server's filesystem. The container reads and writes to that location — when you delete and recreate the container, the data is still there.
+
+**Two kinds of volumes**
+
+**1. Bind mounts** — you specify a directory on your host:
+
+```bash
+-v /opt/stacks/vaultwarden/data:/data
+```
+
+The directory `/opt/stacks/vaultwarden/data` on your server is mounted as `/data` inside the container. The container writes to `/data`, the files appear on your server at the host path.
+
+This is what we recommend for self-hosting. You can see exactly where your data is, back it up with `rsync` or any backup tool, and inspect it directly if needed.
+
+**2. Named volumes** — Docker manages the location:
+
+```bash
+-v vaultwarden_data:/data
+```
+
+Docker creates and manages a volume under `/var/lib/docker/volumes/vaultwarden_data/`. The data is just as persistent, but harder to find and back up. Fine for databases where you don't need to inspect the files, but less transparent.
+
+**The recommended convention**
+
+Keep all your self-hosted data under `/opt/stacks/`:
+
+```
+/opt/stacks/
+├── vaultwarden/
+│   └── data/          ← Vaultwarden's data
+├── immich/
+│   └── data/          ← Immich's photos and database
+└── jellyfin/
+    ├── config/        ← Jellyfin's config
+    └── media/         ← Your media files (or a symlink to wherever they live)
+```
+
+Every service has its own directory. When you back up `/opt/stacks/`, you back up everything.
+
+**Verify that volumes work**
+
+```bash
+# Start Vaultwarden with a bind mount
+docker run -d \
+  --name vaultwarden \
+  -v /opt/stacks/vaultwarden/data:/data \
+  -p 8080:80 \
+  vaultwarden/server:latest
+
+# Open the UI, create an account, add a password
+
+# Now delete the container
+docker rm -f vaultwarden
+
+# Look — your data is still on the host
+ls /opt/stacks/vaultwarden/data/
+
+# Start a new container pointing to the same directory
+docker run -d \
+  --name vaultwarden \
+  -v /opt/stacks/vaultwarden/data:/data \
+  -p 8080:80 \
+  vaultwarden/server:latest
+
+# Open the UI — your account and passwords are still there
+```
+
+The container is gone and recreated. The data never left your server.
 
 <!-- RESOURCES -->

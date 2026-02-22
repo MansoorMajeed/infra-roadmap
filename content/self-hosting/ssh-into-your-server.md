@@ -22,14 +22,64 @@ milestones:
   - "Set up SSH key authentication"
 ---
 
-TODO: Write content for this node. Cover:
-- What SSH is (one sentence) and why we use it (headless server, no monitor needed)
-- `ssh user@ip-address` — the basic command
-- Finding your server's IP (router admin page, or `ip a` on the server)
-- SSH keys: `ssh-keygen`, `ssh-copy-id` — why passwords are worse
-- Creating a non-root user with sudo (don't run everything as root)
-- Optional: disable password auth in sshd_config once keys are set up
+SSH (Secure Shell) lets you log into your server from your laptop over the network. Your server has no monitor, no keyboard — SSH is how you talk to it. You type commands on your laptop, they run on the server.
+
+```bash
+ssh username@192.168.1.100
+```
+
+That's it. You're in.
 
 <!-- DEEP_DIVE -->
+
+**Finding your server's IP**
+
+If you set a DHCP reservation during install, you already know the IP. If not:
+- Check your router's admin page — usually at `192.168.1.1` or `192.168.0.1`. Look for connected devices.
+- Or log into the server directly (with a keyboard/monitor temporarily) and run `ip a`
+
+**SSH keys: stop using passwords**
+
+Password authentication works, but SSH keys are better in every way: more secure, more convenient, and no typing passwords on every login.
+
+Generate a key pair on your laptop (if you don't have one already):
+
+```bash
+ssh-keygen -t ed25519 -C "homelab"
+```
+
+Press Enter to accept the default location (`~/.ssh/id_ed25519`). Set a passphrase if you want (optional).
+
+Copy your public key to the server:
+
+```bash
+ssh-copy-id username@192.168.1.100
+```
+
+Enter your password once. After that, `ssh username@192.168.1.100` logs you in without a password prompt — it uses your key instead.
+
+**Don't run everything as root**
+
+If you installed Debian bare metal, you created a non-root user during setup. Use that. If you're SSHing into a Proxmox VM that only has root, create a user:
+
+```bash
+adduser yourname
+usermod -aG sudo yourname
+```
+
+Then `ssh yourname@192.168.1.100`. Use `sudo` when you need admin access. Running everything as root is a bad habit — a typo in the wrong place can delete your entire filesystem.
+
+**Handy shortcut: SSH config**
+
+Stop typing IP addresses. Add an entry to `~/.ssh/config` on your laptop:
+
+```
+Host homelab
+    HostName 192.168.1.100
+    User yourname
+    IdentityFile ~/.ssh/id_ed25519
+```
+
+Now `ssh homelab` is all you need.
 
 <!-- RESOURCES -->
