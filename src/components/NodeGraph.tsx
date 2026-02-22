@@ -22,7 +22,7 @@ import { getNodeProgress } from "@/lib/progress";
 import NodeCard from "./NodeCard";
 import ZonePortalCard from "./ZonePortalCard";
 import ContentPanel from "./ContentPanel";
-import QuestionEdge from "./QuestionEdge";
+import QuestionNode from "./QuestionNode";
 import SearchModal from "./SearchModal";
 
 interface NodeGraphProps {
@@ -37,8 +37,7 @@ interface NodeGraphProps {
   zones: Zone[];
 }
 
-const nodeTypes = { roadmapNode: NodeCard, zonePortalNode: ZonePortalCard };
-const edgeTypes = { question: QuestionEdge };
+const nodeTypes = { roadmapNode: NodeCard, zonePortalNode: ZonePortalCard, questionNode: QuestionNode };
 
 const VISIBLE_NODES_STORAGE_KEY = "infra-roadmap-visible-nodes";
 const VIEWPORT_STORAGE_KEY = "infra-roadmap-viewport";
@@ -182,24 +181,34 @@ function layoutNodes(
   const zoneMap = new Map(zones.map((z) => [z.id, z]));
 
   const nodeWidth = 200;
-  const nodeHeight = 70;
+  const nodeHeight = 90;
+  const qNodeWidth = 180;
+  const qNodeHeight = 40;
 
   // Build dagre graph
   const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
-  g.setGraph({ rankdir: "TB", ranksep: 180, nodesep: 80, edgesep: 40 });
+  g.setGraph({ rankdir: "TB", ranksep: 120, nodesep: 100, edgesep: 60 });
 
   for (const n of visibleNodes) {
     g.setNode(n.frontmatter.id, { width: nodeWidth, height: nodeHeight });
   }
 
-  // Track zone portals needed: zoneId -> source node
+  // Track zone portals needed and Q node data
   const portalZoneIds = new Set<string>();
+  const qEdgeData = new Map<string, { question: string; detail?: string }>();
 
   for (const n of visibleNodes) {
     if (n.frontmatter.edges.to) {
       for (const edge of n.frontmatter.edges.to) {
         if (visibleIds.has(edge.id)) {
-          g.setEdge(n.frontmatter.id, edge.id);
+          // Intra-zone edge: inject a question node between source and target
+          const qId = `q-${n.frontmatter.id}-${edge.id}`;
+          qEdgeData.set(qId, { question: edge.question, detail: edge.detail });
+          if (!g.hasNode(qId)) {
+            g.setNode(qId, { width: qNodeWidth, height: qNodeHeight });
+          }
+          g.setEdge(n.frontmatter.id, qId);
+          g.setEdge(qId, edge.id);
         } else if (edge.zone) {
           // Cross-zone edge: inject a portal node into the layout
           const portalId = `zone-portal-${edge.zone}`;
@@ -215,15 +224,19 @@ function layoutNodes(
 
   Dagre.layout(g);
 
-  // Fix fork-join layout: when a node has both a "skip" edge (spanning 2+ ranks)
-  // and a "branch" edge (one rank down), Dagre places all nodes in the same x-column
-  // since each intermediate rank has only one node. Shift branch nodes left to separate them.
+  // Fix fork-join layout: when a node has a skip edge (A → C spanning 2+ ranks)
+  // alongside a branch edge (A → B → ... → C), Dagre places everything in the same
+  // x-column because each intermediate rank has only one node. We shift the fork node
+  // and its branch subtree left so the skip edge can curve away to the right.
+  //
+  // Key guard: only shift nodes ABOVE the skip target's rank. Nodes at the same rank
+  // as the skip target are dagre siblings and must keep their dagre-assigned separation
+  // (shifting them would cause them to collide with the skip target).
   {
-    const RANKSEP = 180; // must match g.setGraph ranksep above
-    const COLUMN_SHIFT = nodeWidth + 80; // nodeWidth + nodesep
+    const RANKSEP = 120; // must match g.setGraph ranksep above
+    const COLUMN_SHIFT = nodeWidth + 100; // nodeWidth + nodesep
     const visibleNodeIds = new Set(visibleNodes.map((n) => n.frontmatter.id));
 
-    // Build in-zone child map for visible nodes
     const childMap = new Map<string, string[]>();
     for (const n of visibleNodes) {
       const id = n.frontmatter.id;
@@ -241,7 +254,6 @@ function layoutNodes(
       const nPos = g.node(nId);
       if (!nPos) continue;
 
-      // Classify each child: "local" (one rank down) vs "skip" (2+ ranks down)
       const localChildren: string[] = [];
       const skipTargets: string[] = [];
       for (const cId of children) {
@@ -255,6 +267,9 @@ function layoutNodes(
       }
 
       if (localChildren.length === 0 || skipTargets.length === 0) continue;
+
+      // Y of the skip target(s) — nodes at this rank stay put (dagre handles their separation)
+      const skipTargetY = Math.min(...skipTargets.map((id) => g.node(id)?.y ?? Infinity));
 
       // BFS to collect branch nodes: descendants of localChildren, stopping at skipTargets
       const branchNodes = new Set<string>();
@@ -273,10 +288,10 @@ function layoutNodes(
 
       if (branchNodes.size === 0) continue;
 
-      // Shift branch nodes left by one column to separate them from the skip-edge path
-      for (const branchId of branchNodes) {
-        const pos = g.node(branchId);
-        if (pos) {
+      // Shift the fork node itself + all branch nodes that are strictly above skipTargetY.
+      for (const id of [nId, ...branchNodes]) {
+        const pos = g.node(id);
+        if (pos && pos.y < skipTargetY) {
           pos.x -= COLUMN_SHIFT;
         }
       }
@@ -363,6 +378,24 @@ function layoutNodes(
     });
   }
 
+  // Inject question nodes
+  for (const [qId, edgeData] of qEdgeData) {
+    const pos = g.node(qId);
+    if (!pos) continue;
+    flowNodes.push({
+      id: qId,
+      type: "questionNode",
+      position: {
+        x: pos.x - qNodeWidth / 2 + offsetX,
+        y: pos.y - qNodeHeight / 2 + offsetY,
+      },
+      data: {
+        question: edgeData.question,
+        detail: edgeData.detail || "",
+      },
+    });
+  }
+
   // Inject zone portal nodes
   for (const zoneId of portalZoneIds) {
     const portalId = `zone-portal-${zoneId}`;
@@ -389,9 +422,7 @@ function layoutNodes(
 
 function buildEdges(
   roadmapNodes: RoadmapNode[],
-  visibleIds: Set<string>,
-  allEdgesExpanded: boolean,
-  onEdgeExpand?: (x: number, y: number) => void
+  visibleIds: Set<string>
 ): Edge[] {
   const edges: Edge[] = [];
 
@@ -399,26 +430,43 @@ function buildEdges(
     if (!visibleIds.has(node.frontmatter.id)) continue;
     if (node.frontmatter.edges.to) {
       for (const edge of node.frontmatter.edges.to) {
-        const target = edge.zone ? `zone-portal-${edge.zone}` : edge.id;
         const isPortal = !!edge.zone;
-        if (visibleIds.has(edge.id) || isPortal) {
+
+        if (isPortal) {
+          const portalId = `zone-portal-${edge.zone}`;
           edges.push({
-            id: `${node.frontmatter.id}-${target}`,
+            id: `${node.frontmatter.id}-${portalId}`,
             source: node.frontmatter.id,
-            target,
-            type: "question",
-            data: {
-              question: edge.question,
-              detail: edge.detail || "",
-              forceExpanded: allEdgesExpanded,
-              onExpand: onEdgeExpand,
-            },
+            target: portalId,
             markerEnd: {
               type: MarkerType.ArrowClosed,
               width: 16,
               height: 16,
               color: "#94a3b8",
             },
+            style: { stroke: "#94a3b8", strokeWidth: 1.5 },
+          });
+        } else if (visibleIds.has(edge.id)) {
+          const qId = `q-${node.frontmatter.id}-${edge.id}`;
+          // Source → Q node (no arrowhead)
+          edges.push({
+            id: `${node.frontmatter.id}-${qId}`,
+            source: node.frontmatter.id,
+            target: qId,
+            style: { stroke: "#94a3b8", strokeWidth: 1.5 },
+          });
+          // Q node → target (with arrowhead)
+          edges.push({
+            id: `${qId}-${edge.id}`,
+            source: qId,
+            target: edge.id,
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+              width: 16,
+              height: 16,
+              color: "#94a3b8",
+            },
+            style: { stroke: "#94a3b8", strokeWidth: 1.5 },
           });
         }
       }
@@ -448,13 +496,12 @@ function NodeGraphInner({
   const [visibleIds, setVisibleIds] = useState<Set<string>>(() =>
     getInitialVisibleNodes(roadmapNodes)
   );
-  const [allEdgesExpanded, setAllEdgesExpanded] = useState(false);
   const [zoomLocked, setZoomLocked] = useState(true);
   const [zoomPercent, setZoomPercent] = useState(100);
   const [refreshKey, setRefreshKey] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [hintDismissed, setHintDismissed] = useState(true); // default true avoids flash before localStorage loads
-  const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom, setCenter } = useReactFlow();
+  const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom } = useReactFlow();
 
   // After hydration, load saved state from localStorage
   useEffect(() => {
@@ -553,13 +600,6 @@ function NodeGraphInner({
     [roadmapNodes, fitView, zoomLocked]
   );
 
-  const handleEdgeExpand = useCallback(
-    (x: number, y: number) => {
-      setCenter(x, y, { zoom: getZoom(), duration: 300 });
-    },
-    [setCenter, getZoom]
-  );
-
   const nodesRef = useRef<Node[]>([]);
 
   const layoutedNodes = useMemo(
@@ -571,8 +611,8 @@ function NodeGraphInner({
     [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey, zones]
   );
   const flowEdges = useMemo(
-    () => buildEdges(roadmapNodes, visibleIds, allEdgesExpanded, handleEdgeExpand),
-    [roadmapNodes, visibleIds, allEdgesExpanded, handleEdgeExpand]
+    () => buildEdges(roadmapNodes, visibleIds),
+    [roadmapNodes, visibleIds]
   );
 
   // Track node positions for dragging, but re-layout when visibleIds changes
@@ -671,6 +711,7 @@ function NodeGraphInner({
         router.push(`/zone/${zoneId}`);
         return;
       }
+      if (node.id.startsWith("q-")) return; // Q nodes handle their own click
       const roadmapNode = roadmapNodes.find((n) => n.frontmatter.id === node.id);
       if (roadmapNode) {
         setSelectedNode(roadmapNode);
@@ -737,7 +778,6 @@ function NodeGraphInner({
         onNodeClick={handleNodeClick}
         onViewportChange={handleViewportChange}
         nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
         fitView={false}
         defaultViewport={{ x: 0, y: 0, zoom: 1 }}
         proOptions={{ hideAttribution: true }}
@@ -782,12 +822,6 @@ function NodeGraphInner({
 
         {/* Desktop-only action buttons */}
         <button
-          onClick={() => setAllEdgesExpanded((prev) => !prev)}
-          className="hidden sm:block px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
-        >
-          {allEdgesExpanded ? "Hide Questions" : "Show Questions"}
-        </button>
-        <button
           onClick={toggleAllNodes}
           className="hidden sm:block px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors"
         >
@@ -804,12 +838,6 @@ function NodeGraphInner({
           </button>
           {showMobileMenu && (
             <div className="absolute right-0 top-10 w-44 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden z-10">
-              <button
-                onClick={() => { setAllEdgesExpanded((prev) => !prev); setShowMobileMenu(false); }}
-                className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700"
-              >
-                {allEdgesExpanded ? "Hide Questions" : "Show Questions"}
-              </button>
               <button
                 onClick={() => { toggleAllNodes(); setShowMobileMenu(false); }}
                 className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700"
@@ -888,7 +916,7 @@ function NodeGraphInner({
         <div className="absolute top-16 right-4 z-20 flex items-start gap-2 max-w-[200px] sm:max-w-[240px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 shadow-md">
           <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-snug">
             <strong className="text-gray-700 dark:text-gray-200">Tap nodes</strong> to read content.{" "}
-            <strong className="text-gray-700 dark:text-gray-200">Tap edge labels</strong> to explore decision paths.
+            <strong className="text-gray-700 dark:text-gray-200">Tap question nodes</strong> to explore decision paths.
           </p>
           <button
             onClick={dismissHint}
