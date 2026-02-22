@@ -5,12 +5,14 @@ zone: "self-hosting"
 edges:
   from:
     - id: "remote-access-public"
-      question: "Understood — what do I need to know before doing this?"
+      question: "What are the risks? I want to understand what I'm getting into before I open anything up."
   to:
     - id: "public-website"
-      question: "Got it — my service is a website or web app"
+      question: "My service is a website or web app — what are my options?"
+      detail: "It's a blog, dashboard, or web app — people navigate to a URL and it loads in the browser. Regular web traffic. No video streaming or massive file downloads."
     - id: "public-media-streaming"
-      question: "Got it — I want to stream media publicly"
+      question: "I want to let people stream from my media server without needing a VPN — how?"
+      detail: "I want people to open a URL in their browser or app and just watch — no VPN, no account with me, no setup on their end. Just a link that works."
 difficulty: 2
 tags: ["self-hosting", "security", "public", "dmz", "networking"]
 category: "principle"

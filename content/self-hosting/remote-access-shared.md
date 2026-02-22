@@ -9,8 +9,10 @@ edges:
   to:
     - id: "tailscale"
       question: "Can I share a private VPN with others?"
+      detail: "Do the people I share with need accounts? What does setup look like for someone non-technical? I want it to actually work for my family, not just be theoretically possible."
     - id: "wireguard-vpn-home"
       question: "I want to run my own VPN server and manage who gets in"
+      detail: "I want control over exactly who has access and the ability to revoke it. I don't want to depend on someone else's service to decide who gets in."
 difficulty: 1
 tags: ["self-hosting", "remote-access", "vpn", "sharing"]
 category: "concept"

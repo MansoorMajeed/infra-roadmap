@@ -11,6 +11,7 @@ edges:
   to:
     - id: "media-streaming-cross-continent"
       question: "My distant users get buffering — can I fix cross-continent streaming?"
+      detail: "Friends or family far away get constant buffering even though my internet is fast. Is it my upload speed, the physical distance, or something about how the VPS is placed?"
 difficulty: 3
 tags: ["self-hosting", "vps", "wireguard", "nginx", "tunnel", "public"]
 category: "practice"

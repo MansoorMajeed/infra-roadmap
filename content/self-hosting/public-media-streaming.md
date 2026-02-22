@@ -5,14 +5,17 @@ zone: "self-hosting"
 edges:
   from:
     - id: "public-access-security"
-      question: "Got it — I want to stream media publicly"
+      question: "I want to let people stream from my media server without needing a VPN — how?"
   to:
     - id: "vps-pangolin"
       question: "I want a managed solution with a UI"
+      detail: "I'm okay with a VPS, but I want a UI to manage things — not raw config files and commands every time. Is there something that handles the hard parts?"
     - id: "vps-wireguard-expose"
       question: "I want full control — VPS with manual setup"
+      detail: "I want to understand exactly how traffic flows from the internet to my home server. I'm comfortable with manual setup — what does that actually involve?"
     - id: "port-forwarding"
       question: "What about just forwarding a port on my router?"
+      detail: "Can't I just open a port on my router and skip renting a VPS entirely? What's the catch for media streaming specifically?"
 difficulty: 2
 tags: ["self-hosting", "public", "media", "streaming", "jellyfin"]
 category: "concept"

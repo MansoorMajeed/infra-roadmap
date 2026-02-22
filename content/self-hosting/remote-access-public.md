@@ -8,7 +8,8 @@ edges:
       question: "It needs to be publicly accessible to anyone on the internet"
   to:
     - id: "public-access-security"
-      question: "Understood — what do I need to know before doing this?"
+      question: "What are the risks? I want to understand what I'm getting into before I open anything up."
+      detail: "I've heard bots scan everything constantly. Does my home IP get exposed? What am I actually signing up for in terms of attack surface?"
 difficulty: 2
 tags: ["self-hosting", "public", "networking", "security"]
 category: "concept"

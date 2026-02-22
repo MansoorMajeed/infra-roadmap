@@ -11,6 +11,7 @@ edges:
   to:
     - id: "expose-to-internet"
       question: "Works locally — now how do I access it when I'm not home?"
+      detail: "Everything is perfect on my home network. But the moment I'm on my phone elsewhere, none of it is reachable. I can't keep being forced to be at home to use my own stuff."
 difficulty: 2
 tags: ["self-hosting", "tls", "https", "traefik", "letsencrypt", "cloudflare"]
 category: "practice"

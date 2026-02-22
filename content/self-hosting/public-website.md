@@ -5,16 +5,20 @@ zone: "self-hosting"
 edges:
   from:
     - id: "public-access-security"
-      question: "Got it — my service is a website or web app"
+      question: "My service is a website or web app — what are my options?"
   to:
     - id: "cloudflare-tunnel"
       question: "I want the simplest managed option"
+      detail: "I don't want to think about VPS setup or manual configuration. I just want to run a command and have my site be reachable. Does that exist?"
     - id: "vps-pangolin"
       question: "I want a self-hosted VPS solution with a UI"
+      detail: "I'm fine renting a cheap VPS, but I want a web interface to manage the connection — not raw config files and commands every time something changes."
     - id: "vps-wireguard-expose"
       question: "I want full control — VPS with manual setup"
+      detail: "I want to understand exactly how traffic gets from the internet to my home server, and I'm comfortable doing the configuration myself. What does that actually look like?"
     - id: "port-forwarding"
       question: "What about just forwarding a port on my router?"
+      detail: "Isn't opening a port directly simpler than renting a VPS or signing up for a tunnel service? Why isn't this what everyone does?"
 difficulty: 1
 tags: ["self-hosting", "public", "website", "web-app"]
 category: "concept"

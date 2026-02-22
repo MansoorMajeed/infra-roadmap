@@ -9,8 +9,10 @@ edges:
   to:
     - id: "tailscale"
       question: "What's the simplest option? I just want it to work"
+      detail: "I don't want to deal with port forwarding, dynamic DNS, or certificates. Is there something I can just install that figures all of that out for me?"
     - id: "wireguard-vpn-home"
       question: "I'd rather set this up myself and understand exactly what's happening"
+      detail: "I want to know what's actually encrypting my traffic and how my devices find each other. I'm okay with more work if it means I understand what I'm running."
 difficulty: 1
 tags: ["self-hosting", "remote-access", "vpn"]
 category: "concept"

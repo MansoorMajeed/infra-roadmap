@@ -9,8 +9,8 @@ edges:
   to:
     - id: "installing-software"
       zone: "running"
-      question: "OK, show me how to install software on Linux properly"
-      detail: "I want to actually understand what I'm running, not just pull an image someone else built. Where do I even start? apt? Building from source? How do people manage all of this without Docker?"
+      question: "How do people actually install and run services on bare Linux without Docker?"
+      detail: "I've seen apt, but also snap, pip, building from source... I don't know which one to use for server software, or how to make sure a service starts back up automatically when the machine reboots."
 difficulty: 3
 tags: ["self-hosting", "linux", "native", "advanced"]
 category: "practice"
