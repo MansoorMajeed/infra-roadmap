@@ -9,6 +9,8 @@ edges:
   to:
     - id: "k8s-cicd-pipeline"
       question: "ArgoCD watches my repo. How does CI feed into this — build, push, and trigger a deploy?"
+    - id: "k8s-secrets-management"
+      question: "ArgoCD is deploying my app — but where do the passwords and API keys actually live? They can't be in Git."
 difficulty: 3
 tags: ["argocd", "gitops", "kubernetes", "cd", "k8s", "deployment"]
 category: "tool"

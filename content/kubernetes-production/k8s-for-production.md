@@ -5,6 +5,8 @@ zone: "kubernetes-production"
 edges:
   from: []
   to:
+    - id: "managed-vs-self-managed"
+      question: "Do I even need to run the cluster control plane myself, or is there a better way?"
     - id: "managing-k8s-manifests"
       question: "My YAML files are getting messy across environments. How do I manage this properly?"
 difficulty: 2
