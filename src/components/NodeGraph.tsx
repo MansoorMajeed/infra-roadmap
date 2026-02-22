@@ -6,19 +6,17 @@ import {
   ReactFlow,
   Background,
   type Node,
-  type Edge,
   type NodeChange,
   type Viewport,
   applyNodeChanges,
   useReactFlow,
   ReactFlowProvider,
   BackgroundVariant,
-  MarkerType,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import Dagre from "@dagrejs/dagre";
 import type { RoadmapNode, SearchableNode, Zone, NodeStatus } from "@/lib/types";
-import { getNodeProgress } from "@/lib/progress";
+import { getProgress } from "@/lib/progress";
+import { layoutNodes, buildEdges, getChildren, getDescendants, getInitialVisibleNodes } from "@/lib/layout";
 import NodeCard from "./NodeCard";
 import ZonePortalCard from "./ZonePortalCard";
 import ContentPanel from "./ContentPanel";
@@ -96,319 +94,15 @@ function loadViewport(zoneId: string): Viewport | null {
   }
 }
 
-// Find root nodes (no incoming edges from within this zone)
-function findRoots(roadmapNodes: RoadmapNode[]): string[] {
-  const nodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
-  const hasIncoming = new Set<string>();
-
-  for (const n of roadmapNodes) {
-    if (n.frontmatter.edges.to) {
-      for (const edge of n.frontmatter.edges.to) {
-        if (nodeIds.has(edge.id)) {
-          hasIncoming.add(edge.id);
-        }
-      }
-    }
-  }
-
-  return roadmapNodes
-    .map((n) => n.frontmatter.id)
-    .filter((id) => !hasIncoming.has(id));
-}
-
-// Get direct children of a node (within the zone)
-function getChildren(nodeId: string, roadmapNodes: RoadmapNode[]): string[] {
-  const nodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
-  const node = roadmapNodes.find((n) => n.frontmatter.id === nodeId);
-  if (!node?.frontmatter.edges.to) return [];
-  return node.frontmatter.edges.to.map((e) => e.id).filter((id) => nodeIds.has(id));
-}
-
-// Get all descendants of a node recursively
-function getDescendants(nodeId: string, roadmapNodes: RoadmapNode[]): Set<string> {
-  const descendants = new Set<string>();
-  const queue = getChildren(nodeId, roadmapNodes);
-  while (queue.length > 0) {
-    const child = queue.shift()!;
-    if (descendants.has(child)) continue;
-    descendants.add(child);
-    queue.push(...getChildren(child, roadmapNodes));
-  }
-  return descendants;
-}
-
-// Get the initial visible set: roots + their direct children
-function getInitialVisibleNodes(roadmapNodes: RoadmapNode[]): Set<string> {
-  const roots = findRoots(roadmapNodes);
-  const visible = new Set(roots);
-
-  for (const rootId of roots) {
-    for (const childId of getChildren(rootId, roadmapNodes)) {
-      visible.add(childId);
-    }
-  }
-
-  return visible;
-}
-
-// Check if a node has any visible children
-function hasVisibleChildren(
-  nodeId: string,
-  roadmapNodes: RoadmapNode[],
-  visibleIds: Set<string>
-): boolean {
-  const children = getChildren(nodeId, roadmapNodes);
-  return children.some((id) => visibleIds.has(id));
-}
-
-// Check if a node is a root (cannot be collapsed)
-function isRoot(nodeId: string, roadmapNodes: RoadmapNode[]): boolean {
-  return findRoots(roadmapNodes).includes(nodeId);
-}
-
-// Layout only visible nodes using dagre for edge-crossing minimization
-function layoutNodes(
-  roadmapNodes: RoadmapNode[],
-  visibleIds: Set<string>,
-  progressMap: Map<string, NodeStatus>,
-  onExpand: (nodeId: string) => void,
-  onCollapse: (nodeId: string) => void,
-  previousNodes?: Node[],
-  anchorNodeId?: string | null,
-  zones: Zone[] = []
-): Node[] {
-  const visibleNodes = roadmapNodes.filter((n) => visibleIds.has(n.frontmatter.id));
-  const allNodeIds = new Set(roadmapNodes.map((n) => n.frontmatter.id));
-  const zoneMap = new Map(zones.map((z) => [z.id, z]));
-
-  const nodeWidth = 200;
-  const nodeHeight = 90;
-  const qNodeWidth = 180;
-  const qNodeHeight = 40;
-
-  // Build dagre graph
-  const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
-  g.setGraph({ rankdir: "TB", ranksep: 120, nodesep: 100, edgesep: 60 });
-
-  for (const n of visibleNodes) {
-    g.setNode(n.frontmatter.id, { width: nodeWidth, height: nodeHeight });
-  }
-
-  // Track zone portals needed and Q node data
-  const portalZoneIds = new Set<string>();
-  const qEdgeData = new Map<string, { question: string; detail?: string }>();
-
-  for (const n of visibleNodes) {
-    if (n.frontmatter.edges.to) {
-      for (const edge of n.frontmatter.edges.to) {
-        if (visibleIds.has(edge.id)) {
-          // Intra-zone edge: inject a question node between source and target
-          const qId = `q-${n.frontmatter.id}-${edge.id}`;
-          qEdgeData.set(qId, { question: edge.question, detail: edge.detail });
-          if (!g.hasNode(qId)) {
-            g.setNode(qId, { width: qNodeWidth, height: qNodeHeight });
-          }
-          g.setEdge(n.frontmatter.id, qId);
-          g.setEdge(qId, edge.id);
-        } else if (edge.zone) {
-          // Cross-zone edge: inject a portal node into the layout
-          const portalId = `zone-portal-${edge.zone}`;
-          if (!portalZoneIds.has(edge.zone)) {
-            portalZoneIds.add(edge.zone);
-            g.setNode(portalId, { width: nodeWidth, height: nodeHeight });
-          }
-          g.setEdge(n.frontmatter.id, portalId);
-        }
-      }
-    }
-  }
-
-  Dagre.layout(g);
-
-  // Build a map of previous positions for anchoring
-  const prevPosMap = new Map<string, { x: number; y: number }>();
-  if (previousNodes) {
-    for (const pn of previousNodes) {
-      prevPosMap.set(pn.id, pn.position);
-    }
-  }
-
-  // Anchor the layout so the clicked node stays in place.
-  // If no specific anchor, fall back to centroid of shared nodes.
-  let offsetX = 0;
-  let offsetY = 0;
-  if (prevPosMap.size > 0) {
-    const anchorId = anchorNodeId && prevPosMap.has(anchorNodeId) && g.node(anchorNodeId)
-      ? anchorNodeId
-      : null;
-
-    if (anchorId) {
-      const prev = prevPosMap.get(anchorId)!;
-      const dagrePos = g.node(anchorId);
-      offsetX = prev.x - (dagrePos.x - nodeWidth / 2);
-      offsetY = prev.y - (dagrePos.y - nodeHeight / 2);
-    } else {
-      let sumDx = 0;
-      let sumDy = 0;
-      let count = 0;
-      for (const n of visibleNodes) {
-        const id = n.frontmatter.id;
-        const prev = prevPosMap.get(id);
-        if (prev) {
-          const dagrePos = g.node(id);
-          sumDx += prev.x - (dagrePos.x - nodeWidth / 2);
-          sumDy += prev.y - (dagrePos.y - nodeHeight / 2);
-          count++;
-        }
-      }
-      if (count > 0) {
-        offsetX = sumDx / count;
-        offsetY = sumDy / count;
-      }
-    }
-  }
-
-  // Convert dagre positions (center-based) to React Flow positions (top-left)
-  const flowNodes: Node[] = [];
-  for (const n of visibleNodes) {
-    const nodeId = n.frontmatter.id;
-    const pos = g.node(nodeId);
-    const status = progressMap.get(nodeId) ?? "not-started";
-
-    const childrenInZone = (n.frontmatter.edges.to || [])
-      .map((e) => e.id)
-      .filter((id) => allNodeIds.has(id));
-    const hasHiddenChildren = childrenInZone.some((id) => !visibleIds.has(id));
-    const canCollapse =
-      !hasHiddenChildren &&
-      !isRoot(nodeId, roadmapNodes) &&
-      hasVisibleChildren(nodeId, roadmapNodes, visibleIds);
-
-    flowNodes.push({
-      id: nodeId,
-      type: "roadmapNode",
-      position: {
-        x: pos.x - nodeWidth / 2 + offsetX,
-        y: pos.y - nodeHeight / 2 + offsetY,
-      },
-      data: {
-        label: n.frontmatter.title,
-        difficulty: n.frontmatter.difficulty,
-        category: n.frontmatter.category,
-        status,
-        hasHiddenChildren,
-        canCollapse,
-        onExpand,
-        onCollapse,
-        nodeId,
-      },
-    });
-  }
-
-  // Inject question nodes
-  for (const [qId, edgeData] of qEdgeData) {
-    const pos = g.node(qId);
-    if (!pos) continue;
-    flowNodes.push({
-      id: qId,
-      type: "questionNode",
-      position: {
-        x: pos.x - qNodeWidth / 2 + offsetX,
-        y: pos.y - qNodeHeight / 2 + offsetY,
-      },
-      data: {
-        question: edgeData.question,
-        detail: edgeData.detail || "",
-      },
-    });
-  }
-
-  // Inject zone portal nodes
-  for (const zoneId of portalZoneIds) {
-    const portalId = `zone-portal-${zoneId}`;
-    const zone = zoneMap.get(zoneId);
-    const pos = g.node(portalId);
-    if (!pos || !zone) continue;
-    flowNodes.push({
-      id: portalId,
-      type: "zonePortalNode",
-      position: {
-        x: pos.x - nodeWidth / 2 + offsetX,
-        y: pos.y - nodeHeight / 2 + offsetY,
-      },
-      data: {
-        zoneId,
-        zoneTitle: zone.title,
-        zoneColor: zone.color,
-      },
-    });
-  }
-
-  return flowNodes;
-}
-
+// One localStorage read for all nodes — called on mount and after progress changes
 function computeProgressMap(roadmapNodes: RoadmapNode[]): Map<string, NodeStatus> {
+  const data = getProgress();
   const map = new Map<string, NodeStatus>();
   for (const n of roadmapNodes) {
-    map.set(n.frontmatter.id, getNodeProgress(n.frontmatter.id).status);
+    const id = n.frontmatter.id;
+    map.set(id, data.nodes[id]?.status ?? "not-started");
   }
   return map;
-}
-
-function buildEdges(
-  roadmapNodes: RoadmapNode[],
-  visibleIds: Set<string>
-): Edge[] {
-  const edges: Edge[] = [];
-
-  for (const node of roadmapNodes) {
-    if (!visibleIds.has(node.frontmatter.id)) continue;
-    if (node.frontmatter.edges.to) {
-      for (const edge of node.frontmatter.edges.to) {
-        const isPortal = !!edge.zone;
-
-        if (isPortal) {
-          const portalId = `zone-portal-${edge.zone}`;
-          edges.push({
-            id: `${node.frontmatter.id}-${portalId}`,
-            source: node.frontmatter.id,
-            target: portalId,
-            markerEnd: {
-              type: MarkerType.ArrowClosed,
-              width: 16,
-              height: 16,
-              color: "#94a3b8",
-            },
-            style: { stroke: "#94a3b8", strokeWidth: 1.5 },
-          });
-        } else if (visibleIds.has(edge.id)) {
-          const qId = `q-${node.frontmatter.id}-${edge.id}`;
-          // Source → Q node (no arrowhead)
-          edges.push({
-            id: `${node.frontmatter.id}-${qId}`,
-            source: node.frontmatter.id,
-            target: qId,
-            style: { stroke: "#94a3b8", strokeWidth: 1.5 },
-          });
-          // Q node → target (with arrowhead)
-          edges.push({
-            id: `${qId}-${edge.id}`,
-            source: qId,
-            target: edge.id,
-            markerEnd: {
-              type: MarkerType.ArrowClosed,
-              width: 16,
-              height: 16,
-              color: "#94a3b8",
-            },
-            style: { stroke: "#94a3b8", strokeWidth: 1.5 },
-          });
-        }
-      }
-    }
-  }
-
-  return edges;
 }
 
 function NodeGraphInner({
@@ -509,8 +203,7 @@ function NodeGraphInner({
       anchorNodeRef.current = nodeId;
       setVisibleIds((prev) => {
         const next = new Set(prev);
-        const children = getChildren(nodeId, roadmapNodes);
-        for (const childId of children) {
+        for (const childId of getChildren(nodeId, roadmapNodes)) {
           next.add(childId);
         }
         return next;
@@ -527,8 +220,7 @@ function NodeGraphInner({
       anchorNodeRef.current = nodeId;
       setVisibleIds((prev) => {
         const descendants = getDescendants(nodeId, roadmapNodes);
-        const next = new Set([...prev].filter((id) => !descendants.has(id)));
-        return next;
+        return new Set([...prev].filter((id) => !descendants.has(id)));
       });
       if (!zoomLocked) {
         setTimeout(() => fitView({ padding: 0.4, duration: 300 }), 50);
@@ -691,7 +383,6 @@ function NodeGraphInner({
     try { localStorage.setItem("infra-roadmap-hint-dismissed", "true"); } catch { /* ignore */ }
     setHintDismissed(true);
   }, []);
-
 
   const allVisible = roadmapNodes.every((n) => visibleIds.has(n.frontmatter.id));
   const toggleAllNodes = useCallback(() => {

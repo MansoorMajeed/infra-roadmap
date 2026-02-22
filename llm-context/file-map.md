@@ -37,7 +37,8 @@ milestones:
 | `types.ts` | All TypeScript interfaces | `EdgeConnection`, `NodeFrontmatter`, `RoadmapNode`, `Zone`, `ZoneEdge`, `ZonesConfig`, `NodeStatus`, `NodeProgress`, `ProgressData` |
 | `content.ts` | Server-side content parsing. Reads filesystem, parses with gray-matter, validates with Zod. | `getZonesConfig()`, `getZone(id)`, `getNodesByZone(zoneId)`, `getNode(zoneId, nodeId)`, `getAllNodes()`, `getZoneNodeCount(zoneId)`, `validateEdgeReferences()` |
 | `validation.ts` | Zod schemas for content validation | `NodeFrontmatterSchema`, `ZonesConfigSchema` |
-| `progress.ts` | Client-side localStorage helper (`"use client"`). Key: `sre-roadmap-progress`. | `getProgress()`, `getNodeProgress(id)`, `setNodeStatus(id, status)`, `toggleMilestone(id, idx)`, `setEntryPoint(ep)`, `getCompletedCount(ids)`, `resetProgress()` |
+| `progress.ts` | Client-side localStorage helper (`"use client"`). Key: `infra-roadmap-progress`. | `getProgress()`, `getNodeProgress(id)`, `setNodeStatus(id, status)`, `toggleMilestone(id, idx)`, `setEntryPoint(ep)`, `getCompletedCount(ids)`, `resetProgress()` |
+| `layout.ts` | Pure layout functions, no React hooks. Imported by `NodeGraph.tsx`. | `layoutNodes()`, `buildEdges()`, `findRoots()`, `getChildren()`, `getDescendants()`, `getInitialVisibleNodes()` |
 
 ## Pages (`src/app/`)
 
