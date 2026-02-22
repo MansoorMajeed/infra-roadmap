@@ -62,6 +62,43 @@ This means someone who knows Docker can go straight from `docker-for-self-hostin
 
 **Never insert explanation nodes into the middle of the main path.** That forces everyone through them regardless of background.
 
+## Writing Edge Questions
+
+Edge questions are what the user clicks to move to the next node. They must be written from the user's perspective — their problem, not the answer.
+
+**The question (`question:`) must:**
+- Express the user's felt problem or curiosity, never name-drop the solution
+- Be something a person who has never heard of the next node could still say
+- Feel like a natural thought, not a chapter title
+
+```yaml
+# Wrong — names the solution before the user knows it exists
+question: "How do I set it up with ArgoCD?"
+
+# Wrong — sounds like a textbook heading
+question: "I want to learn about GitOps."
+
+# Right — expresses the problem in the user's own words
+question: "My manifests are in Git — how do I make the cluster apply them automatically when I merge?"
+```
+
+The one exception: if the user just finished a node *about* a tool, they now know its name. Referring to it in the next edge question is fine.
+
+**The detail field (`detail:`) must:**
+- Deepen the tension or make the user feel the problem more acutely
+- Ask a question they hadn't considered, or reveal a hidden complexity
+- Never start answering — the answer is in the next node
+
+```yaml
+# Wrong — starts explaining the solution
+detail: "Terraform is the dominant IaC tool. You write HCL configs and it figures out what to create."
+
+# Right — raises the stakes, makes them want to keep reading
+detail: "Every server you've set up manually is a liability. You can't recreate it, can't audit what's on it, and can't hand it to someone else. What if the server died tonight?"
+```
+
+Think of `detail` as the moment that makes someone lean forward, not the moment you hand them the answer.
+
 ## Content Formatting
 
 Use markdown headings inside node body content — not `**bold text**` as fake headings.
