@@ -16,18 +16,27 @@ milestones:
   - "Identify your use case: genuinely public-facing service"
 ---
 
-You're running something that legitimately needs to be reachable by anyone — a personal website, a public API, a blog, or a service you're sharing with people you don't manage devices for.
+You're running something that legitimately needs to be reachable by anyone — a personal website, a public API, a blog, or a media server for people you can't set up a VPN for.
 
-This is a fundamentally different problem from private access. You're not extending a private network — you're putting something on the open internet.
+This is a fundamentally different problem from private access. You're not extending a private network to trusted devices — you're putting something on the open internet.
 
 <!-- DEEP_DIVE -->
 
-## TODO
+## What "public" actually means
 
-- TODO: distinguish from private access — anyone can attempt to connect, not just trusted devices
-- TODO: explain what "public" means for your home server — your IP, your machine, your ISP
-- TODO: briefly introduce the tools (Cloudflare Tunnel, VPS+Pangolin, VPS+WireGuard) without going deep yet
+When you make a service publicly accessible, anyone with the URL can attempt to reach it. That includes people you want, and bots you don't. Port scanners, credential stuffers, vulnerability probes — they're automated and they hit everything they can find.
+
+This doesn't mean don't do it. It means go in with a clear picture of what you're exposing, and take the right precautions.
+
+## The options
+
+There are a few approaches, each with different trade-offs:
+
+- **Cloudflare Tunnel** — outbound tunnel from your server to Cloudflare, no open ports, your home IP stays hidden. Great for websites and web apps. Not suitable for media streaming.
+- **VPS + Pangolin** — rent a cheap VPS, run a reverse proxy manager on it, tunnel from home. Works for websites and media alike. You own the VPS.
+- **VPS + WireGuard + nginx** — the same VPS approach but fully manual. WireGuard for the tunnel, nginx to proxy publicly. No extra software layer, full control, works for everything.
+- **Port forwarding** — open a port on your router directly. Works, but your home IP is exposed and your server is directly on the internet.
+
+Before you pick one, there's an important security conversation to have.
 
 <!-- RESOURCES -->
-
-- TODO: add resources

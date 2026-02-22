@@ -21,19 +21,31 @@ milestones:
   - "Know which approach fits your situation"
 ---
 
-Your services work great at home. But the moment you leave, they're unreachable — because your home network is private by design.
+Your services work great at home. But the moment you leave, they're unreachable — because your home network is private by design. There's no direct path in from the internet.
 
-There are three fundamentally different reasons you might want external access, and each has a different right answer.
+Getting remote access means creating that path deliberately. But not all remote access is the same — *why* you need it determines which tool is right.
 
 <!-- DEEP_DIVE -->
 
-## TODO
+## The three scenarios
 
-- TODO: explain the three scenarios and why they require different solutions
-- TODO: private vs public — the key distinction (a VPN keeps things private, a tunnel makes things truly public)
-- TODO: briefly mention that "just opening a port" is an option but explain why it's generally a bad idea (dynamic IP, ISP restrictions, direct exposure)
-- TODO: security framing — the more public, the more surface area
+**Scenario 1: Only you need access.**
+You want to check on your services from your phone, use Vaultwarden on the road, or browse your Jellyfin from a hotel. No one else needs in.
+
+**Scenario 2: A small group of trusted people.**
+You're sharing Jellyfin with family, or Nextcloud with a partner. A handful of known people with devices you can install software on.
+
+**Scenario 3: Genuinely public.**
+A website, a public API, or a service that anyone should be able to reach from a browser — no install required.
+
+## Why this distinction matters
+
+Scenarios 1 and 2 are **private access problems**. The right answer is a VPN-style approach: your services stay completely invisible to the internet, and only authorized devices can reach them. Nobody is scanning your ports. Nobody can probe your login page.
+
+Scenario 3 is **public exposure**. You're deliberately putting something on the open internet. Anyone can attempt to connect. The tools are different — and so are the risks.
+
+## What "just opening a port" looks like
+
+There's also the original approach: configure your router to forward port 80 or 443 directly to your server. It works, but it's the most exposed option — your home IP becomes public, ISPs often block standard ports, and your server is directly reachable from the internet. It's a valid choice for the right situation, but the alternatives here are generally better.
 
 <!-- RESOURCES -->
-
-- TODO: add resources

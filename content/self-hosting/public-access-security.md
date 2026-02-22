@@ -19,22 +19,52 @@ milestones:
   - "Know what a DMZ/VLAN isolation approach looks like (even if you don't implement it now)"
 ---
 
-Putting something on the public internet from your home network means real traffic — and real attack attempts. Bots scan the entire IPv4 space constantly. If you open something publicly, it will be found and probed within minutes.
+Putting something on the public internet means real traffic — and real attack attempts. Bots scan the entire IPv4 address space continuously. Within minutes of a service going public, it will receive connection attempts from all over the world.
 
-This doesn't mean you shouldn't do it. It means you should go in with eyes open.
+This doesn't mean don't do it. It means understand what you're signing up for.
 
 <!-- DEEP_DIVE -->
 
-## TODO
+## What actually happens
 
-- TODO: the threat model — what actually happens when you expose something (bots, scanners, exploit attempts)
-- TODO: the pivot risk — if someone exploits a vulnerability in your app (e.g. a misconfigured Nextcloud or outdated app), they're now inside your home network. That's your NAS, your other machines, your router.
-- TODO: why Cloudflare Tunnel and similar tools help (they hide your home IP) but don't eliminate risk (the app can still be exploited)
-- TODO: keep software updated — this is the single most important thing
-- TODO: mention VLAN/DMZ isolation as the proper hardening step: put public-facing services in a separate network segment isolated from the rest of your home. Won't go deeper here — that's a networking topic — but name it so people know it exists
-- TODO: authentication matters — don't expose services without auth, even behind Cloudflare
-- TODO: practical advice: start with something low-risk (a static site, a read-only service) before exposing anything sensitive
+When you expose a service publicly, automated scanners will find it. They'll probe common paths, try default credentials, and test for known CVEs in whatever software you're running. This is just the reality of the internet — it happens to every public-facing host, including major cloud providers.
+
+The question is: what happens if they succeed?
+
+## The pivot risk
+
+This is the part people underestimate. Suppose someone exploits a vulnerability in your Nextcloud or Jellyfin — maybe an unpatched CVE, maybe a weak password. They're now running code on your server.
+
+But your server is on your home network. From there, they can see your NAS, your other machines, your router, everything else on the LAN. A single compromised application becomes a foothold into your entire home network.
+
+Cloudflare Tunnel and other tools hide your home IP — but they don't prevent this. The exploit still lands on a machine inside your network.
+
+## Keep software updated
+
+This is the highest-leverage thing you can do. Most exploits target known, patched vulnerabilities in outdated software. Enable automatic updates for your OS packages. Pin container images to specific versions and update them regularly. Don't leave services running that you're not actively maintaining.
+
+## Don't expose unauthenticated services
+
+Anything public should require authentication before doing anything interesting. Even if you think "nobody knows the URL" — they will. Use strong, unique passwords or SSO. Consider adding Cloudflare Access or a similar auth layer in front of sensitive services.
+
+## The proper hardening approach: DMZ / VLAN isolation
+
+If you want to do this right, the textbook answer is to put public-facing services in a separate network segment — a DMZ (demilitarized zone) or dedicated VLAN — isolated from the rest of your home network by firewall rules.
+
+In this setup, even if an attacker fully compromises your Nextcloud server, they hit a firewall wall. They can't reach your NAS or your desktop. The blast radius is contained.
+
+This is a networking topic that goes beyond self-hosting — it involves managed switches, VLAN-capable routers, and firewall rules. We won't go deeper on it here, but it's worth knowing the concept exists and what it's called when you're ready.
+
+## Practical baseline
+
+Before going public:
+- Your software is up to date
+- Every service behind the public URL requires authentication
+- You have a plan for keeping it updated
+- You understand that if something goes wrong, it's on your home network
+
+With that understood, pick your approach.
 
 <!-- RESOURCES -->
 
-- TODO: add resources
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/) -- type: reference, time: 30min

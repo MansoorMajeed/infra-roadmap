@@ -20,15 +20,20 @@ milestones:
 
 You want to reach your Jellyfin, Vaultwarden, or home assistant from your phone or laptop — anywhere in the world — without exposing anything to the public internet.
 
-The right tool for this keeps everything private. Your services stay invisible to the internet; only your devices can reach them.
+The right tool for this keeps everything private. Your services stay invisible to the internet; only your authorized devices can reach them.
 
 <!-- DEEP_DIVE -->
 
-## TODO
+## How private access works
 
-- TODO: expand on what "private" means here — you're not opening anything to the public, just creating a secure tunnel back to your home
-- TODO: explain the two options (Tailscale = easy/managed, WireGuard = manual/full control) and who each is for
+Instead of opening a hole in your firewall for the world, you create a secure tunnel between your device and your home network. From your phone, it looks like you're on your home LAN. Your services don't need any changes — they just see local traffic.
+
+## Your two options
+
+**Tailscale** — installs in minutes, works through any firewall, no port forwarding needed, and just works. The right default for most people.
+
+**WireGuard (self-hosted)** — you run the VPN server yourself. More moving parts (key generation, port forwarding on your router, dynamic DNS), but you own every piece of it and there's no third-party service involved.
+
+Both give you the same end result. The difference is how much you want to manage.
 
 <!-- RESOURCES -->
-
-- TODO: add resources

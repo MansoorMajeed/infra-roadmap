@@ -18,18 +18,24 @@ milestones:
   - "Identify your use case: trusted shared access"
 ---
 
-You want a few trusted people — a partner, family members, a friend group — to be able to use your Jellyfin, Nextcloud, or photo library. Not the whole internet, just the people you choose.
+You want a few trusted people — a partner, family members, a friend group — to use your Jellyfin, Nextcloud, or photo library. Not the whole internet. Just the people you choose.
 
-This is still a private access problem. You don't need to expose anything publicly — you just need to extend your private network to a small set of trusted people.
+This is still a private access problem. You don't need to expose anything publicly. You just need to extend your private network to a small group of trusted people.
 
 <!-- DEEP_DIVE -->
 
-## TODO
+## Still private, not public
 
-- TODO: clarify that this is still private, not public — no one on the internet can stumble onto these services
-- TODO: explain the two options: Tailscale (supports sharing with external accounts, very easy) vs WireGuard (you manage credentials, more control, more work)
-- TODO: mention the practical limit — Tailscale free tier supports a limited number of devices; for larger households WireGuard may make more sense
+It's worth being clear: even though other people are accessing your services, you don't need to open anything to the internet. Everyone connects through a VPN — which means your services are still invisible to the world, and only people with credentials can reach them.
+
+This is a very different security posture from making something publicly accessible.
+
+## Your two options
+
+**Tailscale** — supports sharing devices or whole networks with other Tailscale accounts. Each person installs the Tailscale app on their device and you share access. Very smooth for family setups. The free tier supports up to 100 devices, which is plenty for most households.
+
+**WireGuard (self-hosted)** — you run a WireGuard server at home and generate a config file for each person. They import it into the WireGuard app. More setup on your end, but full control over who has access and no third-party account required for your users.
+
+For most families, Tailscale is the obvious choice. WireGuard makes sense if you want to avoid third-party dependencies or if your users can't or won't create a Tailscale account.
 
 <!-- RESOURCES -->
-
-- TODO: add resources

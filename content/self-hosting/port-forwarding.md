@@ -17,23 +17,57 @@ milestones:
   - "Know the limitations (ISP blocking, dynamic IP, exposed home IP)"
 ---
 
-Port forwarding is the original way to expose a home service: you tell your router to forward incoming traffic on a port directly to your server. No VPS, no tunnel, no third party. It works.
+Port forwarding tells your router: "when traffic arrives on port X from the internet, send it to this local machine." No VPS, no tunnel, no third party. It's the original way to expose a home service, and it works.
 
-But it comes with trade-offs that the other options don't have. Know them before you go this route.
+But it comes with trade-offs the other options don't. Know what you're getting into.
 
 <!-- DEEP_DIVE -->
 
-## TODO
+## What port forwarding actually does
 
-- TODO: explain what port forwarding actually does — router receives traffic on port X, forwards it to your server's local IP on port Y
-- TODO: your home IP is now public — unlike Cloudflare Tunnel or a VPS, anyone connecting can see your real home IP address. This isn't always a dealbreaker but it's worth knowing.
-- TODO: ISP restrictions — many ISPs block inbound traffic on ports 80 and 443 (the standard HTTP/HTTPS ports). You may end up on a non-standard port like 8443, which means URLs like `https://example.com:8443` — not great for a public site
-- TODO: Carrier grade NAT
-- TODO: dynamic home IP — your ISP changes your home IP periodically. You need Dynamic DNS (DDNS) to keep a hostname pointed at it. Services like DuckDNS or Cloudflare DDNS handle this automatically.
-- TODO: direct exposure — your server is directly reachable from the internet. Keep software updated. Consider Fail2ban or CrowdSec to block brute-force attempts.
-- TODO: when this actually makes sense — no ongoing VPS cost, works for any protocol, fine for personal projects where IP exposure isn't a concern
-- TODO: we won't go deeper on the full setup here — this node is a signpost. If you go this route, the pieces are: port forward in router settings + DDNS + reverse proxy (Traefik is already set up) + keep things patched.
+Your home router has one public IP (assigned by your ISP) and manages a private LAN behind it. Normally, inbound traffic from the internet is dropped — there's no route to your internal machines.
+
+Port forwarding punches a hole: traffic arriving on a specific port gets forwarded to a specific internal IP and port. From the internet, it looks like your router is serving the traffic. In reality, your home server is.
+
+## Your home IP is now public
+
+Unlike Cloudflare Tunnel or a VPS setup, anyone connecting to your service can see your real home IP address. This isn't necessarily a dealbreaker, but it's worth knowing. If you'd prefer to keep your home IP private, use one of the tunnel-based approaches instead.
+
+## ISP restrictions
+
+Many ISPs block inbound traffic on ports 80 (HTTP) and 443 (HTTPS) — the standard web ports. If yours does, you'll have to use non-standard ports like 8080 or 8443, which means URLs like `https://example.com:8443`. Fine for personal use, awkward for anything you're sharing widely.
+
+Some ISPs also use **Carrier Grade NAT (CGNAT)** — they give you a private IP (like `100.x.x.x`) rather than a real public one, and you share a public IP with many other customers. In this case, port forwarding simply doesn't work. You can't forward ports you don't own. If you're behind CGNAT, a tunnel-based approach is your only option.
+
+Check your router's WAN IP. If it looks like `100.x.x.x` or `10.x.x.x`, you're likely behind CGNAT.
+
+## Dynamic DNS
+
+Your ISP changes your home IP periodically — sometimes daily. If you're sharing a URL with anyone, you need it to stay working when the IP changes.
+
+Dynamic DNS (DDNS) solves this: a small client runs on your server (or router), detects when your IP changes, and updates a DNS record automatically. Services like [DuckDNS](https://www.duckdns.org/) (free) or Cloudflare DDNS handle this. Your domain always points to your current home IP.
+
+## Direct internet exposure
+
+With port forwarding, your server is directly reachable from the internet. There's no Cloudflare layer, no VPS in between. Bots will find you and probe for vulnerabilities.
+
+A few things help:
+- **Keep software updated** — the most important thing
+- **[Fail2ban](https://github.com/fail2ban/fail2ban)** or **[CrowdSec](https://www.crowdsec.net/)** — automatically ban IPs that repeatedly fail authentication
+- **Don't expose anything without authentication**
+
+## When this actually makes sense
+
+Port forwarding is a perfectly valid approach when:
+- Your ISP doesn't block ports and you're not behind CGNAT
+- You're running something personal and IP exposure isn't a concern
+- You want zero ongoing cost (no VPS)
+- You're comfortable with the security trade-offs
+
+We won't go deeper on the full setup here — this is a signpost. If you go this route, the pieces are: port forward rule in your router settings + DDNS + Traefik is already handling your reverse proxy + keep things patched.
 
 <!-- RESOURCES -->
 
-- TODO: add resources (DuckDNS, Cloudflare DDNS, Fail2ban)
+- [DuckDNS — free dynamic DNS](https://www.duckdns.org/) -- type: tool, time: 10min
+- [Fail2ban](https://github.com/fail2ban/fail2ban) -- type: tool, time: 20min
+- [CrowdSec](https://www.crowdsec.net/) -- type: tool, time: 20min

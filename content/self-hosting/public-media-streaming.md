@@ -18,24 +18,35 @@ tags: ["self-hosting", "public", "media", "streaming", "jellyfin"]
 category: "concept"
 milestones:
   - "Understand why Cloudflare Tunnel is not suitable for media streaming"
-  - "Know the two VPS-based options for public media access"
+  - "Know the options for public media access"
 ---
 
-You want to publicly expose a media server like Jellyfin so people outside your home can stream video or audio.
+You want to publicly expose a media server like Jellyfin so anyone can stream video or audio from a browser — no VPN required.
 
-Cloudflare Tunnel is not an option here — their Terms of Service prohibit proxying large media files, and they will terminate your tunnel if they detect it. For public media streaming you need a VPS that you control.
+Cloudflare Tunnel is ruled out immediately: their Terms of Service explicitly prohibit proxying large media files, and they will terminate tunnels that violate this. For public media streaming, you need infrastructure you control.
 
 <!-- DEEP_DIVE -->
 
-## TODO
+## Why Cloudflare Tunnel doesn't work here
 
-- TODO: clearly explain why Cloudflare Tunnel is ruled out (TOS, media detection, bandwidth)
-- TODO: explain the two VPS approaches:
-  - VPS + Pangolin: a reverse proxy manager with a UI, handles the tunnel from your home to the VPS — easier to set up
-  - VPS + WireGuard + nginx: raw WireGuard tunnel from home to VPS, then nginx proxies publicly — more involved, but no extra software layer, full control, often preferable for advanced users
-- TODO: note that for media specifically, you want a VPS with good bandwidth and ideally located near your users
-- TODO: brief note on cost — cheap VPS options (Hetzner, Oracle Free Tier, etc.)
+Cloudflare provides its CDN and tunnel service for free (or cheap) by restricting what you can push through it. Video and audio streaming generates enormous bandwidth. Their TOS explicitly forbids using the service "to serve video or a disproportionate amount of non-HTML content." If they detect it, the tunnel gets shut down.
+
+## Your options
+
+### VPS + Pangolin — managed, with a UI
+
+Rent a cheap VPS, run Pangolin on it, configure a tunnel from your home server. Traffic comes in on the VPS's public IP and is forwarded through the tunnel to Jellyfin at home. Pangolin gives you a web UI to manage everything.
+
+You own the VPS — no TOS restrictions, you control the bandwidth. For streaming you'll want a VPS with a generous bandwidth allowance. Hetzner and Oracle Free Tier are popular choices.
+
+### VPS + WireGuard + nginx — full control
+
+WireGuard tunnel from your home to the VPS, nginx proxying public traffic through it. No Pangolin, no extra software layer — just two tools you already understand. More setup, but the result is cleaner and easier to reason about long-term.
+
+This is the approach to choose if you're comfortable with Linux and want to avoid managing additional software on your VPS. Run nginx however you like, add Caddy for automatic HTTPS, tune it for streaming — it's all standard tooling.
+
+### Port forwarding — simplest, if your ISP allows it
+
+If your ISP doesn't block the ports you need and you're okay with your home IP being public, port forwarding is the simplest path. No VPS cost. Works for any protocol. The trade-off is direct internet exposure and potential ISP port blocks.
 
 <!-- RESOURCES -->
-
-- TODO: add resources
