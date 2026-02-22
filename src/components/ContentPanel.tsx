@@ -143,7 +143,7 @@ export default function ContentPanel({
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto overscroll-contain p-6">
           <div className={`space-y-6 ${isExpanded ? "max-w-3xl mx-auto" : ""}`}>
             {/* Summary */}
             <div className="content-prose">

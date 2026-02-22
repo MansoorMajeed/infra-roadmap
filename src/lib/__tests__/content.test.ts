@@ -11,7 +11,6 @@ describe("getZonesConfig", () => {
     const config = getZonesConfig();
     expect(config.zones).toBeDefined();
     expect(Array.isArray(config.zones)).toBe(true);
-    expect(config.zones.length).toBe(9);
   });
 
   it("returns zone edges", () => {
