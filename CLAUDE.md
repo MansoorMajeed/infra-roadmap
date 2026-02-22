@@ -85,19 +85,23 @@ question: "My manifests are in Git — how do I make the cluster apply them auto
 The one exception: if the user just finished a node *about* a tool, they now know its name. Referring to it in the next edge question is fine.
 
 **The detail field (`detail:`) must:**
+- Be written in the user's voice — first person, as if they're thinking aloud or elaborating on their own question
 - Deepen the tension or make the user feel the problem more acutely
 - Ask a question they hadn't considered, or reveal a hidden complexity
 - Never start answering — the answer is in the next node
 
 ```yaml
-# Wrong — starts explaining the solution
+# Wrong — narrator voice, starts explaining the solution
 detail: "Terraform is the dominant IaC tool. You write HCL configs and it figures out what to create."
 
-# Right — raises the stakes, makes them want to keep reading
-detail: "Every server you've set up manually is a liability. You can't recreate it, can't audit what's on it, and can't hand it to someone else. What if the server died tonight?"
+# Wrong — narrator voice, even though it doesn't answer
+detail: "Every server you've set up manually is a liability. You can't recreate it or hand it to someone else."
+
+# Right — user's voice, elaborating on their own pain
+detail: "If a server dies tonight I have no idea how to recreate it. I've been making changes by hand and none of it is documented anywhere. What do I even do?"
 ```
 
-Think of `detail` as the moment that makes someone lean forward, not the moment you hand them the answer.
+Think of `detail` as the user continuing to think out loud — more of their problem, not the beginning of the answer.
 
 ## Content Formatting
 
