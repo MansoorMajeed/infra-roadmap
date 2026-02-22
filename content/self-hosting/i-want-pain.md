@@ -6,7 +6,10 @@ edges:
   from:
     - id: "docker-or-native"
       question: "I want to install everything manually from source"
-  to: []
+  to:
+    - id: "where-do-i-run-this"
+      question: "OK, show me how to install software on Linux properly"
+      detail: "The Running zone covers Linux service management, package managers, systemd, and everything else you'll need to run services without Docker."
 difficulty: 3
 tags: ["self-hosting", "linux", "native", "advanced"]
 category: "practice"

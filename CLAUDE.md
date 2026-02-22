@@ -55,4 +55,14 @@ This means someone who knows Docker can go straight from `docker-for-self-hostin
 
 **Never insert explanation nodes into the middle of the main path.** That forces everyone through them regardless of background.
 
+## Content Formatting
+
+Use markdown headings inside node body content — not `**bold text**` as fake headings.
+
+Heading hierarchy:
+- `##` — major sections within the deep dive (e.g. `## Why would you want this?`, `## The performance question`)
+- `###` — subsections within a major section (e.g. `### Snapshots and backups`, `### Safe experimentation`)
+
+Reserve `**bold**` for emphasis within prose, not as section titles. The summary section (before `<!-- DEEP_DIVE -->`) is usually short prose with no headings needed.
+
 See `PLAN.md` for full architecture and `TASKS.md` for current work items.

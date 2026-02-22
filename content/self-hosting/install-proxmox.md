@@ -10,7 +10,7 @@ edges:
     - id: "ssh-into-your-server"
       question: "Proxmox is running and I have a Debian VM — now what?"
       detail: "Your VM is a fresh Debian install. Time to log in and start using it."
-difficulty: 2
+difficulty: 1
 tags: ["self-hosting", "proxmox", "virtualization", "homelab", "vm"]
 category: "practice"
 milestones:
