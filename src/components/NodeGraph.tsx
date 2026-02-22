@@ -17,7 +17,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import Dagre from "@dagrejs/dagre";
-import type { RoadmapNode, SearchableNode, Zone } from "@/lib/types";
+import type { RoadmapNode, SearchableNode, Zone, NodeStatus } from "@/lib/types";
 import { getNodeProgress } from "@/lib/progress";
 import NodeCard from "./NodeCard";
 import ZonePortalCard from "./ZonePortalCard";
@@ -170,6 +170,7 @@ function isRoot(nodeId: string, roadmapNodes: RoadmapNode[]): boolean {
 function layoutNodes(
   roadmapNodes: RoadmapNode[],
   visibleIds: Set<string>,
+  progressMap: Map<string, NodeStatus>,
   onExpand: (nodeId: string) => void,
   onCollapse: (nodeId: string) => void,
   previousNodes?: Node[],
@@ -272,7 +273,7 @@ function layoutNodes(
   for (const n of visibleNodes) {
     const nodeId = n.frontmatter.id;
     const pos = g.node(nodeId);
-    const progress = getNodeProgress(nodeId);
+    const status = progressMap.get(nodeId) ?? "not-started";
 
     const childrenInZone = (n.frontmatter.edges.to || [])
       .map((e) => e.id)
@@ -294,7 +295,7 @@ function layoutNodes(
         label: n.frontmatter.title,
         difficulty: n.frontmatter.difficulty,
         category: n.frontmatter.category,
-        status: progress.status,
+        status,
         hasHiddenChildren,
         canCollapse,
         onExpand,
@@ -344,6 +345,14 @@ function layoutNodes(
   }
 
   return flowNodes;
+}
+
+function computeProgressMap(roadmapNodes: RoadmapNode[]): Map<string, NodeStatus> {
+  const map = new Map<string, NodeStatus>();
+  for (const n of roadmapNodes) {
+    map.set(n.frontmatter.id, getNodeProgress(n.frontmatter.id).status);
+  }
+  return map;
 }
 
 function buildEdges(
@@ -422,9 +431,11 @@ function NodeGraphInner({
   const [visibleIds, setVisibleIds] = useState<Set<string>>(() =>
     getInitialVisibleNodes(roadmapNodes)
   );
+  const [progressMap, setProgressMap] = useState<Map<string, NodeStatus>>(
+    () => computeProgressMap(roadmapNodes)
+  );
   const [zoomLocked, setZoomLocked] = useState(true);
   const [zoomPercent, setZoomPercent] = useState(100);
-  const [refreshKey, setRefreshKey] = useState(0);
   const [hydrated, setHydrated] = useState(false);
   const [hintDismissed, setHintDismissed] = useState(true); // default true avoids flash before localStorage loads
   const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom } = useReactFlow();
@@ -530,11 +541,11 @@ function NodeGraphInner({
 
   const layoutedNodes = useMemo(
     () => {
-      const result = layoutNodes(roadmapNodes, visibleIds, handleExpand, handleCollapse, nodesRef.current, anchorNodeRef.current, zones);
+      const result = layoutNodes(roadmapNodes, visibleIds, progressMap, handleExpand, handleCollapse, nodesRef.current, anchorNodeRef.current, zones);
       anchorNodeRef.current = null;
       return result;
     },
-    [roadmapNodes, visibleIds, handleExpand, handleCollapse, refreshKey, zones]
+    [roadmapNodes, visibleIds, progressMap, handleExpand, handleCollapse, zones]
   );
   const flowEdges = useMemo(
     () => buildEdges(roadmapNodes, visibleIds),
@@ -673,8 +684,8 @@ function NodeGraphInner({
   );
 
   const handleProgressChange = useCallback(() => {
-    setRefreshKey((k) => k + 1);
-  }, []);
+    setProgressMap(computeProgressMap(roadmapNodes));
+  }, [roadmapNodes]);
 
   const dismissHint = useCallback(() => {
     try { localStorage.setItem("infra-roadmap-hint-dismissed", "true"); } catch { /* ignore */ }
