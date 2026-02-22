@@ -11,9 +11,11 @@ edges:
       question: "Secrets are handled. Now how do I build a proper test and build pipeline?"
       detail: "With credentials sorted, you can now focus on the actual pipeline structure: run tests on every push, fail the pipeline if tests fail, and only build and deploy when everything passes."
   to:
-    - id: "building-docker-images"
-      question: "Tests pass and code is built. How do I package this as a Docker image in CI?"
-      detail: "The build artifact from a modern deployment is usually a Docker image. Building it in CI means every image is built the same way, tagged with the commit SHA, and ready to deploy anywhere Docker runs."
+    - id: "containerization"
+      zone: "containers"
+      question: "Tests pass on every commit. How do I package the app to actually ship it?"
+    - id: "iac-intro"
+      question: "My pipeline is solid. The servers it deploys to were set up by hand — can I codify that too?"
 difficulty: 1
 tags: ["ci-cd", "testing", "pipelines", "automation", "github-actions"]
 category: "practice"

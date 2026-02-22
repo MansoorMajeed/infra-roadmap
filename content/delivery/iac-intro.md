@@ -4,9 +4,8 @@ title: "Infrastructure as Code"
 zone: "delivery"
 edges:
   from:
-    - id: "deployment-strategies"
-      question: "My deploy pipeline is solid. But the infrastructure it deploys to was set up by hand. What's Infrastructure as Code?"
-      detail: "You've automated deployments, but the servers, networks, and load balancers underneath were clicked into existence in a cloud console. When something breaks, you can't recreate it. Infrastructure as Code brings the same rigor to infra that CI/CD brings to code."
+    - id: "build-and-test-pipeline"
+      question: "My pipeline is solid. The servers it deploys to were set up by hand — can I codify that too?"
   to:
     - id: "terraform-basics"
       question: "IaC makes sense. Show me Terraform."
