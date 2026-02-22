@@ -7,7 +7,7 @@ edges:
   to:
     - id: "i-need-hardware"
       question: "OK, I want to try this. Where do I actually run it?"
-      detail: "Before you can run Vaultwarden or anything else, you need a machine to run it on. That's the first real decision: do you have something lying around, or do you need to buy something?"
+      detail: "Can I just use my laptop, or do I need dedicated hardware? I don't have a server room — I'm not even sure what 'server' means in this context."
 difficulty: 1
 tags: ["self-hosting", "homelab", "docker", "privacy", "open-source"]
 category: "concept"

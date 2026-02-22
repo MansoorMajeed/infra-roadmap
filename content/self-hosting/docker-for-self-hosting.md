@@ -12,7 +12,7 @@ edges:
       detail: "I've been running containers with docker run commands but it's already getting messy. If I restart the server I have to remember all the flags. There has to be a better way."
     - id: "docker-ports"
       question: "Wait — I don't really understand how Docker works yet"
-      detail: "Ports, storage, networking — these three concepts underpin everything. Worth understanding before moving on."
+      detail: "I got a container running but I honestly have no idea what's happening. What are all those flags doing? If I delete the container, do I lose my data? And how do I get two services to talk to each other?"
 difficulty: 1
 tags: ["self-hosting", "docker", "containers", "linux"]
 category: "tool"

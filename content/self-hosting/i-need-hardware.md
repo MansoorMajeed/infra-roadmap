@@ -9,10 +9,10 @@ edges:
   to:
     - id: "buying-homelab-hardware"
       question: "I don't have any hardware — what should I buy?"
-      detail: "You don't need to spend much. The self-hosting community has converged on a few categories of cheap, low-power hardware that are ideal for running services at home."
+      detail: "Do I need something powerful? And what about electricity — if this thing runs 24/7, is that going to cost me? I don't want to overspend on something I'm just experimenting with."
     - id: "bare-machine-now-what"
       question: "I have an old PC or laptop sitting around"
-      detail: "An old machine is a perfect starting point. As long as it can run Linux, it can run your services."
+      detail: "It's a few years old and pretty slow. Is that going to be a problem? And I'm not sure I want to dedicate the whole machine — I still use it sometimes."
 difficulty: 1
 tags: ["self-hosting", "hardware", "homelab"]
 category: "concept"

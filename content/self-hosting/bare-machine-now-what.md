@@ -11,7 +11,7 @@ edges:
   to:
     - id: "what-is-virtualization"
       question: "What OS should I install? What's all this Proxmox stuff?"
-      detail: "Before picking an OS and installing it, it's worth understanding what virtualization is — because it changes the answer completely."
+      detail: "I keep seeing Proxmox mentioned everywhere but I don't know what it is. Is it an OS? Something that runs on top of one? And why does it matter which one I pick?"
 difficulty: 1
 tags: ["self-hosting", "hardware", "linux", "os"]
 category: "concept"

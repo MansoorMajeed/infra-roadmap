@@ -11,7 +11,7 @@ edges:
   to:
     - id: "docker-or-native"
       question: "I'm in. How do I actually install software on this thing?"
-      detail: "You have a shell on a fresh Linux machine. The next question is how to run services — and there are two paths."
+      detail: "I've got a shell on a fresh machine. I have no idea if I should just apt install things, use Docker, or something else entirely. What's the right way to actually run services?"
 difficulty: 1
 tags: ["self-hosting", "ssh", "linux", "terminal"]
 category: "practice"

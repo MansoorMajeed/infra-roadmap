@@ -12,7 +12,7 @@ edges:
       detail: "I've heard people talk about images and containers but I'm not sure where to start. Do I need to build anything, or can I just use what's already out there? And how do I actually run something?"
     - id: "i-want-pain"
       question: "I want to install everything manually from source"
-      detail: "This is the hard path. It's educational, but you'll spend more time fighting dependencies than running services."
+      detail: "I want to know what's actually running, not just trust someone else's image. But where do I even start — apt, compiling from source, something else? I've never set up a service on bare Linux before."
 difficulty: 1
 tags: ["self-hosting", "docker", "linux", "package-management"]
 category: "concept"

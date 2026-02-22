@@ -12,7 +12,7 @@ edges:
       detail: "How complex is this to actually set up? I don't want to break what's already running, and I've never configured something that sits in front of all my other services before."
     - id: "getting-a-domain"
       question: "How do I get a domain name to route to my services?"
-      detail: "A reverse proxy routes by hostname, so you need a domain. You can use a real one or a free subdomain service."
+      detail: "Do I have to buy a real domain for this to work? Or can I use something free — or set up names that only work on my home network?"
 difficulty: 2
 tags: ["self-hosting", "networking", "reverse-proxy", "traefik"]
 category: "concept"
