@@ -37,31 +37,39 @@ zones:
     description: "One server isn't enough. Learn about load balancing, replication, CDNs, and the fundamentals of distributed systems."
     color: "#f59e0b"
     position: { x: 0, y: 750 }
-    active: false
+    active: true
 
   - id: "delivery"
     title: "Delivery & Automation"
     coreQuestion: "Deploying manually is painful"
-    description: "From VMs to containers to Kubernetes. CI/CD pipelines, GitOps, Infrastructure as Code - automate everything."
+    description: "CI/CD pipelines, Infrastructure as Code, and automated deployments — for traditional VM-based and container workflows. GitOps and Kubernetes deployments are covered in the Kubernetes zone."
     color: "#ef4444"
     position: { x: 400, y: 750 }
-    active: false
+    active: true
+
+  - id: "kubernetes"
+    title: "Kubernetes"
+    coreQuestion: "How do I run containers at scale?"
+    description: "From pods to production. Learn how Kubernetes works, how to deploy and operate applications on it, and how GitOps makes cluster management reproducible."
+    color: "#6366f1"
+    position: { x: 200, y: 1150 }
+    active: true
 
   - id: "observability"
     title: "Observability & Security"
     coreQuestion: "How do I know it's healthy?"
     description: "Logging, metrics, tracing, alerting. Plus security fundamentals - secrets management, IAM, and compliance."
     color: "#06b6d4"
-    position: { x: 0, y: 1150 }
-    active: false
+    position: { x: 0, y: 1550 }
+    active: true
 
   - id: "platform"
     title: "Platform & SRE Practices"
     coreQuestion: "How do I do this professionally?"
     description: "SRE philosophy, SLOs, incident management, chaos engineering, and building platforms that other engineers love."
     color: "#ec4899"
-    position: { x: 400, y: 1150 }
-    active: false
+    position: { x: 400, y: 1550 }
+    active: true
 
   - id: "self-hosting"
     title: "Self-Hosting"
@@ -87,8 +95,12 @@ zoneEdges:
   - from: "scaling"
     to: "delivery"
   - from: "scaling"
-    to: "observability"
+    to: "kubernetes"
   - from: "delivery"
+    to: "kubernetes"
+  - from: "kubernetes"
     to: "observability"
+  - from: "kubernetes"
+    to: "platform"
   - from: "observability"
     to: "platform"
