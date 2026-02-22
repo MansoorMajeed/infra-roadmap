@@ -14,6 +14,12 @@ Interactive SRE/DevOps roadmap — graph-based, question-driven learning tool. N
 - **`llm-context/patterns.md`** — data flow, React Flow usage, layout algorithm, localStorage keys, styling conventions
 - **`llm-context/gotchas.md`** — things that will trip you up, known issues, NodeGraph complexity notes
 
+## Architecture Decision Records
+
+Non-obvious decisions are documented in `docs/adr/`. Read the relevant ADR before changing anything related to layout, rendering, or content parsing.
+
+- **[ADR-0001](docs/adr/0001-dagre-layout-no-fork-join-correction.md)** — Why we don't post-process Dagre's layout (fork-join correction was removed)
+
 ## Routes
 
 | URL | Server Component | Client Component |
@@ -114,3 +120,7 @@ Heading hierarchy:
 Reserve `**bold**` for emphasis within prose, not as section titles. The summary section (before `<!-- DEEP_DIVE -->`) is usually short prose with no headings needed.
 
 See `PLAN.md` for full architecture and `TASKS.md` for current work items.
+
+## Planning Workflow
+
+For non-trivial tasks, always write the plan to a dedicated markdown file (e.g. `PLAN-<feature-name>.md`) before implementing. The user will annotate it with `n2c:` (note to claude) inline. Read and incorporate all `n2c:` annotations into the plan, then clean up the annotations from the file. **Do not start implementing until the user verbally says the plan looks good.**
