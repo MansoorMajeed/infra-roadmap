@@ -29,7 +29,14 @@ Interactive SRE/DevOps roadmap — graph-based, question-driven learning tool. N
 - Zone nodes need invisible `<Handle>` components for edges
 - Next.js 16: `params` is a Promise — must `await params` in server components
 - `useSearchParams` requires a `<Suspense>` boundary
-- Cross-zone edges are valid — nodes can reference nodes in other (inactive) zones
+- Cross-zone edges are valid — nodes can reference nodes in other (inactive) zones. They require an explicit `zone:` field on the `to` entry:
+  ```yaml
+  to:
+    - id: "installing-software"
+      zone: "running"
+      question: "..."
+  ```
+  Intra-zone edges do NOT have a `zone:` field. Validation skips cross-zone edge references.
 
 ## Adding Content
 
