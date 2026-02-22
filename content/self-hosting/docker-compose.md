@@ -11,7 +11,7 @@ edges:
   to:
     - id: "reverse-proxy"
       question: "Services are running but I'm tired of remembering port numbers"
-      detail: "Once you have multiple services, accessing them by IP:port gets unwieldy. A reverse proxy fixes this."
+      detail: "I have to remember which port maps to which service, and when I add a new one I have to pick a free port and hope nothing conflicts. Typing 192.168.1.33:8083 every time is not how I want to use this."
 difficulty: 1
 tags: ["self-hosting", "docker", "docker-compose", "containers"]
 category: "tool"

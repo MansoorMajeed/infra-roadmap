@@ -9,10 +9,10 @@ edges:
   to:
     - id: "install-proxmox"
       question: "Proxmox sounds good — I'll use that"
-      detail: "Proxmox is a bare-metal hypervisor: you install it directly on your machine, and then create VMs and containers on top of it. It has a web UI, snapshot support, and is what most homelabbers run."
+      detail: "Will it wipe what's currently on the machine? And after it's installed, how do I actually get a working Linux system I can SSH into and run things on?"
     - id: "bare-metal-linux"
       question: "I don't want virtualization — just Linux directly on the hardware"
-      detail: "Totally valid. Install Debian, skip the complexity of VMs. You'll lose some flexibility but gain simplicity."
+      detail: "I don't need VMs for what I'm doing right now. But am I going to regret this later? What am I actually giving up by skipping virtualization?"
 difficulty: 1
 tags: ["self-hosting", "virtualization", "proxmox", "vms", "hypervisor"]
 category: "concept"

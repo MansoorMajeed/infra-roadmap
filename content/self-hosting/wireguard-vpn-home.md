@@ -5,7 +5,7 @@ zone: "self-hosting"
 edges:
   from:
     - id: "remote-access-just-me"
-      question: "I want to do this the manual way with WireGuard"
+      question: "I'd rather set this up myself and understand exactly what's happening"
     - id: "remote-access-shared"
       question: "I want to run my own VPN server and manage who gets in"
   to: []

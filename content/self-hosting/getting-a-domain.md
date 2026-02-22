@@ -6,11 +6,11 @@ edges:
   from:
     - id: "reverse-proxy"
       question: "How do I get a domain name to route to my services?"
-      detail: "A reverse proxy needs a domain name to route traffic by hostname. You have a few options."
+      detail: "Do I need to buy a real domain, or are there free options? And does it need to be a public domain, or can I use something that only resolves on my local network?"
   to:
     - id: "tls-with-traefik"
       question: "I have a domain — now I want HTTPS on everything"
-      detail: "With a real domain and Cloudflare managing DNS, Traefik can get trusted HTTPS certificates automatically using the DNS challenge — no port forwarding needed."
+      detail: "My browser still shows a security warning even though everything routes correctly. Do I need to buy a certificate? And how do I actually get it installed?"
 difficulty: 1
 tags: ["self-hosting", "dns", "domain", "cloudflare", "networking"]
 category: "concept"

@@ -9,7 +9,7 @@ edges:
   to:
     - id: "docker-compose"
       question: "I understand how it all fits together — now how do I manage it properly?"
-      detail: "Docker Compose ties ports, volumes, and networks together in one file. Everything you just learned applies directly."
+      detail: "Right now I'm running everything with separate docker run commands. If the server restarts I have to retype all of it from memory. And adding a new service means more commands to keep track of."
 difficulty: 1
 tags: ["self-hosting", "docker", "networking", "containers"]
 category: "concept"

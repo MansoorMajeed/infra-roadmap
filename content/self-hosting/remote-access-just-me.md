@@ -8,9 +8,9 @@ edges:
       question: "I just want to be able to access it myself"
   to:
     - id: "tailscale"
-      question: "Show me the easy way — a private VPN mesh"
+      question: "What's the simplest option? I just want it to work"
     - id: "wireguard-vpn-home"
-      question: "I want to do this the manual way with WireGuard"
+      question: "I'd rather set this up myself and understand exactly what's happening"
 difficulty: 1
 tags: ["self-hosting", "remote-access", "vpn"]
 category: "concept"

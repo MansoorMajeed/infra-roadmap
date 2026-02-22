@@ -9,7 +9,7 @@ edges:
   to:
     - id: "docker-compose"
       question: "I know Docker — let's skip to managing services properly"
-      detail: "If you already understand ports, volumes, and networks, go straight to Docker Compose."
+      detail: "I've been running containers with docker run commands but it's already getting messy. If I restart the server I have to remember all the flags. There has to be a better way."
     - id: "docker-ports"
       question: "Wait — I don't really understand how Docker works yet"
       detail: "Ports, storage, networking — these three concepts underpin everything. Worth understanding before moving on."

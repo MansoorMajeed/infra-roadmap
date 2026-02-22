@@ -9,7 +9,7 @@ edges:
   to:
     - id: "ssh-into-your-server"
       question: "Proxmox is running and I have a Debian VM — now what?"
-      detail: "Your VM is a fresh Debian install. Time to log in and start using it."
+      detail: "The VM shows as running in the Proxmox UI. How do I actually get into it? Do I use that console in the web interface, set up SSH, or something else?"
 difficulty: 1
 tags: ["self-hosting", "proxmox", "virtualization", "homelab", "vm"]
 category: "practice"

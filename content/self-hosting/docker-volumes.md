@@ -9,7 +9,7 @@ edges:
   to:
     - id: "docker-networking"
       question: "Data is safe. Now how do multiple containers talk to each other?"
-      detail: "A database and an app running in separate containers need to find each other. Docker networking is how."
+      detail: "I tried using localhost in my app's database connection string but it couldn't connect. Both containers are on the same machine — why can't they see each other?"
 difficulty: 1
 tags: ["self-hosting", "docker", "volumes", "storage", "data"]
 category: "concept"

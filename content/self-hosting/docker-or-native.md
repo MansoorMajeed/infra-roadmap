@@ -9,7 +9,7 @@ edges:
   to:
     - id: "docker-for-self-hosting"
       question: "Docker it is — how do I get started?"
-      detail: "Docker is how almost every self-hosted service is distributed and run. One command to pull an image, one file to configure it."
+      detail: "I've heard people talk about images and containers but I'm not sure where to start. Do I need to build anything, or can I just use what's already out there? And how do I actually run something?"
     - id: "i-want-pain"
       question: "I want to install everything manually from source"
       detail: "This is the hard path. It's educational, but you'll spend more time fighting dependencies than running services."

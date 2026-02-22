@@ -9,7 +9,7 @@ edges:
   to:
     - id: "tls-with-traefik"
       question: "Routing works — now I want HTTPS on everything"
-      detail: "Traefik can get HTTPS certificates automatically via Let's Encrypt. With Cloudflare DNS, you don't even need to open a port to the internet."
+      detail: "My browser keeps showing a 'not secure' warning. I know I need a certificate but I don't know how that works — do I have to buy one, generate one, or what?"
 difficulty: 2
 tags: ["self-hosting", "traefik", "reverse-proxy", "docker", "networking"]
 category: "tool"

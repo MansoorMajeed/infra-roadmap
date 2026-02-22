@@ -9,7 +9,7 @@ edges:
   to:
     - id: "docker-volumes"
       question: "I can access the service. But where is my data stored?"
-      detail: "By default, anything written inside a container is gone the moment you delete it. Volumes are how you make data survive."
+      detail: "If the container is what's running the service, is my data inside it? What happens when I delete the container to update it — do I lose everything I've set up?"
 difficulty: 1
 tags: ["self-hosting", "docker", "networking", "ports"]
 category: "concept"

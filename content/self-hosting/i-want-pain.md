@@ -10,7 +10,7 @@ edges:
     - id: "installing-software"
       zone: "running"
       question: "OK, show me how to install software on Linux properly"
-      detail: "The Running zone covers Linux service management, package managers, systemd, and everything else you'll need to run services without Docker."
+      detail: "I want to actually understand what I'm running, not just pull an image someone else built. Where do I even start? apt? Building from source? How do people manage all of this without Docker?"
 difficulty: 3
 tags: ["self-hosting", "linux", "native", "advanced"]
 category: "practice"

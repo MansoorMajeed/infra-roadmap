@@ -9,7 +9,7 @@ edges:
   to:
     - id: "ssh-into-your-server"
       question: "Debian is installed — now what?"
-      detail: "You have a running Debian machine. Time to SSH in and start using it."
+      detail: "The installer finished and the machine rebooted. I'm looking at a login prompt with no idea what to do next. I don't plan to keep a monitor plugged in — how am I supposed to actually use this thing?"
 difficulty: 1
 tags: ["self-hosting", "linux", "debian", "bare-metal"]
 category: "practice"

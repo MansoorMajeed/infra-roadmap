@@ -9,7 +9,7 @@ edges:
   to:
     - id: "bare-machine-now-what"
       question: "I got something — now what do I do with it?"
-      detail: "You have hardware. Time to decide what to put on it."
+      detail: "I have the machine. Do I just download an ISO and put it on a USB? Is there anything I need to configure first? I've never set up a server from scratch before."
 difficulty: 1
 tags: ["self-hosting", "hardware", "homelab", "raspberry-pi", "mini-pc"]
 category: "concept"

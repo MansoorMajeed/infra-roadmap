@@ -5,7 +5,7 @@ zone: "self-hosting"
 edges:
   from:
     - id: "remote-access-just-me"
-      question: "Show me the easy way — a private VPN mesh"
+      question: "What's the simplest option? I just want it to work"
     - id: "remote-access-shared"
       question: "Can I share a private VPN with others?"
   to: []
