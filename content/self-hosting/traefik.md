@@ -26,7 +26,7 @@ Traefik runs as a Docker container alongside your other services. It watches the
 
 **Setting up Traefik**
 
-Create `/opt/stacks/traefik/docker-compose.yml`:
+Create `~/apps/traefik/docker-compose.yml`:
 
 ```yaml
 services:
@@ -47,7 +47,7 @@ services:
 ```
 
 ```bash
-cd /opt/stacks/traefik
+cd ~/apps/traefik
 docker compose up -d
 ```
 
@@ -80,7 +80,7 @@ What the labels do:
 Apply the change:
 
 ```bash
-cd /opt/stacks/vaultwarden
+cd ~/apps/vaultwarden
 docker compose up -d
 ```
 

@@ -34,8 +34,8 @@ Two commands run your entire stack. Two commands tear it down.
 Create a directory for your service and a `docker-compose.yml` inside it:
 
 ```bash
-sudo mkdir -p /opt/stacks/vaultwarden
-sudo nano /opt/stacks/vaultwarden/docker-compose.yml
+mkdir -p ~/apps/vaultwarden
+nano ~/apps/vaultwarden/docker-compose.yml
 ```
 
 ```yaml
@@ -64,7 +64,7 @@ services:
 **Starting and stopping**
 
 ```bash
-cd /opt/stacks/vaultwarden
+cd ~/apps/vaultwarden
 
 docker compose up -d        # start everything in the background
 docker compose down         # stop and remove containers (data is preserved)
@@ -121,10 +121,10 @@ Notice `DB_HOST=db` — the app connects to the database using the service name 
 
 **Where to store your stacks**
 
-Use `/opt/stacks/<service-name>/` for everything. Each service gets its own directory with its own `docker-compose.yml` and its own `data/` subdirectory. Clean, predictable, easy to back up.
+Use `~/apps/<service-name>/` for everything. Each service gets its own directory with its own `docker-compose.yml` and its own `data/` subdirectory. It lives in your home directory — no sudo, no root, just your files.
 
 ```
-/opt/stacks/
+~/apps/
 ├── vaultwarden/
 │   ├── docker-compose.yml
 │   └── data/

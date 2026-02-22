@@ -76,7 +76,7 @@ docker run hello-world
 ```bash
 docker run -d \
   --name vaultwarden \
-  -v /opt/vaultwarden/data:/data \
+  -v ~/apps/vaultwarden/data:/data \
   -p 8080:80 \
   --restart unless-stopped \
   vaultwarden/server:latest
@@ -85,7 +85,7 @@ docker run -d \
 What each flag does:
 - `-d`: run in the background (detached)
 - `--name vaultwarden`: give the container a name
-- `-v /opt/vaultwarden/data:/data`: mount a host directory into the container for persistent storage
+- `-v ~/apps/vaultwarden/data:/data`: mount a host directory into the container for persistent storage
 - `-p 8080:80`: map port 8080 on the host to port 80 in the container
 - `--restart unless-stopped`: restart automatically if the server reboots
 

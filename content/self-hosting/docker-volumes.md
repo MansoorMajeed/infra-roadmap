@@ -17,7 +17,7 @@ milestones:
   - "Understand why containers are ephemeral by default"
   - "Run a container with a bind mount and verify data persists after restart"
   - "Know the difference between bind mounts and named volumes"
-  - "Know where to put your data on the host (e.g. /opt/stacks/vaultwarden/)"
+  - "Know where to put your data on the host (e.g. ~/apps/vaultwarden/)"
 ---
 
 Containers are ephemeral. Every file written inside a container lives only as long as the container exists. Delete the container to update it, and everything written inside is gone.
@@ -37,10 +37,10 @@ Volumes solve this by storing data *outside* the container, on your server's fil
 **1. Bind mounts** — you specify a directory on your host:
 
 ```bash
--v /opt/stacks/vaultwarden/data:/data
+-v ~/apps/vaultwarden/data:/data
 ```
 
-The directory `/opt/stacks/vaultwarden/data` on your server is mounted as `/data` inside the container. The container writes to `/data`, the files appear on your server at the host path.
+The directory `~/apps/vaultwarden/data` on your server is mounted as `/data` inside the container. The container writes to `/data`, the files appear on your server at the host path.
 
 This is what we recommend for self-hosting. You can see exactly where your data is, back it up with `rsync` or any backup tool, and inspect it directly if needed.
 
@@ -54,10 +54,10 @@ Docker creates and manages a volume under `/var/lib/docker/volumes/vaultwarden_d
 
 **The recommended convention**
 
-Keep all your self-hosted data under `/opt/stacks/`:
+Keep all your self-hosted data under `~/apps/`:
 
 ```
-/opt/stacks/
+~/apps/
 ├── vaultwarden/
 │   └── data/          ← Vaultwarden's data
 ├── immich/
@@ -67,7 +67,7 @@ Keep all your self-hosted data under `/opt/stacks/`:
     └── media/         ← Your media files (or a symlink to wherever they live)
 ```
 
-Every service has its own directory. When you back up `/opt/stacks/`, you back up everything.
+Every service has its own directory. When you back up `~/apps/`, you back up everything.
 
 **Verify that volumes work**
 
@@ -75,7 +75,7 @@ Every service has its own directory. When you back up `/opt/stacks/`, you back u
 # Start Vaultwarden with a bind mount
 docker run -d \
   --name vaultwarden \
-  -v /opt/stacks/vaultwarden/data:/data \
+  -v ~/apps/vaultwarden/data:/data \
   -p 8080:80 \
   vaultwarden/server:latest
 
@@ -85,12 +85,12 @@ docker run -d \
 docker rm -f vaultwarden
 
 # Look — your data is still on the host
-ls /opt/stacks/vaultwarden/data/
+ls ~/apps/vaultwarden/data/
 
 # Start a new container pointing to the same directory
 docker run -d \
   --name vaultwarden \
-  -v /opt/stacks/vaultwarden/data:/data \
+  -v ~/apps/vaultwarden/data:/data \
   -p 8080:80 \
   vaultwarden/server:latest
 
