@@ -57,11 +57,13 @@ milestones:
 | File | Lines | Purpose |
 |------|-------|---------|
 | `ZoneMap.tsx` | ~190 | Bird's-eye zone view. Uses `useRouter()` for navigation (`router.push('/zone/...')`). Custom `ZoneNode` render with Handle components. `EntryPointSelector` integration navigates to `/zone/{id}?node={nodeId}`. |
-| `NodeGraph.tsx` | ~607 | Zone detail graph. **Biggest component.** Progressive disclosure: roots + 1 level visible initially. Expand/collapse via `+`/`-` buttons. Layout: BFS topological sort by depth, xSpacing=320 ySpacing=200. Persists visible nodes + viewport to localStorage. Zoom controls bottom-right. Wrapped in `ReactFlowProvider`. |
-| `NodeCard.tsx` | ~111 | Custom React Flow node. Shows: category icon, title, difficulty dot (green/yellow/red), completion status. Bottom buttons: expand (+, blue) if hasHiddenChildren, collapse (-, gray) if canCollapse && !hasHiddenChildren. |
+| `NodeGraph.tsx` | ~870 | Zone detail graph. **Biggest component.** Progressive disclosure: roots + 1 level visible initially. Expand/collapse via `+`/`-` buttons. Layout: dagre TB, ranksep=120. Q nodes injected between every content edge pair. Persists visible nodes + viewport to localStorage. Zoom controls bottom-right. Wrapped in `ReactFlowProvider`. |
+| `NodeCard.tsx` | ~125 | Custom React Flow node (type: `roadmapNode`). Shows: category icon, title, difficulty dot (green/yellow/red), completion status. Bottom buttons: expand (+, blue) if hasHiddenChildren, collapse (-, gray) if canCollapse. |
+| `QuestionNode.tsx` | ~80 | Custom React Flow node (type: `questionNode`). Small pill card between content nodes. Shows truncated italic question text. Click toggles a popover with full question + detail. |
 | `ContentPanel.tsx` | ~256 | Modal overlay. Sections: header (title, difficulty, category, tags), summary (markdown), expandable deep dive, milestones (checkboxes), resources (markdown), "where to go next" (edge navigation), footer (mark complete button). |
 | `EntryPointSelector.tsx` | ~96 | "Where do I start?" modal. 5 entry points mapping audience → zone + startNode. Calls `onSelect(zone, nodeId)`. |
-| `QuestionEdge.tsx` | exists | Custom edge component for question labels on graph edges. |
+| `ZonePortalCard.tsx` | exists | Custom React Flow node (type: `zonePortalNode`). Rendered at the end of cross-zone edges. Clicking navigates to the target zone. |
+| `SearchModal.tsx` | exists | ⌘K search overlay. Filters nodes by title/tags. Focuses a node in the graph on select. |
 
 ## Tests (`src/lib/__tests__/`)
 

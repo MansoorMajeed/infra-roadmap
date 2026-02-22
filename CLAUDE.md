@@ -121,6 +121,16 @@ Reserve `**bold**` for emphasis within prose, not as section titles. The summary
 
 See `PLAN.md` for full architecture and `TASKS.md` for current work items.
 
+## LLM Context Maintenance
+
+After any major code change (new component, deleted component, significant refactor, changed data flow), update the relevant files in `llm-context/`:
+
+- **`file-map.md`** — add/remove/update component entries (line counts, purpose, key exports)
+- **`patterns.md`** — update if data flow, layout algorithm, localStorage keys, or styling conventions changed
+- **`gotchas.md`** — update key state list, add new gotchas, remove stale ones
+
+Do this as the final step of the implementation, not as a separate task.
+
 ## Planning Workflow
 
 For non-trivial tasks, always write the plan to a dedicated markdown file (e.g. `PLAN-<feature-name>.md`) before implementing. The user will annotate it with `n2c:` (note to claude) inline. Read and incorporate all `n2c:` annotations into the plan, then clean up the annotations from the file. **Do not start implementing until the user verbally says the plan looks good.**

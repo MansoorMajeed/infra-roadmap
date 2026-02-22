@@ -14,7 +14,7 @@ content/*.md → content.ts (server, gray-matter + Zod) → page.tsx (server com
 
 - **ZoneMap**: `useNodesState`/`useEdgesState` (nodes don't change dynamically)
 - **NodeGraph**: Controlled state (`useState` + `applyNodeChanges`) because nodes expand/collapse dynamically. Wrapped in `ReactFlowProvider`.
-- Custom node types registered via `nodeTypes` object outside component.
+- Custom node types registered via `nodeTypes` object **outside** the component (prevents re-registration on every render).
 - Invisible `<Handle>` components needed on zone cards for edges to connect.
 
 ## Progressive Disclosure (NodeGraph)
@@ -28,10 +28,20 @@ content/*.md → content.ts (server, gray-matter + Zod) → page.tsx (server com
 
 ## Layout Algorithm
 
-- BFS from roots through visible nodes
-- Assign depth = max distance from any root
-- Group by depth, center each row horizontally
-- xSpacing=320, ySpacing=200
+Dagre (`@dagrejs/dagre`, `rankdir: TB`, `ranksep: 120`, `nodesep: 100`).
+
+Each content edge `A → B` is represented in the dagre graph as `A → q-A-B → B`, where `q-A-B` is a synthetic `QuestionNode`. This means:
+- Dagre guarantees question nodes never overlap content nodes
+- Multiple outgoing edges from the same source are spread horizontally by dagre automatically
+- No post-processing or collision hacks needed
+
+## Question Nodes
+
+Question nodes (`type: questionNode`, id prefix `q-`) are synthetic nodes injected by `layoutNodes` for every visible intra-zone edge. They are **not** in `visibleIds` — they appear/disappear automatically when their target content node is added/removed from `visibleIds`. The `QuestionNode` component handles its own click/popover state internally; `handleNodeClick` in `NodeGraph` skips them with an early return.
+
+## Cross-Zone Edges
+
+Some nodes have `edges.to` entries with an explicit `zone:` field, pointing to nodes in other zones. These render as `ZonePortalCard` nodes at the end of the edge — no `QuestionNode` is injected for portal edges. Clicking a portal navigates to the target zone.
 
 ## Content Parsing
 
@@ -49,10 +59,7 @@ markdown file → gray-matter (frontmatter + body) → Zod validate frontmatter 
 | `infra-roadmap-visible-nodes` | Which nodes are expanded per zone |
 | `infra-roadmap-viewport` | Zoom/pan position per zone |
 | `infra-roadmap-zoom-lock` | Boolean: lock zoom on expand |
-
-## Cross-Zone Edges
-
-Some nodes have `edges.to` pointing to nodes in other zones (e.g., `programming-fundamentals` → `what-is-a-web-service` in building zone). These are valid — they won't render in the graph until the target zone is active. Validation skips these.
+| `infra-roadmap-hint-dismissed` | Boolean: hide first-visit hint banner |
 
 ## Styling
 
@@ -61,3 +68,4 @@ Some nodes have `edges.to` pointing to nodes in other zones (e.g., `programming-
 - Node status borders: not-started=rose, in-progress=blue (with ring), completed=green
 - Category icons: concept=💡, tool=🔧, practice=📋, principle=🎯
 - Zone colors defined in `_zones.yaml` (hex values)
+- Question nodes: small italic pill, same visual style as the old edge labels (white/semi-transparent bg, subtle border, blue on hover/open)
