@@ -8,7 +8,9 @@ edges:
       question: "Routing works — now I want HTTPS on everything"
     - id: "getting-a-domain"
       question: "I have a domain — now I want HTTPS on everything"
-  to: []
+  to:
+    - id: "expose-to-internet"
+      question: "Works locally — now how do I access it when I'm not home?"
 difficulty: 2
 tags: ["self-hosting", "tls", "https", "traefik", "letsencrypt", "cloudflare"]
 category: "practice"
