@@ -10,10 +10,10 @@ edges:
   to:
     - id: "public-vs-private-ips"
       question: "I understand how addresses are organized. But why do some IPs only work at home while others work anywhere on the internet?"
-      detail: "You know how subnets organize IP addresses into groups. Now there's a deeper split: some IP address ranges are reserved for private networks (like your home), and others are public — routable across the entire internet. Understanding this distinction explains NAT, why you can't host a server at home easily, and how cloud infrastructure is designed."
+      detail: "I understand how subnets carve up address space into groups. But I've noticed that my home IP is always 192.168.something, while servers have completely different addresses — and I can't reach my home machine from outside. There seems to be a fundamental split between addresses that work anywhere and ones that only work locally. What's going on there?"
     - id: "how-packets-travel"
       question: "Traffic between subnets needs a router. But how does a router know where to send a packet?"
-      detail: "You know that packets between subnets must pass through a router, and that routing tables tell a device where to forward traffic. But your routing table only has a few entries — 'local subnet: direct' and 'everything else: send to gateway.' What happens after that gateway? How does a packet find its way across the internet through potentially dozens of routers?"
+      detail: "I get that my routing table says 'local subnet: direct, everything else: send to my gateway.' But then what? My router gets the packet — and it somehow ends up at a server on the other side of the world. How does any router along the way know where to send something? There must be routers in between that are making decisions I don't understand."
 difficulty: 2
 tags: ["subnets", "cidr", "ipv4", "routing", "network"]
 category: "concept"

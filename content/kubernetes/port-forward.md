@@ -10,7 +10,7 @@ edges:
   to:
     - id: "services"
       question: "Port-forward works for local testing. What's the proper way to expose a Pod inside the cluster?"
-      detail: "Port-forward is temporary — it only works while the command is running, only works from your machine, and it bypasses all cluster networking. A Service is the real answer: a stable, cluster-level endpoint that routes to your Pods regardless of which machine they're running on or when they restart."
+      detail: "Port-forward was useful for checking things worked, but it drops the moment I close my terminal and nobody else can use it. My app needs a persistent, accessible endpoint inside the cluster that doesn't depend on me keeping a command running. How does anything else in the cluster actually reach my Pod reliably?"
 difficulty: 1
 tags: ["kubernetes", "kubectl", "port-forward", "debugging", "development", "k8s"]
 category: "practice"

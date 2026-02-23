@@ -9,6 +9,7 @@ edges:
   to:
     - id: "graceful-shutdown"
       question: "Kubernetes knows when my app is sick. But what happens when it decides to restart or move a pod — does traffic just get dropped?"
+      detail: "My liveness probe works and unhealthy pods get restarted. But what happens to requests that are in-flight when the pod gets killed? Do they just fail, or is there something that drains them first?"
 difficulty: 2
 tags: ["kubernetes", "liveness", "readiness", "startup", "probes", "health", "k8s", "production"]
 category: "practice"

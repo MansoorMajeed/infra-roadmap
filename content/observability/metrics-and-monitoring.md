@@ -10,7 +10,7 @@ edges:
   to:
     - id: "dashboards"
       question: "I'm collecting metrics. How do I visualise them usefully?"
-      detail: "Raw metric streams are data — dashboards are understanding. A well-built dashboard shows you the health of your system at a glance: are error rates up? Is latency creeping? Is the database connection pool exhausted? Grafana is the standard tool for this."
+      detail: "I've got metrics being collected but it's just numbers in a terminal query. I want something I can actually look at during an incident — something that shows me at a glance whether things are getting worse or better."
     - id: "sli-slo-error-budgets"
       question: "I have metrics. But which ones actually matter? How do I define 'the system is healthy'?"
       detail: "Collecting metrics is easy. Knowing which metrics reflect whether users are having a good experience is harder. Service Level Indicators (SLIs) and Service Level Objectives (SLOs) give you a principled framework for measuring reliability — and error budgets tell you when you're burning through it."

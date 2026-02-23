@@ -10,10 +10,10 @@ edges:
   to:
     - id: "subnets-and-cidr"
       question: "Every device has an IP address. But how are those addresses organized into groups?"
-      detail: "You know what an IP address is — four numbers that identify a device on a network. But those numbers aren't random. Addresses are organized into chunks called subnets, and every IP address belongs to one. Understanding subnets explains why your home devices are all 192.168.1.x, why cloud networks use 10.x.x.x, and how routers know where to send packets."
+      detail: "I understand what my IP address is. But the numbers don't seem random — my home devices are all 192.168.1.something. I'm wondering how those address blocks are organized and what the structure actually means."
     - id: "dhcp"
       question: "Every device needs an IP. But how does your device actually get one assigned to it?"
-      detail: "You know what an IP address is and how they're structured. But when you connected to WiFi this morning, you didn't type anything — your device just got an address. Understanding DHCP explains that automatic assignment and what's actually happening in the brief moment when your device first joins a network."
+      detail: "When I connected to WiFi this morning I didn't type any IP — my device just got one automatically. How does that work? And what happens when something goes wrong with that process?"
 difficulty: 1
 tags: ["ip", "ipv4", "ipv6", "addressing", "network"]
 category: "concept"

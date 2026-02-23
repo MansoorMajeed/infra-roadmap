@@ -9,6 +9,7 @@ edges:
   to:
     - id: "pod-disruption-budgets"
       question: "My app shuts down cleanly. But during a cluster upgrade, can Kubernetes take all my pods offline at once?"
+      detail: "I've handled SIGTERM so my app drains properly. But if Kubernetes is upgrading nodes and decides to evict everything, what stops it from taking all my replicas down simultaneously and causing a full outage?"
 difficulty: 3
 tags: ["kubernetes", "sigterm", "sigkill", "graceful", "shutdown", "prestop", "k8s", "production"]
 category: "practice"

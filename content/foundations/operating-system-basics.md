@@ -10,7 +10,7 @@ edges:
   to:
     - id: "linux-and-distros"
       question: "I know what an OS does. Which one matters for SRE?"
-      detail: "You understand that an operating system manages hardware and provides an interface for programs. But in the real world, you need to pick one. The answer for SRE and DevOps is overwhelmingly Linux. But Linux is not one thing — it is a kernel with hundreds of distributions built on top of it. Understanding why Linux won the server world, what a distribution actually is, and why you will probably never see a Windows or macOS server in production is foundational knowledge."
+      detail: "I get what an OS does in abstract terms. But in practice, which one am I actually going to be using? I know servers don't run Windows, but beyond that I'm fuzzy — is Linux one thing? Are there different versions? What am I actually going to encounter when I SSH into a server?"
     - id: "files-and-filesystems"
       question: "The OS manages files. How does that work?"
       detail: "Everything on your computer is a file — your code, your configs, your logs, even your devices. The OS organizes all of this through a filesystem: a hierarchical structure that determines where things live, who can access them, and how data is physically stored on disk. Understanding the filesystem is essential because in SRE work, you'll constantly be reading logs, editing configs, and managing storage."

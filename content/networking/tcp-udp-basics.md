@@ -10,7 +10,7 @@ edges:
   to:
     - id: "http-protocol"
       question: "I understand TCP and ports. But what is my browser actually saying to the server?"
-      detail: "TCP delivers bytes reliably between two machines. But what are those bytes? When your browser connects to a web server, it is not sending random data — it is speaking HTTP, a structured protocol that defines how to request pages, submit forms, and get responses. HTTP rides on top of TCP, and understanding it is how you understand the web."
+      detail: "TCP gets bytes from A to B reliably — I get that. But what are the actual bytes my browser sends when I load a webpage? It can't just be a raw stream of random data. The server must understand exactly what's being asked for. What language are they actually speaking to each other?"
 difficulty: 1
 tags: ["tcp", "udp", "networking", "ports", "ip-addresses", "protocols"]
 category: "concept"

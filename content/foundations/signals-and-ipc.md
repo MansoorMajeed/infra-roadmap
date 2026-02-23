@@ -10,7 +10,7 @@ edges:
   to:
     - id: "systemd-and-services"
       question: "I know how processes communicate. Who manages all the services?"
-      detail: "You understand signals — how to tell a process to stop, reload, or terminate. But on a real server, dozens of services need to start in the right order at boot, restart if they crash, and shut down gracefully. Something needs to orchestrate all of this. That something is the init system, and on modern Linux, it is systemd. It uses the same signals you just learned about, but wraps them in a service management framework."
+      detail: "I understand how to send signals to individual processes. But on a real server there are dozens of services — they all need to start when the machine boots, restart if they crash, and shut down gracefully. How does any of that happen automatically? Someone or something must be managing all of it."
 difficulty: 1
 tags: ["signals", "ipc", "sigterm", "sigkill", "sighup", "pipes", "sockets", "kill"]
 category: "concept"

@@ -9,6 +9,7 @@ edges:
   to:
     - id: "service-mesh-intro"
       question: "Those problems sound familiar. What actually solves them?"
+      detail: "I'm seeing all of these problems — unencrypted inter-service traffic, no request-level metrics, no automatic retries. I'm adding logic to each service individually to deal with it. There has to be a way to handle this at the infrastructure level instead."
 difficulty: 2
 tags: ["kubernetes", "service-mesh", "mtls", "observability", "traffic", "security", "k8s", "production"]
 category: "concept"

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "ingress"
       question: "NodePort and LoadBalancer work but feel clunky for HTTP. Is there a better way?"
-      detail: "LoadBalancer creates one cloud load balancer per Service — expensive and hard to manage at scale. Ingress is the Kubernetes-native answer for HTTP: one load balancer routes to many Services based on hostname and path. It's how most production web traffic is exposed."
+      detail: "Every HTTP service needs its own cloud load balancer? That's going to get expensive fast. I have a frontend, an API, a docs site — I don't want three separate load balancers. There must be a smarter way to route HTTP traffic to different services from a single entry point."
 difficulty: 1
 tags: ["kubernetes", "nodeport", "loadbalancer", "services", "networking", "external-access", "k8s"]
 category: "concept"

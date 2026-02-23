@@ -11,10 +11,10 @@ edges:
     - id: "where-do-i-run-this"
       zone: "running"
       question: "I understand HTTP. But where do I actually run my app for real users?"
-      detail: "You know the protocol — HTTP methods, status codes, headers. But all of this is running on your laptop. Real websites need to run somewhere that is always on, always reachable. Where do you actually put your application so the world can use it?"
+      detail: "My app works on localhost and I can curl it. But I need it somewhere permanently accessible — not my laptop, not a local port. Where do you actually put something you want real users to be able to reach?"
     - id: "encryption-basics"
       question: "HTTP is plaintext. Can anyone read my traffic?"
-      detail: "You just learned that HTTP sends everything — passwords, cookies, personal data — as readable text. Anyone between you and the server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
+      detail: "I just realized my login form is sending usernames and passwords in plain text over the network. Anyone watching the traffic could read them. How does HTTPS actually prevent that?"
 difficulty: 1
 tags: ["http", "https", "protocol", "status-codes", "methods", "curl", "application-layer"]
 category: "concept"

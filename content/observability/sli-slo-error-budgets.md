@@ -10,7 +10,7 @@ edges:
   to:
     - id: "alerting"
       question: "I know what I'm measuring and what my targets are. How do I get paged when I'm breaching them?"
-      detail: "SLOs define what you're trying to maintain. Alerting is how you find out you're failing to maintain it — before users notice or before the error budget runs out. Burn-rate alerts on your SLOs are more actionable than threshold alerts on individual metrics."
+      detail: "I've defined my SLOs but right now I'm just manually checking dashboards to see if I'm on track. I need to be notified automatically when things are going wrong — not find out hours later by staring at a graph."
 difficulty: 2
 tags: ["sli", "slo", "sla", "error-budget", "reliability", "site-reliability-engineering"]
 category: "concept"

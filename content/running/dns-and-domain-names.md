@@ -10,7 +10,7 @@ edges:
   to:
     - id: "running-your-store"
       question: "I have a domain name. How do I put it all together and deploy my app?"
-      detail: "You know how DNS translates names to IPs, how to register a domain, and how records work. Now it is time to put it all together — point your domain at your server, configure Nginx as a reverse proxy, get HTTPS with Certbot, and make your ecommerce store accessible to the world. This is the culmination of everything you have learned."
+      detail: "I've got DNS pointing at my server and all the pieces working separately. But I've never assembled them into a real live deployment — Nginx in front, HTTPS configured, actual domain in the browser. What does putting all of it together actually look like?"
 difficulty: 1
 tags: ["dns", "domain-names", "nameservers", "udp", "dig", "nslookup"]
 category: "concept"

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "firewall-basics"
       question: "My app is listening on a port. Who can actually connect to it from the internet?"
-      detail: "Your app is bound to a port and listening for connections. But is the firewall allowing traffic on that port? The firewall sits in front of your app and controls which ports are reachable from the outside world. Without opening the right ports, nobody can reach your server."
+      detail: "My app is listening on port 5000 but I still can't reach it from outside the server. I've heard there's a firewall that might be blocking it — but I don't know how to check or fix that."
 difficulty: 1
 tags: ["ports", "tcp", "sockets", "listening", "0.0.0.0", "127.0.0.1", "netstat", "ss"]
 category: "concept"

@@ -10,10 +10,10 @@ edges:
   to:
     - id: "autoscaling"
       question: "Config and secrets are managed. Now — how do I make my workloads scale automatically with traffic?"
-      detail: "Your app is running, reachable, stateful, and properly configured. The next question is elasticity: when traffic spikes, your app should grow; when it drops, it should shrink. The Horizontal Pod Autoscaler watches your metrics and adjusts replica counts automatically."
+      detail: "My app is running and configured correctly. But right now I have to manually change the replica count when traffic spikes. I want it to just grow when load increases and shrink when it drops — without me touching anything. How does Kubernetes do that automatically?"
     - id: "resource-requests-and-limits"
       question: "Before I set up autoscaling — I've heard Kubernetes needs resource requests defined first. What are those?"
-      detail: "The HPA scales based on CPU or memory utilisation relative to each Pod's requests. Without requests set, the scheduler places Pods blindly and the HPA has nothing to measure against. Understanding requests and limits first makes autoscaling actually work."
+      detail: "I want autoscaling to work, but I have a feeling I'm missing something. My Pods don't have resource requests set — does that matter? How does Kubernetes even know what 'high load' means for my app if I haven't told it how much CPU or memory each Pod is supposed to use?"
 difficulty: 1
 tags: ["kubernetes", "secrets", "security", "credentials", "encryption", "external-secrets", "k8s"]
 category: "practice"

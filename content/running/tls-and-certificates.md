@@ -13,7 +13,7 @@ edges:
   to:
     - id: "running-your-store"
       question: "I understand HTTPS and TLS. How do I put it all together and deploy?"
-      detail: "You know how TLS works, what certificates are, and how to get a free certificate with Let's Encrypt. Combined with DNS and web server knowledge, you have all the pieces. Now it is time to put it all together — deploy your Flask app with Gunicorn, configure Nginx, set up DNS, enable HTTPS, and make your store live."
+      detail: "I understand the individual pieces — HTTPS, certificates, DNS, web server. But I've never done a full deployment from scratch and I'm not sure in what order everything goes together or what I'm likely to mess up."
 difficulty: 2
 tags: ["tls", "ssl", "https", "certificates", "certificate-authority", "lets-encrypt"]
 category: "concept"

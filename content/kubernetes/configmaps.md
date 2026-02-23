@@ -10,7 +10,7 @@ edges:
   to:
     - id: "secrets"
       question: "ConfigMaps work for non-sensitive config. What about passwords, API keys, and certificates?"
-      detail: "ConfigMaps are not encrypted — anything in a ConfigMap is readable by anyone who can access the cluster or the etcd datastore. Secrets are Kubernetes's separate resource for sensitive data. They work similarly to ConfigMaps but come with access controls and (optionally) encryption at rest."
+      detail: "I've put my database URL and feature flags in a ConfigMap, but now I need to add a database password and an API key. Those feel very different — I shouldn't just dump them in the same place as regular config. How does Kubernetes handle sensitive values?"
 difficulty: 1
 tags: ["kubernetes", "configmap", "configuration", "environment-variables", "k8s"]
 category: "practice"

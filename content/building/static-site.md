@@ -10,7 +10,7 @@ edges:
   to:
     - id: "dynamic-web-app"
       question: "My site looks nice, but it can't actually do anything. How do I add real functionality?"
-      detail: "A static site can display information beautifully, but it cannot remember users, process payments, or update content dynamically. For that, you need a backend — server-side code that handles logic, talks to a database, and responds to user actions. This is where you go from building a digital brochure to building a real application."
+      detail: "My static site looks great but it's basically a fancy brochure. I want users to be able to log in, submit forms, see personalized content — things that require actually remembering something. I have no idea how to make a webpage do that."
 difficulty: 1
 tags: ["html", "css", "javascript", "static-site", "web-basics"]
 category: "concept"

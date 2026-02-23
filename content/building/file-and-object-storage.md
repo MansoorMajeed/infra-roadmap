@@ -10,7 +10,7 @@ edges:
   to:
     - id: "it-works-on-my-laptop"
       question: "I can handle files and data. Now how do I deploy all of this?"
-      detail: "Your application now handles structured data in a database and files in storage. Locally, the files just sit on your filesystem. But in production, where do they go? You cannot rely on a single server's disk. This is where cloud storage, networking, and deployment architecture all come together."
+      detail: "My app handles uploads and stores them on my local filesystem — but that only works on my machine. If I deploy to a server and users upload files, where do those actually go? I can't count on the server's disk for everything. I need to figure out how file storage works in a real deployment."
 difficulty: 2
 tags: ["storage", "s3", "object-storage", "files", "blob", "cdn"]
 category: "concept"

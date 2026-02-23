@@ -10,11 +10,11 @@ edges:
   to:
     - id: "scripting-bash-python"
       question: "I know the theory. Let me apply it to automate real tasks."
-      detail: "You understand variables, loops, functions, and data structures. Now it's time to put that knowledge to work with the two languages SREs use most: Bash for quick terminal automation and Python for anything more complex. Scripting is where programming stops being academic and starts saving you hours of repetitive work every week."
+      detail: "I understand the concepts — loops, functions, data structures — but I've only written toy programs. I want to actually automate the things I do in the terminal, or write something that does real work without me having to babysit it. What would I actually write, and in what language?"
     - id: "what-is-a-web-service"
       zone: "building"
       question: "I can write code. How do I build something people can use?"
-      detail: "You can write programs that run on your machine, but most software people actually use runs as a service — accessible over the network, always on, serving many users at once. Understanding how web services work (HTTP, APIs, servers, clients) is the bridge from writing local scripts to operating production infrastructure."
+      detail: "I can write scripts that run on my machine. But the software I actually want to build — something a user can open in a browser, something that serves data over an API — is a completely different thing. I don't even know what's involved in making something that lives on the network and responds to requests."
 difficulty: 1
 tags: ["programming", "variables", "loops", "functions", "data-structures", "logic"]
 category: "concept"

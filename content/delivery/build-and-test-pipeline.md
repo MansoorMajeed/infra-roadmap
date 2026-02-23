@@ -14,8 +14,10 @@ edges:
     - id: "containerization"
       zone: "containers"
       question: "Tests pass on every commit. How do I package the app to actually ship it?"
+      detail: "My pipeline builds and tests the code, but it's still just source code in a repo. To actually ship it somewhere, I need to package it consistently. I've heard containers are the standard — but I'm not sure how that fits into a pipeline."
     - id: "iac-intro"
       question: "My pipeline is solid. The servers it deploys to were set up by hand — can I codify that too?"
+      detail: "I've automated the build and test, but the servers my app runs on were created by clicking through the cloud console. If they die or I need a second one, I'd have to recreate them manually. That feels wrong."
 difficulty: 1
 tags: ["ci-cd", "testing", "pipelines", "automation", "github-actions"]
 category: "practice"

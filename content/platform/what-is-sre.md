@@ -11,7 +11,7 @@ edges:
   to:
     - id: "toil-and-automation"
       question: "SRE sounds like engineering your way out of operational work. What is 'toil' exactly?"
-      detail: "Toil is the specific term SRE uses for the category of work to eliminate: manual, repetitive, automatable operational work that scales with traffic rather than compound in value. Understanding toil is the foundation of the SRE discipline."
+      detail: "I keep hearing 'eliminate toil' but the word is doing a lot of work there. Are we talking about all manual work? Just repetitive stuff? How do I know what counts as toil versus just doing my job?"
 difficulty: 1
 tags: ["sre", "devops", "site-reliability-engineering", "toil", "philosophy", "culture"]
 category: "concept"

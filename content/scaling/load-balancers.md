@@ -10,7 +10,7 @@ edges:
   to:
     - id: "session-problem"
       question: "Load balancer is in place. But now users keep getting randomly logged out. What's going on?"
-      detail: "This is the first problem everyone hits when they scale horizontally. If your app stores sessions on a specific server, users whose requests land on a different server will find themselves logged out. This has a well-understood solution."
+      detail: "Everything looked fine after I added the load balancer, but now users keep complaining they're getting signed out mid-session. I didn't change any auth code — why is this suddenly happening?"
 difficulty: 1
 tags: ["load-balancer", "alb", "aws", "high-availability", "health-checks", "target-groups"]
 category: "concept"

@@ -13,7 +13,7 @@ edges:
   to:
     - id: "deployments"
       question: "Autoscaling manages how many Pods run. But how do I manage what they run — updating my app without downtime?"
-      detail: "The HPA controls scale. The Deployment controls what's actually running: which container image, how to roll out a new version, what to do if the rollout fails. Deployments are the resource that makes 'ship a new version without downtime' possible in Kubernetes."
+      detail: "I've got autoscaling working — the HPA adjusts my replica count. But now I need to ship a new version of my app. Do I just delete all the pods and start fresh? That feels wrong. How do I update what's running without taking everything offline?"
 difficulty: 2
 tags: ["kubernetes", "autoscaling", "hpa", "vpa", "cluster-autoscaler", "metrics-server", "k8s"]
 category: "practice"

@@ -13,7 +13,7 @@ edges:
       detail: "If sessions live on a specific server, that server has to handle every request for that user. The real fix is to move session storage out of the server entirely — into a shared store that any server can read and write. Redis is the standard answer."
     - id: "sticky-sessions-the-trap"
       question: "Can't I just send each user to the same server every time?"
-      detail: "This is called sticky sessions (or session affinity), and it's the first thing most people try. It works — until it doesn't. Understanding why it's a trap will save you from a nasty production incident later."
+      detail: "I mean, the simplest fix seems like just keeping each user on the same server, right? Why doesn't that work long-term?"
 difficulty: 1
 tags: ["sessions", "stateless", "load-balancer", "sticky-sessions", "scaling"]
 category: "concept"

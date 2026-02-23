@@ -10,7 +10,7 @@ edges:
   to:
     - id: "persistent-volumes"
       question: "Networking is sorted — my app is reachable from the outside world. What about storage? My app needs to write files that survive Pod restarts."
-      detail: "Stateless apps are easy on Kubernetes — kill the Pod, reschedule it, nothing is lost. But databases, file uploads, and any workload that writes to disk need storage that outlives the Pod. PersistentVolumes are how Kubernetes provides that."
+      detail: "My app is reachable from the internet now. But my app also writes files — user uploads, generated reports. When a pod restarts, those files are gone. A pod's filesystem is ephemeral, which means I can't just write to disk the way I would on a regular server. How does Kubernetes handle data that needs to survive?"
 difficulty: 2
 tags: ["kubernetes", "ingress", "ingress-controller", "nginx", "traefik", "http-routing", "tls", "k8s"]
 category: "practice"

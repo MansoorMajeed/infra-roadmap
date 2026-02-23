@@ -13,7 +13,7 @@ edges:
   to:
     - id: "troubleshooting-basics"
       question: "I can read logs. How do I use them to systematically debug problems?"
-      detail: "You know where the logs are and how to read them. Now what? When something breaks, you need a systematic approach: check if the process is running, check if it is listening, try to reach it locally, check the logs at each layer. This methodical debugging is what separates guessing from actually fixing things."
+      detail: "I can find and read logs now. But when something breaks I still end up randomly restarting things and hoping it helps. I need a more systematic approach — a way to narrow down which part of the stack is actually broken instead of just guessing."
 difficulty: 1
 tags: ["logs", "journalctl", "nginx", "tail", "grep", "debugging", "stdout", "stderr"]
 category: "practice"

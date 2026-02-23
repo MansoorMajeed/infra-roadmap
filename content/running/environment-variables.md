@@ -10,7 +10,7 @@ edges:
   to:
     - id: "process-management"
       question: "My app is configured. How do I keep it running reliably after I close SSH?"
-      detail: "Your app starts and works correctly. But if you close your SSH session, the process dies. If the server reboots, your app does not come back. You need a process manager — a system that keeps your app running, restarts it if it crashes, and starts it automatically on boot."
+      detail: "I've been starting my app by running it in an SSH session, and the moment I close the terminal it just dies. If the server reboots it's gone completely. How do I make it stay running regardless of what happens?"
 difficulty: 1
 tags: ["environment-variables", "secrets", "config", "dotenv", "12factor", "systemd"]
 category: "concept"

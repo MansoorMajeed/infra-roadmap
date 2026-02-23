@@ -10,7 +10,7 @@ edges:
   to:
     - id: "deploying-your-code"
       question: "My server is set up and secured. Now how do I get my code onto it?"
-      detail: "You have a properly configured server: secured SSH, installed runtime, firewall in place. Now you need to actually get your application code onto the server and run it. This is deployment — getting your code from your laptop to the server where users can reach it."
+      detail: "The server is locked down and my runtime is installed. But my code is still sitting on my laptop. How do I actually get it onto the server?"
 difficulty: 1
 tags: ["firewall", "ufw", "security-groups", "ports", "iptables", "network-security"]
 category: "practice"

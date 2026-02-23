@@ -13,7 +13,7 @@ edges:
   to:
     - id: "chaos-engineering"
       question: "We learn from incidents reactively. Can we find weaknesses before they cause incidents?"
-      detail: "Post-mortems are reactive: something broke, you learned. Chaos engineering is proactive: you deliberately inject failures to find weaknesses before they cause production incidents. It's the difference between waiting for the earthquake and testing your building's structure yourself."
+      detail: "Post-mortems help us learn, but we only find out about a weakness after it's already hurt us. Is there a way to actually stress-test the system on purpose — before something breaks in production instead of after?"
 difficulty: 2
 tags: ["post-mortem", "blameless", "sre", "incident-review", "learning", "reliability"]
 category: "practice"

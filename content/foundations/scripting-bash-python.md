@@ -17,7 +17,7 @@ edges:
     - id: "static-site"
       zone: "building"
       question: "Scripts are great, but I want to build something people can actually see."
-      detail: "You can automate tasks with scripts, but at some point you want to build something visible — a website, an app, something you can share with people. The jump from scripts to building for the web starts with understanding how HTML, CSS, and JavaScript come together to create what users see in their browser. It is simpler than you think, and it is the first step toward building real software."
+      detail: "Scripts are great for automation, but I want to build something with a UI — a page someone can visit, or a service that responds to requests. I'm not sure how scripts relate to that at all. What's the gap between 'writing scripts' and 'building something for the web'?"
 difficulty: 1
 tags: ["bash", "python", "scripting", "automation", "cron", "shell-scripting"]
 category: "practice"

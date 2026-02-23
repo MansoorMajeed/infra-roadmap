@@ -10,7 +10,7 @@ edges:
   to:
     - id: "programming-fundamentals"
       question: "I understand how programs run. Now how do I write them?"
-      detail: "You know what processes are, how threads work within them, and how the OS manages all of it. Now it is time to actually write programs. Programming fundamentals — variables, loops, functions, data structures — are the building blocks of everything you will build and debug as an SRE. This is not about becoming a software engineer; it is about being able to read code, write scripts, and understand what the applications you manage are actually doing."
+      detail: "I understand the machinery — processes, threads, how the OS manages them. But understanding how something runs isn't the same as being able to write it. I want to go from 'I know what a program is' to 'I can actually write one.' Where do I start?"
 difficulty: 1
 tags: ["threads", "concurrency", "parallelism", "multi-threading", "race-condition", "context-switch"]
 category: "concept"

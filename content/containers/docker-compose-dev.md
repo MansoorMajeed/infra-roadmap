@@ -9,6 +9,7 @@ edges:
   to:
     - id: "building-images-in-ci"
       question: "Local setup works. How do I build images automatically in CI?"
+      detail: "I'm running docker build manually on my laptop every time I make a change. That's not sustainable — I need this to happen automatically when I push code, not something I have to remember to do."
 difficulty: 1
 tags: ["docker", "docker-compose", "local-dev", "containers"]
 category: "practice"

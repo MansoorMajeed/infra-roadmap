@@ -13,7 +13,7 @@ edges:
   to:
     - id: "deploying-your-code"
       question: "I can manage a Linux server. How do I get my code onto it?"
-      detail: "You know how to SSH in, install packages, and manage services. But your application code is still on your laptop. How do you actually get it onto the server, install its dependencies, and run it? This is deployment — the process of getting your code from your machine to a server where users can access it."
+      detail: "I can SSH in and install packages. But my app code is still sitting on my laptop. How do I actually move it to the server, install what it needs, and get it running?"
 difficulty: 1
 tags: ["linux", "ssh", "systemd", "apt", "permissions", "server-admin"]
 category: "practice"

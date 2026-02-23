@@ -13,7 +13,7 @@ edges:
   to:
     - id: "programming-fundamentals"
       question: "I understand how the computer runs things. Now how do I write real programs?"
-      detail: "You know how the OS manages processes, memory, and files. Now it's time to actually write programs that leverage all of this. Programming fundamentals — variables, loops, functions, data structures — are the building blocks of every script, tool, and service you'll build as an SRE. This isn't about becoming a software engineer; it's about being dangerous enough with code to automate your work and solve problems."
+      detail: "I can watch processes and poke at memory usage. But whenever I need to automate something or write a script, I get stuck — I don't have a solid grasp of even the basics like loops and functions. How do I actually build that foundation?"
 difficulty: 1
 tags: ["processes", "memory", "ram", "pid", "linux", "system-resources"]
 category: "concept"

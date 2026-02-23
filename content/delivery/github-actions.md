@@ -13,7 +13,7 @@ edges:
       detail: "A basic 'hello world' pipeline is a start, but a real pipeline has structured stages: install dependencies, run tests, build the artifact, then deploy. Let's build that."
     - id: "pipeline-secrets"
       question: "My pipeline needs to deploy to a server — it needs credentials. Where do I put secrets?"
-      detail: "Your pipeline needs to SSH into servers, push to a registry, or call APIs. Those credentials can't live in your YAML file. GitHub Actions has a built-in secrets store, and there are patterns for using them safely."
+      detail: "My pipeline needs to SSH into a server or push to a container registry. That means it needs credentials — but I can't just put SSH keys or passwords in the YAML file. Where do secrets like that even go, and how does the pipeline access them safely?"
 difficulty: 1
 tags: ["github-actions", "ci-cd", "yaml", "pipelines", "automation"]
 category: "tool"

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "installing-software"
       question: "My server is secured. How do I install the software my app needs?"
-      detail: "You have a properly secured server with a non-root user and SSH key authentication. Now you need to install your application's runtime — Node.js, Python, or whatever your app is written in. This means using the package manager to install software on Linux."
+      detail: "The server is locked down. Now I need to get my app's runtime on it — the right version of Python, or Node, or whatever it needs. But I'm not sure how to install software on Linux without breaking anything."
 difficulty: 1
 tags: ["security", "hardening", "sudo", "non-root", "ufw", "ssh-config", "users"]
 category: "practice"

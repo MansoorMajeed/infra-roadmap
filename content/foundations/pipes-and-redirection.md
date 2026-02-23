@@ -10,7 +10,7 @@ edges:
   to:
     - id: "environment-and-shell-config"
       question: "I can chain commands. How do I customize my shell environment?"
-      detail: "You know how to compose commands with pipes and redirection. But your shell has its own configuration — environment variables that control how programs behave, config files that run every time you open a terminal, and a PATH variable that determines which programs you can run by name. Understanding your shell environment is how you go from 'it works when I type it' to 'it works everywhere, every time.'"
+      detail: "Pipes are starting to click. But I keep noticing things I have to set up every time I open a terminal — aliases, paths, settings that just disappear when I close the session. Where does all of this actually live?"
 difficulty: 1
 tags: ["pipes", "redirection", "stdin", "stdout", "stderr", "unix-philosophy", "composition"]
 category: "concept"

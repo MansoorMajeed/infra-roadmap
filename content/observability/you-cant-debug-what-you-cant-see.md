@@ -11,7 +11,7 @@ edges:
   to:
     - id: "structured-logging"
       question: "What's the first thing I should instrument?"
-      detail: "Logs are the most immediate signal — every application already produces them. But raw text logs from dozens of servers are nearly impossible to search or correlate. Structured logging is the foundation: machine-readable logs you can query, filter, and connect across services."
+      detail: "I know I need observability but I don't know where to start — logs, metrics, traces? There's a lot to set up and I don't want to build it all at once and end up with none of it working. What gives me the most value first?"
 difficulty: 1
 tags: ["observability", "logging", "metrics", "tracing", "three-pillars", "debugging"]
 category: "concept"

@@ -29,11 +29,11 @@ edges:
     - id: "local-network"
       zone: "networking"
       question: "Why can't anyone else reach my app? What even is a network?"
-      detail: "Your app runs on localhost — your machine talking to itself. But your laptop is connected to other devices right now. Your phone, your smart TV, your roommate's laptop — they are all on the same WiFi network. Understanding what a local network is and how devices on it communicate is the first step to getting your app off localhost."
+      detail: "I bound to 0.0.0.0 and my phone can reach the app when we're on the same WiFi — but my friend across town still can't. I don't understand why. There must be something about how networks are structured that explains this, but I don't know what I'm missing."
     - id: "where-do-i-run-this"
       zone: "running"
       question: "My app works locally. Where do I actually run this for real?"
-      detail: "Your app works on your laptop, but nobody can reach it. You need it running somewhere that is always on, always connected, with a public IP. But where? What are your options, and why can't you just leave your laptop open?"
+      detail: "I can't run a production service from my laptop — it goes to sleep, I carry it around, the IP changes. I need something that's always on and always reachable. But I have no idea what that actually means or what my options are."
 difficulty: 1
 tags: ["localhost", "networking", "deployment", "ports", "development-environment"]
 category: "concept"

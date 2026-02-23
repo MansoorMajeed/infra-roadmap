@@ -10,7 +10,7 @@ edges:
   to:
     - id: "build-and-test-pipeline"
       question: "Secrets are handled. Now how do I structure the full pipeline?"
-      detail: "With secrets sorted, you can build a pipeline that actually deploys: test, build, push to a registry, and deploy to your server — all automatically, without hardcoded credentials."
+      detail: "I have the credentials in the right place, but my pipeline still only runs tests. I want the whole thing — test, build the image, push it, and actually deploy — all in one automated flow."
 difficulty: 2
 tags: ["secrets", "security", "ci-cd", "environment-variables", "github-secrets", "vault"]
 category: "practice"

@@ -10,13 +10,13 @@ edges:
   to:
     - id: "dns-and-domain-names"
       question: "My web server works, but I'm using raw IP addresses. How do I give my site a real name?"
-      detail: "Your Nginx server is running and serving pages. But you are accessing it by IP address. Nobody wants to type that. Every real website has a domain name — google.com, github.com. Something has to translate those names into IP addresses, and that system is DNS."
+      detail: "Nginx is running and I can hit it with the IP address. But I need an actual domain name — something people can type. I have no idea how domain names get tied to IP addresses or what I'd have to set up to make my-app.example.com point at my server."
     - id: "tls-and-certificates"
       question: "My web server works over HTTP, but I need HTTPS. How do I set up TLS?"
-      detail: "Your Nginx server is serving pages over HTTP. But HTTP is plaintext — anyone can read the traffic. You need TLS to encrypt the connection, and that means certificates. Let's Encrypt makes this free and automated, but you need to understand what certificates are and how TLS works."
+      detail: "My site works over HTTP but the browser is showing a 'Not Secure' warning. I know I need HTTPS but I have no idea how to get a certificate or what TLS actually involves. How does any of this work, and how do I get the padlock?"
     - id: "reading-logs"
       question: "Nginx is running and serving traffic. How do I see what requests are coming in?"
-      detail: "Nginx logs every request it handles and every error it encounters. These logs are your window into what users are actually doing — what URLs they are hitting, what errors they are getting, and what Nginx cannot handle. Reading access logs and error logs is a core skill."
+      detail: "Nginx is serving traffic but I have no visibility into what's happening. Is my app actually responding? Are there errors? What URLs are people hitting? There must be a log somewhere that shows me all of this — where is it and how do I make sense of it?"
 difficulty: 1
 tags: ["nginx", "apache", "web-server", "http", "static-files", "serving"]
 category: "tool"

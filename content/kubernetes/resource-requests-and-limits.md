@@ -10,7 +10,7 @@ edges:
   to:
     - id: "autoscaling"
       question: "Resources are defined. Now I want Kubernetes to scale my Pods automatically based on those metrics."
-      detail: "Resource requests unlock autoscaling: the HPA uses CPU and memory utilisation relative to requests to decide when to add or remove replicas. Without requests set, the HPA has nothing to calculate against — it simply won't scale."
+      detail: "I've set requests and limits so Kubernetes knows what each Pod needs. But when traffic spikes I'd still have to manually bump the replica count. Is there a way for the cluster to just figure out 'there's more load, spin up more Pods' on its own — without me having to watch it?"
 difficulty: 2
 tags: ["kubernetes", "resource-requests", "resource-limits", "qos", "scheduling", "hpa", "k8s"]
 category: "practice"

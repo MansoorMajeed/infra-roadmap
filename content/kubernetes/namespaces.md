@@ -10,7 +10,7 @@ edges:
   to:
     - id: "pods"
       question: "I understand how namespaces organise the cluster. Now — how do I actually run something in one?"
-      detail: "Everything in Kubernetes lives in a namespace. When you run your first Pod, it goes into the default namespace unless you say otherwise. Understanding namespaces first means you'll organise from day one instead of trying to retrofit it later."
+      detail: "I've set up my namespaces, but now I'm staring at kubectl not sure what to actually put in them. What's the first real thing I deploy, and how do I make sure it ends up in the right namespace?"
 difficulty: 1
 tags: ["kubernetes", "namespaces", "multi-tenancy", "resource-quotas", "organisation", "k8s"]
 category: "concept"

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "gitops-with-argocd"
       question: "I understand deployment strategies. How do I automate all of this so updates happen from a Git push?"
-      detail: "Understanding deployment strategies manually prepares you to automate them. GitOps with ArgoCD can manage rolling updates, and tools like Argo Rollouts add progressive delivery (canary, blue-green) as a Kubernetes-native resource — triggered automatically by a Git commit."
+      detail: "I understand blue-green and canary deployments now — but I'm still triggering all of this manually. I want a code push to be what kicks it off, not me running kubectl commands. How does that actually get wired up?"
 difficulty: 2
 tags: ["kubernetes", "deployment-strategies", "blue-green", "canary", "rolling-update", "argo-rollouts", "k8s"]
 category: "concept"

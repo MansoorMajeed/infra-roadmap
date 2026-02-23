@@ -10,7 +10,7 @@ edges:
   to:
     - id: "terraform-basics"
       question: "I understand Ansible for server configuration. Now I want to provision the infrastructure itself."
-      detail: "Ansible can provision some infra, but Terraform is purpose-built for it and handles state much better. Knowing Ansible gives you a clearer appreciation for what Terraform does differently."
+      detail: "Ansible configures servers that already exist. But who creates the servers in the first place? I'm still clicking through the cloud console to spin up infrastructure, and that feels just as manual as the problem I just solved. There must be a way to define the infrastructure itself as code."
 difficulty: 2
 tags: ["ansible", "configuration-management", "automation", "playbooks", "idempotency"]
 category: "tool"

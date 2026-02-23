@@ -10,7 +10,7 @@ edges:
   to:
     - id: "it-works-on-my-laptop"
       question: "My app is fast and data-aware. Time to get it off my laptop."
-      detail: "Your application is now backed by a database, sped up with caching, and handling data efficiently. But it is still running locally. Deploying a cached, database-backed application means understanding how all these pieces — app server, database, cache — connect over a network and run on real machines."
+      detail: "My app works locally with the database and cache all running on my machine. But I have no idea how to make those three separate services work together on a real server. How do they find each other, and how do I actually get this running somewhere else?"
 difficulty: 2
 tags: ["caching", "redis", "memcached", "performance", "in-memory"]
 category: "concept"

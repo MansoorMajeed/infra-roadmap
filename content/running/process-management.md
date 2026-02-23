@@ -10,10 +10,10 @@ edges:
   to:
     - id: "web-servers"
       question: "My app is running as a managed service. What handles incoming HTTP traffic?"
-      detail: "Your application is running and managed by systemd — it will restart if it crashes and come back after reboots. But it is only listening on a local port. You need Nginx in front of it to handle real HTTP/HTTPS traffic from the internet, serve static files, and proxy requests to your app."
+      detail: "My app runs as a systemd service now — it survives disconnects and reboots. But I'm still accessing it on port 5000. I need it to work like a normal website on port 80, not something I have to type a custom port for."
     - id: "reading-logs"
       question: "My app is running as a systemd service. How do I see its output and errors?"
-      detail: "Your app is running. But when something goes wrong — a crash, an unexpected error, a request that returns 500 — how do you know? systemd captures all stdout and stderr from your service into the journal. Learning to read logs is how you find out what is happening inside your running app."
+      detail: "I started getting errors — requests failing, maybe the service crashing and restarting — but I have no idea what's actually happening inside. Where does all the output go when there's no terminal to see it?"
 difficulty: 1
 tags: ["systemd", "process-management", "service", "daemon", "journald", "gunicorn", "pm2"]
 category: "practice"

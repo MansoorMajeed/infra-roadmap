@@ -13,7 +13,7 @@ edges:
       detail: "All those app servers are hammering one Redis instance for every session read and write. Redis is fast but has memory limits, and a single node going down takes out every user's session. Time to scale Redis itself."
     - id: "launch-templates-and-amis"
       question: "When the ASG spins up a new VM, how does it know what software to run?"
-      detail: "A blank EC2 instance or GCP VM is just an OS. Your ASG needs instances that already have your Python app installed, configured, and ready to serve traffic. Launch templates and machine images are how you bake that configuration in."
+      detail: "When the ASG spins up a new VM at 2am during a traffic spike, it needs to just work — my app installed, configured, serving traffic within minutes. But how does a brand new blank VM know what to run? I can't SSH into every new instance manually every time the group scales out."
 difficulty: 2
 tags: ["auto-scaling", "asg", "aws", "ec2", "launch-template", "scaling-policies", "elasticity"]
 category: "practice"

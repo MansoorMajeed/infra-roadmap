@@ -13,7 +13,7 @@ edges:
   to:
     - id: "bgp"
       question: "I understand how routers forward packets. But how do they know about all the routes on the internet?"
-      detail: "A router forwards packets based on its routing table. But how did those table entries get there? No one manually configured every route on every router. There's a protocol that routers use to share routing information with each other — telling the world about the networks they can reach. That protocol is BGP."
+      detail: "My home router just has 'send everything to my ISP' — but somehow ISPs and major networks know about every IP block on the internet. Nobody manually configured millions of routes on millions of routers. Something must be letting them share and update that knowledge automatically. How does a router on one continent know how to reach a network it's never directly connected to?"
 difficulty: 2
 tags: ["routing", "packets", "ttl", "traceroute", "hops", "gateway", "internet"]
 category: "concept"

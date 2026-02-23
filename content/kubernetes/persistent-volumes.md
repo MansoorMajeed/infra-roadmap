@@ -10,10 +10,10 @@ edges:
   to:
     - id: "persistent-volume-claims"
       question: "I understand PersistentVolumes exist as cluster resources. How does my Pod actually claim and use one?"
-      detail: "A PersistentVolume is the storage. A PersistentVolumeClaim is how your Pod requests it — like a ticket that says 'I need 10GB of storage'. Kubernetes matches the claim to a suitable volume and mounts it into your Pod."
+      detail: "So I've got a PV sitting there as a cluster resource — but how does my Pod actually get to use it? Do I reference it by name in the Pod spec? Is there some request mechanism? I want my Pod to be able to say 'give me 10GB of storage' without me having to wire up the specific underlying volume manually."
     - id: "storage-classes"
       question: "Creating PersistentVolumes manually one by one sounds painful. Is there a way to provision storage automatically?"
-      detail: "Static provisioning — creating PVs by hand — doesn't scale. StorageClasses enable dynamic provisioning: when a Pod requests storage, Kubernetes automatically creates the underlying volume (an EBS disk, a GCP PD, an NFS share) without any manual work."
+      detail: "Every time an app needs storage I'd have to manually create a PV pointing at a specific EBS volume or NFS share? That's going to get tedious fast — and it means I need to know in advance exactly what storage each workload needs. Surely there's a way for the cluster to just create the underlying storage on demand when something requests it."
 difficulty: 2
 tags: ["kubernetes", "persistent-volumes", "pv", "storage", "stateful", "k8s"]
 category: "concept"

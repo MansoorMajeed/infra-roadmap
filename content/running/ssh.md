@@ -13,7 +13,7 @@ edges:
   to:
     - id: "initial-server-setup"
       question: "I can SSH into my server. What should I do before anything else?"
-      detail: "You just got root access to a fresh server. Before you install anything or deploy any code, there are a handful of things you should always do: create a non-root user, set up SSH key authentication, and lock down the SSH configuration. Skipping this is how servers get compromised."
+      detail: "I can SSH in, but I'm logged in as root which already feels wrong. And I noticed what looks like automated login attempts in the auth log — bots are already trying to get in. What are the first things I need to do to lock this down?"
 difficulty: 1
 tags: ["ssh", "keys", "authentication", "ed25519", "scp", "config"]
 category: "practice"

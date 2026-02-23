@@ -10,7 +10,7 @@ edges:
   to:
     - id: "gitops-with-argocd"
       question: "Jobs, CronJobs, Deployments — how do I manage all of this declaratively from Git instead of applying manifests manually?"
-      detail: "Jobs and CronJobs are Kubernetes resources like any other — they can live in Git and be synced by ArgoCD. A database migration Job can be part of the same GitOps application as the Deployment it migrates, triggered automatically as part of each release."
+      detail: "I'm still applying all my manifests manually — kubectl apply for my Deployment, my Jobs, my CronJobs. As things grow that's not sustainable and I keep losing track of what's actually applied. I want the cluster to just reflect whatever's in Git, automatically."
 difficulty: 1
 tags: ["kubernetes", "jobs", "cronjobs", "batch", "scheduling", "migrations", "k8s"]
 category: "concept"

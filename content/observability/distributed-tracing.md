@@ -13,7 +13,7 @@ edges:
   to:
     - id: "iam-and-least-privilege"
       question: "I can observe my system. Now how do I secure it?"
-      detail: "Observability tells you what your system is doing. Security tells you what it's allowed to do. IAM, least privilege, secrets management, and network security are the other half of this zone — and with a well-instrumented system, you can observe your security posture too."
+      detail: "I've got monitoring and tracing in place and I can see what my system is doing. But do I actually know who has access to it and whether that access is locked down properly? That feels like a different problem I haven't addressed."
 difficulty: 2
 tags: ["tracing", "opentelemetry", "jaeger", "tempo", "distributed-systems", "observability", "spans"]
 category: "practice"

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "load-balancers"
       question: "Horizontal scaling sounds right. What do I need before I can add more servers?"
-      detail: "You can't just add servers and hope traffic splits evenly. You need a load balancer: a component that sits in front of your servers and distributes incoming requests across all of them. It's also the thing that notices when a server dies and stops sending it traffic."
+      detail: "If I add more servers, how does traffic actually get to them? I can't point my domain at ten IPs and hope it works out. Something has to sit in front and distribute requests. I don't really understand what that thing is or how it works."
 difficulty: 1
 tags: ["scaling", "vertical-scaling", "horizontal-scaling", "capacity-planning", "architecture"]
 category: "concept"

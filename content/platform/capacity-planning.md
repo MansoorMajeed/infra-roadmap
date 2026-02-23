@@ -10,7 +10,7 @@ edges:
   to:
     - id: "platform-engineering"
       question: "My systems are reliable and well-provisioned. How do I make the infrastructure accessible and productive for the rest of my engineering organisation?"
-      detail: "You've mastered reliability engineering. The next challenge is scale of a different kind: how do you let 50 or 500 engineers deploy safely, without each team reinventing infra, learning Kubernetes from scratch, or waiting weeks for the platform team to provision resources?"
+      detail: "I can run reliable infrastructure. But now the question is: how do I make this accessible to the rest of the engineering org? Every team reinventing infra from scratch, every new hire spending weeks on Kubernetes setup — that's not sustainable. There must be a better way to share what I've built."
 difficulty: 2
 tags: ["capacity-planning", "load-testing", "forecasting", "scaling", "resource-management", "sre"]
 category: "practice"

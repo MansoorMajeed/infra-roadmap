@@ -10,7 +10,7 @@ edges:
   to:
     - id: "version-control-git"
       question: "I can edit files. But how do I track changes and collaborate?"
-      detail: "You're editing code and config files, but what happens when you break something and need to go back? Or when multiple people need to work on the same files? You need a system that tracks every change, lets you rewind mistakes, and enables collaboration without chaos. That system is Git — the foundation of every modern development and infrastructure workflow."
+      detail: "I just broke something that was working yesterday and I have no idea what I changed. I've been overwriting files with no history of what they looked like before. And if someone else touches the same files at the same time, everything will be a mess. How do people actually manage this?"
 difficulty: 1
 tags: ["vim", "nano", "vscode", "editors", "ide", "tools"]
 category: "tool"

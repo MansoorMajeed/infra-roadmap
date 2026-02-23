@@ -10,7 +10,7 @@ edges:
   to:
     - id: "ports-and-listening"
       question: "I have my runtime installed and my app running. How does traffic actually reach it?"
-      detail: "Your app is running on the server, bound to a port. But what is a port? How does the internet know which process to send traffic to? Understanding ports and how apps listen is the conceptual bridge between running your app and making it reachable."
+      detail: "My app is running, but when I try to access it from another machine nothing comes through. I don't really understand what a port is or how traffic is supposed to get from the internet to the process running on my server."
 difficulty: 1
 tags: ["apt", "package-manager", "ubuntu", "nodejs", "python", "runtime", "dependencies"]
 category: "practice"

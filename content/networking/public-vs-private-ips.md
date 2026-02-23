@@ -11,13 +11,13 @@ edges:
     - id: "where-do-i-run-this"
       zone: "running"
       question: "I understand addressing — private networks, public IPs, NAT. But where do I actually run something that serves content?"
-      detail: "You know how IP addressing works: private addresses for internal networks, public addresses for the internet, NAT bridging the two. But what is sitting at the other end of those public IP addresses? You need a machine with a public IP that is always on — not hidden behind NAT. Where does your app actually go?"
+      detail: "I understand private vs public IPs and NAT now. But my laptop is behind NAT — so where do I actually put something if I want real users to reach it? I need a machine that has its own public IP and is always reachable. What even is that, and how do I get one?"
     - id: "dns"
       question: "I understand public IPs. But nobody types IP addresses — they type domain names. How does that translation work?"
-      detail: "You understand that servers have public IPs and that the internet routes packets to them. But when you type google.com, your computer doesn't know Google's IP — it has to ask. That asking, and the system that answers, is DNS. It runs silently before every web request, every email, every API call."
+      detail: "I understand that servers have public IPs. But nobody types an IP address — they type google.com, or my-app.example.com. My computer must be translating that name to an IP somehow, but I have no idea how. That translation happens before every single request I make, and I've never thought about it."
     - id: "how-packets-travel"
       question: "I know about public IPs. But how does a packet actually travel across the internet to reach one?"
-      detail: "You understand that public IPs are routable across the internet. But what does that journey look like in practice? A packet from your laptop to a server in Tokyo might hop through a dozen routers, crossing ISP networks and undersea cables. Each router makes an independent decision. Understanding this journey is understanding how the internet fundamentally works."
+      detail: "I understand that public IPs are reachable from anywhere on the internet. But what does 'anywhere' actually mean? When I send a packet to Tokyo, it doesn't teleport there — it has to physically travel through routers and cables. I don't understand what that journey looks like or who's making decisions along the way."
 difficulty: 2
 tags: ["ip", "nat", "private", "public", "ipv4", "network"]
 category: "concept"

@@ -10,10 +10,10 @@ edges:
   to:
     - id: "tcp-udp-basics"
       question: "I get why protocols exist. Now what are the actual protocols that move data around?"
-      detail: "You understand that protocols are agreed-upon rules, and that networking uses layers. Now it is time to learn the actual protocols. TCP and UDP are the two transport protocols that handle moving data between machines — one is reliable and careful, the other is fast and reckless. Every application on the internet uses one of them."
+      detail: "I get that protocols are rules computers agree to follow. But what are the actual rules that move data between my machine and a server? There must be specific protocols doing the heavy lifting — what are they and what does each one do?"
     - id: "ip-addresses"
       question: "Protocols have layers, and one layer handles addressing. How do IP addresses actually work?"
-      detail: "You learned that the network layer handles addressing — getting packets to the right machine. IP addresses are how that works. Every device on a network gets one, and understanding what they are is the foundation for everything else in networking: subnets, routing, NAT, firewalls, DNS."
+      detail: "I understand that networking has layers and each layer has a job. The network layer handles addressing — but what does that actually mean in practice? Every device must have some kind of address for packets to find it. What are those addresses and how do they actually work?"
 difficulty: 1
 tags: ["protocols", "networking", "layers", "osi", "tcp-ip", "communication"]
 category: "concept"

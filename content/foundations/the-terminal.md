@@ -10,13 +10,13 @@ edges:
   to:
     - id: "what-is-a-process"
       question: "I ran a command. What actually happened?"
-      detail: "Every time you type a command and hit Enter, the OS does not just 'run' it. It creates a process — a living instance of that program with its own memory space, a unique ID, and a parent-child relationship with the shell that launched it. Understanding what a process really is, how it is born, how it runs, and how it dies is fundamental to diagnosing why things break in production."
+      detail: "I typed a command and it ran. But what actually happened? I see it appear in the process list, I can kill it, it has a PID — but I don't understand what any of that means underneath. What is the thing I just created when I ran that command?"
     - id: "pipes-and-redirection"
       question: "I can run commands. How do I combine them?"
-      detail: "You can run individual commands, but the real power of the terminal comes from connecting commands together. The output of one command becomes the input of the next, and you can redirect output to files instead of the screen. This is the Unix philosophy in action — small tools that do one thing well, composed into powerful workflows. Mastering pipes and redirection is what turns you from someone who types commands into someone who builds solutions."
+      detail: "I keep running one command, writing down the result, then running the next command with that result. There must be a way to feed output directly from one command into another without all the manual in-between steps. And I want to save output to a file sometimes too — how does all of that work?"
     - id: "text-editors-and-ides"
       question: "I need to write and edit files. What tools do I use?"
-      detail: "You can navigate the filesystem and run commands, but now you need to actually create and modify files — code, config files, scripts. Choosing the right editor shapes your daily workflow. You'll need at least one terminal-based editor (like vim or nano) because you'll inevitably SSH into a remote server where VS Code isn't available."
+      detail: "I keep having to edit files on the server and I have no idea what to open them with. I tried vim once and couldn't even figure out how to quit. Is there a sane way to approach this?"
 difficulty: 1
 tags: ["terminal", "shell", "command-line", "bash", "cli"]
 category: "tool"

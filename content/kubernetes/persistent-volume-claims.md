@@ -13,7 +13,7 @@ edges:
   to:
     - id: "configmaps"
       question: "Storage sorted. My app also needs configuration — database URLs, feature flags, settings. Where do those go?"
-      detail: "Baking configuration into your container image means rebuilding every time a value changes, and running different config in dev vs production is painful. ConfigMaps decouple config from the image — inject them as environment variables or mounted files, change them without a rebuild."
+      detail: "Storage is sorted. But now my app needs to know its database URL, which environment it's in, which feature flags are on. Right now that's all baked into the container image — which means a rebuild every time something changes. There must be a way to inject configuration at runtime without rebuilding."
 difficulty: 1
 tags: ["kubernetes", "pvc", "persistent-volume-claims", "storage", "volumes", "k8s"]
 category: "practice"

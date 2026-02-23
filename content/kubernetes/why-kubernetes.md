@@ -15,10 +15,10 @@ edges:
   to:
     - id: "pods"
       question: "Kubernetes makes sense. How do I actually run a container on it?"
-      detail: "The first thing to understand is how Kubernetes runs containers. The answer isn't 'you run a container' — it's 'you run a Pod'. Understanding what a Pod is and why Kubernetes uses it as the unit of work is the foundation for everything else."
+      detail: "Okay, I want to run my container on this cluster. I know Docker, I know docker run — but how do I do the equivalent in Kubernetes? kubectl run? A YAML file? And what is this 'Pod' thing I keep seeing in the docs — is that just a fancy word for a container?"
     - id: "namespaces"
       question: "Before I run anything — how does Kubernetes keep different teams, apps, and environments from interfering with each other?"
-      detail: "A cluster is shared infrastructure. Namespaces partition it into isolated spaces — separate resource quotas, RBAC policies, and network boundaries per team or environment. Understanding namespaces before you run your first workload means you'll organise correctly from day one."
+      detail: "If staging and production both run on the same cluster, and teammates are deploying their stuff too — what stops everything from getting tangled together? I need some kind of separation before this becomes a mess."
 difficulty: 1
 tags: ["kubernetes", "orchestration", "containers", "docker", "k8s", "devops"]
 category: "concept"

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "it-works-on-my-laptop"
       question: "I can manage my code properly now. How do I actually get it running for others?"
-      detail: "You have your code in a Git repository, you can branch, merge, and collaborate. But the code still only runs on your laptop. Pushing to GitHub does not mean your app is deployed — it means your source code is backed up. Getting a running application in front of users is a different challenge entirely."
+      detail: "My code is on GitHub but that doesn't mean anyone can actually use it — it's still just source code sitting in a repo. I want people to be able to open a browser and see a running app. How do I get from here to there?"
 difficulty: 1
 tags: ["git", "version-control", "github", "gitlab", "collaboration"]
 category: "concept"

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "the-terminal"
       question: "I understand Linux. How do I actually use it?"
-      detail: "You know what Linux is and why it dominates servers. But knowing about Linux and actually using it are very different things. The primary way you interact with a Linux system — especially a server with no graphical interface — is through the terminal. It is where you run commands, manage files, install software, and troubleshoot problems. Time to get your hands dirty."
+      detail: "I've been reading about Linux and I get the theory. But reading about it isn't the same as actually using it. Where do I even start — there's no GUI, no icons, just a blinking cursor and no idea what to type."
     - id: "users-and-permissions"
       question: "Linux is multi-user. Who controls what?"
       detail: "Linux was designed from the ground up as a multi-user system. Every file has an owner, every process runs as a user, and the root user has god-mode access to everything. Understanding users, groups, and permissions is not optional — it is the foundation of Linux security. Get this wrong and you either lock yourself out or leave the door wide open."

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "it-works-on-my-laptop"
       question: "I understand my data layer options. How do I get this whole thing running for real?"
-      detail: "You know about relational databases, NoSQL, caching, file storage — you can pick the right tool for the job. But all of this is still running on your laptop. Getting a database-backed application deployed means understanding not just the app, but networking, servers, and how all the pieces connect in a real environment."
+      detail: "Everything works on my laptop — app, database, cache. But running it for real means all of these pieces have to live somewhere on an actual server, talking to each other over a network I don't fully understand yet. How does any of this connect?"
 difficulty: 2
 tags: ["nosql", "mongodb", "dynamodb", "document-store", "key-value"]
 category: "concept"

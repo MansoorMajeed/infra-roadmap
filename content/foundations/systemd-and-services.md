@@ -13,7 +13,7 @@ edges:
   to:
     - id: "log-files"
       question: "Services are running. How do I see what they are doing?"
-      detail: "You can start, stop, and manage services with systemd. But when something goes wrong — a service crashes, a request fails, a deployment breaks — you need to know what happened. That information is in the logs. Every service writes logs, and systemd's journal captures them all. Understanding where logs live, how to read them, and how to search through them is the core skill that turns 'something is broken' into 'I know exactly what went wrong.'"
+      detail: "My service is running — great. But when something goes wrong I have no idea where to look. It crashed and restarted but I don't know why. There must be output from it somewhere, some record of what happened. How do I find that and actually make sense of it?"
 difficulty: 1
 tags: ["systemd", "systemctl", "journalctl", "services", "init", "units", "daemons"]
 category: "concept"

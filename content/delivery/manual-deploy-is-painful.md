@@ -11,7 +11,7 @@ edges:
   to:
     - id: "what-is-ci-cd"
       question: "What is CI/CD and how does it fix this?"
-      detail: "CI/CD — Continuous Integration and Continuous Delivery — is the practice of automating everything from testing to deployment. Push code to Git, and a pipeline runs your tests, builds your app, and deploys it automatically."
+      detail: "I want to get to a point where I push code and it just ends up running somewhere — tests passing, deployed, without me doing anything manually. I've heard 'CI/CD' thrown around but I don't understand what it actually is or how it works."
 difficulty: 1
 tags: ["ci-cd", "deployment", "automation", "devops"]
 category: "concept"

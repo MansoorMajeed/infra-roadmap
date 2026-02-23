@@ -10,7 +10,7 @@ edges:
   to:
     - id: "operating-system-basics"
       question: "Code runs on hardware. But what manages all that?"
-      detail: "The CPU executes instructions, but it can't do everything alone. Hundreds of programs want to run at the same time, they all need memory, and they all want to access the disk and network. Something has to coordinate all of this — deciding who runs when, protecting programs from each other, and providing a clean interface to the hardware. That something is the operating system."
+      detail: "My code runs, but I also have a browser, a music player, and a dozen other things running at the same time. How does the computer handle all of that simultaneously? And how does my program get access to the disk or network without directly touching the hardware? Something must be coordinating all of this — what is it?"
 difficulty: 1
 tags: ["cpu", "compilation", "interpretation", "machine-code", "hardware"]
 category: "concept"

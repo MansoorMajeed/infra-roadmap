@@ -10,7 +10,7 @@ edges:
   to:
     - id: "persistent-volume-claims"
       question: "StorageClasses are configured. How do workloads actually request and use storage?"
-      detail: "A PersistentVolumeClaim is the Pod's request for storage: 'I need 20GB from the fast-ssd StorageClass'. Kubernetes satisfies it either from a pre-existing PV or by triggering dynamic provisioning. The PVC is then mounted into the Pod like a regular directory."
+      detail: "So the StorageClass defines how storage gets created — but I still need to wire this up to my Pod. Does the Pod reference the StorageClass directly? Is there some intermediate resource where I say 'give me 20GB of this type of storage'? And how does that volume actually get mounted inside my container?"
 difficulty: 2
 tags: ["kubernetes", "storageclass", "dynamic-provisioning", "ebs", "gcp-pd", "csi", "k8s"]
 category: "concept"

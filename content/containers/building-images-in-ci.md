@@ -9,6 +9,7 @@ edges:
   to:
     - id: "container-registry"
       question: "I built an image in CI. Where does it go?"
+      detail: "The build finishes and the image just disappears when the CI runner shuts down. I need somewhere to actually store it so my server can pull it later — but I'm not sure what that looks like."
 difficulty: 2
 tags: ["docker", "ci-cd", "dockerfile", "images", "github-actions", "containers"]
 category: "practice"

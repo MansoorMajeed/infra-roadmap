@@ -11,7 +11,7 @@ edges:
     - id: "tls-and-certificates"
       zone: "running"
       question: "I understand encryption. How does the web actually use it to secure traffic?"
-      detail: "You know about symmetric and asymmetric encryption, and why we need both. Now comes the real question: how do your browser and a server you have never talked to before establish an encrypted connection? That is what TLS does — it is the protocol that turns HTTP into HTTPS, and it uses everything you just learned about encryption in a clever handshake."
+      detail: "I understand the building blocks — symmetric keys, asymmetric keys, the key exchange problem. But how does any of that play out when my browser connects to an HTTPS site for the first time? How does it establish a secure channel with a server it's never talked to before?"
 difficulty: 2
 tags: ["encryption", "cryptography", "symmetric", "asymmetric", "keys", "security"]
 category: "concept"

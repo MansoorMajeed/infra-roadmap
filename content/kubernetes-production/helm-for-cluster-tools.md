@@ -9,6 +9,7 @@ edges:
   to:
     - id: "gitops-intro"
       question: "I can install cluster tools with Helm. How do I manage all of this with GitOps?"
+      detail: "I've been running helm install manually whenever I set up a cluster. But I want cluster tooling to be reproducible and tracked in Git like everything else — not something I install by hand and forget about."
 difficulty: 2
 tags: ["kubernetes", "helm", "cert-manager", "nginx", "cluster-tools", "k8s", "charts"]
 category: "tool"

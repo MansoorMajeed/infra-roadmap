@@ -13,13 +13,13 @@ edges:
   to:
     - id: "services"
       question: "My Pod is running. How do I access it reliably?"
-      detail: "A Pod gets an IP address — but that IP disappears when the Pod is replaced. You need a stable endpoint that doesn't change when Pods come and go. That's what a Service is."
+      detail: "My Pod has an IP, but I've already seen how Pods get deleted and recreated. Every time that happens the IP changes — which means anything trying to reach my Pod would break. I need something more stable than a Pod IP to point other services or users at."
     - id: "port-forward"
       question: "My Pod is running. I just want to quickly access it to see if it works — what's the simplest way?"
-      detail: "kubectl port-forward tunnels traffic from your local machine to a Pod, without any networking setup on the cluster. It's a debugging tool, not a production solution — but it's the fastest way to verify your Pod is working."
+      detail: "I just want to hit my Pod in a browser to see if it's actually serving anything — but I haven't set up any networking yet. Is there a quick way to just peek at it directly without having to wire up a whole load balancer first?"
     - id: "health-checks"
       question: "My Pod is running — but how does Kubernetes know if it's actually healthy and ready to serve traffic?"
-      detail: "Running and healthy are different things. A Pod can be in the Running state while your app is still initialising, or silently broken. Probes are how you tell Kubernetes what 'ready' and 'alive' mean for your specific application."
+      detail: "I've seen my pod show as Running in kubectl, but requests were still failing because the app wasn't actually ready yet. How does Kubernetes know when my app is genuinely ready to take traffic — not just technically started?"
 difficulty: 1
 tags: ["kubernetes", "pods", "containers", "k8s", "kubectl", "multi-container"]
 category: "concept"

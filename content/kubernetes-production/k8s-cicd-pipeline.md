@@ -9,6 +9,7 @@ edges:
   to:
     - id: "multi-env-k8s"
       question: "The pipeline works for one environment. How do I promote between staging and production?"
+      detail: "Right now everything that merges to main goes straight to production. I want to deploy to staging first, verify it works, and then promote deliberately — not push to prod automatically on every commit."
 difficulty: 3
 tags: ["ci-cd", "kubernetes", "gitops", "argocd", "github-actions", "containers", "k8s"]
 category: "practice"

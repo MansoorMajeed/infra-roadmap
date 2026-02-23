@@ -11,6 +11,7 @@ edges:
   to:
     - id: "argocd-setup"
       question: "My manifests are in Git — how do I make the cluster automatically apply them when I merge?"
+      detail: "I've been running kubectl apply by hand after every change, which is error-prone and means I could forget a step. I want merging a PR to be what actually triggers the deployment — but I'm not sure what's doing the watching and applying."
 difficulty: 2
 tags: ["gitops", "kubernetes", "argocd", "flux", "deployment", "k8s"]
 category: "concept"

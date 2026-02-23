@@ -10,7 +10,7 @@ edges:
   to:
     - id: "scripting-bash-python"
       question: "I can track my code. Now let me write something more powerful."
-      detail: "You have your editor, you have version control — now it's time to write scripts that actually do useful work. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. Together, they're the bread and butter of SRE automation — turning repetitive manual tasks into one-command solutions."
+      detail: "I can track my changes and I have a proper editor workflow now. The next thing I want is to stop doing repetitive things by hand — running the same sequences of commands, copying the same files. Is scripting the answer to that, and what does it actually look like in practice?"
 difficulty: 1
 tags: ["git", "version-control", "github", "collaboration", "commits", "branches"]
 category: "tool"

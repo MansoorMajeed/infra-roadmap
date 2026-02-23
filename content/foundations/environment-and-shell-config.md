@@ -10,7 +10,7 @@ edges:
   to:
     - id: "scripting-bash-python"
       question: "My environment is set up. Now let me automate things."
-      detail: "You understand how the shell works — environment variables, config files, PATH, aliases. Now it is time to go from typing commands interactively to writing scripts that run unattended. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. This is where all the shell knowledge you have built up becomes genuinely productive."
+      detail: "I keep repeating the same sequences of commands — finding the right flags, piping the right outputs, doing the same thing over and over. There must be a way to capture these workflows and run them with a single command. What does it take to actually write a script instead of just typing commands one by one?"
 difficulty: 1
 tags: ["environment-variables", "PATH", "bashrc", "profile", "export", "shell-config", "dotfiles"]
 category: "concept"

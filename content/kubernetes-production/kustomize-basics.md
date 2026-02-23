@@ -9,6 +9,7 @@ edges:
   to:
     - id: "gitops-intro"
       question: "Kustomize handles my manifests. How do I stop applying them by hand?"
+      detail: "I've got Kustomize overlays for staging and production, but I'm still running kubectl apply -k manually after every change. I want something watching the repo and doing that automatically."
 difficulty: 2
 tags: ["kubernetes", "kustomize", "manifests", "overlays", "environments", "k8s"]
 category: "practice"

@@ -16,7 +16,7 @@ edges:
   to:
     - id: "service-types"
       question: "I understand Services for internal traffic. How do I expose a Service outside the cluster?"
-      detail: "ClusterIP is internal-only. Kubernetes has other Service types that reach beyond the cluster — and a whole separate resource (Ingress) for HTTP traffic. Understanding when to use each is one of the most common points of confusion for people new to Kubernetes."
+      detail: "My Service works inside the cluster, but I need actual users to reach it from the internet. Is that a different type of Service, or a completely different kind of resource? I keep seeing 'Ingress' in the docs and I'm not sure where Services end and that begins."
 difficulty: 1
 tags: ["kubernetes", "services", "clusterip", "networking", "dns", "load-balancing", "k8s"]
 category: "concept"

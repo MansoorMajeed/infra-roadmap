@@ -10,7 +10,7 @@ edges:
   to:
     - id: "it-works-on-my-laptop"
       question: "My code is tested and I'm confident it works. Now how do I run it somewhere real?"
-      detail: "You have tests that verify your code works. Locally, you run pytest and everything passes. But tests on your laptop do not guarantee the app works in production. Different environments, different databases, different configurations — deploying means making your tested code run reliably on someone else's machine."
+      detail: "My tests pass locally. But I have no idea if they'd still pass in whatever environment I'm deploying to — different OS, different Python version, different database. And I'm not sure how to even get the code running on a real server in the first place."
 difficulty: 1
 tags: ["testing", "unit-tests", "integration-tests", "pytest", "tdd"]
 category: "concept"

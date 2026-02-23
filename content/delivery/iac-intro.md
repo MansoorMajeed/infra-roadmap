@@ -9,7 +9,7 @@ edges:
   to:
     - id: "terraform-basics"
       question: "IaC makes sense. Show me Terraform."
-      detail: "Terraform is the dominant IaC tool. You write declarative configs describing your infrastructure, and Terraform figures out what to create, change, or destroy. Works with AWS, GCP, Azure, DigitalOcean, and more."
+      detail: "I get the concept — but what does it actually look like to write IaC? I want to see what a real Terraform config looks like and understand what happens when I run it."
     - id: "ansible-intro"
       question: "What about configuring the servers themselves? I've heard of Ansible."
       detail: "Terraform provisions infrastructure — it creates servers. Ansible configures what's on them — it installs packages, writes config files, manages services. They solve different problems and are often used together."

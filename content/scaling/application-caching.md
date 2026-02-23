@@ -10,7 +10,7 @@ edges:
   to:
     - id: "vm-scaling-pain-points"
       question: "The stack is solid. App, sessions, database, cache — LocalMart handles serious traffic. What's still painful?"
-      detail: "You've scaled every major layer. But operating this system at scale reveals a set of persistent friction points that VMs never fully solve. Understanding them is what motivates the next chapter."
+      detail: "I've added horizontal scaling, sessions, and caching — the stack handles real traffic now. But I keep running into the same categories of pain. Provisioning new VMs is slow. Configuration drift keeps creeping in. Something always needs manual intervention. Are these fundamental VM problems, or am I just doing it wrong?"
     - id: "cache-aside-pattern"
       question: "How exactly does my app code use Memcache? What's the pattern?"
       detail: "The mechanics of using a cache correctly have a name: cache-aside (or lazy loading). Check the cache first, fall back to the database on a miss, populate the cache for next time. Getting this right — including TTLs — is where most of the nuance lives."

@@ -10,7 +10,7 @@ edges:
   to:
     - id: "it-works-on-my-laptop"
       question: "I have a clean API. How do I expose it to the world?"
-      detail: "You have built a REST API that cleanly separates your backend logic from the frontend. Locally, you can curl your endpoints and everything works. But APIs are meant to be consumed by other systems — mobile apps, frontend SPAs, third-party integrations. Getting your API accessible on the internet, secured, and reliable is the next step."
+      detail: "I can curl my endpoints locally and everything works. But I want someone on the other side of the internet to be able to hit these endpoints too — and I'm not sure how to get there without just punching holes in firewalls and hoping for the best."
 difficulty: 1
 tags: ["api", "rest", "http", "json", "endpoints", "curl"]
 category: "concept"

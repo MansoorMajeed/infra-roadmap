@@ -9,6 +9,7 @@ edges:
   to:
     - id: "docker-compose-dev"
       question: "I can build an image. My app needs a database too — how do I run them together?"
+      detail: "I've got my app containerized, but it needs Postgres running alongside it. Right now I'm starting them separately by hand every time. There has to be a way to declare the whole stack and spin everything up together."
 difficulty: 2
 tags: ["docker", "dockerfile", "containers", "build"]
 category: "practice"

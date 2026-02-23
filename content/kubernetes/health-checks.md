@@ -10,7 +10,7 @@ edges:
   to:
     - id: "services"
       question: "Probes are configured. Now how do I expose my Pod with a stable endpoint?"
-      detail: "Readiness probes and Services work together: the Service only routes traffic to Pods that pass the readiness check. A Pod that's starting up, overwhelmed, or in the middle of a rolling update is automatically removed from the Service's rotation until it recovers."
+      detail: "My probes are configured and Kubernetes knows when my pod is healthy. But how does traffic actually reach my pods? They have IPs that change every time they restart — I need something stable that I can point DNS at, something that finds the healthy pods automatically."
 difficulty: 2
 tags: ["kubernetes", "liveness-probe", "readiness-probe", "startup-probe", "health-checks", "reliability", "k8s"]
 category: "practice"

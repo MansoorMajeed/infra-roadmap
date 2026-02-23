@@ -16,7 +16,7 @@ edges:
       detail: "With sessions out of the app servers, every server is identical and replaceable. AWS can spin up new instances and tear down old ones without losing user state. That's the prerequisite for Auto Scaling Groups to actually work."
     - id: "jwt-and-cookie-sessions"
       question: "Wait — do I even need server-side sessions? What about JWT or signed cookies?"
-      detail: "Server-side sessions in Redis are the classic approach, but there's an alternative: store the session data in the cookie itself, signed so it can't be tampered with. No Redis needed. Understanding the trade-offs helps you choose the right tool for your app."
+      detail: "I've been assuming I need a session store, but I've seen other apps use tokens that just live in the browser with no server involved. How is that different, and should I be doing that instead?"
 difficulty: 2
 tags: ["redis", "sessions", "stateless", "elasticache", "memorystore", "scaling", "gcp", "aws"]
 category: "practice"

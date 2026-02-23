@@ -10,7 +10,7 @@ edges:
   to:
     - id: "running-your-store"
       question: "I know how to debug my setup. How do I put everything together and run my real app?"
-      detail: "You have all the pieces: VPS, SSH, secured server, runtime, firewall, code deployment, process management, web server, TLS, DNS, and the ability to read logs and debug problems. It is time to put it all together and walk through setting up a real application end to end."
+      detail: "I can debug each part of the stack in isolation now. But I've never assembled a complete deployment from scratch — server, code, process manager, web server, TLS, domain — all of it together. What does that actually look like end to end?"
 difficulty: 2
 tags: ["troubleshooting", "debugging", "curl", "ss", "systemctl", "nginx", "502", "connection-refused"]
 category: "practice"

@@ -10,10 +10,10 @@ edges:
   to:
     - id: "network-protocols"
       question: "My computers are connected. But how do they actually understand each other?"
-      detail: "You have two machines on the same network — they can see each other. But seeing each other is not the same as communicating. When your laptop sends data to your phone, how does the phone know what the data means? How do they agree on the format? They need rules — protocols. Understanding what protocols are and why they exist is the key to understanding everything in networking."
+      detail: "My laptop and phone can ping each other. But when I think about what's actually happening when they communicate — not the wires, but the actual data exchange — I realize I don't understand how they agree on what the bytes mean. How do computers speak the same language?"
     - id: "dhcp"
       question: "You connected to WiFi and got an IP address automatically. How does that work?"
-      detail: "When you join a network, you don't manually configure an IP address — one just appears. Something on the network noticed you arrived and handed you an address, a gateway, and a DNS server. That something is DHCP, and understanding it closes the loop on how devices actually join a network."
+      detail: "I connected to WiFi and my device just had an IP address. I never typed anything in. Something must have noticed I joined and handed me an address — but what? And what happens when that breaks and my device can't get an IP?"
 difficulty: 1
 tags: ["networking", "lan", "wifi", "router", "local-network", "ethernet"]
 category: "concept"

@@ -9,6 +9,7 @@ edges:
   to:
     - id: "pod-scheduling-spread"
       question: "PDBs limit how many pods go down at once. But what if they all land on the same node or zone and go down together anyway?"
+      detail: "I've set a PDB so Kubernetes can't evict more than one pod at a time. But all my replicas might be running on the same node — so a node failure or maintenance takes them all out simultaneously. How do I make sure they're actually spread across nodes and zones?"
 difficulty: 3
 tags: ["kubernetes", "pdb", "disruption", "availability", "draining", "autoscaler", "k8s", "production"]
 category: "concept"

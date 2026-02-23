@@ -10,13 +10,13 @@ edges:
   to:
     - id: "nosql-databases"
       question: "What if my data doesn't fit neatly into rows and columns?"
-      detail: "Relational databases work beautifully when your data is structured and predictable — users, orders, products. But what about chat messages with varying metadata, sensor readings with flexible schemas, or user profiles where every user has different fields? NoSQL databases trade the rigid structure of tables for flexibility, and they are everywhere in modern infrastructure."
+      detail: "My product table works perfectly. But then I need to store user activity logs — each event has totally different fields. Or I want to store JSON from an API that's shaped differently every time. SQL starts to feel like the wrong tool, but I don't know what the alternative actually is."
     - id: "caching-and-redis"
       question: "My app keeps hitting the database for the same data over and over. How do I speed things up?"
-      detail: "Every time a user loads a page, your app queries the database. The same product catalog, the same user profile, the same configuration — fetched fresh every single time. Databases are good at storing data, but they are not the fastest way to read data that rarely changes. Caching puts frequently accessed data in memory where it can be retrieved in microseconds instead of milliseconds."
+      detail: "My database is getting hammered with the same queries over and over — the same product list, the same category page, fetched fresh on every single request. It works, but it's slow and I'm worried about what happens when traffic picks up. There must be a way to avoid repeating that work constantly."
     - id: "file-and-object-storage"
       question: "Users upload images and PDFs. I can't shove binary files into a SQL table, can I?"
-      detail: "Databases are designed for structured data — rows, columns, queries. But applications also deal with files: user avatars, uploaded documents, generated reports, log archives. Storing large binary files in a database is technically possible but practically terrible. File and object storage systems are purpose-built for this, and understanding the difference is essential for building real applications."
+      detail: "Users want to upload profile photos and PDFs. I tried storing them in the database but it felt wrong — the database slowed down and the column was just a blob of bytes I couldn't do anything with. There must be a proper way to handle files that isn't shoehorning them into SQL."
 difficulty: 1
 tags: ["database", "sql", "postgresql", "mysql", "sqlite", "relational"]
 category: "concept"

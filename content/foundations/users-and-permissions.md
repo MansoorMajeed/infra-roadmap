@@ -10,7 +10,7 @@ edges:
   to:
     - id: "package-management"
       question: "I understand who can do what. How do I install software?"
-      detail: "Now that you understand users and permissions, you know why some commands need sudo and why installing software requires elevated privileges. Package management is how Linux systems install, update, and remove software — and understanding it means you can set up and maintain servers with the right tools installed, kept up to date, and properly secured."
+      detail: "I keep getting 'permission denied' errors when I try to install things. And when I do get it working by using sudo, I'm not sure what I actually just did or whether I should have. How does software installation work on Linux, and why does it need elevated privileges?"
 difficulty: 1
 tags: ["users", "groups", "permissions", "chmod", "chown", "sudo", "root", "security"]
 category: "concept"

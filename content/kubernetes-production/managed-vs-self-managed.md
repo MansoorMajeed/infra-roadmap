@@ -9,6 +9,7 @@ edges:
   to:
     - id: "cluster-topology"
       question: "I know I'm using a managed cluster. Now — should I have one cluster or many?"
+      detail: "I've got my managed cluster running but staging and production are in the same cluster separated by namespaces. I keep wondering whether that's actually good enough isolation or if I need separate clusters entirely."
 difficulty: 2
 tags: ["kubernetes", "eks", "gke", "aks", "managed", "control-plane", "k8s", "production"]
 category: "concept"

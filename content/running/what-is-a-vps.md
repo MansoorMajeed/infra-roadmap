@@ -13,7 +13,7 @@ edges:
   to:
     - id: "ssh"
       question: "I have a VPS. How do I connect to it and run commands?"
-      detail: "Your VPS is running in a datacenter somewhere. You do not have a monitor or keyboard plugged into it. The only way to interact with it is over the network, using SSH — a protocol that gives you a secure terminal session on a remote machine. Everything you do on the server goes through SSH."
+      detail: "My VPS is running in some datacenter — but I have no monitor, no keyboard, no way to touch it. How do I actually get inside it and run commands? There must be a way to connect to it remotely, but I don't know what that involves."
 difficulty: 1
 tags: ["vps", "virtualization", "cloud", "vm", "hypervisor"]
 category: "concept"

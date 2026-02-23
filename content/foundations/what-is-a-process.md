@@ -10,13 +10,13 @@ edges:
   to:
     - id: "threads-and-concurrency"
       question: "A process runs code. But what if it needs to do many things at once?"
-      detail: "A process is a single running program, but modern applications need to handle thousands of requests simultaneously. A web server cannot process one request at a time. This is where threads come in — lightweight units of execution within a process that share memory and can run in parallel. Understanding threads versus processes, and the trade-offs between them, is essential for debugging performance issues and understanding how production services actually work."
+      detail: "My app handles one request and then starts the next one. But a real web server must be handling thousands at once — it can't just make everyone wait in line. How does a single process do many things simultaneously? Is it running multiple copies of itself, or something else entirely?"
     - id: "signals-and-ipc"
       question: "Processes are running. How do they talk to each other?"
-      detail: "Processes do not exist in isolation. They need to communicate — a parent process needs to know when a child exits, a service manager needs to tell a service to reload its config, and your terminal needs to send a 'stop' signal when you press Ctrl+C. Signals and inter-process communication are the mechanisms the OS provides for processes to coordinate, and understanding them is how you gracefully manage services in production."
+      detail: "I press Ctrl+C and something stops. I run kill and something dies. But how does one process actually tell another to do something? And what's the difference between a process just stopping and it being told to stop? I feel like I'm missing how processes actually communicate with each other."
     - id: "processes-and-memory"
       question: "A process is running. How does it use memory?"
-      detail: "You know what a process is and how it is created. But every process needs memory to work — space for its code, its variables, its stack, and its heap. The OS gives each process its own virtual address space, manages physical RAM, and steps in when memory runs out. Understanding memory management is how you diagnose memory leaks, OOM kills, and why your Java app needs 4 GB of RAM to do seemingly nothing."
+      detail: "I can see a process running in ps — but I have no idea what's actually happening in memory. Processes clearly need RAM, but I don't understand how they get it, what happens when they need more, or why some of them seem to just keep eating memory forever."
 difficulty: 1
 tags: ["process", "fork", "exec", "pid", "process-tree", "proc-filesystem", "ps", "strace"]
 category: "concept"
