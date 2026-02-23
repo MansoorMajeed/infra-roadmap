@@ -1,23 +1,24 @@
 ---
-id: "vps-pangolin"
-title: "VPS + Pangolin: Self-Hosted Tunnel with a UI"
-zone: "self-hosting"
+id: vps-pangolin
+title: 'VPS + Pangolin: Self-Hosted Tunnel with a UI'
+zone: self-hosting
 edges:
-  from:
-    - id: "public-website"
-      question: "I want a self-hosted VPS solution with a UI"
-    - id: "public-media-streaming"
-      question: "I want a managed solution with a UI"
   to: []
 difficulty: 2
-tags: ["self-hosting", "vps", "pangolin", "tunnel", "reverse-proxy", "public"]
-category: "tool"
+tags:
+  - self-hosting
+  - vps
+  - pangolin
+  - tunnel
+  - reverse-proxy
+  - public
+category: tool
 milestones:
-  - "Provision a VPS"
-  - "Install Pangolin on the VPS"
-  - "Connect your home server to Pangolin using the Newt agent"
-  - "Configure a public hostname routing to a local service"
-  - "Verify the service is reachable publicly"
+  - Provision a VPS
+  - Install Pangolin on the VPS
+  - Connect your home server to Pangolin using the Newt agent
+  - Configure a public hostname routing to a local service
+  - Verify the service is reachable publicly
 ---
 
 Pangolin is a self-hosted reverse proxy and tunnel manager. You run it on a cheap VPS, and it manages the tunnel from your home server to the VPS — similar in concept to Cloudflare Tunnel, but you own every piece of it. A web UI handles hostnames, routing, and access control without touching config files.

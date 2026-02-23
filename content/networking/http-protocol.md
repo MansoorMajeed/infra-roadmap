@@ -1,27 +1,36 @@
 ---
-id: "http-protocol"
-title: "HTTP: How Browsers Talk to Servers"
-zone: "networking"
+id: http-protocol
+title: 'HTTP: How Browsers Talk to Servers'
+zone: networking
 edges:
-  from:
-    - id: "tcp-udp-basics"
-      question: "I understand TCP and ports. But what is my browser actually saying to the server?"
-      detail: "TCP delivers bytes reliably between two machines. But what are those bytes? When your browser connects to a web server, it is not sending random data — it is speaking HTTP, a structured protocol that defines how to request pages, submit forms, and get responses. HTTP rides on top of TCP, and understanding it is how you understand the web."
   to:
-    - id: "where-do-i-run-this"
-      zone: "running"
-      question: "I understand HTTP. But where do I actually run my app for real users?"
-      detail: "My app works on localhost and I can curl it. But I need it somewhere permanently accessible — not my laptop, not a local port. Where do you actually put something you want real users to be able to reach?"
-    - id: "encryption-basics"
-      question: "HTTP is plaintext. Can anyone read my traffic?"
-      detail: "I just realized my login form is sending usernames and passwords in plain text over the network. Anyone watching the traffic could read them. How does HTTPS actually prevent that?"
+    - id: where-do-i-run-this
+      zone: running
+      question: I understand HTTP. But where do I actually run my app for real users?
+      detail: >-
+        My app works on localhost and I can curl it. But I need it somewhere
+        permanently accessible — not my laptop, not a local port. Where do you
+        actually put something you want real users to be able to reach?
+    - id: encryption-basics
+      question: HTTP is plaintext. Can anyone read my traffic?
+      detail: >-
+        I just realized my login form is sending usernames and passwords in
+        plain text over the network. Anyone watching the traffic could read
+        them. How does HTTPS actually prevent that?
 difficulty: 1
-tags: ["http", "https", "protocol", "status-codes", "methods", "curl", "application-layer"]
-category: "concept"
+tags:
+  - http
+  - https
+  - protocol
+  - status-codes
+  - methods
+  - curl
+  - application-layer
+category: concept
 milestones:
-  - "Understand the HTTP request-response cycle with methods and status codes"
-  - "Use curl to make GET, POST, PUT, and DELETE requests"
-  - "Read and understand HTTP headers in browser dev tools"
+  - Understand the HTTP request-response cycle with methods and status codes
+  - 'Use curl to make GET, POST, PUT, and DELETE requests'
+  - Read and understand HTTP headers in browser dev tools
 ---
 
 Your web server is running and your phone can load the page. But what is actually happening? The browser is not just "connecting" — it is speaking a very specific language called HTTP. It sends a structured request, the server sends a structured response, and both sides know exactly what to expect because they follow the same protocol.

@@ -1,27 +1,38 @@
 ---
-id: "programming-fundamentals"
-title: "Programming Fundamentals"
-zone: "foundations"
+id: programming-fundamentals
+title: Programming Fundamentals
+zone: foundations
 edges:
-  from:
-    - id: "processes-and-memory"
-      question: "I understand how the computer runs things. Now how do I write real programs?"
-      detail: "You know how the OS manages processes, memory, and files. Now it's time to actually write programs that leverage all of this. Programming fundamentals — variables, loops, functions, data structures — are the building blocks of every script, tool, and service you'll build as an SRE. This isn't about becoming a software engineer; it's about being dangerous enough with code to automate your work and solve problems."
   to:
-    - id: "scripting-bash-python"
-      question: "I know the theory. Let me apply it to automate real tasks."
-      detail: "I understand the concepts — loops, functions, data structures — but I've only written toy programs. I want to actually automate the things I do in the terminal, or write something that does real work without me having to babysit it. What would I actually write, and in what language?"
-    - id: "what-is-a-web-service"
-      zone: "building"
-      question: "I can write code. How do I build something people can use?"
-      detail: "I can write scripts that run on my machine. But the software I actually want to build — something a user can open in a browser, something that serves data over an API — is a completely different thing. I don't even know what's involved in making something that lives on the network and responds to requests."
+    - id: scripting-bash-python
+      question: I know the theory. Let me apply it to automate real tasks.
+      detail: >-
+        I understand the concepts — loops, functions, data structures — but I've
+        only written toy programs. I want to actually automate the things I do
+        in the terminal, or write something that does real work without me
+        having to babysit it. What would I actually write, and in what language?
+    - id: what-is-a-web-service
+      zone: building
+      question: I can write code. How do I build something people can use?
+      detail: >-
+        I can write scripts that run on my machine. But the software I actually
+        want to build — something a user can open in a browser, something that
+        serves data over an API — is a completely different thing. I don't even
+        know what's involved in making something that lives on the network and
+        responds to requests.
 difficulty: 1
-tags: ["programming", "variables", "loops", "functions", "data-structures", "logic"]
-category: "concept"
+tags:
+  - programming
+  - variables
+  - loops
+  - functions
+  - data-structures
+  - logic
+category: concept
 milestones:
-  - "Write a program that uses variables, loops, and functions"
-  - "Implement a simple data structure (list, dictionary/map)"
-  - "Solve a basic coding challenge"
+  - 'Write a program that uses variables, loops, and functions'
+  - 'Implement a simple data structure (list, dictionary/map)'
+  - Solve a basic coding challenge
 ---
 
 Programming is not about memorizing syntax -- it is about learning to break problems into small, logical steps that a computer can follow. Once you internalize the core concepts of variables, loops, conditionals, and functions, you can pick up any programming language in a matter of days because they all share these same building blocks.

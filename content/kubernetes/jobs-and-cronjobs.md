@@ -1,25 +1,36 @@
 ---
-id: "jobs-and-cronjobs"
-title: "Jobs and CronJobs"
-zone: "kubernetes"
+id: jobs-and-cronjobs
+title: Jobs and CronJobs
+zone: kubernetes
 edges:
-  from:
-    - id: "deployments"
-      question: "Deployments are for long-running services. What about tasks that run once and finish — database migrations, batch processing, report generation?"
-      detail: "A Deployment keeps Pods running indefinitely and restarts them if they exit. But some workloads are meant to complete: run a database migration, process a file, generate a report, then stop. Jobs run a Pod to completion. CronJobs run Jobs on a schedule."
   to:
-    - id: "gitops-with-argocd"
-      question: "Jobs, CronJobs, Deployments — how do I manage all of this declaratively from Git instead of applying manifests manually?"
-      detail: "I'm still applying all my manifests manually — kubectl apply for my Deployment, my Jobs, my CronJobs. As things grow that's not sustainable and I keep losing track of what's actually applied. I want the cluster to just reflect whatever's in Git, automatically."
+    - id: gitops-with-argocd
+      question: >-
+        Jobs, CronJobs, Deployments — how do I manage all of this declaratively
+        from Git instead of applying manifests manually?
+      detail: >-
+        I'm still applying all my manifests manually — kubectl apply for my
+        Deployment, my Jobs, my CronJobs. As things grow that's not sustainable
+        and I keep losing track of what's actually applied. I want the cluster
+        to just reflect whatever's in Git, automatically.
 difficulty: 1
-tags: ["kubernetes", "jobs", "cronjobs", "batch", "scheduling", "migrations", "k8s"]
-category: "concept"
+tags:
+  - kubernetes
+  - jobs
+  - cronjobs
+  - batch
+  - scheduling
+  - migrations
+  - k8s
+category: concept
 milestones:
-  - "Create a Job that runs a container to completion and verify it succeeded"
-  - "Understand Job completion, parallelism, and backoff behaviour on failure"
-  - "Create a CronJob with a schedule expression and verify it runs on time"
-  - "Run a database migration as a Job before a Deployment update"
-  - "Explain the difference between a Job (run once) and a CronJob (run on schedule)"
+  - Create a Job that runs a container to completion and verify it succeeded
+  - 'Understand Job completion, parallelism, and backoff behaviour on failure'
+  - Create a CronJob with a schedule expression and verify it runs on time
+  - Run a database migration as a Job before a Deployment update
+  - >-
+    Explain the difference between a Job (run once) and a CronJob (run on
+    schedule)
 ---
 
 Deployments run workloads indefinitely and restart containers that exit. Jobs run a Pod to completion — once the container exits with code 0, the Job is done. CronJobs run Jobs on a schedule. Together they handle batch processing, database migrations, report generation, and any workload that runs once and stops.

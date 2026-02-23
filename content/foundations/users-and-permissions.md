@@ -1,23 +1,31 @@
 ---
-id: "users-and-permissions"
-title: "Users & Permissions"
-zone: "foundations"
+id: users-and-permissions
+title: Users & Permissions
+zone: foundations
 edges:
-  from:
-    - id: "linux-and-distros"
-      question: "Linux is multi-user. Who controls what?"
-      detail: "Linux was designed from the ground up as a multi-user system. Every file has an owner, every process runs as a user, and the root user has god-mode access to everything. Understanding users, groups, and permissions is not optional — it is the foundation of Linux security. Get this wrong and you either lock yourself out or leave the door wide open."
   to:
-    - id: "package-management"
-      question: "I understand who can do what. How do I install software?"
-      detail: "I keep getting 'permission denied' errors when I try to install things. And when I do get it working by using sudo, I'm not sure what I actually just did or whether I should have. How does software installation work on Linux, and why does it need elevated privileges?"
+    - id: package-management
+      question: I understand who can do what. How do I install software?
+      detail: >-
+        I keep getting 'permission denied' errors when I try to install things.
+        And when I do get it working by using sudo, I'm not sure what I actually
+        just did or whether I should have. How does software installation work
+        on Linux, and why does it need elevated privileges?
 difficulty: 1
-tags: ["users", "groups", "permissions", "chmod", "chown", "sudo", "root", "security"]
-category: "concept"
+tags:
+  - users
+  - groups
+  - permissions
+  - chmod
+  - chown
+  - sudo
+  - root
+  - security
+category: concept
 milestones:
-  - "Explain the difference between root and a regular user"
-  - "Change file ownership and permissions with chown and chmod"
-  - "Use sudo and explain why running everything as root is dangerous"
+  - Explain the difference between root and a regular user
+  - Change file ownership and permissions with chown and chmod
+  - Use sudo and explain why running everything as root is dangerous
 ---
 
 Linux is a multi-user system. Even if you are the only person using your laptop, Linux still thinks in terms of users, groups, and permissions. Every file is owned by someone. Every process runs as someone. And the all-powerful **root** user can do literally anything — including destroying the entire system with a single command. Understanding this permission model is how you keep systems secure and how you avoid the dreaded "Permission denied" errors that will otherwise haunt you.

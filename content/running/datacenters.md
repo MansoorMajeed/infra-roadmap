@@ -1,26 +1,38 @@
 ---
-id: "datacenters"
-title: "Datacenters"
-zone: "running"
+id: datacenters
+title: Datacenters
+zone: running
 edges:
-  from:
-    - id: "where-do-i-run-this"
-      question: "Servers need to live somewhere. Where do they physically go?"
-      detail: "A server is just a computer, but it cannot sit under your desk if you want it to serve millions of users reliably. Servers live in datacenters — purpose-built facilities with redundant power, cooling, networking, and physical security. Understanding datacenters helps you understand why cloud providers can promise 99.99% uptime."
   to:
-    - id: "linux-server-basics"
-      question: "I know where servers live. How do I actually use one?"
-      detail: "I understand what a datacenter is. But now I have actual hardware (or a VM) sitting somewhere I need to use. I've never managed a Linux server remotely before — I don't know where to start or what the basics even are."
-    - id: "what-is-a-vps"
-      question: "Servers live in datacenters. How do I actually get one without going there?"
-      detail: "Okay, so servers live in datacenters. But I'm not flying to a datacenter to plug in a machine. Clearly there's a way to get a server without physically going anywhere. How does that actually work — what am I renting, and what does it run on?"
+    - id: linux-server-basics
+      question: I know where servers live. How do I actually use one?
+      detail: >-
+        I understand what a datacenter is. But now I have actual hardware (or a
+        VM) sitting somewhere I need to use. I've never managed a Linux server
+        remotely before — I don't know where to start or what the basics even
+        are.
+    - id: what-is-a-vps
+      question: >-
+        Servers live in datacenters. How do I actually get one without going
+        there?
+      detail: >-
+        Okay, so servers live in datacenters. But I'm not flying to a datacenter
+        to plug in a machine. Clearly there's a way to get a server without
+        physically going anywhere. How does that actually work — what am I
+        renting, and what does it run on?
 difficulty: 1
-tags: ["datacenter", "colocation", "infrastructure", "power", "cooling", "redundancy"]
-category: "concept"
+tags:
+  - datacenter
+  - colocation
+  - infrastructure
+  - power
+  - cooling
+  - redundancy
+category: concept
 milestones:
-  - "Understand what a datacenter is and why servers live there"
-  - "Explain the role of redundant power, cooling, and networking"
-  - "Know the difference between colocation and cloud hosting"
+  - Understand what a datacenter is and why servers live there
+  - 'Explain the role of redundant power, cooling, and networking'
+  - Know the difference between colocation and cloud hosting
 ---
 
 A server needs power, cooling, and a fast network connection — 24 hours a day, 365 days a year. Your apartment does not offer any of that reliably. A **datacenter** is a building purpose-built to keep servers running. Every website you visit, every app you use, every API you call — the servers behind them live in datacenters.

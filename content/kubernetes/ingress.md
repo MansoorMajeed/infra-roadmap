@@ -1,24 +1,39 @@
 ---
-id: "ingress"
-title: "Ingress"
-zone: "kubernetes"
+id: ingress
+title: Ingress
+zone: kubernetes
 edges:
-  from:
-    - id: "service-types"
-      question: "LoadBalancer works but I'd need one per service. How do I route HTTP traffic to multiple services efficiently?"
-      detail: "One LoadBalancer per Service means one cloud load balancer per Service — that's expensive and unmanageable at scale. Ingress puts one load balancer in front of everything and routes by hostname and URL path: api.example.com goes to the API service, app.example.com goes to the frontend. One entry point, many services."
   to:
-    - id: "persistent-volumes"
-      question: "Networking is sorted — my app is reachable from the outside world. What about storage? My app needs to write files that survive Pod restarts."
-      detail: "My app is reachable from the internet now. But my app also writes files — user uploads, generated reports. When a pod restarts, those files are gone. A pod's filesystem is ephemeral, which means I can't just write to disk the way I would on a regular server. How does Kubernetes handle data that needs to survive?"
+    - id: persistent-volumes
+      question: >-
+        Networking is sorted — my app is reachable from the outside world. What
+        about storage? My app needs to write files that survive Pod restarts.
+      detail: >-
+        My app is reachable from the internet now. But my app also writes files
+        — user uploads, generated reports. When a pod restarts, those files are
+        gone. A pod's filesystem is ephemeral, which means I can't just write to
+        disk the way I would on a regular server. How does Kubernetes handle
+        data that needs to survive?
 difficulty: 2
-tags: ["kubernetes", "ingress", "ingress-controller", "nginx", "traefik", "http-routing", "tls", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - ingress
+  - ingress-controller
+  - nginx
+  - traefik
+  - http-routing
+  - tls
+  - k8s
+category: practice
 milestones:
-  - "Install an Ingress controller (nginx-ingress or Traefik)"
-  - "Write an Ingress resource that routes two hostnames to two different Services"
-  - "Configure TLS termination using a certificate (cert-manager + Let's Encrypt)"
-  - "Explain the difference between the Ingress resource and the Ingress controller"
+  - Install an Ingress controller (nginx-ingress or Traefik)
+  - >-
+    Write an Ingress resource that routes two hostnames to two different
+    Services
+  - Configure TLS termination using a certificate (cert-manager + Let's Encrypt)
+  - >-
+    Explain the difference between the Ingress resource and the Ingress
+    controller
 ---
 
 Ingress is a Kubernetes resource that describes HTTP routing rules — which hostname or path goes to which Service. An Ingress controller reads those rules and actually routes the traffic. One controller can front many Services, replacing the need for a separate cloud load balancer per Service.

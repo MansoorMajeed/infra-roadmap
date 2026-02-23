@@ -1,30 +1,47 @@
 ---
-id: "what-is-a-process"
-title: "What Is a Process?"
-zone: "foundations"
+id: what-is-a-process
+title: What Is a Process?
+zone: foundations
 edges:
-  from:
-    - id: "the-terminal"
-      question: "I ran a command. What actually happened?"
-      detail: "Every time you type a command and hit Enter, the OS does not just 'run' it. It creates a process — a living instance of that program with its own memory space, a unique ID, and a parent-child relationship with the shell that launched it. Understanding what a process really is, how it is born, how it runs, and how it dies is fundamental to diagnosing why things break in production."
   to:
-    - id: "threads-and-concurrency"
-      question: "A process runs code. But what if it needs to do many things at once?"
-      detail: "My app handles one request and then starts the next one. But a real web server must be handling thousands at once — it can't just make everyone wait in line. How does a single process do many things simultaneously? Is it running multiple copies of itself, or something else entirely?"
-    - id: "signals-and-ipc"
-      question: "Processes are running. How do they talk to each other?"
-      detail: "I press Ctrl+C and something stops. I run kill and something dies. But how does one process actually tell another to do something? And what's the difference between a process just stopping and it being told to stop? I feel like I'm missing how processes actually communicate with each other."
-    - id: "processes-and-memory"
-      question: "A process is running. How does it use memory?"
-      detail: "I can see a process running in ps — but I have no idea what's actually happening in memory. Processes clearly need RAM, but I don't understand how they get it, what happens when they need more, or why some of them seem to just keep eating memory forever."
+    - id: threads-and-concurrency
+      question: A process runs code. But what if it needs to do many things at once?
+      detail: >-
+        My app handles one request and then starts the next one. But a real web
+        server must be handling thousands at once — it can't just make everyone
+        wait in line. How does a single process do many things simultaneously?
+        Is it running multiple copies of itself, or something else entirely?
+    - id: signals-and-ipc
+      question: Processes are running. How do they talk to each other?
+      detail: >-
+        I press Ctrl+C and something stops. I run kill and something dies. But
+        how does one process actually tell another to do something? And what's
+        the difference between a process just stopping and it being told to
+        stop? I feel like I'm missing how processes actually communicate with
+        each other.
+    - id: processes-and-memory
+      question: A process is running. How does it use memory?
+      detail: >-
+        I can see a process running in ps — but I have no idea what's actually
+        happening in memory. Processes clearly need RAM, but I don't understand
+        how they get it, what happens when they need more, or why some of them
+        seem to just keep eating memory forever.
 difficulty: 1
-tags: ["process", "fork", "exec", "pid", "process-tree", "proc-filesystem", "ps", "strace"]
-category: "concept"
+tags:
+  - process
+  - fork
+  - exec
+  - pid
+  - process-tree
+  - proc-filesystem
+  - ps
+  - strace
+category: concept
 milestones:
-  - "Explain what fork and exec do"
-  - "Use ps and pstree to inspect the process tree"
-  - "Explore /proc to read live process information"
-  - "Use strace to watch a process make system calls"
+  - Explain what fork and exec do
+  - Use ps and pstree to inspect the process tree
+  - Explore /proc to read live process information
+  - Use strace to watch a process make system calls
 ---
 
 When you type `ls` in your terminal and press Enter, a surprisingly complex chain of events unfolds. Your shell does not just "run ls." It creates an entirely new process — a copy of itself — and then replaces that copy with the `ls` program. That new process gets its own memory, its own process ID, and a place in a tree of processes that stretches all the way back to the very first process that started when your system booted. Understanding this is understanding how Linux actually works.

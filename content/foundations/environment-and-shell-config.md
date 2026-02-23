@@ -1,23 +1,31 @@
 ---
-id: "environment-and-shell-config"
-title: "Environment Variables & Shell Config"
-zone: "foundations"
+id: environment-and-shell-config
+title: Environment Variables & Shell Config
+zone: foundations
 edges:
-  from:
-    - id: "pipes-and-redirection"
-      question: "I can chain commands. How do I customize my shell environment?"
-      detail: "You know how to compose commands with pipes and redirection. But your shell has its own configuration — environment variables that control how programs behave, config files that run every time you open a terminal, and a PATH variable that determines which programs you can run by name. Understanding your shell environment is how you go from 'it works when I type it' to 'it works everywhere, every time.'"
   to:
-    - id: "scripting-bash-python"
-      question: "My environment is set up. Now let me automate things."
-      detail: "I keep repeating the same sequences of commands — finding the right flags, piping the right outputs, doing the same thing over and over. There must be a way to capture these workflows and run them with a single command. What does it take to actually write a script instead of just typing commands one by one?"
+    - id: scripting-bash-python
+      question: My environment is set up. Now let me automate things.
+      detail: >-
+        I keep repeating the same sequences of commands — finding the right
+        flags, piping the right outputs, doing the same thing over and over.
+        There must be a way to capture these workflows and run them with a
+        single command. What does it take to actually write a script instead of
+        just typing commands one by one?
 difficulty: 1
-tags: ["environment-variables", "PATH", "bashrc", "profile", "export", "shell-config", "dotfiles"]
-category: "concept"
+tags:
+  - environment-variables
+  - PATH
+  - bashrc
+  - profile
+  - export
+  - shell-config
+  - dotfiles
+category: concept
 milestones:
-  - "Explain what PATH is and how the shell finds commands"
-  - "Set and export environment variables"
-  - "Understand the difference between .bashrc and .profile"
+  - Explain what PATH is and how the shell finds commands
+  - Set and export environment variables
+  - Understand the difference between .bashrc and .profile
 ---
 
 You type `python3` and it runs. But how does your shell know where `python3` lives? You set `DATABASE_URL` in your terminal and your application connects to the right database. But how does the application read that value? The answer is **environment variables** — key-value pairs that the OS passes to every process, controlling everything from which programs are available to how applications behave. And the shell configuration files that set these variables are the reason "it works on my machine" is such a common problem.

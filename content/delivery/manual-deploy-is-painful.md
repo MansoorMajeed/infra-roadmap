@@ -1,24 +1,27 @@
 ---
-id: "manual-deploy-is-painful"
-title: "Manual Deploys Are Painful"
-zone: "delivery"
+id: manual-deploy-is-painful
+title: Manual Deploys Are Painful
+zone: delivery
 edges:
-  from:
-    - id: "deploying-your-code"
-      zone: "running"
-      question: "I've been deploying manually. There has to be a better way."
-      detail: "You SSH in, git pull, pip install, systemctl restart — every single time. Six steps, every deploy. Miss one at 2 AM and the site is down. There is a better way."
   to:
-    - id: "what-is-ci-cd"
-      question: "What is CI/CD and how does it fix this?"
-      detail: "I want to get to a point where I push code and it just ends up running somewhere — tests passing, deployed, without me doing anything manually. I've heard 'CI/CD' thrown around but I don't understand what it actually is or how it works."
+    - id: what-is-ci-cd
+      question: What is CI/CD and how does it fix this?
+      detail: >-
+        I want to get to a point where I push code and it just ends up running
+        somewhere — tests passing, deployed, without me doing anything manually.
+        I've heard 'CI/CD' thrown around but I don't understand what it actually
+        is or how it works.
 difficulty: 1
-tags: ["ci-cd", "deployment", "automation", "devops"]
-category: "concept"
+tags:
+  - ci-cd
+  - deployment
+  - automation
+  - devops
+category: concept
 milestones:
-  - "List every manual step in your current deploy process"
-  - "Identify which steps could fail silently"
-  - "Understand why manual deployments don't scale"
+  - List every manual step in your current deploy process
+  - Identify which steps could fail silently
+  - Understand why manual deployments don't scale
 ---
 
 Every deploy is a ritual. SSH into the server, pull the latest code, install dependencies, run migrations, restart the service, check the logs, hope nothing broke. Miss one step — or run them out of order — and you've just taken down production.

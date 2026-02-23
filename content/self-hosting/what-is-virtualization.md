@@ -1,25 +1,32 @@
 ---
-id: "what-is-virtualization"
-title: "What Is Virtualization?"
-zone: "self-hosting"
+id: what-is-virtualization
+title: What Is Virtualization?
+zone: self-hosting
 edges:
-  from:
-    - id: "bare-machine-now-what"
-      question: "What OS should I install? What's all this Proxmox stuff?"
   to:
-    - id: "install-proxmox"
-      question: "Proxmox sounds good — I'll use that"
-      detail: "Will it wipe what's currently on the machine? And after it's installed, how do I actually get a working Linux system I can SSH into and run things on?"
-    - id: "bare-metal-linux"
-      question: "I don't want virtualization — just Linux directly on the hardware"
-      detail: "I don't need VMs for what I'm doing right now. But am I going to regret this later? What am I actually giving up by skipping virtualization?"
+    - id: install-proxmox
+      question: Proxmox sounds good — I'll use that
+      detail: >-
+        Will it wipe what's currently on the machine? And after it's installed,
+        how do I actually get a working Linux system I can SSH into and run
+        things on?
+    - id: bare-metal-linux
+      question: I don't want virtualization — just Linux directly on the hardware
+      detail: >-
+        I don't need VMs for what I'm doing right now. But am I going to regret
+        this later? What am I actually giving up by skipping virtualization?
 difficulty: 1
-tags: ["self-hosting", "virtualization", "proxmox", "vms", "hypervisor"]
-category: "concept"
+tags:
+  - self-hosting
+  - virtualization
+  - proxmox
+  - vms
+  - hypervisor
+category: concept
 milestones:
-  - "Understand what a hypervisor does"
-  - "Know why Proxmox is recommended over bare metal for homelabs"
-  - "Make the call: Proxmox or bare metal"
+  - Understand what a hypervisor does
+  - Know why Proxmox is recommended over bare metal for homelabs
+  - 'Make the call: Proxmox or bare metal'
 ---
 
 Virtualization means running multiple isolated operating systems on a single physical machine. Instead of installing Linux directly on your hardware, you install a **hypervisor** — software that manages the hardware and runs virtual machines (VMs) on top of it.

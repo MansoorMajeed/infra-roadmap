@@ -1,23 +1,32 @@
 ---
-id: "port-forward"
-title: "Accessing Pods with Port Forward"
-zone: "kubernetes"
+id: port-forward
+title: Accessing Pods with Port Forward
+zone: kubernetes
 edges:
-  from:
-    - id: "pods"
-      question: "My Pod is running. I just want to quickly reach it — what's the easiest way?"
-      detail: "kubectl port-forward is the fastest path from 'Pod is running' to 'I can open it in my browser'. It tunnels traffic directly from a local port to the Pod — no service, no ingress, no networking config needed. Perfect for development and debugging."
   to:
-    - id: "services"
-      question: "Port-forward works for local testing. What's the proper way to expose a Pod inside the cluster?"
-      detail: "Port-forward was useful for checking things worked, but it drops the moment I close my terminal and nobody else can use it. My app needs a persistent, accessible endpoint inside the cluster that doesn't depend on me keeping a command running. How does anything else in the cluster actually reach my Pod reliably?"
+    - id: services
+      question: >-
+        Port-forward works for local testing. What's the proper way to expose a
+        Pod inside the cluster?
+      detail: >-
+        Port-forward was useful for checking things worked, but it drops the
+        moment I close my terminal and nobody else can use it. My app needs a
+        persistent, accessible endpoint inside the cluster that doesn't depend
+        on me keeping a command running. How does anything else in the cluster
+        actually reach my Pod reliably?
 difficulty: 1
-tags: ["kubernetes", "kubectl", "port-forward", "debugging", "development", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - kubectl
+  - port-forward
+  - debugging
+  - development
+  - k8s
+category: practice
 milestones:
-  - "Use kubectl port-forward to reach a Pod from your local browser"
-  - "Understand why port-forward is not suitable for production access"
-  - "Know the difference between port-forwarding to a Pod vs to a Service"
+  - Use kubectl port-forward to reach a Pod from your local browser
+  - Understand why port-forward is not suitable for production access
+  - Know the difference between port-forwarding to a Pod vs to a Service
 ---
 
 `kubectl port-forward` creates a tunnel from a port on your local machine directly to a port on a Pod in the cluster. It bypasses Services, Ingress, and any other cluster networking — making it the fastest way to verify a Pod is working without setting up anything else.

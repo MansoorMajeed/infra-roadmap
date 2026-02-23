@@ -1,27 +1,33 @@
 ---
-id: "vps-wireguard-expose"
-title: "VPS + WireGuard: Full Control, No Extra Software"
-zone: "self-hosting"
+id: vps-wireguard-expose
+title: 'VPS + WireGuard: Full Control, No Extra Software'
+zone: self-hosting
 edges:
-  from:
-    - id: "public-website"
-      question: "I want full control — VPS with manual setup"
-    - id: "public-media-streaming"
-      question: "I want full control — VPS with manual setup"
   to:
-    - id: "media-streaming-cross-continent"
-      question: "My distant users get buffering — can I fix cross-continent streaming?"
-      detail: "Friends or family far away get constant buffering even though my internet is fast. Is it my upload speed, the physical distance, or something about how the VPS is placed?"
+    - id: media-streaming-cross-continent
+      question: My distant users get buffering — can I fix cross-continent streaming?
+      detail: >-
+        Friends or family far away get constant buffering even though my
+        internet is fast. Is it my upload speed, the physical distance, or
+        something about how the VPS is placed?
 difficulty: 3
-tags: ["self-hosting", "vps", "wireguard", "nginx", "tunnel", "public"]
-category: "practice"
+tags:
+  - self-hosting
+  - vps
+  - wireguard
+  - nginx
+  - tunnel
+  - public
+category: practice
 milestones:
-  - "Provision a VPS and install WireGuard on it"
-  - "Configure WireGuard on your home server to tunnel to the VPS"
-  - "Bring up the WireGuard tunnel and verify connectivity"
-  - "Install nginx on the VPS and proxy a public hostname to your home service via the tunnel"
-  - "Add HTTPS with Let's Encrypt or Caddy"
-  - "Verify the service is reachable publicly"
+  - Provision a VPS and install WireGuard on it
+  - Configure WireGuard on your home server to tunnel to the VPS
+  - Bring up the WireGuard tunnel and verify connectivity
+  - >-
+    Install nginx on the VPS and proxy a public hostname to your home service
+    via the tunnel
+  - Add HTTPS with Let's Encrypt or Caddy
+  - Verify the service is reachable publicly
 ---
 
 A VPS runs WireGuard and nginx. Your home server connects to the VPS as a WireGuard peer. Traffic arrives at the VPS's public IP, nginx proxies it through the private WireGuard tunnel to your home service — which Cloudflare never touches, and which requires no special software beyond tools you already know.

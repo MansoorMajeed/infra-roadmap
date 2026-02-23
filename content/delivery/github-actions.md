@@ -1,27 +1,39 @@
 ---
-id: "github-actions"
-title: "Your First Pipeline with GitHub Actions"
-zone: "delivery"
+id: github-actions
+title: Your First Pipeline with GitHub Actions
+zone: delivery
 edges:
-  from:
-    - id: "what-is-ci-cd"
-      question: "CI/CD makes sense. How do I set one up?"
-      detail: "GitHub Actions is the easiest on-ramp: it's built into GitHub, free for public repos, and triggered automatically on every push. You define your pipeline in a YAML file and GitHub runs it for you."
   to:
-    - id: "build-and-test-pipeline"
-      question: "I have a pipeline running. How do I make it properly test and build my code?"
-      detail: "A basic 'hello world' pipeline is a start, but a real pipeline has structured stages: install dependencies, run tests, build the artifact, then deploy. Let's build that."
-    - id: "pipeline-secrets"
-      question: "My pipeline needs to deploy to a server — it needs credentials. Where do I put secrets?"
-      detail: "My pipeline needs to SSH into a server or push to a container registry. That means it needs credentials — but I can't just put SSH keys or passwords in the YAML file. Where do secrets like that even go, and how does the pipeline access them safely?"
+    - id: build-and-test-pipeline
+      question: >-
+        I have a pipeline running. How do I make it properly test and build my
+        code?
+      detail: >-
+        A basic 'hello world' pipeline is a start, but a real pipeline has
+        structured stages: install dependencies, run tests, build the artifact,
+        then deploy. Let's build that.
+    - id: pipeline-secrets
+      question: >-
+        My pipeline needs to deploy to a server — it needs credentials. Where do
+        I put secrets?
+      detail: >-
+        My pipeline needs to SSH into a server or push to a container registry.
+        That means it needs credentials — but I can't just put SSH keys or
+        passwords in the YAML file. Where do secrets like that even go, and how
+        does the pipeline access them safely?
 difficulty: 1
-tags: ["github-actions", "ci-cd", "yaml", "pipelines", "automation"]
-category: "tool"
+tags:
+  - github-actions
+  - ci-cd
+  - yaml
+  - pipelines
+  - automation
+category: tool
 milestones:
-  - "Create a .github/workflows/ directory and write your first workflow YAML"
-  - "Trigger a pipeline on push to main"
-  - "Read the pipeline output in the GitHub Actions UI"
-  - "Understand what a job, step, and runner are"
+  - Create a .github/workflows/ directory and write your first workflow YAML
+  - Trigger a pipeline on push to main
+  - Read the pipeline output in the GitHub Actions UI
+  - 'Understand what a job, step, and runner are'
 ---
 
 GitHub Actions is a CI/CD platform built directly into GitHub. You describe your pipeline in a YAML file, commit it to your repo under `.github/workflows/`, and GitHub runs it automatically on every push — on their infrastructure, for free on public repos.

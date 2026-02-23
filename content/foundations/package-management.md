@@ -1,20 +1,23 @@
 ---
-id: "package-management"
-title: "Package Management"
-zone: "foundations"
+id: package-management
+title: Package Management
+zone: foundations
 edges:
-  from:
-    - id: "users-and-permissions"
-      question: "I understand who can do what. How do I install software?"
-      detail: "Now that you understand users and permissions, you know why some commands need sudo and why installing software requires elevated privileges. Package management is how Linux systems install, update, and remove software — and understanding it means you can set up and maintain servers with the right tools installed, kept up to date, and properly secured."
   to: []
 difficulty: 1
-tags: ["apt", "yum", "dnf", "apk", "packages", "repositories", "dependencies"]
-category: "concept"
+tags:
+  - apt
+  - yum
+  - dnf
+  - apk
+  - packages
+  - repositories
+  - dependencies
+category: concept
 milestones:
-  - "Install, update, and remove a package using your distro's package manager"
-  - "Explain what a repository is and how dependencies work"
-  - "Search for packages from the command line"
+  - 'Install, update, and remove a package using your distro''s package manager'
+  - Explain what a repository is and how dependencies work
+  - Search for packages from the command line
 ---
 
 On Linux, you do not download installers from websites like you do on Windows or macOS. Software is managed through a **package manager** — a tool that installs, updates, and removes programs while automatically handling dependencies. It knows that installing Nginx also requires OpenSSL, and it fetches both for you. Every Linux distribution has one, and using it correctly is how you keep servers secure, reproducible, and maintainable.

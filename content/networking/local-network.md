@@ -1,26 +1,40 @@
 ---
-id: "local-network"
-title: "Connecting Two Computers"
-zone: "networking"
+id: local-network
+title: Connecting Two Computers
+zone: networking
 edges:
-  from:
-    - id: "it-works-on-my-laptop"
-      question: "Why can't anyone else reach my app? What even is a network?"
-      detail: "Your app runs on localhost — your machine talking to itself. But your laptop is connected to other devices right now. Your phone, your smart TV, your roommate's laptop — they are all on the same WiFi network. Understanding what a network is and how devices physically connect is the first step to getting your app off localhost."
   to:
-    - id: "network-protocols"
-      question: "My computers are connected. But how do they actually understand each other?"
-      detail: "My laptop and phone can ping each other. But when I think about what's actually happening when they communicate — not the wires, but the actual data exchange — I realize I don't understand how they agree on what the bytes mean. How do computers speak the same language?"
-    - id: "dhcp"
-      question: "You connected to WiFi and got an IP address automatically. How does that work?"
-      detail: "I connected to WiFi and my device just had an IP address. I never typed anything in. Something must have noticed I joined and handed me an address — but what? And what happens when that breaks and my device can't get an IP?"
+    - id: network-protocols
+      question: >-
+        My computers are connected. But how do they actually understand each
+        other?
+      detail: >-
+        My laptop and phone can ping each other. But when I think about what's
+        actually happening when they communicate — not the wires, but the actual
+        data exchange — I realize I don't understand how they agree on what the
+        bytes mean. How do computers speak the same language?
+    - id: dhcp
+      question: >-
+        You connected to WiFi and got an IP address automatically. How does that
+        work?
+      detail: >-
+        I connected to WiFi and my device just had an IP address. I never typed
+        anything in. Something must have noticed I joined and handed me an
+        address — but what? And what happens when that breaks and my device
+        can't get an IP?
 difficulty: 1
-tags: ["networking", "lan", "wifi", "router", "local-network", "ethernet"]
-category: "concept"
+tags:
+  - networking
+  - lan
+  - wifi
+  - router
+  - local-network
+  - ethernet
+category: concept
 milestones:
-  - "Understand how devices physically connect via Ethernet and WiFi"
-  - "Find your machine's local IP address and your router's IP"
-  - "Ping another device on your local network"
+  - Understand how devices physically connect via Ethernet and WiFi
+  - Find your machine's local IP address and your router's IP
+  - Ping another device on your local network
 ---
 
 Before the internet, before web servers, before any of that — there is a simpler question: **how do you connect two computers?** Take your laptop and your phone. They are both sitting in the same room, connected to the same WiFi. How are they actually connected, and what does that connection even look like?

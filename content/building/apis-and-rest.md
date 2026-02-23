@@ -1,23 +1,29 @@
 ---
-id: "apis-and-rest"
-title: "APIs & REST"
-zone: "building"
+id: apis-and-rest
+title: APIs & REST
+zone: building
 edges:
-  from:
-    - id: "dynamic-web-app"
-      question: "My frontend and backend are tangled together. How do different parts of a system talk to each other?"
-      detail: "Your Flask app renders HTML templates directly — the backend generates the page and sends it to the browser. This works, but it means your backend is doing two jobs: handling business logic and building the UI. Modern applications separate these concerns with APIs — clean interfaces that let the frontend, mobile apps, other services, and even third parties interact with your backend through structured requests and responses."
   to:
-    - id: "it-works-on-my-laptop"
-      question: "I have a clean API. How do I expose it to the world?"
-      detail: "I can curl my endpoints locally and everything works. But I want someone on the other side of the internet to be able to hit these endpoints too — and I'm not sure how to get there without just punching holes in firewalls and hoping for the best."
+    - id: it-works-on-my-laptop
+      question: I have a clean API. How do I expose it to the world?
+      detail: >-
+        I can curl my endpoints locally and everything works. But I want someone
+        on the other side of the internet to be able to hit these endpoints too
+        — and I'm not sure how to get there without just punching holes in
+        firewalls and hoping for the best.
 difficulty: 1
-tags: ["api", "rest", "http", "json", "endpoints", "curl"]
-category: "concept"
+tags:
+  - api
+  - rest
+  - http
+  - json
+  - endpoints
+  - curl
+category: concept
 milestones:
-  - "Build a REST API with proper HTTP methods and status codes"
-  - "Test API endpoints using curl or a tool like Postman"
-  - "Understand request/response format, headers, and JSON payloads"
+  - Build a REST API with proper HTTP methods and status codes
+  - Test API endpoints using curl or a tool like Postman
+  - 'Understand request/response format, headers, and JSON payloads'
 ---
 
 Your Flask app returns HTML pages. That is fine for a website, but what if you also want a mobile app? Or a CLI tool? Or another service that needs your data? You do not want to build the same logic three times. An API lets you expose your backend as a service that any client can consume — browser, phone, script, or another server.

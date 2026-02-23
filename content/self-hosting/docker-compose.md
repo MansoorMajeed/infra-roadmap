@@ -1,26 +1,28 @@
 ---
-id: "docker-compose"
-title: "Docker Compose"
-zone: "self-hosting"
+id: docker-compose
+title: Docker Compose
+zone: self-hosting
 edges:
-  from:
-    - id: "docker-for-self-hosting"
-      question: "I know Docker — let's skip to managing services properly"
-    - id: "docker-networking"
-      question: "I understand how containers connect — now how do I manage all of this properly?"
   to:
-    - id: "reverse-proxy"
-      question: "Services are running but I'm tired of remembering port numbers"
-      detail: "I have to remember which port maps to which service, and when I add a new one I have to pick a free port and hope nothing conflicts. Typing 192.168.1.33:8083 every time is not how I want to use this."
+    - id: reverse-proxy
+      question: Services are running but I'm tired of remembering port numbers
+      detail: >-
+        I have to remember which port maps to which service, and when I add a
+        new one I have to pick a free port and hope nothing conflicts. Typing
+        192.168.1.33:8083 every time is not how I want to use this.
 difficulty: 1
-tags: ["self-hosting", "docker", "docker-compose", "containers"]
-category: "tool"
+tags:
+  - self-hosting
+  - docker
+  - docker-compose
+  - containers
+category: tool
 milestones:
-  - "Write a docker-compose.yml for Vaultwarden"
-  - "Start it with `docker compose up -d`"
-  - "Stop and restart it without losing data"
-  - "Add a second service to the same compose file"
-  - "Understand named volumes vs bind mounts"
+  - Write a docker-compose.yml for Vaultwarden
+  - Start it with `docker compose up -d`
+  - Stop and restart it without losing data
+  - Add a second service to the same compose file
+  - Understand named volumes vs bind mounts
 ---
 
 Docker Compose lets you define your entire service — image, ports, volumes, environment variables, restart policy — in a single YAML file. Instead of a long `docker run` command you have to remember, you have a file you can commit to git and reproduce anywhere.

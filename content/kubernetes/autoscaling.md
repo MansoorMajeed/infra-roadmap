@@ -1,27 +1,35 @@
 ---
-id: "autoscaling"
-title: "Autoscaling"
-zone: "kubernetes"
+id: autoscaling
+title: Autoscaling
+zone: kubernetes
 edges:
-  from:
-    - id: "secrets"
-      question: "My app is running, configured, and secured. How do I make it scale automatically?"
-      detail: "Right now your app runs a fixed number of Pod replicas. When traffic spikes it gets slow; when traffic drops you're paying for idle compute. The Horizontal Pod Autoscaler watches metrics — CPU, memory, or custom signals — and adjusts the replica count automatically."
-    - id: "resource-requests-and-limits"
-      question: "Requests and limits are set. Now the HPA can actually measure utilisation — how do I configure autoscaling?"
-      detail: "Resource requests are the prerequisite. With them defined, the HPA has a baseline to work from: if a Pod is using 80% of its requested CPU, add another replica. If it's using 20%, remove one. Now let's set that up."
   to:
-    - id: "deployments"
-      question: "Autoscaling manages how many Pods run. But how do I manage what they run — updating my app without downtime?"
-      detail: "I've got autoscaling working — the HPA adjusts my replica count. But now I need to ship a new version of my app. Do I just delete all the pods and start fresh? That feels wrong. How do I update what's running without taking everything offline?"
+    - id: deployments
+      question: >-
+        Autoscaling manages how many Pods run. But how do I manage what they run
+        — updating my app without downtime?
+      detail: >-
+        I've got autoscaling working — the HPA adjusts my replica count. But now
+        I need to ship a new version of my app. Do I just delete all the pods
+        and start fresh? That feels wrong. How do I update what's running
+        without taking everything offline?
 difficulty: 2
-tags: ["kubernetes", "autoscaling", "hpa", "vpa", "cluster-autoscaler", "metrics-server", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - autoscaling
+  - hpa
+  - vpa
+  - cluster-autoscaler
+  - metrics-server
+  - k8s
+category: practice
 milestones:
-  - "Install Metrics Server and verify kubectl top pods works"
-  - "Create an HPA targeting 50% CPU utilisation and watch it scale under load"
-  - "Understand the difference between HPA (Pod count) and VPA (Pod resource requests)"
-  - "Understand how the cluster autoscaler adds nodes when Pods are unschedulable"
+  - Install Metrics Server and verify kubectl top pods works
+  - Create an HPA targeting 50% CPU utilisation and watch it scale under load
+  - >-
+    Understand the difference between HPA (Pod count) and VPA (Pod resource
+    requests)
+  - Understand how the cluster autoscaler adds nodes when Pods are unschedulable
 ---
 
 Kubernetes can automatically adjust the number of Pod replicas based on observed metrics. The Horizontal Pod Autoscaler (HPA) adds or removes replicas when CPU or memory utilization crosses thresholds. The Cluster Autoscaler adds or removes nodes when Pods can't be scheduled. Together, they let your cluster grow and shrink with actual demand.

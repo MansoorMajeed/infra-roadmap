@@ -1,26 +1,31 @@
 ---
-id: "reading-logs"
-title: "Reading Logs"
-zone: "running"
+id: reading-logs
+title: Reading Logs
+zone: running
 edges:
-  from:
-    - id: "process-management"
-      question: "My app is running as a systemd service. How do I see its output and errors?"
-      detail: "Your app is running. But when something goes wrong — a crash, an unexpected error, a request that returns 500 — how do you know? systemd captures all stdout and stderr from your service into the journal. Learning to read logs is how you find out what is happening inside your running app."
-    - id: "web-servers"
-      question: "Nginx is running and serving traffic. How do I see what requests are coming in?"
-      detail: "Nginx logs every request it handles and every error it encounters. These logs are your window into what users are actually doing — what URLs they are hitting, what errors they are getting, and what Nginx cannot handle. Reading access logs and error logs is a core skill."
   to:
-    - id: "troubleshooting-basics"
-      question: "I can read logs. How do I use them to systematically debug problems?"
-      detail: "I can find and read logs now. But when something breaks I still end up randomly restarting things and hoping it helps. I need a more systematic approach — a way to narrow down which part of the stack is actually broken instead of just guessing."
+    - id: troubleshooting-basics
+      question: I can read logs. How do I use them to systematically debug problems?
+      detail: >-
+        I can find and read logs now. But when something breaks I still end up
+        randomly restarting things and hoping it helps. I need a more systematic
+        approach — a way to narrow down which part of the stack is actually
+        broken instead of just guessing.
 difficulty: 1
-tags: ["logs", "journalctl", "nginx", "tail", "grep", "debugging", "stdout", "stderr"]
-category: "practice"
+tags:
+  - logs
+  - journalctl
+  - nginx
+  - tail
+  - grep
+  - debugging
+  - stdout
+  - stderr
+category: practice
 milestones:
-  - "Use journalctl to view live and filtered logs for a systemd service"
-  - "Find and read the Nginx access log and error log"
-  - "Filter logs by time range and search for specific error messages"
+  - Use journalctl to view live and filtered logs for a systemd service
+  - Find and read the Nginx access log and error log
+  - Filter logs by time range and search for specific error messages
 ---
 
 Your app is running, Nginx is serving traffic, and then something breaks. A page returns 500. An image is not loading. The app is crashing every few minutes. The first thing you do is look at the logs.

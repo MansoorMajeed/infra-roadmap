@@ -12,9 +12,8 @@ export const NodeFrontmatterSchema = z.object({
   title: z.string(),
   zone: z.string(),
   edges: z.object({
-    from: z.array(EdgeConnectionSchema).optional().default([]),
     to: z.array(EdgeConnectionSchema).optional().default([]),
-  }),
+  }).optional().default({ to: [] }),
   difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   tags: z.array(z.string()),
   category: z.enum(["concept", "tool", "practice", "principle"]),

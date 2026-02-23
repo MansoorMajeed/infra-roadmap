@@ -1,35 +1,61 @@
 ---
-id: "dynamic-web-app"
-title: "Dynamic Web Applications"
-zone: "building"
+id: dynamic-web-app
+title: Dynamic Web Applications
+zone: building
 edges:
-  from:
-    - id: "static-site"
-      question: "My site looks nice, but it can't actually do anything. How do I add real functionality?"
-      detail: "A static site can display information beautifully, but it cannot remember users, process payments, or update content dynamically. For that, you need a backend — server-side code that handles logic, talks to a database, and responds to user actions. This is where you go from a digital brochure to a real application."
   to:
-    - id: "it-works-on-my-laptop"
-      question: "My app works locally. How do I let other people use it?"
-      detail: "My app works perfectly on localhost — but when I try to show it to someone, I have nothing to send them. It's not on the internet, it's just on my laptop. How do I get it somewhere real people can actually reach it?"
-    - id: "databases-and-sql"
-      question: "Where does my data actually live? Variables disappear when the app restarts."
-      detail: "I restart my app and everything disappears — all the data I added is gone. Variables don't survive a restart, and that means I can't actually build anything real without somewhere to actually store stuff. What does it take to make my app remember things?"
-    - id: "apis-and-rest"
-      question: "My frontend and backend are tangled together. How do different parts of a system talk to each other?"
-      detail: "My backend generates HTML and my frontend is completely tangled into it. But I want a mobile app too, or maybe to let someone else integrate with my service. The backend can't keep generating HTML for everything — there must be a cleaner way to expose what my app does."
-    - id: "testing-basics"
-      question: "How do I know my code actually works before I ship it?"
-      detail: "I test by running the app, clicking around, and hoping nothing broke. That was fine when it was small, but now I'm scared to touch things — I have no idea if changing one part will quietly break something else. How do I get confidence that my code still works after I change it?"
-    - id: "version-control-git"
-      question: "I keep overwriting my own code. How do I track changes?"
-      detail: "I've already overwritten code I needed to keep. I have no way to undo mistakes, no record of what changed, and no idea how I'd work on this with someone else without everything turning into chaos. There must be a way to track all of this."
+    - id: it-works-on-my-laptop
+      question: My app works locally. How do I let other people use it?
+      detail: >-
+        My app works perfectly on localhost — but when I try to show it to
+        someone, I have nothing to send them. It's not on the internet, it's
+        just on my laptop. How do I get it somewhere real people can actually
+        reach it?
+    - id: databases-and-sql
+      question: >-
+        Where does my data actually live? Variables disappear when the app
+        restarts.
+      detail: >-
+        I restart my app and everything disappears — all the data I added is
+        gone. Variables don't survive a restart, and that means I can't actually
+        build anything real without somewhere to actually store stuff. What does
+        it take to make my app remember things?
+    - id: apis-and-rest
+      question: >-
+        My frontend and backend are tangled together. How do different parts of
+        a system talk to each other?
+      detail: >-
+        My backend generates HTML and my frontend is completely tangled into it.
+        But I want a mobile app too, or maybe to let someone else integrate with
+        my service. The backend can't keep generating HTML for everything —
+        there must be a cleaner way to expose what my app does.
+    - id: testing-basics
+      question: How do I know my code actually works before I ship it?
+      detail: >-
+        I test by running the app, clicking around, and hoping nothing broke.
+        That was fine when it was small, but now I'm scared to touch things — I
+        have no idea if changing one part will quietly break something else. How
+        do I get confidence that my code still works after I change it?
+    - id: version-control-git
+      question: I keep overwriting my own code. How do I track changes?
+      detail: >-
+        I've already overwritten code I needed to keep. I have no way to undo
+        mistakes, no record of what changed, and no idea how I'd work on this
+        with someone else without everything turning into chaos. There must be a
+        way to track all of this.
 difficulty: 1
-tags: ["flask", "django", "backend", "database", "web-app", "python"]
-category: "concept"
+tags:
+  - flask
+  - django
+  - backend
+  - database
+  - web-app
+  - python
+category: concept
 milestones:
-  - "Run a Flask or Django app locally"
-  - "Connect the app to a database (SQLite or PostgreSQL)"
-  - "Build a feature that reads and writes data (e.g., user registration)"
+  - Run a Flask or Django app locally
+  - Connect the app to a database (SQLite or PostgreSQL)
+  - 'Build a feature that reads and writes data (e.g., user registration)'
 ---
 
 Your static site looks great, but it cannot do anything real. It cannot remember who visited, cannot process a purchase, cannot store data. To build a real application — one that handles users, orders, and dynamic content — you need a backend: server-side code that runs on a machine, processes requests, and talks to a database.

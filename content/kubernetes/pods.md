@@ -1,34 +1,49 @@
 ---
-id: "pods"
-title: "Pods"
-zone: "kubernetes"
+id: pods
+title: Pods
+zone: kubernetes
 edges:
-  from:
-    - id: "why-kubernetes"
-      question: "How do I actually run a container on Kubernetes?"
-      detail: "You don't run containers directly in Kubernetes — you run Pods. A Pod is the smallest deployable unit, and understanding why Kubernetes chose this abstraction (instead of just 'a container') explains a lot about how the system works."
-    - id: "namespaces"
-      question: "Namespaces make sense. Now how do I actually run a workload in one?"
-      detail: "With namespaces understood, you can run workloads in a properly organised cluster from day one. The fundamental unit you'll deploy is a Pod."
   to:
-    - id: "services"
-      question: "My Pod is running. How do I access it reliably?"
-      detail: "My Pod has an IP, but I've already seen how Pods get deleted and recreated. Every time that happens the IP changes — which means anything trying to reach my Pod would break. I need something more stable than a Pod IP to point other services or users at."
-    - id: "port-forward"
-      question: "My Pod is running. I just want to quickly access it to see if it works — what's the simplest way?"
-      detail: "I just want to hit my Pod in a browser to see if it's actually serving anything — but I haven't set up any networking yet. Is there a quick way to just peek at it directly without having to wire up a whole load balancer first?"
-    - id: "health-checks"
-      question: "My Pod is running — but how does Kubernetes know if it's actually healthy and ready to serve traffic?"
-      detail: "I've seen my pod show as Running in kubectl, but requests were still failing because the app wasn't actually ready yet. How does Kubernetes know when my app is genuinely ready to take traffic — not just technically started?"
+    - id: services
+      question: My Pod is running. How do I access it reliably?
+      detail: >-
+        My Pod has an IP, but I've already seen how Pods get deleted and
+        recreated. Every time that happens the IP changes — which means anything
+        trying to reach my Pod would break. I need something more stable than a
+        Pod IP to point other services or users at.
+    - id: port-forward
+      question: >-
+        My Pod is running. I just want to quickly access it to see if it works —
+        what's the simplest way?
+      detail: >-
+        I just want to hit my Pod in a browser to see if it's actually serving
+        anything — but I haven't set up any networking yet. Is there a quick way
+        to just peek at it directly without having to wire up a whole load
+        balancer first?
+    - id: health-checks
+      question: >-
+        My Pod is running — but how does Kubernetes know if it's actually
+        healthy and ready to serve traffic?
+      detail: >-
+        I've seen my pod show as Running in kubectl, but requests were still
+        failing because the app wasn't actually ready yet. How does Kubernetes
+        know when my app is genuinely ready to take traffic — not just
+        technically started?
 difficulty: 1
-tags: ["kubernetes", "pods", "containers", "k8s", "kubectl", "multi-container"]
-category: "concept"
+tags:
+  - kubernetes
+  - pods
+  - containers
+  - k8s
+  - kubectl
+  - multi-container
+category: concept
 milestones:
-  - "Write a Pod manifest and apply it with kubectl apply"
-  - "Exec into a running Pod with kubectl exec"
-  - "Read Pod logs with kubectl logs"
-  - "Explain why a Pod can run multiple containers and when you'd want that"
-  - "Understand why you shouldn't run naked Pods in production"
+  - Write a Pod manifest and apply it with kubectl apply
+  - Exec into a running Pod with kubectl exec
+  - Read Pod logs with kubectl logs
+  - Explain why a Pod can run multiple containers and when you'd want that
+  - Understand why you shouldn't run naked Pods in production
 ---
 
 In Kubernetes, the smallest deployable unit is not a container — it's a Pod. A Pod wraps one or more containers that share a network stack and storage, and runs together on a single node. Understanding the Pod abstraction is the foundation for everything else in Kubernetes.

@@ -1,23 +1,27 @@
 ---
-id: "bare-metal-linux"
-title: "Installing Linux Directly (Bare Metal)"
-zone: "self-hosting"
+id: bare-metal-linux
+title: Installing Linux Directly (Bare Metal)
+zone: self-hosting
 edges:
-  from:
-    - id: "what-is-virtualization"
-      question: "I don't want virtualization — just Linux directly on the hardware"
   to:
-    - id: "ssh-into-your-server"
-      question: "Debian is installed — now what?"
-      detail: "The installer finished and the machine rebooted. I'm looking at a login prompt with no idea what to do next. I don't plan to keep a monitor plugged in — how am I supposed to actually use this thing?"
+    - id: ssh-into-your-server
+      question: Debian is installed — now what?
+      detail: >-
+        The installer finished and the machine rebooted. I'm looking at a login
+        prompt with no idea what to do next. I don't plan to keep a monitor
+        plugged in — how am I supposed to actually use this thing?
 difficulty: 1
-tags: ["self-hosting", "linux", "debian", "bare-metal"]
-category: "practice"
+tags:
+  - self-hosting
+  - linux
+  - debian
+  - bare-metal
+category: practice
 milestones:
-  - "Download and flash the Debian ISO"
-  - "Complete the Debian installer (minimal, no desktop)"
-  - "Note the machine's IP address"
-  - "SSH in successfully"
+  - Download and flash the Debian ISO
+  - 'Complete the Debian installer (minimal, no desktop)'
+  - Note the machine's IP address
+  - SSH in successfully
 ---
 
 We're installing **Debian 13 (Trixie)**. Not Ubuntu, not Fedora, not Arch. Debian. It's stable, boring, extremely well-documented, and has rock-solid Docker support. Ubuntu is a fine choice too — it's built on Debian — but we're making an opinionated call here and sticking with it.

@@ -1,26 +1,29 @@
 ---
-id: "ssh"
-title: "SSH: Your Window Into the Server"
-zone: "running"
+id: ssh
+title: 'SSH: Your Window Into the Server'
+zone: running
 edges:
-  from:
-    - id: "what-is-a-vps"
-      question: "I have a VPS. How do I connect to it and run commands?"
-      detail: "Your VPS is running in a datacenter somewhere. You do not have a monitor or keyboard plugged into it. The only way to interact with it is over the network, using SSH — a protocol that gives you a secure terminal session on a remote machine. Everything you do on the server goes through SSH."
-    - id: "own-hardware"
-      question: "I have a Linux machine running at home. How do I connect to it?"
-      detail: "Whether your server is in a datacenter or under your desk, the interface is the same: SSH. You get a terminal that runs on the remote machine, and every command you type executes there. The only difference is where the hardware lives."
   to:
-    - id: "initial-server-setup"
-      question: "I can SSH into my server. What should I do before anything else?"
-      detail: "I can SSH in, but I'm logged in as root which already feels wrong. And I noticed what looks like automated login attempts in the auth log — bots are already trying to get in. What are the first things I need to do to lock this down?"
+    - id: initial-server-setup
+      question: I can SSH into my server. What should I do before anything else?
+      detail: >-
+        I can SSH in, but I'm logged in as root which already feels wrong. And I
+        noticed what looks like automated login attempts in the auth log — bots
+        are already trying to get in. What are the first things I need to do to
+        lock this down?
 difficulty: 1
-tags: ["ssh", "keys", "authentication", "ed25519", "scp", "config"]
-category: "practice"
+tags:
+  - ssh
+  - keys
+  - authentication
+  - ed25519
+  - scp
+  - config
+category: practice
 milestones:
-  - "Generate an SSH key pair and copy the public key to a server"
-  - "Connect to a server using SSH key authentication (no password)"
-  - "Create a ~/.ssh/config entry to connect with a short alias"
+  - Generate an SSH key pair and copy the public key to a server
+  - Connect to a server using SSH key authentication (no password)
+  - Create a ~/.ssh/config entry to connect with a short alias
 ---
 
 SSH (Secure Shell) is the protocol that lets you control a remote server from your terminal. When you type `ssh user@server`, you get a shell that runs on the server — every command you type executes there, not on your laptop. All traffic is encrypted. This is how every SRE, developer, and sysadmin interacts with remote servers.

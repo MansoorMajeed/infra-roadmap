@@ -1,25 +1,29 @@
 ---
-id: "tls-with-traefik"
-title: "TLS / HTTPS with Traefik"
-zone: "self-hosting"
+id: tls-with-traefik
+title: TLS / HTTPS with Traefik
+zone: self-hosting
 edges:
-  from:
-    - id: "traefik"
-      question: "Routing works — now I want HTTPS on everything"
-    - id: "getting-a-domain"
-      question: "I have a domain — now I want HTTPS on everything"
   to:
-    - id: "expose-to-internet"
-      question: "Works locally — now how do I access it when I'm not home?"
-      detail: "Everything is perfect on my home network. But the moment I'm on my phone elsewhere, none of it is reachable. I can't keep being forced to be at home to use my own stuff."
+    - id: expose-to-internet
+      question: Works locally — now how do I access it when I'm not home?
+      detail: >-
+        Everything is perfect on my home network. But the moment I'm on my phone
+        elsewhere, none of it is reachable. I can't keep being forced to be at
+        home to use my own stuff.
 difficulty: 2
-tags: ["self-hosting", "tls", "https", "traefik", "letsencrypt", "cloudflare"]
-category: "practice"
+tags:
+  - self-hosting
+  - tls
+  - https
+  - traefik
+  - letsencrypt
+  - cloudflare
+category: practice
 milestones:
-  - "Understand why HTTPS matters even on a home network"
-  - "Configure Traefik with a Let's Encrypt certificate resolver"
-  - "Use Cloudflare DNS challenge (no port forwarding needed)"
-  - "Access all your services over HTTPS with real trusted certificates"
+  - Understand why HTTPS matters even on a home network
+  - Configure Traefik with a Let's Encrypt certificate resolver
+  - Use Cloudflare DNS challenge (no port forwarding needed)
+  - Access all your services over HTTPS with real trusted certificates
 ---
 
 Vaultwarden won't let you use its browser extension without HTTPS. Many modern browser APIs require a secure context. And plain HTTP means your passwords travel unencrypted over your local network.

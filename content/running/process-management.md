@@ -1,26 +1,40 @@
 ---
-id: "process-management"
-title: "Keeping Your App Running with systemd"
-zone: "running"
+id: process-management
+title: Keeping Your App Running with systemd
+zone: running
 edges:
-  from:
-    - id: "environment-variables"
-      question: "My app is configured. How do I keep it running reliably after I close SSH?"
-      detail: "Your app starts and works correctly. But if you close your SSH session, the process dies. If the server reboots, your app does not come back. You need a process manager — a system that keeps your app running, restarts it if it crashes, and starts it automatically on boot."
   to:
-    - id: "web-servers"
-      question: "My app is running as a managed service. What handles incoming HTTP traffic?"
-      detail: "My app runs as a systemd service now — it survives disconnects and reboots. But I'm still accessing it on port 5000. I need it to work like a normal website on port 80, not something I have to type a custom port for."
-    - id: "reading-logs"
-      question: "My app is running as a systemd service. How do I see its output and errors?"
-      detail: "I started getting errors — requests failing, maybe the service crashing and restarting — but I have no idea what's actually happening inside. Where does all the output go when there's no terminal to see it?"
+    - id: web-servers
+      question: >-
+        My app is running as a managed service. What handles incoming HTTP
+        traffic?
+      detail: >-
+        My app runs as a systemd service now — it survives disconnects and
+        reboots. But I'm still accessing it on port 5000. I need it to work like
+        a normal website on port 80, not something I have to type a custom port
+        for.
+    - id: reading-logs
+      question: >-
+        My app is running as a systemd service. How do I see its output and
+        errors?
+      detail: >-
+        I started getting errors — requests failing, maybe the service crashing
+        and restarting — but I have no idea what's actually happening inside.
+        Where does all the output go when there's no terminal to see it?
 difficulty: 1
-tags: ["systemd", "process-management", "service", "daemon", "journald", "gunicorn", "pm2"]
-category: "practice"
+tags:
+  - systemd
+  - process-management
+  - service
+  - daemon
+  - journald
+  - gunicorn
+  - pm2
+category: practice
 milestones:
-  - "Write a systemd service file for a Python or Node.js application"
-  - "Enable the service to start on boot and verify it restarts after a crash"
-  - "Use journalctl to view live and historical logs for your service"
+  - Write a systemd service file for a Python or Node.js application
+  - Enable the service to start on boot and verify it restarts after a crash
+  - Use journalctl to view live and historical logs for your service
 ---
 
 You run your app: `python3 app.py`. It works. You close your SSH session. The process is gone — it was a child of your shell, and when the shell ended, so did the app. You reboot the server. Your app does not come back.

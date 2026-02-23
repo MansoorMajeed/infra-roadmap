@@ -1,26 +1,41 @@
 ---
-id: "subnets-and-cidr"
-title: "Subnets & CIDR"
-zone: "networking"
+id: subnets-and-cidr
+title: Subnets & CIDR
+zone: networking
 edges:
-  from:
-    - id: "ip-addresses"
-      question: "Every device has an IP address. But how are those addresses organized into groups?"
-      detail: "You know what an IP address is — four numbers that identify a device on a network. But those numbers aren't random. Addresses are organized into chunks called subnets, and every IP address belongs to one. Understanding subnets explains why your home devices are all 192.168.1.x, why cloud networks use 10.x.x.x, and how routers know where to send packets."
   to:
-    - id: "public-vs-private-ips"
-      question: "I understand how addresses are organized. But why do some IPs only work at home while others work anywhere on the internet?"
-      detail: "I understand how subnets carve up address space into groups. But I've noticed that my home IP is always 192.168.something, while servers have completely different addresses — and I can't reach my home machine from outside. There seems to be a fundamental split between addresses that work anywhere and ones that only work locally. What's going on there?"
-    - id: "how-packets-travel"
-      question: "Traffic between subnets needs a router. But how does a router know where to send a packet?"
-      detail: "I get that my routing table says 'local subnet: direct, everything else: send to my gateway.' But then what? My router gets the packet — and it somehow ends up at a server on the other side of the world. How does any router along the way know where to send something? There must be routers in between that are making decisions I don't understand."
+    - id: public-vs-private-ips
+      question: >-
+        I understand how addresses are organized. But why do some IPs only work
+        at home while others work anywhere on the internet?
+      detail: >-
+        I understand how subnets carve up address space into groups. But I've
+        noticed that my home IP is always 192.168.something, while servers have
+        completely different addresses — and I can't reach my home machine from
+        outside. There seems to be a fundamental split between addresses that
+        work anywhere and ones that only work locally. What's going on there?
+    - id: how-packets-travel
+      question: >-
+        Traffic between subnets needs a router. But how does a router know where
+        to send a packet?
+      detail: >-
+        I get that my routing table says 'local subnet: direct, everything else:
+        send to my gateway.' But then what? My router gets the packet — and it
+        somehow ends up at a server on the other side of the world. How does any
+        router along the way know where to send something? There must be routers
+        in between that are making decisions I don't understand.
 difficulty: 2
-tags: ["subnets", "cidr", "ipv4", "routing", "network"]
-category: "concept"
+tags:
+  - subnets
+  - cidr
+  - ipv4
+  - routing
+  - network
+category: concept
 milestones:
-  - "Explain what a subnet mask tells you about an IP address"
-  - "Read CIDR notation and calculate how many hosts fit in a subnet"
-  - "Describe why subnets are used to organize networks"
+  - Explain what a subnet mask tells you about an IP address
+  - Read CIDR notation and calculate how many hosts fit in a subnet
+  - Describe why subnets are used to organize networks
 ---
 
 Your laptop is `192.168.1.42`. Your phone is `192.168.1.43`. Your router is `192.168.1.1`. These aren't random — they all belong to the same **subnet**: a chunk of IP addresses that form one logical network. Devices on the same subnet can talk directly to each other. Devices on different subnets need a router to forward traffic between them.

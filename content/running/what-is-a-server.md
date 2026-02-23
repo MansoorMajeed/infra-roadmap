@@ -1,35 +1,43 @@
 ---
-id: "where-do-i-run-this"
-title: "Where Do I Run This?"
-zone: "running"
+id: where-do-i-run-this
+title: Where Do I Run This?
+zone: running
 edges:
-  from:
-    - id: "http-protocol"
-      question: "I understand HTTP. But where do I actually run my app for real users?"
-      detail: "You know the protocol — HTTP methods, status codes, headers. But all of this is running on your laptop. Real websites need to run somewhere that is always on, always reachable. Where do you actually put your application so the world can use it?"
-    - id: "public-vs-private-ips"
-      question: "I understand addressing — private networks, public IPs, NAT. But where do I actually run something that serves content?"
-      detail: "You know how IP addressing works: private addresses for internal networks, public addresses for the internet, NAT bridging the two. But what is sitting at the other end of those public IP addresses? You need a machine with a public IP that is always on — not hidden behind NAT. Where does your app actually go?"
-    - id: "it-works-on-my-laptop"
-      question: "My app works locally. Where do I actually run this for real?"
-      detail: "Your app works on your laptop, but nobody can reach it. You need it running somewhere that is always on, always connected, with a public IP. But where? What are your options, and why can't you just leave your laptop open?"
   to:
-    - id: "datacenters"
-      question: "Servers need to live somewhere. Where do they physically go?"
-      detail: "I get that a server needs to be always on and always connected. But physically, where does it live? My laptop dies when I close the lid, and the power goes out sometimes — real servers can't have those problems. What's actually keeping them running reliably?"
-    - id: "cloud-providers"
-      question: "I don't want to buy hardware. Can I just rent a server?"
-      detail: "I don't want to deal with buying hardware and shipping it somewhere. Can I just pay someone to give me a server that's already running? I've heard about AWS and DigitalOcean but I'm not sure what I'm actually getting when I sign up."
-    - id: "own-hardware"
-      question: "What if I want to use hardware I already own?"
-      detail: "I've got an old laptop sitting in a drawer doing nothing. Could I just use that instead of renting something? I'd rather own it than pay monthly. But I'm not sure if that's actually viable or what I'd be giving up."
+    - id: datacenters
+      question: Servers need to live somewhere. Where do they physically go?
+      detail: >-
+        I get that a server needs to be always on and always connected. But
+        physically, where does it live? My laptop dies when I close the lid, and
+        the power goes out sometimes — real servers can't have those problems.
+        What's actually keeping them running reliably?
+    - id: cloud-providers
+      question: I don't want to buy hardware. Can I just rent a server?
+      detail: >-
+        I don't want to deal with buying hardware and shipping it somewhere. Can
+        I just pay someone to give me a server that's already running? I've
+        heard about AWS and DigitalOcean but I'm not sure what I'm actually
+        getting when I sign up.
+    - id: own-hardware
+      question: What if I want to use hardware I already own?
+      detail: >-
+        I've got an old laptop sitting in a drawer doing nothing. Could I just
+        use that instead of renting something? I'd rather own it than pay
+        monthly. But I'm not sure if that's actually viable or what I'd be
+        giving up.
 difficulty: 1
-tags: ["server", "hardware", "rack-server", "headless", "always-on", "deployment"]
-category: "concept"
+tags:
+  - server
+  - hardware
+  - rack-server
+  - headless
+  - always-on
+  - deployment
+category: concept
 milestones:
-  - "Understand why you can't run a production app on your laptop"
-  - "Explain what a server is and how it differs from a laptop"
-  - "Identify the key specs that matter for servers (CPU, RAM, disk, network)"
+  - Understand why you can't run a production app on your laptop
+  - Explain what a server is and how it differs from a laptop
+  - 'Identify the key specs that matter for servers (CPU, RAM, disk, network)'
 ---
 
 You built your app. You run `python app.py`, open `localhost:5000`, and everything works. Now you want real users to access it. Where does it actually run?

@@ -1,19 +1,26 @@
 ---
-id: "hello-world"
-title: "Hello, World!"
-zone: "foundations"
+id: hello-world
+title: 'Hello, World!'
+zone: foundations
 edges:
-  from: []
   to:
-    - id: "how-computers-run-code"
-      question: "I wrote code and it ran... but how?"
-      detail: "I typed some text, hit run, and words appeared. But what actually happened? My code isn't electricity — so how did the computer understand it? And why do some languages need to be 'compiled' while others just run? I feel like I'm missing something fundamental about how any of this works."
+    - id: how-computers-run-code
+      question: I wrote code and it ran... but how?
+      detail: >-
+        I typed some text, hit run, and words appeared. But what actually
+        happened? My code isn't electricity — so how did the computer understand
+        it? And why do some languages need to be 'compiled' while others just
+        run? I feel like I'm missing something fundamental about how any of this
+        works.
 difficulty: 1
-tags: ["programming", "beginner", "first-program"]
-category: "concept"
+tags:
+  - programming
+  - beginner
+  - first-program
+category: concept
 milestones:
-  - "Write and run a Hello World program"
-  - "Modify it to print your name"
+  - Write and run a Hello World program
+  - Modify it to print your name
 ---
 
 Every programmer's journey starts with the same tiny ritual: making a computer print "Hello, World!" on a screen. It sounds almost too simple, but this single act proves something profound -- you just told a machine what to do, and it listened. That is the essence of programming: writing instructions that a computer can execute.

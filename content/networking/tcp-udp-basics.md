@@ -1,23 +1,31 @@
 ---
-id: "tcp-udp-basics"
-title: "TCP, UDP & How Data Travels"
-zone: "networking"
+id: tcp-udp-basics
+title: 'TCP, UDP & How Data Travels'
+zone: networking
 edges:
-  from:
-    - id: "network-protocols"
-      question: "I get why protocols exist. Now what are the actual protocols that move data around?"
-      detail: "You understand that protocols are agreed-upon rules, and that networking uses layers. Now it is time to learn the actual protocols. TCP and UDP are the two transport protocols that handle moving data between machines — one is reliable and careful, the other is fast and reckless. Every application on the internet uses one of them."
   to:
-    - id: "http-protocol"
-      question: "I understand TCP and ports. But what is my browser actually saying to the server?"
-      detail: "TCP gets bytes from A to B reliably — I get that. But what are the actual bytes my browser sends when I load a webpage? It can't just be a raw stream of random data. The server must understand exactly what's being asked for. What language are they actually speaking to each other?"
+    - id: http-protocol
+      question: >-
+        I understand TCP and ports. But what is my browser actually saying to
+        the server?
+      detail: >-
+        TCP gets bytes from A to B reliably — I get that. But what are the
+        actual bytes my browser sends when I load a webpage? It can't just be a
+        raw stream of random data. The server must understand exactly what's
+        being asked for. What language are they actually speaking to each other?
 difficulty: 1
-tags: ["tcp", "udp", "networking", "ports", "ip-addresses", "protocols"]
-category: "concept"
+tags:
+  - tcp
+  - udp
+  - networking
+  - ports
+  - ip-addresses
+  - protocols
+category: concept
 milestones:
-  - "Explain the difference between TCP and UDP"
-  - "Use netcat to send data between two machines"
-  - "Identify what port a service is listening on using ss or lsof"
+  - Explain the difference between TCP and UDP
+  - Use netcat to send data between two machines
+  - Identify what port a service is listening on using ss or lsof
 ---
 
 Your app works on localhost, but when you try to share it, nothing happens. To understand why, you need to understand how data actually moves between computers. Every time you load a webpage, send a message, or make an API call, data is being broken into packets and routed across networks using protocols — primarily TCP and UDP. These are the fundamental building blocks of all network communication.

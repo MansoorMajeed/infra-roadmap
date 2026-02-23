@@ -1,20 +1,25 @@
 ---
-id: "remote-access-public"
-title: "Goal: Public Access — Open to the Internet"
-zone: "self-hosting"
+id: remote-access-public
+title: 'Goal: Public Access — Open to the Internet'
+zone: self-hosting
 edges:
-  from:
-    - id: "expose-to-internet"
-      question: "It needs to be publicly accessible to anyone on the internet"
   to:
-    - id: "public-access-security"
-      question: "What are the risks? I want to understand what I'm getting into before I open anything up."
-      detail: "I've heard bots scan everything constantly. Does my home IP get exposed? What am I actually signing up for in terms of attack surface?"
+    - id: public-access-security
+      question: >-
+        What are the risks? I want to understand what I'm getting into before I
+        open anything up.
+      detail: >-
+        I've heard bots scan everything constantly. Does my home IP get exposed?
+        What am I actually signing up for in terms of attack surface?
 difficulty: 2
-tags: ["self-hosting", "public", "networking", "security"]
-category: "concept"
+tags:
+  - self-hosting
+  - public
+  - networking
+  - security
+category: concept
 milestones:
-  - "Identify your use case: genuinely public-facing service"
+  - 'Identify your use case: genuinely public-facing service'
 ---
 
 You're running something that legitimately needs to be reachable by anyone — a personal website, a public API, a blog, or a media server for people you can't set up a VPN for.

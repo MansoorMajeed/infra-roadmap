@@ -1,20 +1,28 @@
 ---
-id: "what-is-self-hosting"
-title: "What Is Self-Hosting?"
-zone: "self-hosting"
+id: what-is-self-hosting
+title: What Is Self-Hosting?
+zone: self-hosting
 edges:
-  from: []
   to:
-    - id: "i-need-hardware"
-      question: "OK, I want to try this. Where do I actually run it?"
-      detail: "Can I just use my laptop, or do I need dedicated hardware? I don't have a server room — I'm not even sure what 'server' means in this context."
+    - id: i-need-hardware
+      question: 'OK, I want to try this. Where do I actually run it?'
+      detail: >-
+        Can I just use my laptop, or do I need dedicated hardware? I don't have
+        a server room — I'm not even sure what 'server' means in this context.
 difficulty: 1
-tags: ["self-hosting", "homelab", "docker", "privacy", "open-source"]
-category: "concept"
+tags:
+  - self-hosting
+  - homelab
+  - docker
+  - privacy
+  - open-source
+category: concept
 milestones:
-  - "List 3 services you want to run and why"
-  - "Understand why Docker Compose is the standard tool for self-hosting"
-  - "Know the difference between running a service locally vs. exposing it to the internet"
+  - List 3 services you want to run and why
+  - Understand why Docker Compose is the standard tool for self-hosting
+  - >-
+    Know the difference between running a service locally vs. exposing it to the
+    internet
 ---
 
 You have a Linux machine. You know how to SSH into it. Now what?

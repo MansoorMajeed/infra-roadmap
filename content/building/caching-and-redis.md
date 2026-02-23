@@ -1,23 +1,28 @@
 ---
-id: "caching-and-redis"
-title: "Caching & Redis"
-zone: "building"
+id: caching-and-redis
+title: Caching & Redis
+zone: building
 edges:
-  from:
-    - id: "databases-and-sql"
-      question: "My app keeps hitting the database for the same data over and over. How do I speed things up?"
-      detail: "Every time a user loads a page, your app queries the database. The same product catalog, the same user profile, the same configuration — fetched fresh every single time. Databases are good at storing data, but they are not the fastest way to read data that rarely changes. Caching puts frequently accessed data in memory where it can be retrieved in microseconds instead of milliseconds."
   to:
-    - id: "it-works-on-my-laptop"
-      question: "My app is fast and data-aware. Time to get it off my laptop."
-      detail: "My app works locally with the database and cache all running on my machine. But I have no idea how to make those three separate services work together on a real server. How do they find each other, and how do I actually get this running somewhere else?"
+    - id: it-works-on-my-laptop
+      question: My app is fast and data-aware. Time to get it off my laptop.
+      detail: >-
+        My app works locally with the database and cache all running on my
+        machine. But I have no idea how to make those three separate services
+        work together on a real server. How do they find each other, and how do
+        I actually get this running somewhere else?
 difficulty: 2
-tags: ["caching", "redis", "memcached", "performance", "in-memory"]
-category: "concept"
+tags:
+  - caching
+  - redis
+  - memcached
+  - performance
+  - in-memory
+category: concept
 milestones:
-  - "Understand cache hit, cache miss, and TTL"
-  - "Set up Redis locally and use it to cache database queries"
-  - "Identify what data in your application is worth caching"
+  - 'Understand cache hit, cache miss, and TTL'
+  - Set up Redis locally and use it to cache database queries
+  - Identify what data in your application is worth caching
 ---
 
 Your app has a product catalog page. Every time someone visits it, the app queries the database, fetches the same 200 products, serializes them to JSON, and sends them to the browser. The products barely change — maybe once a day. But the database does all that work for every single visitor, every single page load. Caching means storing that result somewhere fast (memory) so you only do the expensive work once.

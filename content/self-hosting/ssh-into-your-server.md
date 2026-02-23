@@ -1,25 +1,27 @@
 ---
-id: "ssh-into-your-server"
-title: "SSH Into Your Server"
-zone: "self-hosting"
+id: ssh-into-your-server
+title: SSH Into Your Server
+zone: self-hosting
 edges:
-  from:
-    - id: "install-proxmox"
-      question: "Proxmox is running and I have a Debian VM — now what?"
-    - id: "bare-metal-linux"
-      question: "Debian is installed — now what?"
   to:
-    - id: "docker-or-native"
-      question: "I'm in. How do I actually install software on this thing?"
-      detail: "I've got a shell on a fresh machine. I have no idea if I should just apt install things, use Docker, or something else entirely. What's the right way to actually run services?"
+    - id: docker-or-native
+      question: I'm in. How do I actually install software on this thing?
+      detail: >-
+        I've got a shell on a fresh machine. I have no idea if I should just apt
+        install things, use Docker, or something else entirely. What's the right
+        way to actually run services?
 difficulty: 1
-tags: ["self-hosting", "ssh", "linux", "terminal"]
-category: "practice"
+tags:
+  - self-hosting
+  - ssh
+  - linux
+  - terminal
+category: practice
 milestones:
-  - "SSH into your server from your laptop"
-  - "Know your server's IP address"
-  - "Create a non-root user and add it to sudoers"
-  - "Set up SSH key authentication"
+  - SSH into your server from your laptop
+  - Know your server's IP address
+  - Create a non-root user and add it to sudoers
+  - Set up SSH key authentication
 ---
 
 SSH (Secure Shell) lets you log into your server from your laptop over the network. Your server has no monitor, no keyboard — SSH is how you talk to it. You type commands on your laptop, they run on the server.

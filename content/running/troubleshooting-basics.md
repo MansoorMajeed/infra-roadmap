@@ -1,23 +1,35 @@
 ---
-id: "troubleshooting-basics"
-title: "Troubleshooting: When Things Break"
-zone: "running"
+id: troubleshooting-basics
+title: 'Troubleshooting: When Things Break'
+zone: running
 edges:
-  from:
-    - id: "reading-logs"
-      question: "I can read logs. How do I use them to systematically debug problems?"
-      detail: "You know where the logs are and how to read them. Now what? When something breaks, you need a systematic approach: check if the process is running, check if it is listening, try to reach it locally, check the logs at each layer. This methodical debugging is what separates guessing from actually fixing things."
   to:
-    - id: "running-your-store"
-      question: "I know how to debug my setup. How do I put everything together and run my real app?"
-      detail: "I can debug each part of the stack in isolation now. But I've never assembled a complete deployment from scratch — server, code, process manager, web server, TLS, domain — all of it together. What does that actually look like end to end?"
+    - id: running-your-store
+      question: >-
+        I know how to debug my setup. How do I put everything together and run
+        my real app?
+      detail: >-
+        I can debug each part of the stack in isolation now. But I've never
+        assembled a complete deployment from scratch — server, code, process
+        manager, web server, TLS, domain — all of it together. What does that
+        actually look like end to end?
 difficulty: 2
-tags: ["troubleshooting", "debugging", "curl", "ss", "systemctl", "nginx", "502", "connection-refused"]
-category: "practice"
+tags:
+  - troubleshooting
+  - debugging
+  - curl
+  - ss
+  - systemctl
+  - nginx
+  - '502'
+  - connection-refused
+category: practice
 milestones:
-  - "Use a systematic checklist to diagnose why a web app is not responding"
-  - "Distinguish between a 502 Bad Gateway and a Connection Refused error and know what causes each"
-  - "Test each layer independently: app, Nginx, firewall, DNS"
+  - Use a systematic checklist to diagnose why a web app is not responding
+  - >-
+    Distinguish between a 502 Bad Gateway and a Connection Refused error and
+    know what causes each
+  - 'Test each layer independently: app, Nginx, firewall, DNS'
 ---
 
 Something is broken. Your site is not loading. You are getting 502 errors. The app crashed and did not come back. The page loads but CSS is missing.

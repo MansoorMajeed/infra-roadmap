@@ -1,23 +1,28 @@
 ---
-id: "pipeline-secrets"
-title: "Secrets in CI/CD Pipelines"
-zone: "delivery"
+id: pipeline-secrets
+title: Secrets in CI/CD Pipelines
+zone: delivery
 edges:
-  from:
-    - id: "github-actions"
-      question: "My pipeline needs SSH keys, API tokens, passwords. Where do I put them safely?"
-      detail: "The naive answer is to put credentials in your workflow YAML. That's also wrong — your YAML is in Git, and Git is forever. Secrets need to live outside your code."
   to:
-    - id: "build-and-test-pipeline"
-      question: "Secrets are handled. Now how do I structure the full pipeline?"
-      detail: "I have the credentials in the right place, but my pipeline still only runs tests. I want the whole thing — test, build the image, push it, and actually deploy — all in one automated flow."
+    - id: build-and-test-pipeline
+      question: Secrets are handled. Now how do I structure the full pipeline?
+      detail: >-
+        I have the credentials in the right place, but my pipeline still only
+        runs tests. I want the whole thing — test, build the image, push it, and
+        actually deploy — all in one automated flow.
 difficulty: 2
-tags: ["secrets", "security", "ci-cd", "environment-variables", "github-secrets", "vault"]
-category: "practice"
+tags:
+  - secrets
+  - security
+  - ci-cd
+  - environment-variables
+  - github-secrets
+  - vault
+category: practice
 milestones:
-  - "Store a secret in GitHub Actions secrets and reference it in a workflow"
-  - "Understand why secrets should never appear in logs or YAML files"
-  - "Know the difference between repository secrets and environment secrets"
+  - Store a secret in GitHub Actions secrets and reference it in a workflow
+  - Understand why secrets should never appear in logs or YAML files
+  - Know the difference between repository secrets and environment secrets
 ---
 
 Your pipeline needs to SSH into servers, push Docker images to a registry, or call external APIs. All of those require credentials. Those credentials must never appear in your YAML files or commit history.

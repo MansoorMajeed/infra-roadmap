@@ -1,24 +1,37 @@
 ---
-id: "deployment-strategies"
-title: "Deployment Strategies"
-zone: "kubernetes"
+id: deployment-strategies
+title: Deployment Strategies
+zone: kubernetes
 edges:
-  from:
-    - id: "deployments"
-      question: "Rolling updates are the default. What if I need more control — testing a new version before it goes everywhere?"
-      detail: "A rolling update replaces Pods gradually. But what if the new version has a subtle bug that only shows up under real traffic? Blue-green deployments let you run old and new side by side and switch all traffic at once. Canary deployments send a small percentage to the new version first. Both give you a much safer path to production."
   to:
-    - id: "gitops-with-argocd"
-      question: "I understand deployment strategies. How do I automate all of this so updates happen from a Git push?"
-      detail: "I understand blue-green and canary deployments now — but I'm still triggering all of this manually. I want a code push to be what kicks it off, not me running kubectl commands. How does that actually get wired up?"
+    - id: gitops-with-argocd
+      question: >-
+        I understand deployment strategies. How do I automate all of this so
+        updates happen from a Git push?
+      detail: >-
+        I understand blue-green and canary deployments now — but I'm still
+        triggering all of this manually. I want a code push to be what kicks it
+        off, not me running kubectl commands. How does that actually get wired
+        up?
 difficulty: 2
-tags: ["kubernetes", "deployment-strategies", "blue-green", "canary", "rolling-update", "argo-rollouts", "k8s"]
-category: "concept"
+tags:
+  - kubernetes
+  - deployment-strategies
+  - blue-green
+  - canary
+  - rolling-update
+  - argo-rollouts
+  - k8s
+category: concept
 milestones:
-  - "Implement a blue-green deployment using two Deployments and a Service selector swap"
-  - "Implement a basic canary by running two Deployments with weighted traffic"
-  - "Understand what Argo Rollouts adds on top of standard Kubernetes Deployments"
-  - "Know when to use rolling update vs blue-green vs canary based on risk tolerance"
+  - >-
+    Implement a blue-green deployment using two Deployments and a Service
+    selector swap
+  - Implement a basic canary by running two Deployments with weighted traffic
+  - Understand what Argo Rollouts adds on top of standard Kubernetes Deployments
+  - >-
+    Know when to use rolling update vs blue-green vs canary based on risk
+    tolerance
 ---
 
 Kubernetes rolling updates are safe for most changes, but they give you limited control: old and new versions handle traffic simultaneously during the transition. Blue-green and canary deployments give you more options — either an instant, clean switch between versions, or a gradual rollout with real traffic testing before full commitment.

@@ -10,7 +10,6 @@ export interface NodeFrontmatter {
   title: string;
   zone: string;
   edges: {
-    from?: EdgeConnection[];
     to?: EdgeConnection[];
   };
   difficulty: 1 | 2 | 3;

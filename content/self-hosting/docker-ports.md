@@ -1,23 +1,27 @@
 ---
-id: "docker-ports"
-title: "Docker Ports: How Do I Access My Container?"
-zone: "self-hosting"
+id: docker-ports
+title: 'Docker Ports: How Do I Access My Container?'
+zone: self-hosting
 edges:
-  from:
-    - id: "docker-for-self-hosting"
-      question: "Wait — I don't really understand how Docker works yet"
   to:
-    - id: "docker-volumes"
-      question: "I can access the service. But where is my data stored?"
-      detail: "If the container is what's running the service, is my data inside it? What happens when I delete the container to update it — do I lose everything I've set up?"
+    - id: docker-volumes
+      question: I can access the service. But where is my data stored?
+      detail: >-
+        If the container is what's running the service, is my data inside it?
+        What happens when I delete the container to update it — do I lose
+        everything I've set up?
 difficulty: 1
-tags: ["self-hosting", "docker", "networking", "ports"]
-category: "concept"
+tags:
+  - self-hosting
+  - docker
+  - networking
+  - ports
+category: concept
 milestones:
-  - "Understand the host:container port syntax"
-  - "Know what port a service listens on inside its container (check Docker Hub)"
-  - "Access a running container from your browser using the host port"
-  - "Understand why binding to 0.0.0.0 vs 127.0.0.1 matters"
+  - 'Understand the host:container port syntax'
+  - Know what port a service listens on inside its container (check Docker Hub)
+  - Access a running container from your browser using the host port
+  - Understand why binding to 0.0.0.0 vs 127.0.0.1 matters
 ---
 
 A container has its own isolated network. When a service inside it listens on port 80, that's port 80 *inside the container* — not port 80 on your server. To reach the service from your browser, you have to tell Docker to forward a port from your server into the container.

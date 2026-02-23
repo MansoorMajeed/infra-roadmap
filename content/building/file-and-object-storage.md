@@ -1,23 +1,32 @@
 ---
-id: "file-and-object-storage"
-title: "File & Object Storage"
-zone: "building"
+id: file-and-object-storage
+title: File & Object Storage
+zone: building
 edges:
-  from:
-    - id: "databases-and-sql"
-      question: "Users upload images and PDFs. I can't shove binary files into a SQL table, can I?"
-      detail: "Databases are designed for structured data — rows, columns, queries. But applications also deal with files: user avatars, uploaded documents, generated reports, log archives. Storing large binary files in a database is technically possible but practically terrible. File and object storage systems are purpose-built for this, and understanding the difference is essential for building real applications."
   to:
-    - id: "it-works-on-my-laptop"
-      question: "I can handle files and data. Now how do I deploy all of this?"
-      detail: "My app handles uploads and stores them on my local filesystem — but that only works on my machine. If I deploy to a server and users upload files, where do those actually go? I can't count on the server's disk for everything. I need to figure out how file storage works in a real deployment."
+    - id: it-works-on-my-laptop
+      question: I can handle files and data. Now how do I deploy all of this?
+      detail: >-
+        My app handles uploads and stores them on my local filesystem — but that
+        only works on my machine. If I deploy to a server and users upload
+        files, where do those actually go? I can't count on the server's disk
+        for everything. I need to figure out how file storage works in a real
+        deployment.
 difficulty: 2
-tags: ["storage", "s3", "object-storage", "files", "blob", "cdn"]
-category: "concept"
+tags:
+  - storage
+  - s3
+  - object-storage
+  - files
+  - blob
+  - cdn
+category: concept
 milestones:
-  - "Understand the difference between file storage, block storage, and object storage"
-  - "Handle file uploads in a web application and store them on disk"
-  - "Use an S3-compatible API to store and retrieve objects"
+  - >-
+    Understand the difference between file storage, block storage, and object
+    storage
+  - Handle file uploads in a web application and store them on disk
+  - Use an S3-compatible API to store and retrieve objects
 ---
 
 Your app lets users upload profile pictures. Where do those images go? You could base64-encode them and store them in a database column — but your database will balloon in size, queries will slow to a crawl, and your DBA will cry. Files and databases are different kinds of data, and they need different kinds of storage.

@@ -1,26 +1,40 @@
 ---
-id: "network-protocols"
-title: "What Are Protocols?"
-zone: "networking"
+id: network-protocols
+title: What Are Protocols?
+zone: networking
 edges:
-  from:
-    - id: "local-network"
-      question: "My computers are connected. But how do they actually understand each other?"
-      detail: "You have two machines on the same network — they can see each other. But seeing each other is not the same as communicating. When your laptop sends data to your phone, how does the phone know what the data means? How do they agree on the format? They need rules — protocols. Understanding what protocols are and why they exist is the key to understanding everything in networking."
   to:
-    - id: "tcp-udp-basics"
-      question: "I get why protocols exist. Now what are the actual protocols that move data around?"
-      detail: "I get that protocols are rules computers agree to follow. But what are the actual rules that move data between my machine and a server? There must be specific protocols doing the heavy lifting — what are they and what does each one do?"
-    - id: "ip-addresses"
-      question: "Protocols have layers, and one layer handles addressing. How do IP addresses actually work?"
-      detail: "I understand that networking has layers and each layer has a job. The network layer handles addressing — but what does that actually mean in practice? Every device must have some kind of address for packets to find it. What are those addresses and how do they actually work?"
+    - id: tcp-udp-basics
+      question: >-
+        I get why protocols exist. Now what are the actual protocols that move
+        data around?
+      detail: >-
+        I get that protocols are rules computers agree to follow. But what are
+        the actual rules that move data between my machine and a server? There
+        must be specific protocols doing the heavy lifting — what are they and
+        what does each one do?
+    - id: ip-addresses
+      question: >-
+        Protocols have layers, and one layer handles addressing. How do IP
+        addresses actually work?
+      detail: >-
+        I understand that networking has layers and each layer has a job. The
+        network layer handles addressing — but what does that actually mean in
+        practice? Every device must have some kind of address for packets to
+        find it. What are those addresses and how do they actually work?
 difficulty: 1
-tags: ["protocols", "networking", "layers", "osi", "tcp-ip", "communication"]
-category: "concept"
+tags:
+  - protocols
+  - networking
+  - layers
+  - osi
+  - tcp-ip
+  - communication
+category: concept
 milestones:
-  - "Explain what a protocol is and why networked computers need them"
-  - "Describe the purpose of different networking layers"
-  - "Identify which layer common protocols belong to (HTTP, TCP, IP, Ethernet)"
+  - Explain what a protocol is and why networked computers need them
+  - Describe the purpose of different networking layers
+  - 'Identify which layer common protocols belong to (HTTP, TCP, IP, Ethernet)'
 ---
 
 Two computers are connected. You can ping one from the other. But ping just says "yes, I can reach you." How do you actually send meaningful data? If your laptop sends a stream of bytes to your phone, how does the phone know if it is a web page, an email, a video, or garbage? The answer: both sides agree on rules ahead of time. Those rules are **protocols**.

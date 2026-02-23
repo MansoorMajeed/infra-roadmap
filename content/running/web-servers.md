@@ -1,29 +1,47 @@
 ---
-id: "web-servers"
-title: "Web Servers"
-zone: "running"
+id: web-servers
+title: Web Servers
+zone: running
 edges:
-  from:
-    - id: "deploying-your-code"
-      question: "My code is on the server. What software actually serves it to users?"
-      detail: "You have your application running on the server, but it is using Flask's built-in development server. That is not production-ready — it handles one request at a time and crashes without useful errors. You need a real web server like Nginx to handle HTTP traffic, serve static files, and proxy requests to your application."
   to:
-    - id: "dns-and-domain-names"
-      question: "My web server works, but I'm using raw IP addresses. How do I give my site a real name?"
-      detail: "Nginx is running and I can hit it with the IP address. But I need an actual domain name — something people can type. I have no idea how domain names get tied to IP addresses or what I'd have to set up to make my-app.example.com point at my server."
-    - id: "tls-and-certificates"
-      question: "My web server works over HTTP, but I need HTTPS. How do I set up TLS?"
-      detail: "My site works over HTTP but the browser is showing a 'Not Secure' warning. I know I need HTTPS but I have no idea how to get a certificate or what TLS actually involves. How does any of this work, and how do I get the padlock?"
-    - id: "reading-logs"
-      question: "Nginx is running and serving traffic. How do I see what requests are coming in?"
-      detail: "Nginx is serving traffic but I have no visibility into what's happening. Is my app actually responding? Are there errors? What URLs are people hitting? There must be a log somewhere that shows me all of this — where is it and how do I make sense of it?"
+    - id: dns-and-domain-names
+      question: >-
+        My web server works, but I'm using raw IP addresses. How do I give my
+        site a real name?
+      detail: >-
+        Nginx is running and I can hit it with the IP address. But I need an
+        actual domain name — something people can type. I have no idea how
+        domain names get tied to IP addresses or what I'd have to set up to make
+        my-app.example.com point at my server.
+    - id: tls-and-certificates
+      question: 'My web server works over HTTP, but I need HTTPS. How do I set up TLS?'
+      detail: >-
+        My site works over HTTP but the browser is showing a 'Not Secure'
+        warning. I know I need HTTPS but I have no idea how to get a certificate
+        or what TLS actually involves. How does any of this work, and how do I
+        get the padlock?
+    - id: reading-logs
+      question: >-
+        Nginx is running and serving traffic. How do I see what requests are
+        coming in?
+      detail: >-
+        Nginx is serving traffic but I have no visibility into what's happening.
+        Is my app actually responding? Are there errors? What URLs are people
+        hitting? There must be a log somewhere that shows me all of this — where
+        is it and how do I make sense of it?
 difficulty: 1
-tags: ["nginx", "apache", "web-server", "http", "static-files", "serving"]
-category: "tool"
+tags:
+  - nginx
+  - apache
+  - web-server
+  - http
+  - static-files
+  - serving
+category: tool
 milestones:
-  - "Install Nginx and serve a static HTML page"
-  - "Configure Nginx to serve different content based on URL path"
-  - "Understand the difference between a web server and your Flask dev server"
+  - Install Nginx and serve a static HTML page
+  - Configure Nginx to serve different content based on URL path
+  - Understand the difference between a web server and your Flask dev server
 ---
 
 Your Flask app has a built-in web server — you run `python app.py` and it serves pages on port 5000. But that server is designed for development. It handles one request at a time, crashes without helpful errors, and has no concept of security or performance. Real websites are served by dedicated **web server** software — programs that are built from the ground up to handle HTTP traffic reliably and efficiently.

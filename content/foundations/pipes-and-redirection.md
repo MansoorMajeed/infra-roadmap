@@ -1,23 +1,30 @@
 ---
-id: "pipes-and-redirection"
-title: "Pipes & Redirection"
-zone: "foundations"
+id: pipes-and-redirection
+title: Pipes & Redirection
+zone: foundations
 edges:
-  from:
-    - id: "the-terminal"
-      question: "I can run commands. How do I combine them?"
-      detail: "You can run individual commands, but the real power of the terminal comes from connecting commands together. The output of one command becomes the input of the next, and you can redirect output to files instead of the screen. This is the Unix philosophy in action — small tools that do one thing well, composed into powerful workflows. Mastering pipes and redirection is what turns you from someone who types commands into someone who builds solutions."
   to:
-    - id: "environment-and-shell-config"
-      question: "I can chain commands. How do I customize my shell environment?"
-      detail: "Pipes are starting to click. But I keep noticing things I have to set up every time I open a terminal — aliases, paths, settings that just disappear when I close the session. Where does all of this actually live?"
+    - id: environment-and-shell-config
+      question: I can chain commands. How do I customize my shell environment?
+      detail: >-
+        Pipes are starting to click. But I keep noticing things I have to set up
+        every time I open a terminal — aliases, paths, settings that just
+        disappear when I close the session. Where does all of this actually
+        live?
 difficulty: 1
-tags: ["pipes", "redirection", "stdin", "stdout", "stderr", "unix-philosophy", "composition"]
-category: "concept"
+tags:
+  - pipes
+  - redirection
+  - stdin
+  - stdout
+  - stderr
+  - unix-philosophy
+  - composition
+category: concept
 milestones:
-  - "Explain what stdin, stdout, and stderr are"
-  - "Chain three commands together with pipes to solve a problem"
-  - "Redirect output to a file and separate stdout from stderr"
+  - 'Explain what stdin, stdout, and stderr are'
+  - Chain three commands together with pipes to solve a problem
+  - Redirect output to a file and separate stdout from stderr
 ---
 
 Run `ls`. The output appears on your screen. But what if you want to save it to a file? Or feed it into another command that filters the results? Or discard error messages while keeping the useful output? This is what **pipes and redirection** are for — they let you control where data flows between commands. This is the single most powerful idea in the Unix world: small commands that do one thing, connected together to do anything.

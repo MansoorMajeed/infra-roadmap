@@ -1,24 +1,38 @@
 ---
-id: "storage-classes"
-title: "StorageClasses and Dynamic Provisioning"
-zone: "kubernetes"
+id: storage-classes
+title: StorageClasses and Dynamic Provisioning
+zone: kubernetes
 edges:
-  from:
-    - id: "persistent-volumes"
-      question: "Manually creating PersistentVolumes for every workload doesn't scale. How does dynamic provisioning work?"
-      detail: "Static provisioning means a human creates a PV before the workload needs it. Dynamic provisioning inverts this: a StorageClass tells Kubernetes how to create storage on demand. When a PVC is created, Kubernetes calls the provisioner and the volume appears automatically."
   to:
-    - id: "persistent-volume-claims"
-      question: "StorageClasses are configured. How do workloads actually request and use storage?"
-      detail: "So the StorageClass defines how storage gets created — but I still need to wire this up to my Pod. Does the Pod reference the StorageClass directly? Is there some intermediate resource where I say 'give me 20GB of this type of storage'? And how does that volume actually get mounted inside my container?"
+    - id: persistent-volume-claims
+      question: >-
+        StorageClasses are configured. How do workloads actually request and use
+        storage?
+      detail: >-
+        So the StorageClass defines how storage gets created — but I still need
+        to wire this up to my Pod. Does the Pod reference the StorageClass
+        directly? Is there some intermediate resource where I say 'give me 20GB
+        of this type of storage'? And how does that volume actually get mounted
+        inside my container?
 difficulty: 2
-tags: ["kubernetes", "storageclass", "dynamic-provisioning", "ebs", "gcp-pd", "csi", "k8s"]
-category: "concept"
+tags:
+  - kubernetes
+  - storageclass
+  - dynamic-provisioning
+  - ebs
+  - gcp-pd
+  - csi
+  - k8s
+category: concept
 milestones:
-  - "Inspect the default StorageClass in your cluster"
-  - "Create a PVC without a pre-existing PV and watch dynamic provisioning create the underlying disk"
-  - "Understand what a CSI driver is and why cloud providers ship them"
-  - "Know the reclaim policies: Retain, Delete, Recycle — and when each is appropriate"
+  - Inspect the default StorageClass in your cluster
+  - >-
+    Create a PVC without a pre-existing PV and watch dynamic provisioning create
+    the underlying disk
+  - Understand what a CSI driver is and why cloud providers ship them
+  - >-
+    Know the reclaim policies: Retain, Delete, Recycle — and when each is
+    appropriate
 ---
 
 StorageClasses tell Kubernetes how to dynamically provision storage on demand. Instead of a human creating a PersistentVolume before a workload starts, the StorageClass defines a provisioner that creates the underlying storage automatically when a PVC is submitted.

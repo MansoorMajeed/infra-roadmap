@@ -1,20 +1,22 @@
 ---
-id: "cloudflare-tunnel"
-title: "Cloudflare Tunnel"
-zone: "self-hosting"
+id: cloudflare-tunnel
+title: Cloudflare Tunnel
+zone: self-hosting
 edges:
-  from:
-    - id: "public-website"
-      question: "I want the simplest managed option"
   to: []
 difficulty: 1
-tags: ["self-hosting", "cloudflare", "tunnel", "public", "reverse-proxy"]
-category: "tool"
+tags:
+  - self-hosting
+  - cloudflare
+  - tunnel
+  - public
+  - reverse-proxy
+category: tool
 milestones:
-  - "Create a Cloudflare Tunnel in the dashboard"
-  - "Install and run cloudflared on your home server"
-  - "Route a public hostname to a local service"
-  - "Verify the service is reachable publicly over HTTPS"
+  - Create a Cloudflare Tunnel in the dashboard
+  - Install and run cloudflared on your home server
+  - Route a public hostname to a local service
+  - Verify the service is reachable publicly over HTTPS
 ---
 
 Cloudflare Tunnel runs a small daemon (`cloudflared`) on your server that makes an outbound-only connection to Cloudflare's network. Traffic comes in through Cloudflare and flows down that tunnel to your service. No open ports, no exposed home IP, no firewall or router changes.

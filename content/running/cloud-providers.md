@@ -1,26 +1,36 @@
 ---
-id: "cloud-providers"
-title: "Cloud Providers"
-zone: "running"
+id: cloud-providers
+title: Cloud Providers
+zone: running
 edges:
-  from:
-    - id: "where-do-i-run-this"
-      question: "I don't want to buy hardware. Can I just rent a server?"
-      detail: "Buying and maintaining physical servers is expensive and complicated. Cloud providers like AWS, DigitalOcean, and GCP let you rent virtual servers by the hour. You click a button, get a server with a public IP, and pay only for what you use. This is how most applications are deployed today."
   to:
-    - id: "linux-server-basics"
-      question: "I have a cloud VM. How do I actually use it?"
-      detail: "I've got a cloud VM with a public IP but I have no idea what to do with it. I've never remotely managed a Linux server before — how do I even connect, and what do I actually need to learn?"
-    - id: "what-is-a-vps"
-      question: "What am I actually renting when I create a cloud server?"
-      detail: "I clicked a button and now I have a 'server' — but it doesn't feel like a real machine. It's somewhere in the cloud, I have no idea what hardware it's running on, and it seems like other people's VMs are on the same physical box. What did I actually just create?"
+    - id: linux-server-basics
+      question: I have a cloud VM. How do I actually use it?
+      detail: >-
+        I've got a cloud VM with a public IP but I have no idea what to do with
+        it. I've never remotely managed a Linux server before — how do I even
+        connect, and what do I actually need to learn?
+    - id: what-is-a-vps
+      question: What am I actually renting when I create a cloud server?
+      detail: >-
+        I clicked a button and now I have a 'server' — but it doesn't feel like
+        a real machine. It's somewhere in the cloud, I have no idea what
+        hardware it's running on, and it seems like other people's VMs are on
+        the same physical box. What did I actually just create?
 difficulty: 1
-tags: ["cloud", "aws", "gcp", "azure", "digitalocean", "vm", "iaas"]
-category: "concept"
+tags:
+  - cloud
+  - aws
+  - gcp
+  - azure
+  - digitalocean
+  - vm
+  - iaas
+category: concept
 milestones:
-  - "Understand what IaaS is and how cloud VMs work"
-  - "Create a virtual machine on a cloud provider"
-  - "Explain regions, availability zones, and why they matter"
+  - Understand what IaaS is and how cloud VMs work
+  - Create a virtual machine on a cloud provider
+  - 'Explain regions, availability zones, and why they matter'
 ---
 
 You could buy a server, find a datacenter, and set everything up yourself. Or you could open a browser, click a few buttons, and have a server running in under a minute — with a public IP, a fresh operating system, and pay-by-the-hour pricing. That is what **cloud providers** offer, and it is how the vast majority of applications run today.

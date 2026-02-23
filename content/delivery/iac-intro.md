@@ -1,25 +1,37 @@
 ---
-id: "iac-intro"
-title: "Infrastructure as Code"
-zone: "delivery"
+id: iac-intro
+title: Infrastructure as Code
+zone: delivery
 edges:
-  from:
-    - id: "build-and-test-pipeline"
-      question: "My pipeline is solid. The servers it deploys to were set up by hand — can I codify that too?"
   to:
-    - id: "terraform-basics"
-      question: "IaC makes sense. Show me Terraform."
-      detail: "I get the concept — but what does it actually look like to write IaC? I want to see what a real Terraform config looks like and understand what happens when I run it."
-    - id: "ansible-intro"
-      question: "What about configuring the servers themselves? I've heard of Ansible."
-      detail: "Terraform provisions infrastructure — it creates servers. Ansible configures what's on them — it installs packages, writes config files, manages services. They solve different problems and are often used together."
+    - id: terraform-basics
+      question: IaC makes sense. Show me Terraform.
+      detail: >-
+        I get the concept — but what does it actually look like to write IaC? I
+        want to see what a real Terraform config looks like and understand what
+        happens when I run it.
+    - id: ansible-intro
+      question: What about configuring the servers themselves? I've heard of Ansible.
+      detail: >-
+        Terraform provisions infrastructure — it creates servers. Ansible
+        configures what's on them — it installs packages, writes config files,
+        manages services. They solve different problems and are often used
+        together.
 difficulty: 1
-tags: ["iac", "infrastructure-as-code", "terraform", "ansible", "automation", "devops"]
-category: "concept"
+tags:
+  - iac
+  - infrastructure-as-code
+  - terraform
+  - ansible
+  - automation
+  - devops
+category: concept
 milestones:
-  - "Explain what 'snowflake servers' are and why they're a problem"
-  - "Describe the difference between declarative and imperative IaC"
-  - "Understand the difference between provisioning (Terraform) and configuration (Ansible)"
+  - Explain what 'snowflake servers' are and why they're a problem
+  - Describe the difference between declarative and imperative IaC
+  - >-
+    Understand the difference between provisioning (Terraform) and configuration
+    (Ansible)
 ---
 
 You've automated your deployments — but the servers they deploy to were created by hand. Someone logged into a cloud console, clicked through a wizard, and tweaked things until it worked. That server exists nowhere except in AWS (or Hetzner, or DigitalOcean) and in its creator's memory.

@@ -1,23 +1,30 @@
 ---
-id: "version-control-git"
-title: "Version Control & Git"
-zone: "building"
+id: version-control-git
+title: Version Control & Git
+zone: building
 edges:
-  from:
-    - id: "dynamic-web-app"
-      question: "I keep overwriting my own code. How do I track changes?"
-      detail: "As your application grows, you will inevitably break something that used to work. Without version control, you are flying blind — you cannot undo mistakes, compare what changed, or collaborate without stepping on each other's toes. Git solves all of these problems, and every professional software team on the planet uses it."
   to:
-    - id: "it-works-on-my-laptop"
-      question: "I can manage my code properly now. How do I actually get it running for others?"
-      detail: "My code is on GitHub but that doesn't mean anyone can actually use it — it's still just source code sitting in a repo. I want people to be able to open a browser and see a running app. How do I get from here to there?"
+    - id: it-works-on-my-laptop
+      question: >-
+        I can manage my code properly now. How do I actually get it running for
+        others?
+      detail: >-
+        My code is on GitHub but that doesn't mean anyone can actually use it —
+        it's still just source code sitting in a repo. I want people to be able
+        to open a browser and see a running app. How do I get from here to
+        there?
 difficulty: 1
-tags: ["git", "version-control", "github", "gitlab", "collaboration"]
-category: "concept"
+tags:
+  - git
+  - version-control
+  - github
+  - gitlab
+  - collaboration
+category: concept
 milestones:
-  - "Initialize a Git repo, make commits, and view history"
-  - "Create branches, make changes, and merge them"
-  - "Push code to GitHub or GitLab and collaborate with others"
+  - 'Initialize a Git repo, make commits, and view history'
+  - 'Create branches, make changes, and merge them'
+  - Push code to GitHub or GitLab and collaborate with others
 ---
 
 You have been building your app, and it is getting bigger. You made a change yesterday that broke something, and now you cannot remember what you changed or how to undo it. You are copying folders named `app_v2_final_FINAL` and praying. There has to be a better way — and there is. It is called Git.

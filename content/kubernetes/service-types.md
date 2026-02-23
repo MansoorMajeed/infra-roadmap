@@ -1,24 +1,35 @@
 ---
-id: "service-types"
-title: "Service Types: NodePort and LoadBalancer"
-zone: "kubernetes"
+id: service-types
+title: 'Service Types: NodePort and LoadBalancer'
+zone: kubernetes
 edges:
-  from:
-    - id: "services"
-      question: "ClusterIP is internal only. How do I expose a Service outside the cluster?"
-      detail: "ClusterIP Services are only reachable inside the cluster. NodePort and LoadBalancer extend that to the outside world. Each is a progressively broader way to open up access — and each comes with trade-offs that explain why most production HTTP traffic goes through Ingress instead."
   to:
-    - id: "ingress"
-      question: "NodePort and LoadBalancer work but feel clunky for HTTP. Is there a better way?"
-      detail: "Every HTTP service needs its own cloud load balancer? That's going to get expensive fast. I have a frontend, an API, a docs site — I don't want three separate load balancers. There must be a smarter way to route HTTP traffic to different services from a single entry point."
+    - id: ingress
+      question: >-
+        NodePort and LoadBalancer work but feel clunky for HTTP. Is there a
+        better way?
+      detail: >-
+        Every HTTP service needs its own cloud load balancer? That's going to
+        get expensive fast. I have a frontend, an API, a docs site — I don't
+        want three separate load balancers. There must be a smarter way to route
+        HTTP traffic to different services from a single entry point.
 difficulty: 1
-tags: ["kubernetes", "nodeport", "loadbalancer", "services", "networking", "external-access", "k8s"]
-category: "concept"
+tags:
+  - kubernetes
+  - nodeport
+  - loadbalancer
+  - services
+  - networking
+  - external-access
+  - k8s
+category: concept
 milestones:
-  - "Expose a Service with NodePort and reach it via the node's IP and port"
-  - "Expose a Service with LoadBalancer on a cloud provider and get a public IP"
-  - "Explain why you wouldn't use a LoadBalancer Service for every HTTP endpoint"
-  - "Understand the relationship between NodePort, LoadBalancer, and ClusterIP (they build on each other)"
+  - Expose a Service with NodePort and reach it via the node's IP and port
+  - Expose a Service with LoadBalancer on a cloud provider and get a public IP
+  - Explain why you wouldn't use a LoadBalancer Service for every HTTP endpoint
+  - >-
+    Understand the relationship between NodePort, LoadBalancer, and ClusterIP
+    (they build on each other)
 ---
 
 A ClusterIP Service is only reachable inside the cluster. NodePort and LoadBalancer are Service types that extend access to the outside world, each with different trade-offs. For HTTP services, both are usually superseded by Ingress — but understanding the types explains how external traffic flows into a cluster.

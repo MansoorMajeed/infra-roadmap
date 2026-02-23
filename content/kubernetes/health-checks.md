@@ -1,25 +1,42 @@
 ---
-id: "health-checks"
-title: "Health Checks: Liveness, Readiness, and Startup Probes"
-zone: "kubernetes"
+id: health-checks
+title: 'Health Checks: Liveness, Readiness, and Startup Probes'
+zone: kubernetes
 edges:
-  from:
-    - id: "pods"
-      question: "My Pod is running — but how does Kubernetes know if it's actually healthy and ready for traffic?"
-      detail: "kubectl shows the Pod as Running, but 'running' just means the container process started. It doesn't mean your app finished initialising, connected to the database, or is capable of handling requests. Probes are how you tell Kubernetes what 'healthy' actually means for your application."
   to:
-    - id: "services"
-      question: "Probes are configured. Now how do I expose my Pod with a stable endpoint?"
-      detail: "My probes are configured and Kubernetes knows when my pod is healthy. But how does traffic actually reach my pods? They have IPs that change every time they restart — I need something stable that I can point DNS at, something that finds the healthy pods automatically."
+    - id: services
+      question: >-
+        Probes are configured. Now how do I expose my Pod with a stable
+        endpoint?
+      detail: >-
+        My probes are configured and Kubernetes knows when my pod is healthy.
+        But how does traffic actually reach my pods? They have IPs that change
+        every time they restart — I need something stable that I can point DNS
+        at, something that finds the healthy pods automatically.
 difficulty: 2
-tags: ["kubernetes", "liveness-probe", "readiness-probe", "startup-probe", "health-checks", "reliability", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - liveness-probe
+  - readiness-probe
+  - startup-probe
+  - health-checks
+  - reliability
+  - k8s
+category: practice
 milestones:
-  - "Add a readiness probe to a Pod and verify it's removed from Service endpoints during startup"
-  - "Add a liveness probe and watch Kubernetes restart a Pod that stops responding"
-  - "Understand when to use a startup probe instead of a long initialDelaySeconds"
-  - "Explain the difference: liveness (is it broken?) vs readiness (is it ready for traffic?)"
-  - "See what happens to a rolling update when the new Pod fails its readiness probe"
+  - >-
+    Add a readiness probe to a Pod and verify it's removed from Service
+    endpoints during startup
+  - >-
+    Add a liveness probe and watch Kubernetes restart a Pod that stops
+    responding
+  - Understand when to use a startup probe instead of a long initialDelaySeconds
+  - >-
+    Explain the difference: liveness (is it broken?) vs readiness (is it ready
+    for traffic?)
+  - >-
+    See what happens to a rolling update when the new Pod fails its readiness
+    probe
 ---
 
 Kubernetes has three types of probes for monitoring container health: liveness (is it broken and needs restarting?), readiness (is it ready to receive traffic?), and startup (has it finished initializing?). Configuring them correctly is the difference between self-healing infrastructure and a service that silently fails under load.

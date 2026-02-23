@@ -1,23 +1,30 @@
 ---
-id: "text-editors-and-ides"
-title: "Text Editors & IDEs"
-zone: "foundations"
+id: text-editors-and-ides
+title: Text Editors & IDEs
+zone: foundations
 edges:
-  from:
-    - id: "the-terminal"
-      question: "I need to write and edit files. What tools do I use?"
-      detail: "You can navigate the filesystem and run commands, but now you need to actually create and modify files — code, config files, scripts. Choosing the right editor shapes your daily workflow. You'll need at least one terminal-based editor (like vim or nano) because you'll inevitably SSH into a remote server where VS Code isn't available."
   to:
-    - id: "version-control-git"
-      question: "I can edit files. But how do I track changes and collaborate?"
-      detail: "I just broke something that was working yesterday and I have no idea what I changed. I've been overwriting files with no history of what they looked like before. And if someone else touches the same files at the same time, everything will be a mess. How do people actually manage this?"
+    - id: version-control-git
+      question: I can edit files. But how do I track changes and collaborate?
+      detail: >-
+        I just broke something that was working yesterday and I have no idea
+        what I changed. I've been overwriting files with no history of what they
+        looked like before. And if someone else touches the same files at the
+        same time, everything will be a mess. How do people actually manage
+        this?
 difficulty: 1
-tags: ["vim", "nano", "vscode", "editors", "ide", "tools"]
-category: "tool"
+tags:
+  - vim
+  - nano
+  - vscode
+  - editors
+  - ide
+  - tools
+category: tool
 milestones:
-  - "Edit a file using vim or nano"
-  - "Set up VS Code with a useful extension"
-  - "Edit a configuration file on a remote server"
+  - Edit a file using vim or nano
+  - Set up VS Code with a useful extension
+  - Edit a configuration file on a remote server
 ---
 
 Code is just text, and you need a tool to write it. The tool you choose -- whether it is a minimal terminal editor like vim or a full-featured IDE like VS Code -- shapes your daily workflow more than almost any other decision. Learning at least one terminal-based editor is non-negotiable for SRE work because you will inevitably need to edit a config file on a remote server where VS Code is not available.

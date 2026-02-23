@@ -1,22 +1,29 @@
 ---
-id: "buying-homelab-hardware"
-title: "Buying Homelab Hardware"
-zone: "self-hosting"
+id: buying-homelab-hardware
+title: Buying Homelab Hardware
+zone: self-hosting
 edges:
-  from:
-    - id: "i-need-hardware"
-      question: "I don't have any hardware — what should I buy?"
   to:
-    - id: "bare-machine-now-what"
-      question: "I got something — now what do I do with it?"
-      detail: "I have the machine. Do I just download an ISO and put it on a USB? Is there anything I need to configure first? I've never set up a server from scratch before."
+    - id: bare-machine-now-what
+      question: I got something — now what do I do with it?
+      detail: >-
+        I have the machine. Do I just download an ISO and put it on a USB? Is
+        there anything I need to configure first? I've never set up a server
+        from scratch before.
 difficulty: 1
-tags: ["self-hosting", "hardware", "homelab", "raspberry-pi", "mini-pc"]
-category: "concept"
+tags:
+  - self-hosting
+  - hardware
+  - homelab
+  - raspberry-pi
+  - mini-pc
+category: concept
 milestones:
-  - "Understand the tradeoffs between Raspberry Pi, mini PCs, and used enterprise hardware"
-  - "Know what to look for on eBay (tiny/mini/micro form factor PCs)"
-  - "Have a machine in hand and ready to set up"
+  - >-
+    Understand the tradeoffs between Raspberry Pi, mini PCs, and used enterprise
+    hardware
+  - Know what to look for on eBay (tiny/mini/micro form factor PCs)
+  - Have a machine in hand and ready to set up
 ---
 
 The best homelab hardware is cheap, quiet, and sips power. You're running services 24/7 — the electricity cost matters more than the purchase price over time. A machine that draws 100W idle costs more in electricity in a year than a used mini PC costs to buy.

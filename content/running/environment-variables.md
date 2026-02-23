@@ -1,23 +1,31 @@
 ---
-id: "environment-variables"
-title: "Environment Variables and Config"
-zone: "running"
+id: environment-variables
+title: Environment Variables and Config
+zone: running
 edges:
-  from:
-    - id: "deploying-your-code"
-      question: "My code is on the server. How do I configure it without hardcoding secrets?"
-      detail: "Your app needs configuration that changes between environments — database URLs, API keys, secret tokens. These should never be in your code or committed to Git. Environment variables are the standard way to pass configuration to an application at runtime, keeping secrets out of your codebase."
   to:
-    - id: "process-management"
-      question: "My app is configured. How do I keep it running reliably after I close SSH?"
-      detail: "I've been starting my app by running it in an SSH session, and the moment I close the terminal it just dies. If the server reboots it's gone completely. How do I make it stay running regardless of what happens?"
+    - id: process-management
+      question: >-
+        My app is configured. How do I keep it running reliably after I close
+        SSH?
+      detail: >-
+        I've been starting my app by running it in an SSH session, and the
+        moment I close the terminal it just dies. If the server reboots it's
+        gone completely. How do I make it stay running regardless of what
+        happens?
 difficulty: 1
-tags: ["environment-variables", "secrets", "config", "dotenv", "12factor", "systemd"]
-category: "concept"
+tags:
+  - environment-variables
+  - secrets
+  - config
+  - dotenv
+  - 12factor
+  - systemd
+category: concept
 milestones:
-  - "Store app configuration in environment variables instead of hardcoded values"
-  - "Create a .env file on the server and ensure it is not committed to Git"
-  - "Configure a systemd service to load environment variables from a file"
+  - Store app configuration in environment variables instead of hardcoded values
+  - Create a .env file on the server and ensure it is not committed to Git
+  - Configure a systemd service to load environment variables from a file
 ---
 
 Every app needs configuration that varies between environments: your laptop uses a local database, the server uses a real one. Your laptop can have test API keys; the server needs production keys. The wrong approach is to hardcode these values in your code. The right approach is environment variables.

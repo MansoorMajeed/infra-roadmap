@@ -1,24 +1,30 @@
 ---
-id: "reverse-proxy"
-title: "What Is a Reverse Proxy?"
-zone: "self-hosting"
+id: reverse-proxy
+title: What Is a Reverse Proxy?
+zone: self-hosting
 edges:
-  from:
-    - id: "docker-compose"
-      question: "Services are running but I'm tired of remembering port numbers"
   to:
-    - id: "traefik"
-      question: "Makes sense — show me how to set one up with Docker"
-      detail: "How complex is this to actually set up? I don't want to break what's already running, and I've never configured something that sits in front of all my other services before."
-    - id: "getting-a-domain"
-      question: "How do I get a domain name to route to my services?"
-      detail: "Do I have to buy a real domain for this to work? Or can I use something free — or set up names that only work on my home network?"
+    - id: traefik
+      question: Makes sense — show me how to set one up with Docker
+      detail: >-
+        How complex is this to actually set up? I don't want to break what's
+        already running, and I've never configured something that sits in front
+        of all my other services before.
+    - id: getting-a-domain
+      question: How do I get a domain name to route to my services?
+      detail: >-
+        Do I have to buy a real domain for this to work? Or can I use something
+        free — or set up names that only work on my home network?
 difficulty: 2
-tags: ["self-hosting", "networking", "reverse-proxy", "traefik"]
-category: "concept"
+tags:
+  - self-hosting
+  - networking
+  - reverse-proxy
+  - traefik
+category: concept
 milestones:
-  - "Understand what a reverse proxy does and why it's useful"
-  - "Understand the difference between accessing by IP:port vs by domain name"
+  - Understand what a reverse proxy does and why it's useful
+  - 'Understand the difference between accessing by IP:port vs by domain name'
 ---
 
 You have three services running. Vaultwarden on port 8080. Immich on port 2283. Jellyfin on port 8096. To use them, you type `192.168.1.100:8080`, `192.168.1.100:2283`, `192.168.1.100:8096`. You'll inevitably mix them up, type the wrong port, or just get tired of it.

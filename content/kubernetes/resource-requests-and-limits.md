@@ -1,25 +1,40 @@
 ---
-id: "resource-requests-and-limits"
-title: "Resource Requests and Limits"
-zone: "kubernetes"
+id: resource-requests-and-limits
+title: Resource Requests and Limits
+zone: kubernetes
 edges:
-  from:
-    - id: "secrets"
-      question: "Before I set up autoscaling — Kubernetes needs to know how much CPU and memory each Pod should use. What are resource requests and limits?"
-      detail: "Without resource requests, the Kubernetes scheduler has no idea how to place your Pods across nodes. Without limits, one runaway Pod can starve its neighbours. Requests and limits are how you tell the scheduler what your Pod needs and cap what it can consume."
   to:
-    - id: "autoscaling"
-      question: "Resources are defined. Now I want Kubernetes to scale my Pods automatically based on those metrics."
-      detail: "I've set requests and limits so Kubernetes knows what each Pod needs. But when traffic spikes I'd still have to manually bump the replica count. Is there a way for the cluster to just figure out 'there's more load, spin up more Pods' on its own — without me having to watch it?"
+    - id: autoscaling
+      question: >-
+        Resources are defined. Now I want Kubernetes to scale my Pods
+        automatically based on those metrics.
+      detail: >-
+        I've set requests and limits so Kubernetes knows what each Pod needs.
+        But when traffic spikes I'd still have to manually bump the replica
+        count. Is there a way for the cluster to just figure out 'there's more
+        load, spin up more Pods' on its own — without me having to watch it?
 difficulty: 2
-tags: ["kubernetes", "resource-requests", "resource-limits", "qos", "scheduling", "hpa", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - resource-requests
+  - resource-limits
+  - qos
+  - scheduling
+  - hpa
+  - k8s
+category: practice
 milestones:
-  - "Set CPU and memory requests and limits on a Pod and observe where the scheduler places it"
-  - "Understand the three QoS classes: Guaranteed, Burstable, BestEffort — and which gets evicted first"
-  - "Deliberately exhaust a node's memory and watch BestEffort Pods get evicted first"
-  - "Explain why requests affect scheduling while limits affect runtime behaviour"
-  - "Know the rule of thumb: always set requests, set limits carefully"
+  - >-
+    Set CPU and memory requests and limits on a Pod and observe where the
+    scheduler places it
+  - >-
+    Understand the three QoS classes: Guaranteed, Burstable, BestEffort — and
+    which gets evicted first
+  - >-
+    Deliberately exhaust a node's memory and watch BestEffort Pods get evicted
+    first
+  - Explain why requests affect scheduling while limits affect runtime behaviour
+  - 'Know the rule of thumb: always set requests, set limits carefully'
 ---
 
 Resource requests tell the Kubernetes scheduler how much CPU and memory a Pod needs — the scheduler uses this to decide which node to place it on. Limits cap what a Pod can actually consume at runtime. Getting this right is a prerequisite for both reliable scheduling and for autoscaling to work correctly.

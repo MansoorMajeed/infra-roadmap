@@ -1,26 +1,28 @@
 ---
-id: "linux-server-basics"
-title: "Linux Server Basics"
-zone: "running"
+id: linux-server-basics
+title: Linux Server Basics
+zone: running
 edges:
-  from:
-    - id: "datacenters"
-      question: "I know where servers live. How do I actually use one?"
-      detail: "Whether your server is in a datacenter you colocate in or a cloud VM you just provisioned, you need to manage it. That means SSH, Linux commands, package management, file permissions, and systemd services. These are the basics of operating a Linux server."
-    - id: "cloud-providers"
-      question: "I have a cloud VM. How do I actually use it?"
-      detail: "You just created a virtual machine in the cloud. It has a public IP and is running Ubuntu. Now what? You need to SSH in, set up a user, install packages, configure services. These are the basics of operating a Linux server — the skills you need before you can deploy anything."
   to:
-    - id: "deploying-your-code"
-      question: "I can manage a Linux server. How do I get my code onto it?"
-      detail: "I can SSH in and install packages. But my app code is still sitting on my laptop. How do I actually move it to the server, install what it needs, and get it running?"
+    - id: deploying-your-code
+      question: I can manage a Linux server. How do I get my code onto it?
+      detail: >-
+        I can SSH in and install packages. But my app code is still sitting on
+        my laptop. How do I actually move it to the server, install what it
+        needs, and get it running?
 difficulty: 1
-tags: ["linux", "ssh", "systemd", "apt", "permissions", "server-admin"]
-category: "practice"
+tags:
+  - linux
+  - ssh
+  - systemd
+  - apt
+  - permissions
+  - server-admin
+category: practice
 milestones:
-  - "SSH into a remote server and navigate the filesystem"
-  - "Install packages with apt and manage services with systemctl"
-  - "Create a non-root user with sudo access and set up SSH key authentication"
+  - SSH into a remote server and navigate the filesystem
+  - Install packages with apt and manage services with systemctl
+  - Create a non-root user with sudo access and set up SSH key authentication
 ---
 
 You have a server — a cloud VM with a public IP, running Ubuntu. Now you need to actually use it. That means connecting to it remotely, navigating the filesystem, installing software, managing services, and doing basic security hardening. These are the fundamental skills of Linux server administration, and you will use them every single day as an SRE.

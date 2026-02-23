@@ -1,30 +1,33 @@
 ---
-id: "services"
-title: "Kubernetes Services"
-zone: "kubernetes"
+id: services
+title: Kubernetes Services
+zone: kubernetes
 edges:
-  from:
-    - id: "pods"
-      question: "My Pod is running. How do I give it a stable, reliable endpoint?"
-      detail: "Pod IPs are ephemeral — the IP changes every time the Pod is replaced. A Service gives you a stable virtual IP (ClusterIP) backed by DNS that never changes, even as the Pods behind it come and go. It's the standard way for one workload to reach another inside a cluster."
-    - id: "port-forward"
-      question: "Port-forward works locally. What's the proper in-cluster networking answer?"
-      detail: "Port-forward is a debugging shortcut. A Service is the real networking primitive: a stable endpoint that load-balances across your Pods, registered in cluster DNS, and usable by any other workload in the cluster."
-    - id: "health-checks"
-      question: "Probes are configured. Now how do I expose my Pod with a stable endpoint?"
-      detail: "Readiness probes and Services work in tandem: the Service only sends traffic to Pods that are passing their readiness check. Configure both and Kubernetes automatically protects users from requests hitting a Pod that isn't ready."
   to:
-    - id: "service-types"
-      question: "I understand Services for internal traffic. How do I expose a Service outside the cluster?"
-      detail: "My Service works inside the cluster, but I need actual users to reach it from the internet. Is that a different type of Service, or a completely different kind of resource? I keep seeing 'Ingress' in the docs and I'm not sure where Services end and that begins."
+    - id: service-types
+      question: >-
+        I understand Services for internal traffic. How do I expose a Service
+        outside the cluster?
+      detail: >-
+        My Service works inside the cluster, but I need actual users to reach it
+        from the internet. Is that a different type of Service, or a completely
+        different kind of resource? I keep seeing 'Ingress' in the docs and I'm
+        not sure where Services end and that begins.
 difficulty: 1
-tags: ["kubernetes", "services", "clusterip", "networking", "dns", "load-balancing", "k8s"]
-category: "concept"
+tags:
+  - kubernetes
+  - services
+  - clusterip
+  - networking
+  - dns
+  - load-balancing
+  - k8s
+category: concept
 milestones:
-  - "Create a ClusterIP Service that routes to your Pod"
-  - "Reach the Service from another Pod using its DNS name"
-  - "Understand how Kubernetes DNS resolves service.namespace.svc.cluster.local"
-  - "Use kubectl describe service to understand endpoints and selectors"
+  - Create a ClusterIP Service that routes to your Pod
+  - Reach the Service from another Pod using its DNS name
+  - Understand how Kubernetes DNS resolves service.namespace.svc.cluster.local
+  - Use kubectl describe service to understand endpoints and selectors
 ---
 
 Pods are ephemeral — their IP addresses change whenever they're replaced. A Kubernetes Service gives your workload a stable name and virtual IP that load-balances across a set of Pods, and registers it in cluster DNS so other workloads can find it without hardcoding any Pod IPs.

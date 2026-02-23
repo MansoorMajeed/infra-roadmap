@@ -1,23 +1,23 @@
 ---
-id: "wireguard-vpn-home"
-title: "WireGuard: Run Your Own VPN Server at Home"
-zone: "self-hosting"
+id: wireguard-vpn-home
+title: 'WireGuard: Run Your Own VPN Server at Home'
+zone: self-hosting
 edges:
-  from:
-    - id: "remote-access-just-me"
-      question: "I'd rather set this up myself and understand exactly what's happening"
-    - id: "remote-access-shared"
-      question: "I want to run my own VPN server and manage who gets in"
   to: []
 difficulty: 3
-tags: ["self-hosting", "wireguard", "vpn", "networking", "remote-access"]
-category: "tool"
+tags:
+  - self-hosting
+  - wireguard
+  - vpn
+  - networking
+  - remote-access
+category: tool
 milestones:
-  - "Install WireGuard on your home server"
-  - "Generate server and client key pairs"
-  - "Configure port forwarding on your router for WireGuard's UDP port"
-  - "Configure a client (phone or laptop) and connect successfully"
-  - "Access a home service through the tunnel"
+  - Install WireGuard on your home server
+  - Generate server and client key pairs
+  - Configure port forwarding on your router for WireGuard's UDP port
+  - Configure a client (phone or laptop) and connect successfully
+  - Access a home service through the tunnel
 ---
 
 WireGuard is a modern VPN protocol — fast, cryptographically strong, and built into the Linux kernel. Running it yourself means you own the entire stack: no third-party accounts, no service limits, no dependency on anyone else.

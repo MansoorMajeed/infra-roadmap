@@ -1,26 +1,30 @@
 ---
-id: "systemd-and-services"
-title: "systemd & Services"
-zone: "foundations"
+id: systemd-and-services
+title: systemd & Services
+zone: foundations
 edges:
-  from:
-    - id: "signals-and-ipc"
-      question: "I know how processes communicate. Who manages all the services?"
-      detail: "You understand signals — how to tell a process to stop, reload, or terminate. But on a real server, dozens of services need to start in the right order at boot, restart if they crash, and shut down gracefully. Something needs to orchestrate all of this. That something is the init system, and on modern Linux, it is systemd. It uses the same signals you just learned about, but wraps them in a service management framework."
-    - id: "linux-and-distros"
-      question: "Linux runs services. What manages them?"
-      detail: "You know that Linux servers run dozens of services — web servers, databases, monitoring agents, cron daemons. But who starts them when the machine boots? Who restarts them when they crash? Who makes sure they start in the right order? The init system handles all of this, and on virtually every modern Linux distribution, that init system is systemd. Understanding systemd is essential for managing any Linux server."
   to:
-    - id: "log-files"
-      question: "Services are running. How do I see what they are doing?"
-      detail: "My service is running — great. But when something goes wrong I have no idea where to look. It crashed and restarted but I don't know why. There must be output from it somewhere, some record of what happened. How do I find that and actually make sense of it?"
+    - id: log-files
+      question: Services are running. How do I see what they are doing?
+      detail: >-
+        My service is running — great. But when something goes wrong I have no
+        idea where to look. It crashed and restarted but I don't know why. There
+        must be output from it somewhere, some record of what happened. How do I
+        find that and actually make sense of it?
 difficulty: 1
-tags: ["systemd", "systemctl", "journalctl", "services", "init", "units", "daemons"]
-category: "concept"
+tags:
+  - systemd
+  - systemctl
+  - journalctl
+  - services
+  - init
+  - units
+  - daemons
+category: concept
 milestones:
-  - "Use systemctl to start, stop, restart, and check the status of a service"
-  - "Read service logs with journalctl"
-  - "Explain what a systemd unit file is and what its key sections do"
+  - 'Use systemctl to start, stop, restart, and check the status of a service'
+  - Read service logs with journalctl
+  - Explain what a systemd unit file is and what its key sections do
 ---
 
 When a Linux server boots, something needs to start all the services that make it useful — the SSH daemon so you can log in, the web server to handle requests, the database to store data, the monitoring agent to report health. That something is the **init system**, and on virtually every modern Linux distribution, it is **systemd**. It is PID 1 — the first process that starts, the parent of all other processes, and the orchestrator that keeps your services running. As an SRE, `systemctl` and `journalctl` will be among your most-used commands.

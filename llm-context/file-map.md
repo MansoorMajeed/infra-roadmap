@@ -18,7 +18,6 @@ id: "hello-world"
 title: "Hello, World!"
 zone: "foundations"
 edges:
-  from: []
   to:
     - id: "how-computers-run-code"
       question: "I wrote code and it ran... but how?"

@@ -1,23 +1,30 @@
 ---
-id: "testing-basics"
-title: "Testing Your Code"
-zone: "building"
+id: testing-basics
+title: Testing Your Code
+zone: building
 edges:
-  from:
-    - id: "dynamic-web-app"
-      question: "How do I know my code actually works before I ship it?"
-      detail: "You have been testing your app by running it, clicking around, and checking if things look right. That works when your app is small, but as it grows, manual testing becomes impossible. Did your new feature break checkout? Did changing that database query affect the search page? Automated tests catch these problems before your users do."
   to:
-    - id: "it-works-on-my-laptop"
-      question: "My code is tested and I'm confident it works. Now how do I run it somewhere real?"
-      detail: "My tests pass locally. But I have no idea if they'd still pass in whatever environment I'm deploying to — different OS, different Python version, different database. And I'm not sure how to even get the code running on a real server in the first place."
+    - id: it-works-on-my-laptop
+      question: >-
+        My code is tested and I'm confident it works. Now how do I run it
+        somewhere real?
+      detail: >-
+        My tests pass locally. But I have no idea if they'd still pass in
+        whatever environment I'm deploying to — different OS, different Python
+        version, different database. And I'm not sure how to even get the code
+        running on a real server in the first place.
 difficulty: 1
-tags: ["testing", "unit-tests", "integration-tests", "pytest", "tdd"]
-category: "concept"
+tags:
+  - testing
+  - unit-tests
+  - integration-tests
+  - pytest
+  - tdd
+category: concept
 milestones:
-  - "Write unit tests for a Python function using pytest"
-  - "Write an integration test that tests an API endpoint end-to-end"
-  - "Understand the testing pyramid: unit, integration, and end-to-end tests"
+  - Write unit tests for a Python function using pytest
+  - Write an integration test that tests an API endpoint end-to-end
+  - 'Understand the testing pyramid: unit, integration, and end-to-end tests'
 ---
 
 You changed one function and broke three other features. You did not know until a user reported it two days later. The fix took five minutes, but the debugging took two hours. Automated tests would have caught it in seconds — before the code ever left your laptop.

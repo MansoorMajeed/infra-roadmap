@@ -1,24 +1,32 @@
 ---
-id: "encryption-basics"
-title: "Encryption: Why and How"
-zone: "networking"
+id: encryption-basics
+title: 'Encryption: Why and How'
+zone: networking
 edges:
-  from:
-    - id: "http-protocol"
-      question: "HTTP is plaintext. Can anyone read my traffic?"
-      detail: "You just learned that HTTP sends everything — passwords, cookies, personal data — as readable text. Anyone between you and the server can read it all. This is not theoretical — it is trivially easy on shared WiFi. You need encryption, and understanding how it works is the first step toward HTTPS."
   to:
-    - id: "tls-and-certificates"
-      zone: "running"
-      question: "I understand encryption. How does the web actually use it to secure traffic?"
-      detail: "I understand the building blocks — symmetric keys, asymmetric keys, the key exchange problem. But how does any of that play out when my browser connects to an HTTPS site for the first time? How does it establish a secure channel with a server it's never talked to before?"
+    - id: tls-and-certificates
+      zone: running
+      question: >-
+        I understand encryption. How does the web actually use it to secure
+        traffic?
+      detail: >-
+        I understand the building blocks — symmetric keys, asymmetric keys, the
+        key exchange problem. But how does any of that play out when my browser
+        connects to an HTTPS site for the first time? How does it establish a
+        secure channel with a server it's never talked to before?
 difficulty: 2
-tags: ["encryption", "cryptography", "symmetric", "asymmetric", "keys", "security"]
-category: "concept"
+tags:
+  - encryption
+  - cryptography
+  - symmetric
+  - asymmetric
+  - keys
+  - security
+category: concept
 milestones:
-  - "Explain the difference between symmetric and asymmetric encryption"
-  - "Understand why HTTPS matters and what plaintext HTTP exposes"
-  - "Describe the key exchange problem and how asymmetric encryption solves it"
+  - Explain the difference between symmetric and asymmetric encryption
+  - Understand why HTTPS matters and what plaintext HTTP exposes
+  - Describe the key exchange problem and how asymmetric encryption solves it
 ---
 
 Run `curl -v http://example.com` and look at what goes over the wire. The entire HTTP request — the URL, the headers, the body with your password — travels across the network as readable text. Anyone sitting between you and the server can read it. Your ISP, the coffee shop WiFi operator, any compromised router along the way. This is not a theoretical risk — it is trivially easy. Encryption makes the data unreadable to everyone except the intended recipient.

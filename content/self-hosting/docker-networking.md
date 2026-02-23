@@ -1,23 +1,29 @@
 ---
-id: "docker-networking"
-title: "Docker Networking: How Do Containers Talk to Each Other?"
-zone: "self-hosting"
+id: docker-networking
+title: 'Docker Networking: How Do Containers Talk to Each Other?'
+zone: self-hosting
 edges:
-  from:
-    - id: "docker-volumes"
-      question: "Data is safe. Now how do multiple containers talk to each other?"
   to:
-    - id: "docker-compose"
-      question: "I understand how it all fits together — now how do I manage it properly?"
-      detail: "Right now I'm running everything with separate docker run commands. If the server restarts I have to retype all of it from memory. And adding a new service means more commands to keep track of."
+    - id: docker-compose
+      question: I understand how it all fits together — now how do I manage it properly?
+      detail: >-
+        Right now I'm running everything with separate docker run commands. If
+        the server restarts I have to retype all of it from memory. And adding a
+        new service means more commands to keep track of.
 difficulty: 1
-tags: ["self-hosting", "docker", "networking", "containers"]
-category: "concept"
+tags:
+  - self-hosting
+  - docker
+  - networking
+  - containers
+category: concept
 milestones:
-  - "Understand why containers on the default bridge network can't resolve each other by name"
-  - "Create a user-defined Docker network"
-  - "Run two containers on the same network and have one reach the other by name"
-  - "Understand that Docker Compose handles this automatically"
+  - >-
+    Understand why containers on the default bridge network can't resolve each
+    other by name
+  - Create a user-defined Docker network
+  - Run two containers on the same network and have one reach the other by name
+  - Understand that Docker Compose handles this automatically
 ---
 
 When you run multiple containers — say, an app and its database — they need to communicate. The app needs to reach the database. But containers are isolated. They're not just processes on the same machine sharing a network; each has its own network namespace.

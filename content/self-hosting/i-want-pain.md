@@ -1,23 +1,29 @@
 ---
-id: "i-want-pain"
-title: "I Want to Install Everything Manually"
-zone: "self-hosting"
+id: i-want-pain
+title: I Want to Install Everything Manually
+zone: self-hosting
 edges:
-  from:
-    - id: "docker-or-native"
-      question: "I want to install everything manually from source"
   to:
-    - id: "installing-software"
-      zone: "running"
-      question: "How do people actually install and run services on bare Linux without Docker?"
-      detail: "I've seen apt, but also snap, pip, building from source... I don't know which one to use for server software, or how to make sure a service starts back up automatically when the machine reboots."
+    - id: installing-software
+      zone: running
+      question: >-
+        How do people actually install and run services on bare Linux without
+        Docker?
+      detail: >-
+        I've seen apt, but also snap, pip, building from source... I don't know
+        which one to use for server software, or how to make sure a service
+        starts back up automatically when the machine reboots.
 difficulty: 3
-tags: ["self-hosting", "linux", "native", "advanced"]
-category: "practice"
+tags:
+  - self-hosting
+  - linux
+  - native
+  - advanced
+category: practice
 milestones:
-  - "Compile something from source"
-  - "Debug a broken dependency at 2am"
-  - "Reconsider"
+  - Compile something from source
+  - Debug a broken dependency at 2am
+  - Reconsider
 ---
 
 Respect. This is the path of building software from source, managing systemd units by hand, and memorising config file locations across a dozen different projects.

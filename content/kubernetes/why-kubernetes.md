@@ -1,32 +1,39 @@
 ---
-id: "why-kubernetes"
-title: "Why Kubernetes?"
-zone: "kubernetes"
+id: why-kubernetes
+title: Why Kubernetes?
+zone: kubernetes
 edges:
-  from:
-    - id: "container-orchestration"
-      zone: "scaling"
-      question: "I understand I need an orchestrator for containers at scale. What makes Kubernetes the answer?"
-      detail: "The scaling zone introduced the orchestration problem: you have containers, you have servers, something needs to decide where each container runs, restart it when it crashes, and replace instances when a server dies. Kubernetes is the dominant answer to that problem."
-    - id: "terraform-state"
-      zone: "delivery"
-      question: "I can build container images in CI and provision servers with Terraform. What does Kubernetes add?"
-      detail: "Terraform provisions the servers. CI builds the images. But getting those images running reliably on those servers — scheduling, restarts, rolling updates, service discovery — is a separate coordination problem that scales poorly with shell scripts and manual SSH. Kubernetes solves it."
   to:
-    - id: "pods"
-      question: "Kubernetes makes sense. How do I actually run a container on it?"
-      detail: "Okay, I want to run my container on this cluster. I know Docker, I know docker run — but how do I do the equivalent in Kubernetes? kubectl run? A YAML file? And what is this 'Pod' thing I keep seeing in the docs — is that just a fancy word for a container?"
-    - id: "namespaces"
-      question: "Before I run anything — how does Kubernetes keep different teams, apps, and environments from interfering with each other?"
-      detail: "If staging and production both run on the same cluster, and teammates are deploying their stuff too — what stops everything from getting tangled together? I need some kind of separation before this becomes a mess."
+    - id: pods
+      question: Kubernetes makes sense. How do I actually run a container on it?
+      detail: >-
+        Okay, I want to run my container on this cluster. I know Docker, I know
+        docker run — but how do I do the equivalent in Kubernetes? kubectl run?
+        A YAML file? And what is this 'Pod' thing I keep seeing in the docs — is
+        that just a fancy word for a container?
+    - id: namespaces
+      question: >-
+        Before I run anything — how does Kubernetes keep different teams, apps,
+        and environments from interfering with each other?
+      detail: >-
+        If staging and production both run on the same cluster, and teammates
+        are deploying their stuff too — what stops everything from getting
+        tangled together? I need some kind of separation before this becomes a
+        mess.
 difficulty: 1
-tags: ["kubernetes", "orchestration", "containers", "docker", "k8s", "devops"]
-category: "concept"
+tags:
+  - kubernetes
+  - orchestration
+  - containers
+  - docker
+  - k8s
+  - devops
+category: concept
 milestones:
-  - "Explain what problems Kubernetes solves that Docker Compose alone doesn't"
-  - "Understand the control plane vs worker node distinction"
-  - "Know what kubectl is and how to connect it to a cluster"
-  - "Run a local cluster with kind or minikube"
+  - Explain what problems Kubernetes solves that Docker Compose alone doesn't
+  - Understand the control plane vs worker node distinction
+  - Know what kubectl is and how to connect it to a cluster
+  - Run a local cluster with kind or minikube
 ---
 
 Running containers in production means answering hard questions: which server does this container go on? What happens when it crashes? How do you ship a new version without dropping traffic? Kubernetes is the system that answers all of them — and has become the de facto standard for running containers at scale.

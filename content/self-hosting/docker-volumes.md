@@ -1,23 +1,28 @@
 ---
-id: "docker-volumes"
-title: "Docker Volumes: Where Does My Data Live?"
-zone: "self-hosting"
+id: docker-volumes
+title: 'Docker Volumes: Where Does My Data Live?'
+zone: self-hosting
 edges:
-  from:
-    - id: "docker-ports"
-      question: "I can access the service. But where is my data stored?"
   to:
-    - id: "docker-networking"
-      question: "Data is safe. Now how do multiple containers talk to each other?"
-      detail: "I tried using localhost in my app's database connection string but it couldn't connect. Both containers are on the same machine — why can't they see each other?"
+    - id: docker-networking
+      question: Data is safe. Now how do multiple containers talk to each other?
+      detail: >-
+        I tried using localhost in my app's database connection string but it
+        couldn't connect. Both containers are on the same machine — why can't
+        they see each other?
 difficulty: 1
-tags: ["self-hosting", "docker", "volumes", "storage", "data"]
-category: "concept"
+tags:
+  - self-hosting
+  - docker
+  - volumes
+  - storage
+  - data
+category: concept
 milestones:
-  - "Understand why containers are ephemeral by default"
-  - "Run a container with a bind mount and verify data persists after restart"
-  - "Know the difference between bind mounts and named volumes"
-  - "Know where to put your data on the host (e.g. ~/apps/vaultwarden/)"
+  - Understand why containers are ephemeral by default
+  - Run a container with a bind mount and verify data persists after restart
+  - Know the difference between bind mounts and named volumes
+  - Know where to put your data on the host (e.g. ~/apps/vaultwarden/)
 ---
 
 Containers are ephemeral. Every file written inside a container lives only as long as the container exists. Delete the container to update it, and everything written inside is gone.

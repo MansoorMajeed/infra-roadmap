@@ -1,23 +1,29 @@
 ---
-id: "initial-server-setup"
-title: "Setting Up a Fresh Server"
-zone: "running"
+id: initial-server-setup
+title: Setting Up a Fresh Server
+zone: running
 edges:
-  from:
-    - id: "ssh"
-      question: "I can SSH into my server. What should I do before anything else?"
-      detail: "You just got root access to a fresh server. Before you install anything or deploy any code, there are a handful of things you should always do: create a non-root user, set up SSH key authentication, and lock down the SSH configuration. Skipping this is how servers get compromised."
   to:
-    - id: "installing-software"
-      question: "My server is secured. How do I install the software my app needs?"
-      detail: "The server is locked down. Now I need to get my app's runtime on it — the right version of Python, or Node, or whatever it needs. But I'm not sure how to install software on Linux without breaking anything."
+    - id: installing-software
+      question: My server is secured. How do I install the software my app needs?
+      detail: >-
+        The server is locked down. Now I need to get my app's runtime on it —
+        the right version of Python, or Node, or whatever it needs. But I'm not
+        sure how to install software on Linux without breaking anything.
 difficulty: 1
-tags: ["security", "hardening", "sudo", "non-root", "ufw", "ssh-config", "users"]
-category: "practice"
+tags:
+  - security
+  - hardening
+  - sudo
+  - non-root
+  - ufw
+  - ssh-config
+  - users
+category: practice
 milestones:
-  - "Create a non-root user with sudo access on a fresh Ubuntu server"
-  - "Copy SSH keys to the new user and verify login works before disabling root"
-  - "Disable root login and password authentication in sshd_config"
+  - Create a non-root user with sudo access on a fresh Ubuntu server
+  - Copy SSH keys to the new user and verify login works before disabling root
+  - Disable root login and password authentication in sshd_config
 ---
 
 A fresh VPS comes with a root user and password authentication enabled. This is a reasonable starting point for a provider to give you access, but it is not safe to leave it this way. Root is the superuser — one bad command and you can wipe the entire server. Password authentication means bots are actively trying to brute-force your login right now (check `/var/log/auth.log` — you will see hundreds of failed attempts within hours of creating a new server).

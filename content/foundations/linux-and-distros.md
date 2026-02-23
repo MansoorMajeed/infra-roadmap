@@ -1,26 +1,38 @@
 ---
-id: "linux-and-distros"
-title: "Linux & Distributions"
-zone: "foundations"
+id: linux-and-distros
+title: Linux & Distributions
+zone: foundations
 edges:
-  from:
-    - id: "operating-system-basics"
-      question: "I know what an OS does. Which one matters for SRE?"
-      detail: "You understand that an operating system manages hardware and provides an interface for programs. But in the real world, you need to pick one. The answer for SRE and DevOps is overwhelmingly Linux. But Linux is not one thing — it is a kernel with hundreds of distributions built on top of it. Understanding why Linux won the server world, what a distribution actually is, and why you will probably never see a Windows or macOS server in production is foundational knowledge."
   to:
-    - id: "the-terminal"
-      question: "I understand Linux. How do I actually use it?"
-      detail: "I've been reading about Linux and I get the theory. But reading about it isn't the same as actually using it. Where do I even start — there's no GUI, no icons, just a blinking cursor and no idea what to type."
-    - id: "users-and-permissions"
-      question: "Linux is multi-user. Who controls what?"
-      detail: "Linux was designed from the ground up as a multi-user system. Every file has an owner, every process runs as a user, and the root user has god-mode access to everything. Understanding users, groups, and permissions is not optional — it is the foundation of Linux security. Get this wrong and you either lock yourself out or leave the door wide open."
+    - id: the-terminal
+      question: I understand Linux. How do I actually use it?
+      detail: >-
+        I've been reading about Linux and I get the theory. But reading about it
+        isn't the same as actually using it. Where do I even start — there's no
+        GUI, no icons, just a blinking cursor and no idea what to type.
+    - id: users-and-permissions
+      question: Linux is multi-user. Who controls what?
+      detail: >-
+        Linux was designed from the ground up as a multi-user system. Every file
+        has an owner, every process runs as a user, and the root user has
+        god-mode access to everything. Understanding users, groups, and
+        permissions is not optional — it is the foundation of Linux security.
+        Get this wrong and you either lock yourself out or leave the door wide
+        open.
 difficulty: 1
-tags: ["linux", "distributions", "ubuntu", "debian", "rhel", "server-os", "desktop-os"]
-category: "concept"
+tags:
+  - linux
+  - distributions
+  - ubuntu
+  - debian
+  - rhel
+  - server-os
+  - desktop-os
+category: concept
 milestones:
-  - "Explain the difference between the Linux kernel and a distribution"
-  - "Name three server-focused distributions and when you would use each"
-  - "Explain why servers do not run desktop operating systems"
+  - Explain the difference between the Linux kernel and a distribution
+  - Name three server-focused distributions and when you would use each
+  - Explain why servers do not run desktop operating systems
 ---
 
 You know that an operating system sits between your programs and the hardware. But which operating system? If you are going into SRE or DevOps, the answer is Linux. Not sometimes, not mostly — almost always. The overwhelming majority of servers, containers, and cloud instances on the internet run Linux. Understanding what Linux actually is, why it won, and how its ecosystem of distributions works is essential context for everything that follows.

@@ -1,27 +1,37 @@
 ---
-id: "expose-to-internet"
-title: "Exposing Services to the Internet"
-zone: "self-hosting"
+id: expose-to-internet
+title: Exposing Services to the Internet
+zone: self-hosting
 edges:
-  from:
-    - id: "tls-with-traefik"
-      question: "Works locally — now how do I access it when I'm not home?"
   to:
-    - id: "remote-access-just-me"
-      question: "I just want to be able to access it myself"
-      detail: "The moment I leave my home network, everything's unreachable. I want to pull up my files or media from my phone or laptop, wherever I am — without opening anything to the whole internet."
-    - id: "remote-access-shared"
-      question: "Me and some friends or family need access"
-      detail: "It's not just me — my partner or a few family members need to use this too. But I don't want it open to the whole internet, and I can't expect them to do anything complicated."
-    - id: "remote-access-public"
-      question: "It needs to be publicly accessible to anyone on the internet"
-      detail: "I want anyone with the URL to reach it — no account, no VPN, no setup on their end. That feels like a fundamentally different problem from just giving access to a few people."
+    - id: remote-access-just-me
+      question: I just want to be able to access it myself
+      detail: >-
+        The moment I leave my home network, everything's unreachable. I want to
+        pull up my files or media from my phone or laptop, wherever I am —
+        without opening anything to the whole internet.
+    - id: remote-access-shared
+      question: Me and some friends or family need access
+      detail: >-
+        It's not just me — my partner or a few family members need to use this
+        too. But I don't want it open to the whole internet, and I can't expect
+        them to do anything complicated.
+    - id: remote-access-public
+      question: It needs to be publicly accessible to anyone on the internet
+      detail: >-
+        I want anyone with the URL to reach it — no account, no VPN, no setup on
+        their end. That feels like a fundamentally different problem from just
+        giving access to a few people.
 difficulty: 1
-tags: ["self-hosting", "networking", "remote-access", "security"]
-category: "concept"
+tags:
+  - self-hosting
+  - networking
+  - remote-access
+  - security
+category: concept
 milestones:
-  - "Understand the three different remote access scenarios"
-  - "Know which approach fits your situation"
+  - Understand the three different remote access scenarios
+  - Know which approach fits your situation
 ---
 
 Your services work great at home. But the moment you leave, they're unreachable — because your home network is private by design. There's no direct path in from the internet.

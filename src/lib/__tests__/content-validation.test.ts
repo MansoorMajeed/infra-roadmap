@@ -58,10 +58,7 @@ describe("Content graph validation", () => {
     const errors: string[] = [];
     for (const zone of config.zones) {
       for (const node of getNodesByZone(zone.id)) {
-        const allEdges = [
-          ...(node.frontmatter.edges.from ?? []),
-          ...(node.frontmatter.edges.to ?? []),
-        ];
+        const allEdges = [...(node.frontmatter.edges.to ?? [])];
         for (const edge of allEdges) {
           if (edge.zone && !allZoneIds.has(edge.zone)) {
             errors.push(

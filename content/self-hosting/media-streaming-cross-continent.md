@@ -1,21 +1,27 @@
 ---
-id: "media-streaming-cross-continent"
-title: "Streaming Across Continents"
-zone: "self-hosting"
+id: media-streaming-cross-continent
+title: Streaming Across Continents
+zone: self-hosting
 edges:
-  from:
-    - id: "vps-wireguard-expose"
-      question: "My distant users get buffering — can I fix cross-continent streaming?"
   to: []
 difficulty: 3
-tags: ["self-hosting", "media", "streaming", "vps", "cdn", "nginx", "jellyfin", "plex", "dns"]
-category: "practice"
+tags:
+  - self-hosting
+  - media
+  - streaming
+  - vps
+  - cdn
+  - nginx
+  - jellyfin
+  - plex
+  - dns
+category: practice
 milestones:
-  - "Understand why cross-continent streaming fails on public internet paths"
-  - "Provision a second VPS in a region close to your users"
-  - "Configure the regional VPS to proxy to your origin VPS"
-  - "Set up latency-based DNS routing to direct users to their nearest VPS"
-  - "Verify 4K streaming works from the remote region"
+  - Understand why cross-continent streaming fails on public internet paths
+  - Provision a second VPS in a region close to your users
+  - Configure the regional VPS to proxy to your origin VPS
+  - Set up latency-based DNS routing to direct users to their nearest VPS
+  - Verify 4K streaming works from the remote region
 ---
 
 Your home server is in North America. A friend in Asia tries to stream 4K — it buffers constantly. The problem isn't your upload speed or their download speed: it's the path the packets take between the two continents.

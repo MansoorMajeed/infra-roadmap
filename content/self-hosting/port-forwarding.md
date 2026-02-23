@@ -1,20 +1,20 @@
 ---
-id: "port-forwarding"
-title: "Port Forwarding: The Direct Approach"
-zone: "self-hosting"
+id: port-forwarding
+title: 'Port Forwarding: The Direct Approach'
+zone: self-hosting
 edges:
-  from:
-    - id: "public-website"
-      question: "What about just forwarding a port on my router?"
-    - id: "public-media-streaming"
-      question: "What about just forwarding a port on my router?"
   to: []
 difficulty: 2
-tags: ["self-hosting", "networking", "port-forwarding", "public", "router"]
-category: "concept"
+tags:
+  - self-hosting
+  - networking
+  - port-forwarding
+  - public
+  - router
+category: concept
 milestones:
-  - "Understand what port forwarding does and what it exposes"
-  - "Know the limitations (ISP blocking, dynamic IP, exposed home IP)"
+  - Understand what port forwarding does and what it exposes
+  - 'Know the limitations (ISP blocking, dynamic IP, exposed home IP)'
 ---
 
 Port forwarding tells your router: "when traffic arrives on port X from the internet, send it to this local machine." No VPS, no tunnel, no third party. It's the original way to expose a home service, and it works.

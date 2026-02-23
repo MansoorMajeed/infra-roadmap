@@ -1,19 +1,22 @@
 ---
-id: "dns"
-title: "DNS: How Names Become Addresses"
-zone: "networking"
-edges:
-  from:
-    - id: "public-vs-private-ips"
-      question: "I understand public IPs. But nobody types IP addresses — they type domain names. How does that translation work?"
-      detail: "You understand that servers have public IPs and that the internet routes packets to them. But when you type google.com, your computer doesn't know Google's IP — it has to ask. That asking, and the system that answers, is DNS. It runs silently before every web request, every email, every API call."
+id: dns
+title: 'DNS: How Names Become Addresses'
+zone: networking
 difficulty: 1
-tags: ["dns", "domain", "nameserver", "records", "dig", "resolution"]
-category: "concept"
+tags:
+  - dns
+  - domain
+  - nameserver
+  - records
+  - dig
+  - resolution
+category: concept
 milestones:
-  - "Explain what happens between typing a domain name and the first packet being sent"
-  - "Use dig to look up DNS records for a domain"
-  - "Identify the common DNS record types and what each is used for"
+  - >-
+    Explain what happens between typing a domain name and the first packet being
+    sent
+  - Use dig to look up DNS records for a domain
+  - Identify the common DNS record types and what each is used for
 ---
 
 You've never typed `142.250.80.100` into your browser. You type `google.com`. But the internet only knows about IP addresses — there's no such thing as `google.com` at the network level. Something has to translate the name into an address before a single packet can be sent. That translation is **DNS** — the Domain Name System. It runs silently before every web request, every email, and every API call you've ever made.

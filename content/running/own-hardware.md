@@ -1,28 +1,40 @@
 ---
-id: "own-hardware"
-title: "Running on Your Own Hardware"
-zone: "running"
+id: own-hardware
+title: Running on Your Own Hardware
+zone: running
 edges:
-  from:
-    - id: "where-do-i-run-this"
-      question: "What if I don't want to rent a server — I want to use my own machine?"
-      detail: "Cloud and datacenters are the default answer for most people. But what if you have a Raspberry Pi, an old laptop, or a spare PC sitting around? You can run a Linux server on hardware you own. The trade-offs are real, but so are the advantages — and the skills are the same either way."
   to:
-    - id: "ssh"
-      question: "I have a Linux machine running at home. How do I connect to it?"
-      detail: "Whether your server is in a datacenter or under your desk, the interface is the same: SSH. You get a terminal that runs on the remote machine, and every command you type executes there. The only difference is where the hardware lives."
-    - id: "what-is-self-hosting"
-      zone: "self-hosting"
-      question: "I have my own hardware. What can I actually run on it?"
-      detail: "A Linux box at home is the foundation for self-hosting — running your own file sync, media server, home automation hub, and more. You own the hardware, you own the data, and there are no monthly fees. The rabbit hole goes deep."
+    - id: ssh
+      question: I have a Linux machine running at home. How do I connect to it?
+      detail: >-
+        Whether your server is in a datacenter or under your desk, the interface
+        is the same: SSH. You get a terminal that runs on the remote machine,
+        and every command you type executes there. The only difference is where
+        the hardware lives.
+    - id: what-is-self-hosting
+      zone: self-hosting
+      question: I have my own hardware. What can I actually run on it?
+      detail: >-
+        A Linux box at home is the foundation for self-hosting — running your
+        own file sync, media server, home automation hub, and more. You own the
+        hardware, you own the data, and there are no monthly fees. The rabbit
+        hole goes deep.
 difficulty: 1
-tags: ["self-hosting", "home-server", "raspberry-pi", "bare-metal", "homelab", "linux"]
-category: "concept"
+tags:
+  - self-hosting
+  - home-server
+  - raspberry-pi
+  - bare-metal
+  - homelab
+  - linux
+category: concept
 milestones:
-  - "Choose hardware suitable for a home server (Pi, mini PC, old laptop or desktop)"
-  - "Install Linux on bare metal (not just picking a cloud image)"
-  - "Assign a static local IP to your machine from your router"
-  - "SSH into your home server from another machine on the same network"
+  - >-
+    Choose hardware suitable for a home server (Pi, mini PC, old laptop or
+    desktop)
+  - Install Linux on bare metal (not just picking a cloud image)
+  - Assign a static local IP to your machine from your router
+  - SSH into your home server from another machine on the same network
 ---
 
 You don't have to rent a server. You can take an old PC, a Raspberry Pi, a used mini PC you found for $80 on eBay, and turn it into a Linux server that runs 24/7 in your home. This is the other answer to "where do I run this?" — and it's a completely valid one.

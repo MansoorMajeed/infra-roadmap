@@ -1,23 +1,22 @@
 ---
-id: "log-files"
-title: "Log Files & Logging"
-zone: "foundations"
+id: log-files
+title: Log Files & Logging
+zone: foundations
 edges:
-  from:
-    - id: "systemd-and-services"
-      question: "Services are running. How do I see what they are doing?"
-      detail: "You can start, stop, and manage services with systemd. But when something goes wrong — a service crashes, a request fails, a deployment breaks — you need to know what happened. That information is in the logs. Every service writes logs, and systemd's journal captures them all. Understanding where logs live, how to read them, and how to search through them is the core skill that turns 'something is broken' into 'I know exactly what went wrong.'"
-    - id: "files-and-filesystems"
-      question: "I understand files. Where do systems keep their logs?"
-      detail: "You know how the filesystem is organized and where things live. One of the most important categories of files for an SRE is logs — the records that every service, daemon, and system component writes to tell you what it is doing. Logs live in specific locations, follow specific formats, and can grow to enormous sizes. Understanding the logging ecosystem is essential because logs are your primary tool for understanding what happened when things go wrong."
   to: []
 difficulty: 1
-tags: ["logs", "syslog", "journalctl", "var-log", "log-rotation", "debugging"]
-category: "concept"
+tags:
+  - logs
+  - syslog
+  - journalctl
+  - var-log
+  - log-rotation
+  - debugging
+category: concept
 milestones:
-  - "Find and read relevant logs in /var/log for a running service"
-  - "Use journalctl to filter logs by service, time, and severity"
-  - "Explain what log rotation is and why it matters"
+  - Find and read relevant logs in /var/log for a running service
+  - 'Use journalctl to filter logs by service, time, and severity'
+  - Explain what log rotation is and why it matters
 ---
 
 When a server is misbehaving, the first thing you do as an SRE is check the logs. Logs are the running diary of everything happening on a system — every request handled, every error thrown, every service started or stopped. They are almost always the fastest path from "something is broken" to "I know what is broken." Knowing where logs live, how to read them efficiently, and how to search through gigabytes of log data is arguably the single most practical skill in this entire roadmap.

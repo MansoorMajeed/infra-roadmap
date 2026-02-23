@@ -50,6 +50,23 @@ Non-obvious decisions are documented in `docs/adr/`. Read the relevant ADR befor
 2. Ensure intra-zone `edges.to` IDs reference existing nodes
 3. To activate a zone: set `active: true` in `content/_zones.yaml`
 
+### Frontmatter edges format
+
+Edges are **outgoing only** — defined with `edges.to` on the source node. There is no `edges.from` field; incoming edges are implied by other nodes' `to` entries.
+
+```yaml
+edges:
+  to:
+    - id: "next-node-slug"
+      question: "..."
+      detail: "..."          # optional
+    - id: "other-node"
+      zone: "other-zone"     # cross-zone edges only
+      question: "..."
+```
+
+Nodes with no outgoing edges can omit `edges` entirely.
+
 ## Graph Design Principles
 
 **Branch out, don't go linear.** The whole point of the graph format is that people at different levels can take different paths. When a topic needs deeper explanation, create a side branch — not extra steps on the main path.

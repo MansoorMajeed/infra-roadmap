@@ -1,23 +1,22 @@
 ---
-id: "running-your-store"
-title: "Running Your Store"
-zone: "running"
+id: running-your-store
+title: Running Your Store
+zone: running
 edges:
-  from:
-    - id: "dns-and-domain-names"
-      question: "I have a domain name. How do I put it all together and deploy my app?"
-      detail: "You know how DNS translates names to IPs, how to register a domain, and how records work. Now it is time to put it all together — point your domain at your server, configure Nginx as a reverse proxy, get HTTPS with Certbot, and make your ecommerce store accessible to the world. This is the culmination of everything you have learned."
-    - id: "tls-and-certificates"
-      question: "I understand HTTPS and TLS. How do I put it all together and deploy?"
-      detail: "You know how TLS works, what certificates are, and how to get a free certificate with Let's Encrypt. Combined with DNS and web server knowledge, you have all the pieces. Now it is time to put it all together — deploy your Flask app with Gunicorn, configure Nginx, set up DNS, enable HTTPS, and make your store live."
   to: []
 difficulty: 2
-tags: ["deployment", "gunicorn", "nginx", "certbot", "systemd", "production"]
-category: "practice"
+tags:
+  - deployment
+  - gunicorn
+  - nginx
+  - certbot
+  - systemd
+  - production
+category: practice
 milestones:
-  - "Deploy a Flask app on a cloud VM with Gunicorn and Nginx"
-  - "Configure DNS, obtain a TLS certificate, and serve over HTTPS"
-  - "Access your running app from your phone using your domain name"
+  - Deploy a Flask app on a cloud VM with Gunicorn and Nginx
+  - 'Configure DNS, obtain a TLS certificate, and serve over HTTPS'
+  - Access your running app from your phone using your domain name
 ---
 
 This is it. You have built an ecommerce store — Flask app, database, the works. You understand networking, servers, Linux, web servers, DNS, and TLS. Now you are going to put it all together: take your app from your laptop and get it running on a real server, with a real domain name, over HTTPS, accessible to anyone in the world. This is the full deployment walkthrough.

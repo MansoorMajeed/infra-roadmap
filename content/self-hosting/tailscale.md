@@ -1,22 +1,24 @@
 ---
-id: "tailscale"
-title: "Tailscale: Private Network, Zero Configuration"
-zone: "self-hosting"
+id: tailscale
+title: 'Tailscale: Private Network, Zero Configuration'
+zone: self-hosting
 edges:
-  from:
-    - id: "remote-access-just-me"
-      question: "What's the simplest option? I just want it to work"
-    - id: "remote-access-shared"
-      question: "Can I share a private VPN with others?"
   to: []
 difficulty: 1
-tags: ["self-hosting", "tailscale", "vpn", "wireguard", "remote-access"]
-category: "tool"
+tags:
+  - self-hosting
+  - tailscale
+  - vpn
+  - wireguard
+  - remote-access
+category: tool
 milestones:
-  - "Install Tailscale on your home server"
-  - "Install Tailscale on your phone or laptop"
-  - "Access a home service by its Tailscale IP or MagicDNS name from outside your home"
-  - "Share access with at least one other person (if applicable)"
+  - Install Tailscale on your home server
+  - Install Tailscale on your phone or laptop
+  - >-
+    Access a home service by its Tailscale IP or MagicDNS name from outside your
+    home
+  - Share access with at least one other person (if applicable)
 ---
 
 Tailscale connects your devices into a private mesh network that works everywhere — no port forwarding, no dynamic DNS, no firewall rules. Install it, log in, and your devices find each other as if they were on the same LAN, regardless of where they are.

@@ -1,22 +1,20 @@
 ---
-id: "dhcp"
-title: "DHCP: How Devices Get Their IP"
-zone: "networking"
-edges:
-  from:
-    - id: "local-network"
-      question: "You connected to WiFi and got an IP address automatically. How does that work?"
-      detail: "When you join a network, you don't manually configure an IP address — one just appears. Something on the network noticed you arrived and handed you an address, a gateway, and a DNS server. That something is DHCP, and understanding it closes the loop on how devices actually join a network."
-    - id: "ip-addresses"
-      question: "Every device needs an IP. But how does your device actually get one assigned to it?"
-      detail: "You know what an IP address is and how they're structured. But when you connected to WiFi this morning, you didn't type anything — your device just got an address. Understanding DHCP explains that automatic assignment and what's actually happening in the brief moment when your device first joins a network."
+id: dhcp
+title: 'DHCP: How Devices Get Their IP'
+zone: networking
 difficulty: 1
-tags: ["dhcp", "ip", "network", "automatic", "lease", "gateway"]
-category: "concept"
+tags:
+  - dhcp
+  - ip
+  - network
+  - automatic
+  - lease
+  - gateway
+category: concept
 milestones:
-  - "Explain the DHCP DORA process in plain terms"
-  - "Identify what information DHCP assigns beyond just an IP address"
-  - "Understand what a DHCP lease is and why leases expire"
+  - Explain the DHCP DORA process in plain terms
+  - Identify what information DHCP assigns beyond just an IP address
+  - Understand what a DHCP lease is and why leases expire
 ---
 
 Every time you connect to WiFi, your device gets an IP address — and you didn't type anything. No configuration screen, no decision to make, it just works. That is **DHCP** — the Dynamic Host Configuration Protocol. It's the protocol that automatically assigns IP addresses (and a few other critical settings) to devices when they join a network. Every home router runs a DHCP server, and so does every corporate network and cloud environment.

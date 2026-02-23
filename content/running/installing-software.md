@@ -1,23 +1,38 @@
 ---
-id: "installing-software"
-title: "Installing Software on Linux"
-zone: "running"
+id: installing-software
+title: Installing Software on Linux
+zone: running
 edges:
-  from:
-    - id: "initial-server-setup"
-      question: "My server is secured. How do I install the software my app needs?"
-      detail: "You have a properly secured server with a non-root user and SSH key authentication. Now you need to install your application's runtime — Node.js, Python, or whatever your app is written in. This means using the package manager to install software on Linux."
   to:
-    - id: "ports-and-listening"
-      question: "I have my runtime installed and my app running. How does traffic actually reach it?"
-      detail: "My app is running, but when I try to access it from another machine nothing comes through. I don't really understand what a port is or how traffic is supposed to get from the internet to the process running on my server."
+    - id: ports-and-listening
+      question: >-
+        I have my runtime installed and my app running. How does traffic
+        actually reach it?
+      detail: >-
+        My app is running, but when I try to access it from another machine
+        nothing comes through. I don't really understand what a port is or how
+        traffic is supposed to get from the internet to the process running on
+        my server.
 difficulty: 1
-tags: ["apt", "package-manager", "ubuntu", "nodejs", "python", "runtime", "dependencies"]
-category: "practice"
+tags:
+  - apt
+  - package-manager
+  - ubuntu
+  - nodejs
+  - python
+  - runtime
+  - dependencies
+category: practice
 milestones:
-  - "Install a package using apt and understand the difference between apt update and apt install"
-  - "Install Node.js or Python on a fresh Ubuntu server using the correct method for your runtime"
-  - "Understand why some software needs a third-party repository instead of the default Ubuntu repos"
+  - >-
+    Install a package using apt and understand the difference between apt update
+    and apt install
+  - >-
+    Install Node.js or Python on a fresh Ubuntu server using the correct method
+    for your runtime
+  - >-
+    Understand why some software needs a third-party repository instead of the
+    default Ubuntu repos
 ---
 
 Linux distributions ship with a package manager — a tool for finding, downloading, installing, and updating software. On Ubuntu (and Debian), that is `apt`. It is the primary way you install everything on a server: your app's runtime, web server, database, monitoring tools, everything.

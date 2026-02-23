@@ -1,19 +1,20 @@
 ---
-id: "bgp"
-title: "BGP: How the Internet Shares Routes"
-zone: "networking"
-edges:
-  from:
-    - id: "how-packets-travel"
-      question: "I understand how routers forward packets. But how do they know about all the routes on the internet?"
-      detail: "A router forwards packets based on its routing table. But how did those table entries get there? No one manually configured every route on every router. There's a protocol that routers use to share routing information with each other — telling the world about the networks they can reach. That protocol is BGP."
+id: bgp
+title: 'BGP: How the Internet Shares Routes'
+zone: networking
 difficulty: 3
-tags: ["bgp", "routing", "autonomous-system", "internet", "peering", "as"]
-category: "concept"
+tags:
+  - bgp
+  - routing
+  - autonomous-system
+  - internet
+  - peering
+  - as
+category: concept
 milestones:
-  - "Explain what an Autonomous System is and give examples"
-  - "Describe how BGP lets ISPs and networks exchange routing information"
-  - "Understand why a BGP misconfiguration can cause widespread internet outages"
+  - Explain what an Autonomous System is and give examples
+  - Describe how BGP lets ISPs and networks exchange routing information
+  - Understand why a BGP misconfiguration can cause widespread internet outages
 ---
 
 There are roughly 900,000 routes on the internet. Every major router knows how to reach every network in the world. No one typed those routes in manually — they were learned automatically through **BGP**, the Border Gateway Protocol. BGP is the protocol that lets the internet's networks tell each other "I can reach these IP ranges — send traffic my way." It is the glue that holds the internet together, and when it breaks, large parts of the internet break with it.

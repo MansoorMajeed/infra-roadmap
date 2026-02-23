@@ -1,26 +1,34 @@
 ---
-id: "how-packets-travel"
-title: "How Packets Travel the Internet"
-zone: "networking"
+id: how-packets-travel
+title: How Packets Travel the Internet
+zone: networking
 edges:
-  from:
-    - id: "subnets-and-cidr"
-      question: "Traffic between subnets needs a router. But how does a router know where to send a packet?"
-      detail: "You know that packets between subnets must pass through a router, and that routing tables tell a device where to forward traffic. But your routing table only has a few entries — 'local subnet: direct' and 'everything else: send to gateway.' What happens after that gateway? How does a packet find its way across the internet through potentially dozens of routers?"
-    - id: "public-vs-private-ips"
-      question: "I know about public IPs. But how does a packet actually travel across the internet to reach one?"
-      detail: "You understand that public IPs are routable across the internet. But what does that journey look like in practice? A packet from your laptop to a server in Tokyo might hop through a dozen routers, crossing ISP networks and undersea cables. Each router makes an independent decision. Understanding this journey is understanding how the internet fundamentally works."
   to:
-    - id: "bgp"
-      question: "I understand how routers forward packets. But how do they know about all the routes on the internet?"
-      detail: "My home router just has 'send everything to my ISP' — but somehow ISPs and major networks know about every IP block on the internet. Nobody manually configured millions of routes on millions of routers. Something must be letting them share and update that knowledge automatically. How does a router on one continent know how to reach a network it's never directly connected to?"
+    - id: bgp
+      question: >-
+        I understand how routers forward packets. But how do they know about all
+        the routes on the internet?
+      detail: >-
+        My home router just has 'send everything to my ISP' — but somehow ISPs
+        and major networks know about every IP block on the internet. Nobody
+        manually configured millions of routes on millions of routers. Something
+        must be letting them share and update that knowledge automatically. How
+        does a router on one continent know how to reach a network it's never
+        directly connected to?
 difficulty: 2
-tags: ["routing", "packets", "ttl", "traceroute", "hops", "gateway", "internet"]
-category: "concept"
+tags:
+  - routing
+  - packets
+  - ttl
+  - traceroute
+  - hops
+  - gateway
+  - internet
+category: concept
 milestones:
-  - "Describe what happens at each hop as a packet travels to its destination"
-  - "Run traceroute and interpret the output"
-  - "Explain what TTL is and why it exists"
+  - Describe what happens at each hop as a packet travels to its destination
+  - Run traceroute and interpret the output
+  - Explain what TTL is and why it exists
 ---
 
 Your laptop sends a packet to a server on the other side of the world. Between you and it: a dozen routers across multiple countries, owned by different companies. Your packet didn't teleport — it **hopped**. Each router received the packet, looked at the destination IP, made a decision about where to forward it next, and sent it on its way. Understanding those decisions is understanding how the internet actually works.

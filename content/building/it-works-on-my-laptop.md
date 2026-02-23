@@ -1,46 +1,37 @@
 ---
-id: "it-works-on-my-laptop"
-title: "It Works on My Laptop"
-zone: "building"
+id: it-works-on-my-laptop
+title: It Works on My Laptop
+zone: building
 edges:
-  from:
-    - id: "dynamic-web-app"
-      question: "My app works locally. How do I let other people use it?"
-      detail: "You have a working application on your laptop — a Flask app, a database, the whole thing. But it only works on localhost. Nobody else can access it. The moment you try to share it, you run into a wall: networking, servers, domains, ports. Getting from 'works on my machine' to 'works for everyone' is a fundamental challenge."
-    - id: "nosql-databases"
-      question: "I understand my data layer options. How do I get this whole thing running for real?"
-      detail: "You know about relational databases, NoSQL, caching, file storage — you can pick the right tool for the job. But all of this is still running on your laptop. Getting a database-backed application deployed means understanding not just the app, but networking, servers, and how all the pieces connect in a real environment."
-    - id: "caching-and-redis"
-      question: "My app is fast and data-aware. Time to get it off my laptop."
-      detail: "Your application is now backed by a database, sped up with caching, and handling data efficiently. But it is still running locally. Deploying a cached, database-backed application means understanding how all these pieces — app server, database, cache — connect over a network and run on real machines."
-    - id: "file-and-object-storage"
-      question: "I can handle files and data. Now how do I deploy all of this?"
-      detail: "Your application now handles structured data in a database and files in storage. Locally, the files just sit on your filesystem. But in production, where do they go? You cannot rely on a single server's disk. This is where cloud storage, networking, and deployment architecture all come together."
-    - id: "apis-and-rest"
-      question: "I have a clean API. How do I expose it to the world?"
-      detail: "You have built a REST API that cleanly separates your backend logic from the frontend. Locally, you can curl your endpoints and everything works. But APIs are meant to be consumed by other systems — mobile apps, frontend SPAs, third-party integrations. Getting your API accessible on the internet, secured, and reliable is the next step."
-    - id: "testing-basics"
-      question: "My code is tested and I'm confident it works. Now how do I run it somewhere real?"
-      detail: "You have tests that verify your code works. Locally, you run pytest and everything passes. But tests on your laptop do not guarantee the app works in production. Different environments, different databases, different configurations — deploying means making your tested code run reliably on someone else's machine."
-    - id: "version-control-git"
-      question: "I can manage my code properly now. How do I actually get it running for others?"
-      detail: "You have your code in a Git repository, you can branch, merge, and collaborate. But the code still only runs on your laptop. Pushing to GitHub does not mean your app is deployed — it means your source code is backed up. Getting a running application in front of users is a different challenge entirely."
   to:
-    - id: "local-network"
-      zone: "networking"
-      question: "Why can't anyone else reach my app? What even is a network?"
-      detail: "I bound to 0.0.0.0 and my phone can reach the app when we're on the same WiFi — but my friend across town still can't. I don't understand why. There must be something about how networks are structured that explains this, but I don't know what I'm missing."
-    - id: "where-do-i-run-this"
-      zone: "running"
-      question: "My app works locally. Where do I actually run this for real?"
-      detail: "I can't run a production service from my laptop — it goes to sleep, I carry it around, the IP changes. I need something that's always on and always reachable. But I have no idea what that actually means or what my options are."
+    - id: local-network
+      zone: networking
+      question: Why can't anyone else reach my app? What even is a network?
+      detail: >-
+        I bound to 0.0.0.0 and my phone can reach the app when we're on the same
+        WiFi — but my friend across town still can't. I don't understand why.
+        There must be something about how networks are structured that explains
+        this, but I don't know what I'm missing.
+    - id: where-do-i-run-this
+      zone: running
+      question: My app works locally. Where do I actually run this for real?
+      detail: >-
+        I can't run a production service from my laptop — it goes to sleep, I
+        carry it around, the IP changes. I need something that's always on and
+        always reachable. But I have no idea what that actually means or what my
+        options are.
 difficulty: 1
-tags: ["localhost", "networking", "deployment", "ports", "development-environment"]
-category: "concept"
+tags:
+  - localhost
+  - networking
+  - deployment
+  - ports
+  - development-environment
+category: concept
 milestones:
-  - "Understand why localhost is only accessible from your own machine"
-  - "Try to access your app from another device on the same network"
-  - "Identify what you would need to make your app publicly accessible"
+  - Understand why localhost is only accessible from your own machine
+  - Try to access your app from another device on the same network
+  - Identify what you would need to make your app publicly accessible
 ---
 
 You built an online store. It has products, users, a shopping cart, checkout — the works. You run `python app.py`, open `http://localhost:5000` in your browser, and everything works perfectly. Then you try to share it with a friend. You send them the URL. They cannot connect. You text them "just go to localhost:5000" and they tell you it does not work. Of course it does not — localhost means your machine, and your machine only.

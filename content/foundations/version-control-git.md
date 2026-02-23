@@ -1,23 +1,29 @@
 ---
-id: "version-control-git"
-title: "Version Control with Git"
-zone: "foundations"
+id: version-control-git
+title: Version Control with Git
+zone: foundations
 edges:
-  from:
-    - id: "text-editors-and-ides"
-      question: "I can edit files. But how do I track changes and collaborate?"
-      detail: "You're editing code and config files, but what happens when you break something and need to go back? Or when multiple people need to work on the same files? You need a system that tracks every change, lets you rewind mistakes, and enables collaboration without chaos. That system is Git — the foundation of every modern development and infrastructure workflow."
   to:
-    - id: "scripting-bash-python"
-      question: "I can track my code. Now let me write something more powerful."
-      detail: "I can track my changes and I have a proper editor workflow now. The next thing I want is to stop doing repetitive things by hand — running the same sequences of commands, copying the same files. Is scripting the answer to that, and what does it actually look like in practice?"
+    - id: scripting-bash-python
+      question: I can track my code. Now let me write something more powerful.
+      detail: >-
+        I can track my changes and I have a proper editor workflow now. The next
+        thing I want is to stop doing repetitive things by hand — running the
+        same sequences of commands, copying the same files. Is scripting the
+        answer to that, and what does it actually look like in practice?
 difficulty: 1
-tags: ["git", "version-control", "github", "collaboration", "commits", "branches"]
-category: "tool"
+tags:
+  - git
+  - version-control
+  - github
+  - collaboration
+  - commits
+  - branches
+category: tool
 milestones:
-  - "Initialize a repo, make commits, and view the log"
-  - "Create a branch, make changes, and merge it back"
-  - "Push code to GitHub"
+  - 'Initialize a repo, make commits, and view the log'
+  - 'Create a branch, make changes, and merge it back'
+  - Push code to GitHub
 ---
 
 Git is the version control system that tracks every change you make to your code, lets you rewind to any previous state, and makes it possible for teams of hundreds of engineers to work on the same codebase without stepping on each other's toes. It is not optional -- every professional software and infrastructure workflow depends on Git, and understanding it deeply will pay dividends every single day of your career.

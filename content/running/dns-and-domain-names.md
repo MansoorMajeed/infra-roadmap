@@ -1,23 +1,29 @@
 ---
-id: "dns-and-domain-names"
-title: "DNS & Domain Names"
-zone: "running"
+id: dns-and-domain-names
+title: DNS & Domain Names
+zone: running
 edges:
-  from:
-    - id: "web-servers"
-      question: "My web server works, but I'm using raw IP addresses. How do I give my site a real name?"
-      detail: "Your Nginx server is running and serving pages. But you are accessing it by IP address — 192.168.1.42 on your LAN, or 73.42.100.15 on a cloud server. Nobody wants to type that. Every real website has a domain name — google.com, github.com. Something has to translate those names into IP addresses, and that system is DNS."
   to:
-    - id: "running-your-store"
-      question: "I have a domain name. How do I put it all together and deploy my app?"
-      detail: "I've got DNS pointing at my server and all the pieces working separately. But I've never assembled them into a real live deployment — Nginx in front, HTTPS configured, actual domain in the browser. What does putting all of it together actually look like?"
+    - id: running-your-store
+      question: I have a domain name. How do I put it all together and deploy my app?
+      detail: >-
+        I've got DNS pointing at my server and all the pieces working
+        separately. But I've never assembled them into a real live deployment —
+        Nginx in front, HTTPS configured, actual domain in the browser. What
+        does putting all of it together actually look like?
 difficulty: 1
-tags: ["dns", "domain-names", "nameservers", "udp", "dig", "nslookup"]
-category: "concept"
+tags:
+  - dns
+  - domain-names
+  - nameservers
+  - udp
+  - dig
+  - nslookup
+category: concept
 milestones:
-  - "Understand how a DNS query resolves a domain name to an IP address"
-  - "Use dig and nslookup to query DNS records"
-  - "Explain why DNS uses UDP and when it falls back to TCP"
+  - Understand how a DNS query resolves a domain name to an IP address
+  - Use dig and nslookup to query DNS records
+  - Explain why DNS uses UDP and when it falls back to TCP
 ---
 
 You have a server at `73.42.100.15`. You tell your friend to visit your website. Are you going to say "go to seventy-three dot forty-two dot one hundred dot fifteen"? Of course not. You want them to type `mystore.com`. But computers do not understand `mystore.com` — they need an IP address. Something has to translate the name into a number. That something is **DNS**.

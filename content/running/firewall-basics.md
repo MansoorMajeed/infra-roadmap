@@ -1,23 +1,29 @@
 ---
-id: "firewall-basics"
-title: "Firewall Basics"
-zone: "running"
+id: firewall-basics
+title: Firewall Basics
+zone: running
 edges:
-  from:
-    - id: "ports-and-listening"
-      question: "My app is listening on a port. Who can actually connect to it from the internet?"
-      detail: "Your app is bound to a port and listening for connections. But is the firewall allowing traffic on that port? The firewall sits in front of your app and controls which ports are reachable from the outside world. Without opening the right ports, nobody can reach your server."
   to:
-    - id: "deploying-your-code"
-      question: "My server is set up and secured. Now how do I get my code onto it?"
-      detail: "The server is locked down and my runtime is installed. But my code is still sitting on my laptop. How do I actually get it onto the server?"
+    - id: deploying-your-code
+      question: My server is set up and secured. Now how do I get my code onto it?
+      detail: >-
+        The server is locked down and my runtime is installed. But my code is
+        still sitting on my laptop. How do I actually get it onto the server?
 difficulty: 1
-tags: ["firewall", "ufw", "security-groups", "ports", "iptables", "network-security"]
-category: "practice"
+tags:
+  - firewall
+  - ufw
+  - security-groups
+  - ports
+  - iptables
+  - network-security
+category: practice
 milestones:
-  - "Configure ufw to allow only SSH, HTTP, and HTTPS and deny everything else"
-  - "Explain the difference between a host-based firewall (ufw) and a cloud security group"
-  - "Safely change firewall rules without locking yourself out of SSH"
+  - 'Configure ufw to allow only SSH, HTTP, and HTTPS and deny everything else'
+  - >-
+    Explain the difference between a host-based firewall (ufw) and a cloud
+    security group
+  - Safely change firewall rules without locking yourself out of SSH
 ---
 
 A firewall controls which network traffic is allowed into and out of your server. Without one, every port your server has open — your app, any database, any internal service — is potentially reachable from anywhere on the internet. Bots and scanners probe servers constantly looking for exposed services to exploit.

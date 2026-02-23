@@ -1,24 +1,32 @@
 ---
-id: "ansible-intro"
-title: "Configuration Management with Ansible"
-zone: "delivery"
+id: ansible-intro
+title: Configuration Management with Ansible
+zone: delivery
 edges:
-  from:
-    - id: "iac-intro"
-      question: "I want to understand how to configure servers with code before jumping into Terraform."
-      detail: "Terraform provisions infrastructure, but something still has to configure what runs on it. Ansible is the dominant tool for this: it connects over SSH and applies configuration to servers using simple YAML playbooks."
   to:
-    - id: "terraform-basics"
-      question: "I understand Ansible for server configuration. Now I want to provision the infrastructure itself."
-      detail: "Ansible configures servers that already exist. But who creates the servers in the first place? I'm still clicking through the cloud console to spin up infrastructure, and that feels just as manual as the problem I just solved. There must be a way to define the infrastructure itself as code."
+    - id: terraform-basics
+      question: >-
+        I understand Ansible for server configuration. Now I want to provision
+        the infrastructure itself.
+      detail: >-
+        Ansible configures servers that already exist. But who creates the
+        servers in the first place? I'm still clicking through the cloud console
+        to spin up infrastructure, and that feels just as manual as the problem
+        I just solved. There must be a way to define the infrastructure itself
+        as code.
 difficulty: 2
-tags: ["ansible", "configuration-management", "automation", "playbooks", "idempotency"]
-category: "tool"
+tags:
+  - ansible
+  - configuration-management
+  - automation
+  - playbooks
+  - idempotency
+category: tool
 milestones:
-  - "Install Ansible and connect to a server via SSH"
-  - "Write a playbook that installs a package and starts a service"
-  - "Understand what idempotency means and why it matters in automation"
-  - "Use variables and templates in a playbook"
+  - Install Ansible and connect to a server via SSH
+  - Write a playbook that installs a package and starts a service
+  - Understand what idempotency means and why it matters in automation
+  - Use variables and templates in a playbook
 ---
 
 Ansible connects to servers over SSH and applies configuration using YAML playbooks. No agent installed on the target server. No daemon running anywhere. Just SSH, Python on the remote host, and a YAML file describing what the server should look like.

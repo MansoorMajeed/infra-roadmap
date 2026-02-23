@@ -1,22 +1,28 @@
 ---
-id: "how-computers-run-code"
-title: "How Computers Run Code"
-zone: "foundations"
+id: how-computers-run-code
+title: How Computers Run Code
+zone: foundations
 edges:
-  from:
-    - id: "hello-world"
-      question: "I wrote code and it ran... but how?"
-      detail: "You typed some text, hit run, and words appeared on screen. But what actually happened between pressing 'run' and seeing output? Your code went through a journey — from human-readable text to something a CPU can execute. Understanding that journey explains why different languages exist and why some programs are fast while others are slow."
   to:
-    - id: "operating-system-basics"
-      question: "Code runs on hardware. But what manages all that?"
-      detail: "My code runs, but I also have a browser, a music player, and a dozen other things running at the same time. How does the computer handle all of that simultaneously? And how does my program get access to the disk or network without directly touching the hardware? Something must be coordinating all of this — what is it?"
+    - id: operating-system-basics
+      question: Code runs on hardware. But what manages all that?
+      detail: >-
+        My code runs, but I also have a browser, a music player, and a dozen
+        other things running at the same time. How does the computer handle all
+        of that simultaneously? And how does my program get access to the disk
+        or network without directly touching the hardware? Something must be
+        coordinating all of this — what is it?
 difficulty: 1
-tags: ["cpu", "compilation", "interpretation", "machine-code", "hardware"]
-category: "concept"
+tags:
+  - cpu
+  - compilation
+  - interpretation
+  - machine-code
+  - hardware
+category: concept
 milestones:
-  - "Explain the difference between compiled and interpreted languages"
-  - "Understand what the CPU actually does with your code"
+  - Explain the difference between compiled and interpreted languages
+  - Understand what the CPU actually does with your code
 ---
 
 When you ran that Hello World program, something remarkable happened behind the scenes. Your human-readable code got transformed into a stream of ones and zeros that a tiny chip in your computer -- the CPU -- could understand and execute. Understanding this transformation is the key to understanding why some programs are fast, why some crash, and why different programming languages exist in the first place.

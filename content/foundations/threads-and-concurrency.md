@@ -1,23 +1,29 @@
 ---
-id: "threads-and-concurrency"
-title: "Threads & Concurrency"
-zone: "foundations"
+id: threads-and-concurrency
+title: Threads & Concurrency
+zone: foundations
 edges:
-  from:
-    - id: "what-is-a-process"
-      question: "A process runs code. But what if it needs to do many things at once?"
-      detail: "A process is a single running program, but modern applications need to handle thousands of requests simultaneously. A web server cannot process one request at a time. This is where threads come in — lightweight units of execution within a process that share memory and can run in parallel. Understanding threads versus processes, and the trade-offs between them, is essential for debugging performance issues and understanding how production services actually work."
   to:
-    - id: "programming-fundamentals"
-      question: "I understand how programs run. Now how do I write them?"
-      detail: "I understand the machinery — processes, threads, how the OS manages them. But understanding how something runs isn't the same as being able to write it. I want to go from 'I know what a program is' to 'I can actually write one.' Where do I start?"
+    - id: programming-fundamentals
+      question: I understand how programs run. Now how do I write them?
+      detail: >-
+        I understand the machinery — processes, threads, how the OS manages
+        them. But understanding how something runs isn't the same as being able
+        to write it. I want to go from 'I know what a program is' to 'I can
+        actually write one.' Where do I start?
 difficulty: 1
-tags: ["threads", "concurrency", "parallelism", "multi-threading", "race-condition", "context-switch"]
-category: "concept"
+tags:
+  - threads
+  - concurrency
+  - parallelism
+  - multi-threading
+  - race-condition
+  - context-switch
+category: concept
 milestones:
-  - "Explain the difference between a process and a thread"
-  - "Use ps -eLf or top -H to view threads of a running process"
-  - "Explain why a single-threaded web server cannot handle many users"
+  - Explain the difference between a process and a thread
+  - Use ps -eLf or top -H to view threads of a running process
+  - Explain why a single-threaded web server cannot handle many users
 ---
 
 A process is great for running one thing. But what happens when a web server needs to handle ten thousand connections at the same time? Creating ten thousand separate processes would be absurdly expensive — each one gets its own memory space, its own resources. This is why **threads** exist. A thread is a lightweight unit of execution that lives inside a process, shares its memory, and can run alongside other threads. Most production software you will manage as an SRE is multi-threaded, and understanding this is how you make sense of CPU usage, thread pool exhaustion, and deadlocks.

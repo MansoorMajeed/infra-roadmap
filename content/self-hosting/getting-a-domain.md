@@ -1,24 +1,30 @@
 ---
-id: "getting-a-domain"
-title: "Getting a Domain Name for Your Services"
-zone: "self-hosting"
+id: getting-a-domain
+title: Getting a Domain Name for Your Services
+zone: self-hosting
 edges:
-  from:
-    - id: "reverse-proxy"
-      question: "How do I get a domain name to route to my services?"
-      detail: "Do I need to buy a real domain, or are there free options? And does it need to be a public domain, or can I use something that only resolves on my local network?"
   to:
-    - id: "tls-with-traefik"
-      question: "I have a domain — now I want HTTPS on everything"
-      detail: "My browser still shows a security warning even though everything routes correctly. Do I need to buy a certificate? And how do I actually get it installed?"
+    - id: tls-with-traefik
+      question: I have a domain — now I want HTTPS on everything
+      detail: >-
+        My browser still shows a security warning even though everything routes
+        correctly. Do I need to buy a certificate? And how do I actually get it
+        installed?
 difficulty: 1
-tags: ["self-hosting", "dns", "domain", "cloudflare", "networking"]
-category: "concept"
+tags:
+  - self-hosting
+  - dns
+  - domain
+  - cloudflare
+  - networking
+category: concept
 milestones:
-  - "Understand the difference between a public domain and a local hostname"
-  - "Register a domain or set up a free subdomain"
-  - "Point your domain's DNS to Cloudflare"
-  - "Understand how split-horizon DNS works (resolving to a local IP from inside your home)"
+  - Understand the difference between a public domain and a local hostname
+  - Register a domain or set up a free subdomain
+  - Point your domain's DNS to Cloudflare
+  - >-
+    Understand how split-horizon DNS works (resolving to a local IP from inside
+    your home)
 ---
 
 Your reverse proxy routes traffic by hostname — `passwords.yourdomain.com` to Vaultwarden, `photos.yourdomain.com` to Immich. For that to work, you need a domain name and you need DNS to resolve it.

@@ -1,30 +1,32 @@
 ---
-id: "scripting-bash-python"
-title: "Scripting: Bash & Python"
-zone: "foundations"
+id: scripting-bash-python
+title: 'Scripting: Bash & Python'
+zone: foundations
 edges:
-  from:
-    - id: "programming-fundamentals"
-      question: "I know the theory. Let me apply it to automate real tasks."
-      detail: "You understand variables, loops, functions, and data structures. Now it's time to put that knowledge to work with the two languages SREs use most: Bash for quick terminal automation and Python for anything more complex. Scripting is where programming stops being academic and starts saving you hours of repetitive work every week."
-    - id: "version-control-git"
-      question: "I can track my code. Now let me write something more powerful."
-      detail: "You have your editor, you have version control — now it's time to write scripts that actually do useful work. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. Together, they're the bread and butter of SRE automation — turning repetitive manual tasks into one-command solutions."
-    - id: "environment-and-shell-config"
-      question: "My environment is set up. Now let me automate things."
-      detail: "You understand how the shell works — environment variables, config files, PATH, aliases. Now it is time to go from typing commands interactively to writing scripts that run unattended. Bash scripts let you automate terminal workflows, while Python gives you the power to process data, interact with APIs, and build real tools. This is where all the shell knowledge you have built up becomes genuinely productive."
   to:
-    - id: "static-site"
-      zone: "building"
-      question: "Scripts are great, but I want to build something people can actually see."
-      detail: "Scripts are great for automation, but I want to build something with a UI — a page someone can visit, or a service that responds to requests. I'm not sure how scripts relate to that at all. What's the gap between 'writing scripts' and 'building something for the web'?"
+    - id: static-site
+      zone: building
+      question: >-
+        Scripts are great, but I want to build something people can actually
+        see.
+      detail: >-
+        Scripts are great for automation, but I want to build something with a
+        UI — a page someone can visit, or a service that responds to requests.
+        I'm not sure how scripts relate to that at all. What's the gap between
+        'writing scripts' and 'building something for the web'?
 difficulty: 1
-tags: ["bash", "python", "scripting", "automation", "cron", "shell-scripting"]
-category: "practice"
+tags:
+  - bash
+  - python
+  - scripting
+  - automation
+  - cron
+  - shell-scripting
+category: practice
 milestones:
-  - "Write a bash script that automates a repetitive task"
-  - "Write a Python script that processes a file"
-  - "Set up a cron job"
+  - Write a bash script that automates a repetitive task
+  - Write a Python script that processes a file
+  - Set up a cron job
 ---
 
 Scripting is where programming stops being theoretical and starts saving you real time. A bash script can automate that tedious deployment process you do every week, a Python script can parse log files and extract the exact error patterns you need, and a cron job can run either of them on a schedule while you sleep. This is the bridge between "I know how to code" and "I use code to make my life dramatically easier."

@@ -1,23 +1,32 @@
 ---
-id: "nosql-databases"
-title: "NoSQL Databases"
-zone: "building"
+id: nosql-databases
+title: NoSQL Databases
+zone: building
 edges:
-  from:
-    - id: "databases-and-sql"
-      question: "What if my data doesn't fit neatly into rows and columns?"
-      detail: "Relational databases work beautifully when your data is structured and predictable — users, orders, products. But what about chat messages with varying metadata, sensor readings with flexible schemas, or user profiles where every user has different fields? NoSQL databases trade the rigid structure of tables for flexibility, and they are everywhere in modern infrastructure."
   to:
-    - id: "it-works-on-my-laptop"
-      question: "I understand my data layer options. How do I get this whole thing running for real?"
-      detail: "Everything works on my laptop — app, database, cache. But running it for real means all of these pieces have to live somewhere on an actual server, talking to each other over a network I don't fully understand yet. How does any of this connect?"
+    - id: it-works-on-my-laptop
+      question: >-
+        I understand my data layer options. How do I get this whole thing
+        running for real?
+      detail: >-
+        Everything works on my laptop — app, database, cache. But running it for
+        real means all of these pieces have to live somewhere on an actual
+        server, talking to each other over a network I don't fully understand
+        yet. How does any of this connect?
 difficulty: 2
-tags: ["nosql", "mongodb", "dynamodb", "document-store", "key-value"]
-category: "concept"
+tags:
+  - nosql
+  - mongodb
+  - dynamodb
+  - document-store
+  - key-value
+category: concept
 milestones:
-  - "Understand the difference between document, key-value, column-family, and graph databases"
-  - "Set up MongoDB and perform basic CRUD operations"
-  - "Identify scenarios where NoSQL is a better fit than SQL"
+  - >-
+    Understand the difference between document, key-value, column-family, and
+    graph databases
+  - Set up MongoDB and perform basic CRUD operations
+  - Identify scenarios where NoSQL is a better fit than SQL
 ---
 
 You are building a content platform where every post can have completely different metadata — blog posts have word counts and categories, videos have duration and resolution, podcasts have episode numbers and guest lists. Trying to cram all of this into rigid SQL tables means dozens of nullable columns or ugly workarounds. NoSQL databases let each record have its own shape, and for certain problems, that flexibility is exactly what you need.

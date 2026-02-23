@@ -1,28 +1,41 @@
 ---
-id: "the-terminal"
-title: "The Terminal"
-zone: "foundations"
+id: the-terminal
+title: The Terminal
+zone: foundations
 edges:
-  from:
-    - id: "linux-and-distros"
-      question: "I understand Linux. How do I actually use it?"
-      detail: "You know what Linux is and why it dominates servers. But knowing about Linux and actually using it are very different things. The primary way you interact with a Linux system — especially a server with no graphical interface — is through the terminal. It is where you run commands, manage files, install software, and troubleshoot problems. Time to get your hands dirty."
   to:
-    - id: "what-is-a-process"
-      question: "I ran a command. What actually happened?"
-      detail: "I typed a command and it ran. But what actually happened? I see it appear in the process list, I can kill it, it has a PID — but I don't understand what any of that means underneath. What is the thing I just created when I ran that command?"
-    - id: "pipes-and-redirection"
-      question: "I can run commands. How do I combine them?"
-      detail: "I keep running one command, writing down the result, then running the next command with that result. There must be a way to feed output directly from one command into another without all the manual in-between steps. And I want to save output to a file sometimes too — how does all of that work?"
-    - id: "text-editors-and-ides"
-      question: "I need to write and edit files. What tools do I use?"
-      detail: "I keep having to edit files on the server and I have no idea what to open them with. I tried vim once and couldn't even figure out how to quit. Is there a sane way to approach this?"
+    - id: what-is-a-process
+      question: I ran a command. What actually happened?
+      detail: >-
+        I typed a command and it ran. But what actually happened? I see it
+        appear in the process list, I can kill it, it has a PID — but I don't
+        understand what any of that means underneath. What is the thing I just
+        created when I ran that command?
+    - id: pipes-and-redirection
+      question: I can run commands. How do I combine them?
+      detail: >-
+        I keep running one command, writing down the result, then running the
+        next command with that result. There must be a way to feed output
+        directly from one command into another without all the manual in-between
+        steps. And I want to save output to a file sometimes too — how does all
+        of that work?
+    - id: text-editors-and-ides
+      question: I need to write and edit files. What tools do I use?
+      detail: >-
+        I keep having to edit files on the server and I have no idea what to
+        open them with. I tried vim once and couldn't even figure out how to
+        quit. Is there a sane way to approach this?
 difficulty: 1
-tags: ["terminal", "shell", "command-line", "bash", "cli"]
-category: "tool"
+tags:
+  - terminal
+  - shell
+  - command-line
+  - bash
+  - cli
+category: tool
 milestones:
-  - "Navigate your filesystem using only the terminal"
-  - "Run 10 basic commands (ls, cd, pwd, mkdir, rm, cp, mv, cat, echo, grep)"
+  - Navigate your filesystem using only the terminal
+  - 'Run 10 basic commands (ls, cd, pwd, mkdir, rm, cp, mv, cat, echo, grep)'
 ---
 
 The terminal is a text-based interface for talking to your computer. Instead of clicking icons and dragging windows, you type commands and read text output. It might feel like a step backward at first, but for SRE and DevOps work, the terminal is not just a tool -- it is *the* tool. Servers do not have graphical interfaces. When something breaks at 3 AM, you are going to SSH into a machine and fix it with typed commands.

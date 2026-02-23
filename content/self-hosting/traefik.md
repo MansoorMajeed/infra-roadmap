@@ -1,23 +1,28 @@
 ---
-id: "traefik"
-title: "Traefik as Your Reverse Proxy"
-zone: "self-hosting"
+id: traefik
+title: Traefik as Your Reverse Proxy
+zone: self-hosting
 edges:
-  from:
-    - id: "reverse-proxy"
-      question: "Makes sense — show me how to set one up with Docker"
   to:
-    - id: "tls-with-traefik"
-      question: "Routing works — now I want HTTPS on everything"
-      detail: "My browser keeps showing a 'not secure' warning. I know I need a certificate but I don't know how that works — do I have to buy one, generate one, or what?"
+    - id: tls-with-traefik
+      question: Routing works — now I want HTTPS on everything
+      detail: >-
+        My browser keeps showing a 'not secure' warning. I know I need a
+        certificate but I don't know how that works — do I have to buy one,
+        generate one, or what?
 difficulty: 2
-tags: ["self-hosting", "traefik", "reverse-proxy", "docker", "networking"]
-category: "tool"
+tags:
+  - self-hosting
+  - traefik
+  - reverse-proxy
+  - docker
+  - networking
+category: tool
 milestones:
-  - "Run Traefik as a Docker container with a compose file"
-  - "Expose Vaultwarden through Traefik using Docker labels"
-  - "Access Vaultwarden by hostname instead of IP:port"
-  - "Access the Traefik dashboard"
+  - Run Traefik as a Docker container with a compose file
+  - Expose Vaultwarden through Traefik using Docker labels
+  - 'Access Vaultwarden by hostname instead of IP:port'
+  - Access the Traefik dashboard
 ---
 
 Traefik runs as a Docker container alongside your other services. It watches the Docker socket for running containers, reads their labels, and automatically creates routing rules — no config file to edit every time you add a service.

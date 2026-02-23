@@ -1,23 +1,32 @@
 ---
-id: "ports-and-listening"
-title: "Ports and How Apps Listen for Traffic"
-zone: "running"
+id: ports-and-listening
+title: Ports and How Apps Listen for Traffic
+zone: running
 edges:
-  from:
-    - id: "installing-software"
-      question: "I have my runtime installed and my app running. How does traffic actually reach it?"
-      detail: "Your app is running on the server, bound to a port. But what is a port? How does the internet know which process to send traffic to? Understanding ports and how apps listen is the conceptual bridge between running your app and making it reachable."
   to:
-    - id: "firewall-basics"
-      question: "My app is listening on a port. Who can actually connect to it from the internet?"
-      detail: "My app is listening on port 5000 but I still can't reach it from outside the server. I've heard there's a firewall that might be blocking it — but I don't know how to check or fix that."
+    - id: firewall-basics
+      question: >-
+        My app is listening on a port. Who can actually connect to it from the
+        internet?
+      detail: >-
+        My app is listening on port 5000 but I still can't reach it from outside
+        the server. I've heard there's a firewall that might be blocking it —
+        but I don't know how to check or fix that.
 difficulty: 1
-tags: ["ports", "tcp", "sockets", "listening", "0.0.0.0", "127.0.0.1", "netstat", "ss"]
-category: "concept"
+tags:
+  - ports
+  - tcp
+  - sockets
+  - listening
+  - 0.0.0.0
+  - 127.0.0.1
+  - netstat
+  - ss
+category: concept
 milestones:
-  - "Explain the difference between 0.0.0.0 and 127.0.0.1 and when to use each"
-  - "Use ss -tlnp to see what processes are listening on which ports"
-  - "Understand why non-root users cannot bind to ports below 1024"
+  - Explain the difference between 0.0.0.0 and 127.0.0.1 and when to use each
+  - Use ss -tlnp to see what processes are listening on which ports
+  - Understand why non-root users cannot bind to ports below 1024
 ---
 
 When your web app starts, it opens a socket and listens on a port — waiting for incoming connections. HTTP traffic goes to port 80. HTTPS to 443. SSH to 22. Your Flask or Express app probably listens on 3000 or 5000. A port is just a number that tells the operating system which process should receive a given packet.

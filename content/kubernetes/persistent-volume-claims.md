@@ -1,27 +1,37 @@
 ---
-id: "persistent-volume-claims"
-title: "Persistent Volume Claims"
-zone: "kubernetes"
+id: persistent-volume-claims
+title: Persistent Volume Claims
+zone: kubernetes
 edges:
-  from:
-    - id: "persistent-volumes"
-      question: "PVs exist as cluster resources. How does my Pod actually request and mount one?"
-      detail: "A PersistentVolumeClaim is the request — it says what size and access mode you need, and Kubernetes binds it to a matching PV. Once bound, you mount the PVC into your Pod just like any other volume. The Pod doesn't need to know where the storage actually comes from."
-    - id: "storage-classes"
-      question: "Dynamic provisioning is configured. How does my workload request storage?"
-      detail: "With a StorageClass in place, a PVC is all you need: declare the size and the StorageClass, and Kubernetes creates the underlying storage automatically. The PVC is then mounted into Pods — your application just sees a directory."
   to:
-    - id: "configmaps"
-      question: "Storage sorted. My app also needs configuration — database URLs, feature flags, settings. Where do those go?"
-      detail: "Storage is sorted. But now my app needs to know its database URL, which environment it's in, which feature flags are on. Right now that's all baked into the container image — which means a rebuild every time something changes. There must be a way to inject configuration at runtime without rebuilding."
+    - id: configmaps
+      question: >-
+        Storage sorted. My app also needs configuration — database URLs, feature
+        flags, settings. Where do those go?
+      detail: >-
+        Storage is sorted. But now my app needs to know its database URL, which
+        environment it's in, which feature flags are on. Right now that's all
+        baked into the container image — which means a rebuild every time
+        something changes. There must be a way to inject configuration at
+        runtime without rebuilding.
 difficulty: 1
-tags: ["kubernetes", "pvc", "persistent-volume-claims", "storage", "volumes", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - pvc
+  - persistent-volume-claims
+  - storage
+  - volumes
+  - k8s
+category: practice
 milestones:
-  - "Create a PVC and mount it into a Pod as a volume"
-  - "Write data to the mounted path, delete the Pod, recreate it, and verify the data persists"
-  - "Understand why StatefulSets are used instead of Deployments for stateful workloads"
-  - "Explain what happens to a PVC when the Pod that uses it is deleted"
+  - Create a PVC and mount it into a Pod as a volume
+  - >-
+    Write data to the mounted path, delete the Pod, recreate it, and verify the
+    data persists
+  - >-
+    Understand why StatefulSets are used instead of Deployments for stateful
+    workloads
+  - Explain what happens to a PVC when the Pod that uses it is deleted
 ---
 
 A PersistentVolumeClaim (PVC) is how a Pod requests durable storage from the cluster. You declare the size and access mode you need; Kubernetes finds or creates a matching PersistentVolume and binds it. The Pod mounts the PVC as a directory and is abstracted from the underlying storage details entirely.

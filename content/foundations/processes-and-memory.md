@@ -1,26 +1,31 @@
 ---
-id: "processes-and-memory"
-title: "Processes & Memory"
-zone: "foundations"
+id: processes-and-memory
+title: Processes & Memory
+zone: foundations
 edges:
-  from:
-    - id: "what-is-a-process"
-      question: "A process is running. How does it use memory?"
-      detail: "You know what a process is and how it is created. But every process needs memory to work — space for its code, its variables, its stack, and its heap. The OS gives each process its own virtual address space, manages physical RAM, and steps in when memory runs out. Understanding memory management is how you diagnose memory leaks, OOM kills, and why your Java app needs 4 GB of RAM to do seemingly nothing."
-    - id: "files-and-filesystems"
-      question: "Files exist on disk. But what about things running in memory?"
-      detail: "You understand how data is stored on disk, but when a program actually runs, it lives in memory (RAM) — a much faster but temporary space. The OS constantly shuffles data between disk and memory, creates processes, and allocates resources. Understanding this relationship between disk and memory, and how the OS manages running programs, is key to troubleshooting performance issues."
   to:
-    - id: "programming-fundamentals"
-      question: "I understand how the computer runs things. Now how do I write real programs?"
-      detail: "I can watch processes and poke at memory usage. But whenever I need to automate something or write a script, I get stuck — I don't have a solid grasp of even the basics like loops and functions. How do I actually build that foundation?"
+    - id: programming-fundamentals
+      question: >-
+        I understand how the computer runs things. Now how do I write real
+        programs?
+      detail: >-
+        I can watch processes and poke at memory usage. But whenever I need to
+        automate something or write a script, I get stuck — I don't have a solid
+        grasp of even the basics like loops and functions. How do I actually
+        build that foundation?
 difficulty: 1
-tags: ["processes", "memory", "ram", "pid", "linux", "system-resources"]
-category: "concept"
+tags:
+  - processes
+  - memory
+  - ram
+  - pid
+  - linux
+  - system-resources
+category: concept
 milestones:
-  - "Use ps and top to inspect running processes"
-  - "Explain the difference between RAM and disk storage"
-  - "Kill a process from the terminal"
+  - Use ps and top to inspect running processes
+  - Explain the difference between RAM and disk storage
+  - Kill a process from the terminal
 ---
 
 Every program you run on a computer becomes a **process** -- a living, breathing instance of that program with its own slice of memory, a unique ID, and a lifecycle that the operating system carefully manages. Understanding processes and memory is what separates someone who uses a computer from someone who can troubleshoot why it is slow, unresponsive, or eating all your RAM at 3 AM during an incident.

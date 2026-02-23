@@ -1,26 +1,30 @@
 ---
-id: "what-is-a-vps"
-title: "What Is a VPS?"
-zone: "running"
+id: what-is-a-vps
+title: What Is a VPS?
+zone: running
 edges:
-  from:
-    - id: "cloud-providers"
-      question: "What am I actually renting when I create a cloud server?"
-      detail: "You picked a cloud provider and clicked 'Create Droplet' or 'Launch Instance'. But what did you just create? A VPS — a Virtual Private Server — is a virtualized slice of a physical machine. Understanding what you rented helps you reason about its limits, its isolation, and why it behaves differently from your laptop."
-    - id: "datacenters"
-      question: "Servers live in datacenters. How do I actually get one without going there?"
-      detail: "Datacenters are full of physical machines. But you are not renting an entire machine — you are renting a virtualized slice of one. Cloud providers carve up their hardware into hundreds of virtual machines and rent them individually. This is what makes cloud computing affordable."
   to:
-    - id: "ssh"
-      question: "I have a VPS. How do I connect to it and run commands?"
-      detail: "My VPS is running in some datacenter — but I have no monitor, no keyboard, no way to touch it. How do I actually get inside it and run commands? There must be a way to connect to it remotely, but I don't know what that involves."
+    - id: ssh
+      question: I have a VPS. How do I connect to it and run commands?
+      detail: >-
+        My VPS is running in some datacenter — but I have no monitor, no
+        keyboard, no way to touch it. How do I actually get inside it and run
+        commands? There must be a way to connect to it remotely, but I don't
+        know what that involves.
 difficulty: 1
-tags: ["vps", "virtualization", "cloud", "vm", "hypervisor"]
-category: "concept"
+tags:
+  - vps
+  - virtualization
+  - cloud
+  - vm
+  - hypervisor
+category: concept
 milestones:
-  - "Explain what a hypervisor does and how a VPS differs from a dedicated server"
-  - "Understand what resources a VPS has and why they are shared with other tenants"
-  - "Know what a disk image / snapshot is and why it matters"
+  - Explain what a hypervisor does and how a VPS differs from a dedicated server
+  - >-
+    Understand what resources a VPS has and why they are shared with other
+    tenants
+  - Know what a disk image / snapshot is and why it matters
 ---
 
 When you click "Create Droplet" on DigitalOcean or "Launch Instance" on AWS, you get a VPS — a Virtual Private Server. It looks and behaves like a real computer: it has a CPU, RAM, disk, and a public IP address. But it is not a physical machine. It is a software-defined slice of a much larger physical server, running alongside dozens of other virtual machines owned by other customers.

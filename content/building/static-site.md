@@ -1,23 +1,30 @@
 ---
-id: "static-site"
-title: "Building a Static Website"
-zone: "building"
+id: static-site
+title: Building a Static Website
+zone: building
 edges:
-  from:
-    - id: "scripting-bash-python"
-      question: "Scripts are great, but I want to build something people can actually see."
-      detail: "You can automate tasks with scripts, but at some point you want to build something visible — a website, an app, something you can share with people. The jump from scripts to building for the web starts with understanding how HTML, CSS, and JavaScript come together to create what users see in their browser."
   to:
-    - id: "dynamic-web-app"
-      question: "My site looks nice, but it can't actually do anything. How do I add real functionality?"
-      detail: "My static site looks great but it's basically a fancy brochure. I want users to be able to log in, submit forms, see personalized content — things that require actually remembering something. I have no idea how to make a webpage do that."
+    - id: dynamic-web-app
+      question: >-
+        My site looks nice, but it can't actually do anything. How do I add real
+        functionality?
+      detail: >-
+        My static site looks great but it's basically a fancy brochure. I want
+        users to be able to log in, submit forms, see personalized content —
+        things that require actually remembering something. I have no idea how
+        to make a webpage do that.
 difficulty: 1
-tags: ["html", "css", "javascript", "static-site", "web-basics"]
-category: "concept"
+tags:
+  - html
+  - css
+  - javascript
+  - static-site
+  - web-basics
+category: concept
 milestones:
-  - "Build a static HTML page with CSS styling"
-  - "Add JavaScript interactivity to the page"
-  - "Deploy it somewhere basic (GitHub Pages, Netlify)"
+  - Build a static HTML page with CSS styling
+  - Add JavaScript interactivity to the page
+  - 'Deploy it somewhere basic (GitHub Pages, Netlify)'
 ---
 
 You know how to write scripts that automate tasks. Now you want to build something people can actually see and use — a website. Maybe you have an idea for an online store, a portfolio, or a tool. It all starts the same way: HTML for structure, CSS for styling, and JavaScript for interactivity. This is the foundation of everything on the web.

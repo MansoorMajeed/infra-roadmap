@@ -1,26 +1,33 @@
 ---
-id: "docker-for-self-hosting"
-title: "Docker for Self-Hosting"
-zone: "self-hosting"
+id: docker-for-self-hosting
+title: Docker for Self-Hosting
+zone: self-hosting
 edges:
-  from:
-    - id: "docker-or-native"
-      question: "Docker it is — how do I get started?"
   to:
-    - id: "docker-compose"
-      question: "I know Docker — let's skip to managing services properly"
-      detail: "I've been running containers with docker run commands but it's already getting messy. If I restart the server I have to remember all the flags. There has to be a better way."
-    - id: "docker-ports"
-      question: "Wait — I don't really understand how Docker works yet"
-      detail: "I got a container running but I honestly have no idea what's happening. What are all those flags doing? If I delete the container, do I lose my data? And how do I get two services to talk to each other?"
+    - id: docker-compose
+      question: I know Docker — let's skip to managing services properly
+      detail: >-
+        I've been running containers with docker run commands but it's already
+        getting messy. If I restart the server I have to remember all the flags.
+        There has to be a better way.
+    - id: docker-ports
+      question: Wait — I don't really understand how Docker works yet
+      detail: >-
+        I got a container running but I honestly have no idea what's happening.
+        What are all those flags doing? If I delete the container, do I lose my
+        data? And how do I get two services to talk to each other?
 difficulty: 1
-tags: ["self-hosting", "docker", "containers", "linux"]
-category: "tool"
+tags:
+  - self-hosting
+  - docker
+  - containers
+  - linux
+category: tool
 milestones:
-  - "Install Docker on your server"
-  - "Pull and run a container (e.g. `docker run hello-world`)"
-  - "Run Vaultwarden with `docker run` and access it from your browser"
-  - "Understand images, containers, volumes, and ports"
+  - Install Docker on your server
+  - Pull and run a container (e.g. `docker run hello-world`)
+  - Run Vaultwarden with `docker run` and access it from your browser
+  - 'Understand images, containers, volumes, and ports'
 ---
 
 Docker is a tool for running applications in isolated containers. For self-hosting, it means you can run any service — Vaultwarden, Immich, Jellyfin — without installing its dependencies directly on your server. You just run the container.

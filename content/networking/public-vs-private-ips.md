@@ -1,30 +1,54 @@
 ---
-id: "public-vs-private-ips"
-title: "Public vs Private IPs"
-zone: "networking"
+id: public-vs-private-ips
+title: Public vs Private IPs
+zone: networking
 edges:
-  from:
-    - id: "subnets-and-cidr"
-      question: "I understand how addresses are organized. But why do some IPs only work at home while others work anywhere on the internet?"
-      detail: "You know how subnets organize IP addresses into groups. Now there's a deeper split: some IP address ranges are reserved for private networks (like your home), and others are public — routable across the entire internet. Understanding this distinction explains NAT, why you can't host a server at home easily, and how cloud infrastructure is designed."
   to:
-    - id: "where-do-i-run-this"
-      zone: "running"
-      question: "I understand addressing — private networks, public IPs, NAT. But where do I actually run something that serves content?"
-      detail: "I understand private vs public IPs and NAT now. But my laptop is behind NAT — so where do I actually put something if I want real users to reach it? I need a machine that has its own public IP and is always reachable. What even is that, and how do I get one?"
-    - id: "dns"
-      question: "I understand public IPs. But nobody types IP addresses — they type domain names. How does that translation work?"
-      detail: "I understand that servers have public IPs. But nobody types an IP address — they type google.com, or my-app.example.com. My computer must be translating that name to an IP somehow, but I have no idea how. That translation happens before every single request I make, and I've never thought about it."
-    - id: "how-packets-travel"
-      question: "I know about public IPs. But how does a packet actually travel across the internet to reach one?"
-      detail: "I understand that public IPs are reachable from anywhere on the internet. But what does 'anywhere' actually mean? When I send a packet to Tokyo, it doesn't teleport there — it has to physically travel through routers and cables. I don't understand what that journey looks like or who's making decisions along the way."
+    - id: where-do-i-run-this
+      zone: running
+      question: >-
+        I understand addressing — private networks, public IPs, NAT. But where
+        do I actually run something that serves content?
+      detail: >-
+        I understand private vs public IPs and NAT now. But my laptop is behind
+        NAT — so where do I actually put something if I want real users to reach
+        it? I need a machine that has its own public IP and is always reachable.
+        What even is that, and how do I get one?
+    - id: dns
+      question: >-
+        I understand public IPs. But nobody types IP addresses — they type
+        domain names. How does that translation work?
+      detail: >-
+        I understand that servers have public IPs. But nobody types an IP
+        address — they type google.com, or my-app.example.com. My computer must
+        be translating that name to an IP somehow, but I have no idea how. That
+        translation happens before every single request I make, and I've never
+        thought about it.
+    - id: how-packets-travel
+      question: >-
+        I know about public IPs. But how does a packet actually travel across
+        the internet to reach one?
+      detail: >-
+        I understand that public IPs are reachable from anywhere on the
+        internet. But what does 'anywhere' actually mean? When I send a packet
+        to Tokyo, it doesn't teleport there — it has to physically travel
+        through routers and cables. I don't understand what that journey looks
+        like or who's making decisions along the way.
 difficulty: 2
-tags: ["ip", "nat", "private", "public", "ipv4", "network"]
-category: "concept"
+tags:
+  - ip
+  - nat
+  - private
+  - public
+  - ipv4
+  - network
+category: concept
 milestones:
-  - "Identify the three private IP ranges and what each is typically used for"
-  - "Explain how NAT lets many devices share one public IP"
-  - "Describe why you can browse any website but can't easily receive incoming connections at home"
+  - Identify the three private IP ranges and what each is typically used for
+  - Explain how NAT lets many devices share one public IP
+  - >-
+    Describe why you can browse any website but can't easily receive incoming
+    connections at home
 ---
 
 Your laptop's IP is `192.168.1.42`. But if you asked a friend across the country to connect to your laptop at that address, it would not work. That address does not exist on the public internet — it only exists on your home network. There are two completely separate worlds of IP addresses: **private** (inside a network) and **public** (routable everywhere on the internet). Understanding the difference explains NAT, cloud networking, and why hosting from home is complicated.

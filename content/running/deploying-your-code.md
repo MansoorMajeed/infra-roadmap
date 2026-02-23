@@ -1,26 +1,38 @@
 ---
-id: "deploying-your-code"
-title: "Getting Your Code to the Server"
-zone: "running"
+id: deploying-your-code
+title: Getting Your Code to the Server
+zone: running
 edges:
-  from:
-    - id: "linux-server-basics"
-      question: "I can manage a Linux server. How do I get my code onto it?"
-      detail: "You know how to SSH in, install packages, and manage services. But your application code is still on your laptop. How do you actually get it onto the server, install its dependencies, and run it? This is deployment — the process of getting your code from your machine to a server where users can access it."
   to:
-    - id: "web-servers"
-      question: "My code is on the server. What software actually serves it to users?"
-      detail: "My app is running on port 5000 and I have to include the port in every URL. Real sites don't work like that — something must be handling HTTP on port 80 and forwarding requests to my app. What is that?"
-    - id: "environment-variables"
-      question: "My code is on the server. How do I configure it without hardcoding secrets?"
-      detail: "My database password and API keys are hardcoded right now. If anyone gets access to the repo they'd have everything. How do I get those credentials out of the code entirely?"
+    - id: web-servers
+      question: My code is on the server. What software actually serves it to users?
+      detail: >-
+        My app is running on port 5000 and I have to include the port in every
+        URL. Real sites don't work like that — something must be handling HTTP
+        on port 80 and forwarding requests to my app. What is that?
+    - id: environment-variables
+      question: >-
+        My code is on the server. How do I configure it without hardcoding
+        secrets?
+      detail: >-
+        My database password and API keys are hardcoded right now. If anyone
+        gets access to the repo they'd have everything. How do I get those
+        credentials out of the code entirely?
 difficulty: 1
-tags: ["deploy", "git-clone", "scp", "rsync", "environment-variables", "secrets"]
-category: "practice"
+tags:
+  - deploy
+  - git-clone
+  - scp
+  - rsync
+  - environment-variables
+  - secrets
+category: practice
 milestones:
-  - "Get your application code onto a server using git clone"
-  - "Set up a Python virtual environment and install dependencies on the server"
-  - "Configure environment variables and understand why secrets should not be in code"
+  - Get your application code onto a server using git clone
+  - Set up a Python virtual environment and install dependencies on the server
+  - >-
+    Configure environment variables and understand why secrets should not be in
+    code
 ---
 
 You have a server. You can SSH in. You can install packages and manage services. But your application code is still on your laptop. How do you get it onto the server?

@@ -1,23 +1,36 @@
 ---
-id: "managed-vs-self-managed"
-title: "Managed vs Self-Managed Kubernetes"
-zone: "kubernetes-production"
+id: managed-vs-self-managed
+title: Managed vs Self-Managed Kubernetes
+zone: kubernetes-production
 edges:
-  from:
-    - id: "k8s-for-production"
-      question: "Do I even need to run the cluster control plane myself, or is there a better way?"
   to:
-    - id: "cluster-topology"
-      question: "I know I'm using a managed cluster. Now — should I have one cluster or many?"
-      detail: "I've got my managed cluster running but staging and production are in the same cluster separated by namespaces. I keep wondering whether that's actually good enough isolation or if I need separate clusters entirely."
+    - id: cluster-topology
+      question: >-
+        I know I'm using a managed cluster. Now — should I have one cluster or
+        many?
+      detail: >-
+        I've got my managed cluster running but staging and production are in
+        the same cluster separated by namespaces. I keep wondering whether
+        that's actually good enough isolation or if I need separate clusters
+        entirely.
 difficulty: 2
-tags: ["kubernetes", "eks", "gke", "aks", "managed", "control-plane", "k8s", "production"]
-category: "concept"
+tags:
+  - kubernetes
+  - eks
+  - gke
+  - aks
+  - managed
+  - control-plane
+  - k8s
+  - production
+category: concept
 milestones:
-  - "Understand what a control plane is and why running it yourself is hard"
-  - "Know what EKS, GKE, and AKS handle for you vs what you still own"
-  - "Understand the real costs: managed isn't free, but operator time has a cost too"
-  - "Know when self-managed (kubeadm, k3s) is actually the right call"
+  - Understand what a control plane is and why running it yourself is hard
+  - 'Know what EKS, GKE, and AKS handle for you vs what you still own'
+  - >-
+    Understand the real costs: managed isn't free, but operator time has a cost
+    too
+  - 'Know when self-managed (kubeadm, k3s) is actually the right call'
 ---
 
 TODO

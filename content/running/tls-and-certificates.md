@@ -1,26 +1,29 @@
 ---
-id: "tls-and-certificates"
-title: "TLS, Certificates & HTTPS"
-zone: "running"
+id: tls-and-certificates
+title: 'TLS, Certificates & HTTPS'
+zone: running
 edges:
-  from:
-    - id: "web-servers"
-      question: "My web server works over HTTP, but I need HTTPS. How do I set up TLS?"
-      detail: "Your Nginx server is serving pages over HTTP. But HTTP is plaintext — anyone can read the traffic. You need TLS to encrypt the connection, and that means certificates. Let's Encrypt makes this free and automated, but you need to understand what certificates are and how TLS works."
-    - id: "encryption-basics"
-      question: "I understand encryption. How does the web actually use it to secure traffic?"
-      detail: "You know about symmetric and asymmetric encryption, and why we need both. Now comes the real question: how do your browser and a server you have never talked to before establish an encrypted connection? That is what TLS does — it is the protocol that turns HTTP into HTTPS, and it uses everything you just learned about encryption in a clever handshake."
   to:
-    - id: "running-your-store"
-      question: "I understand HTTPS and TLS. How do I put it all together and deploy?"
-      detail: "I understand the individual pieces — HTTPS, certificates, DNS, web server. But I've never done a full deployment from scratch and I'm not sure in what order everything goes together or what I'm likely to mess up."
+    - id: running-your-store
+      question: I understand HTTPS and TLS. How do I put it all together and deploy?
+      detail: >-
+        I understand the individual pieces — HTTPS, certificates, DNS, web
+        server. But I've never done a full deployment from scratch and I'm not
+        sure in what order everything goes together or what I'm likely to mess
+        up.
 difficulty: 2
-tags: ["tls", "ssl", "https", "certificates", "certificate-authority", "lets-encrypt"]
-category: "concept"
+tags:
+  - tls
+  - ssl
+  - https
+  - certificates
+  - certificate-authority
+  - lets-encrypt
+category: concept
 milestones:
-  - "Understand the TLS handshake and what happens when you visit an HTTPS site"
-  - "Explain what a certificate is and what a Certificate Authority does"
-  - "Inspect a website's certificate in your browser or with openssl"
+  - Understand the TLS handshake and what happens when you visit an HTTPS site
+  - Explain what a certificate is and what a Certificate Authority does
+  - Inspect a website's certificate in your browser or with openssl
 ---
 
 You visit `https://mybank.com` and type your password. How do you know the connection is actually encrypted? How does your browser know it is really talking to the bank and not an attacker? And how did they establish a shared encryption key without anyone eavesdropping? The answer to all of these is **TLS** — the protocol that makes HTTPS work.

@@ -1,25 +1,36 @@
 ---
-id: "files-and-filesystems"
-title: "Files & Filesystems"
-zone: "foundations"
+id: files-and-filesystems
+title: Files & Filesystems
+zone: foundations
 edges:
-  from:
-    - id: "operating-system-basics"
-      question: "The OS manages files. How does that work?"
-      detail: "Everything on your computer is a file — your code, your configs, your logs, even your devices. The OS organizes all of this through a filesystem: a hierarchical structure that determines where things live, who can access them, and how data is physically stored on disk. Understanding the filesystem is essential because in SRE work, you'll constantly be reading logs, editing configs, and managing storage."
   to:
-    - id: "processes-and-memory"
-      question: "Files exist on disk. But what about things running in memory?"
-      detail: "I understand how files sit on disk. But when a program is actually running, where does it live? I've heard of RAM and memory but I don't understand what a 'process' is or how the OS actually handles the thing I just started running. What happens between 'I ran this program' and 'it's doing something'?"
-    - id: "log-files"
-      question: "I understand files. Where do systems keep their logs?"
-      detail: "I know where config files live and how permissions work. But where does all the logging go? Every service must be writing something somewhere — I just have no idea how to find it or make sense of it when something goes wrong."
+    - id: processes-and-memory
+      question: Files exist on disk. But what about things running in memory?
+      detail: >-
+        I understand how files sit on disk. But when a program is actually
+        running, where does it live? I've heard of RAM and memory but I don't
+        understand what a 'process' is or how the OS actually handles the thing
+        I just started running. What happens between 'I ran this program' and
+        'it's doing something'?
+    - id: log-files
+      question: I understand files. Where do systems keep their logs?
+      detail: >-
+        I know where config files live and how permissions work. But where does
+        all the logging go? Every service must be writing something somewhere —
+        I just have no idea how to find it or make sense of it when something
+        goes wrong.
 difficulty: 1
-tags: ["filesystem", "permissions", "inodes", "linux", "ext4", "directory-structure"]
-category: "concept"
+tags:
+  - filesystem
+  - permissions
+  - inodes
+  - linux
+  - ext4
+  - directory-structure
+category: concept
 milestones:
-  - "Explain the Linux directory structure (/etc, /var, /home, etc.)"
-  - "Change file permissions using chmod"
+  - 'Explain the Linux directory structure (/etc, /var, /home, etc.)'
+  - Change file permissions using chmod
 ---
 
 Everything on a Linux system is a file -- or at least, it pretends to be. Regular files, directories, hardware devices, running processes -- they all show up as entries in a unified file hierarchy. Understanding how this hierarchy is organized, how permissions control who can do what, and how the filesystem actually stores data on disk will save you from countless headaches when managing servers.

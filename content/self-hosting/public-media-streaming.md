@@ -1,27 +1,37 @@
 ---
-id: "public-media-streaming"
-title: "Public Media Streaming"
-zone: "self-hosting"
+id: public-media-streaming
+title: Public Media Streaming
+zone: self-hosting
 edges:
-  from:
-    - id: "public-access-security"
-      question: "I want to let people stream from my media server without needing a VPN — how?"
   to:
-    - id: "vps-pangolin"
-      question: "I want a managed solution with a UI"
-      detail: "I'm okay with a VPS, but I want a UI to manage things — not raw config files and commands every time. Is there something that handles the hard parts?"
-    - id: "vps-wireguard-expose"
-      question: "I want full control — VPS with manual setup"
-      detail: "I want to understand exactly how traffic flows from the internet to my home server. I'm comfortable with manual setup — what does that actually involve?"
-    - id: "port-forwarding"
-      question: "What about just forwarding a port on my router?"
-      detail: "Can't I just open a port on my router and skip renting a VPS entirely? What's the catch for media streaming specifically?"
+    - id: vps-pangolin
+      question: I want a managed solution with a UI
+      detail: >-
+        I'm okay with a VPS, but I want a UI to manage things — not raw config
+        files and commands every time. Is there something that handles the hard
+        parts?
+    - id: vps-wireguard-expose
+      question: I want full control — VPS with manual setup
+      detail: >-
+        I want to understand exactly how traffic flows from the internet to my
+        home server. I'm comfortable with manual setup — what does that actually
+        involve?
+    - id: port-forwarding
+      question: What about just forwarding a port on my router?
+      detail: >-
+        Can't I just open a port on my router and skip renting a VPS entirely?
+        What's the catch for media streaming specifically?
 difficulty: 2
-tags: ["self-hosting", "public", "media", "streaming", "jellyfin"]
-category: "concept"
+tags:
+  - self-hosting
+  - public
+  - media
+  - streaming
+  - jellyfin
+category: concept
 milestones:
-  - "Understand why Cloudflare Tunnel is not suitable for media streaming"
-  - "Know the options for public media access"
+  - Understand why Cloudflare Tunnel is not suitable for media streaming
+  - Know the options for public media access
 ---
 
 You want to publicly expose a media server like Jellyfin so anyone can stream video or audio from a browser — no VPN required.

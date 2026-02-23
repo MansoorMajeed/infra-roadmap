@@ -1,24 +1,31 @@
 ---
-id: "docker-or-native"
-title: "Docker or Install Natively?"
-zone: "self-hosting"
+id: docker-or-native
+title: Docker or Install Natively?
+zone: self-hosting
 edges:
-  from:
-    - id: "ssh-into-your-server"
-      question: "I'm in. How do I actually install software on this thing?"
   to:
-    - id: "docker-for-self-hosting"
-      question: "Docker it is — how do I get started?"
-      detail: "I've heard people talk about images and containers but I'm not sure where to start. Do I need to build anything, or can I just use what's already out there? And how do I actually run something?"
-    - id: "i-want-pain"
-      question: "I want to install everything manually from source"
-      detail: "I want to know what's actually running, not just trust someone else's image. But where do I even start — apt, compiling from source, something else? I've never set up a service on bare Linux before."
+    - id: docker-for-self-hosting
+      question: Docker it is — how do I get started?
+      detail: >-
+        I've heard people talk about images and containers but I'm not sure
+        where to start. Do I need to build anything, or can I just use what's
+        already out there? And how do I actually run something?
+    - id: i-want-pain
+      question: I want to install everything manually from source
+      detail: >-
+        I want to know what's actually running, not just trust someone else's
+        image. But where do I even start — apt, compiling from source, something
+        else? I've never set up a service on bare Linux before.
 difficulty: 1
-tags: ["self-hosting", "docker", "linux", "package-management"]
-category: "concept"
+tags:
+  - self-hosting
+  - docker
+  - linux
+  - package-management
+category: concept
 milestones:
-  - "Understand why Docker is the standard for self-hosting"
-  - "Make the call: Docker (recommended) or native install"
+  - Understand why Docker is the standard for self-hosting
+  - 'Make the call: Docker (recommended) or native install'
 ---
 
 You have two options for running self-hosted services: install them natively on the OS (using `apt`, compiling from source, or following each project's install guide), or run them in Docker containers.

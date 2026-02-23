@@ -1,26 +1,37 @@
 ---
-id: "ip-addresses"
-title: "IP Addresses"
-zone: "networking"
+id: ip-addresses
+title: IP Addresses
+zone: networking
 edges:
-  from:
-    - id: "network-protocols"
-      question: "Protocols have layers, and one layer handles addressing. How do IP addresses actually work?"
-      detail: "You learned that the network layer handles addressing — getting packets to the right machine. IP addresses are how that works. Every device on a network gets one, and understanding what they are is the foundation for everything else in networking: subnets, routing, NAT, firewalls, DNS."
   to:
-    - id: "subnets-and-cidr"
-      question: "Every device has an IP address. But how are those addresses organized into groups?"
-      detail: "I understand what my IP address is. But the numbers don't seem random — my home devices are all 192.168.1.something. I'm wondering how those address blocks are organized and what the structure actually means."
-    - id: "dhcp"
-      question: "Every device needs an IP. But how does your device actually get one assigned to it?"
-      detail: "When I connected to WiFi this morning I didn't type any IP — my device just got one automatically. How does that work? And what happens when something goes wrong with that process?"
+    - id: subnets-and-cidr
+      question: >-
+        Every device has an IP address. But how are those addresses organized
+        into groups?
+      detail: >-
+        I understand what my IP address is. But the numbers don't seem random —
+        my home devices are all 192.168.1.something. I'm wondering how those
+        address blocks are organized and what the structure actually means.
+    - id: dhcp
+      question: >-
+        Every device needs an IP. But how does your device actually get one
+        assigned to it?
+      detail: >-
+        When I connected to WiFi this morning I didn't type any IP — my device
+        just got one automatically. How does that work? And what happens when
+        something goes wrong with that process?
 difficulty: 1
-tags: ["ip", "ipv4", "ipv6", "addressing", "network"]
-category: "concept"
+tags:
+  - ip
+  - ipv4
+  - ipv6
+  - addressing
+  - network
+category: concept
 milestones:
-  - "Find your own IP address using a terminal command"
-  - "Explain what each of the four octets in an IPv4 address represents"
-  - "Describe why every networked device needs an IP address"
+  - Find your own IP address using a terminal command
+  - Explain what each of the four octets in an IPv4 address represents
+  - Describe why every networked device needs an IP address
 ---
 
 Every device on a network needs an address — a number other devices use to find it. Your laptop has one, your phone has one, Google's servers have one. When your laptop sends a request to `google.com`, the response needs to come back somewhere. That somewhere is your laptop's **IP address**. Without it, packets would have nowhere to go.

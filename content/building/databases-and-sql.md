@@ -1,29 +1,50 @@
 ---
-id: "databases-and-sql"
-title: "Databases & SQL"
-zone: "building"
+id: databases-and-sql
+title: Databases & SQL
+zone: building
 edges:
-  from:
-    - id: "dynamic-web-app"
-      question: "Where does my data actually live? Variables disappear when the app restarts."
-      detail: "Your Flask app stores data in Python variables — lists, dictionaries, objects. But the moment you restart the app, everything is gone. Users, orders, cart items — all wiped. A database is a program specifically designed to store data permanently, organize it efficiently, and let you query it fast. Understanding databases is non-negotiable for anyone building or operating real software."
   to:
-    - id: "nosql-databases"
-      question: "What if my data doesn't fit neatly into rows and columns?"
-      detail: "My product table works perfectly. But then I need to store user activity logs — each event has totally different fields. Or I want to store JSON from an API that's shaped differently every time. SQL starts to feel like the wrong tool, but I don't know what the alternative actually is."
-    - id: "caching-and-redis"
-      question: "My app keeps hitting the database for the same data over and over. How do I speed things up?"
-      detail: "My database is getting hammered with the same queries over and over — the same product list, the same category page, fetched fresh on every single request. It works, but it's slow and I'm worried about what happens when traffic picks up. There must be a way to avoid repeating that work constantly."
-    - id: "file-and-object-storage"
-      question: "Users upload images and PDFs. I can't shove binary files into a SQL table, can I?"
-      detail: "Users want to upload profile photos and PDFs. I tried storing them in the database but it felt wrong — the database slowed down and the column was just a blob of bytes I couldn't do anything with. There must be a proper way to handle files that isn't shoehorning them into SQL."
+    - id: nosql-databases
+      question: What if my data doesn't fit neatly into rows and columns?
+      detail: >-
+        My product table works perfectly. But then I need to store user activity
+        logs — each event has totally different fields. Or I want to store JSON
+        from an API that's shaped differently every time. SQL starts to feel
+        like the wrong tool, but I don't know what the alternative actually is.
+    - id: caching-and-redis
+      question: >-
+        My app keeps hitting the database for the same data over and over. How
+        do I speed things up?
+      detail: >-
+        My database is getting hammered with the same queries over and over —
+        the same product list, the same category page, fetched fresh on every
+        single request. It works, but it's slow and I'm worried about what
+        happens when traffic picks up. There must be a way to avoid repeating
+        that work constantly.
+    - id: file-and-object-storage
+      question: >-
+        Users upload images and PDFs. I can't shove binary files into a SQL
+        table, can I?
+      detail: >-
+        Users want to upload profile photos and PDFs. I tried storing them in
+        the database but it felt wrong — the database slowed down and the column
+        was just a blob of bytes I couldn't do anything with. There must be a
+        proper way to handle files that isn't shoehorning them into SQL.
 difficulty: 1
-tags: ["database", "sql", "postgresql", "mysql", "sqlite", "relational"]
-category: "concept"
+tags:
+  - database
+  - sql
+  - postgresql
+  - mysql
+  - sqlite
+  - relational
+category: concept
 milestones:
-  - "Create a SQLite database and write basic SQL queries (SELECT, INSERT, UPDATE, DELETE)"
-  - "Design a schema with multiple related tables and foreign keys"
-  - "Connect a database to a web application and perform CRUD operations"
+  - >-
+    Create a SQLite database and write basic SQL queries (SELECT, INSERT,
+    UPDATE, DELETE)
+  - Design a schema with multiple related tables and foreign keys
+  - Connect a database to a web application and perform CRUD operations
 ---
 
 Your Flask app stores a list of products in a Python list. You add a product, it shows up. You restart the app, it is gone. Every piece of data lives in memory, and memory is wiped the moment the process stops. You need somewhere for data to live permanently — somewhere that survives restarts, handles multiple users reading and writing at the same time, and lets you ask complex questions about your data. That is what a database does.

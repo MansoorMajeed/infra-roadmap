@@ -1,31 +1,40 @@
 ---
-id: "build-and-test-pipeline"
-title: "Build and Test in Your Pipeline"
-zone: "delivery"
+id: build-and-test-pipeline
+title: Build and Test in Your Pipeline
+zone: delivery
 edges:
-  from:
-    - id: "github-actions"
-      question: "I have a basic pipeline. What stages should it have?"
-      detail: "A real pipeline isn't just 'run the app' — it has distinct stages: install dependencies, run the test suite, build the artifact. Each stage should fail fast and tell you exactly what broke."
-    - id: "pipeline-secrets"
-      question: "Secrets are handled. Now how do I build a proper test and build pipeline?"
-      detail: "With credentials sorted, you can now focus on the actual pipeline structure: run tests on every push, fail the pipeline if tests fail, and only build and deploy when everything passes."
   to:
-    - id: "containerization"
-      zone: "containers"
-      question: "Tests pass on every commit. How do I package the app to actually ship it?"
-      detail: "My pipeline builds and tests the code, but it's still just source code in a repo. To actually ship it somewhere, I need to package it consistently. I've heard containers are the standard — but I'm not sure how that fits into a pipeline."
-    - id: "iac-intro"
-      question: "My pipeline is solid. The servers it deploys to were set up by hand — can I codify that too?"
-      detail: "I've automated the build and test, but the servers my app runs on were created by clicking through the cloud console. If they die or I need a second one, I'd have to recreate them manually. That feels wrong."
+    - id: containerization
+      zone: containers
+      question: >-
+        Tests pass on every commit. How do I package the app to actually ship
+        it?
+      detail: >-
+        My pipeline builds and tests the code, but it's still just source code
+        in a repo. To actually ship it somewhere, I need to package it
+        consistently. I've heard containers are the standard — but I'm not sure
+        how that fits into a pipeline.
+    - id: iac-intro
+      question: >-
+        My pipeline is solid. The servers it deploys to were set up by hand —
+        can I codify that too?
+      detail: >-
+        I've automated the build and test, but the servers my app runs on were
+        created by clicking through the cloud console. If they die or I need a
+        second one, I'd have to recreate them manually. That feels wrong.
 difficulty: 1
-tags: ["ci-cd", "testing", "pipelines", "automation", "github-actions"]
-category: "practice"
+tags:
+  - ci-cd
+  - testing
+  - pipelines
+  - automation
+  - github-actions
+category: practice
 milestones:
-  - "Run your test suite automatically on every push"
-  - "Fail the pipeline if any test fails"
-  - "Cache dependencies so the pipeline doesn't reinstall everything from scratch"
-  - "Understand what a pipeline artifact is"
+  - Run your test suite automatically on every push
+  - Fail the pipeline if any test fails
+  - Cache dependencies so the pipeline doesn't reinstall everything from scratch
+  - Understand what a pipeline artifact is
 ---
 
 A real CI pipeline has stages: install dependencies, run tests, build the artifact. Each stage must fail fast — if tests fail, nothing after them runs. You never ship untested code.

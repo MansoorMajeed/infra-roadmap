@@ -1,25 +1,34 @@
 ---
-id: "namespaces"
-title: "Namespaces"
-zone: "kubernetes"
+id: namespaces
+title: Namespaces
+zone: kubernetes
 edges:
-  from:
-    - id: "why-kubernetes"
-      question: "Before I start running things — how does Kubernetes keep different apps, teams, or environments from stepping on each other?"
-      detail: "A Kubernetes cluster is shared infrastructure. Without organisation, workloads from different teams, environments, or applications all live in the same flat space. Namespaces are Kubernetes's way of partitioning a cluster — separate spaces with their own resources, RBAC policies, and network boundaries."
   to:
-    - id: "pods"
-      question: "I understand how namespaces organise the cluster. Now — how do I actually run something in one?"
-      detail: "I've set up my namespaces, but now I'm staring at kubectl not sure what to actually put in them. What's the first real thing I deploy, and how do I make sure it ends up in the right namespace?"
+    - id: pods
+      question: >-
+        I understand how namespaces organise the cluster. Now — how do I
+        actually run something in one?
+      detail: >-
+        I've set up my namespaces, but now I'm staring at kubectl not sure what
+        to actually put in them. What's the first real thing I deploy, and how
+        do I make sure it ends up in the right namespace?
 difficulty: 1
-tags: ["kubernetes", "namespaces", "multi-tenancy", "resource-quotas", "organisation", "k8s"]
-category: "concept"
+tags:
+  - kubernetes
+  - namespaces
+  - multi-tenancy
+  - resource-quotas
+  - organisation
+  - k8s
+category: concept
 milestones:
-  - "Create a namespace and deploy a Pod into it"
-  - "Use -n flag with kubectl to target a specific namespace"
-  - "Set a ResourceQuota on a namespace to limit CPU and memory"
-  - "Understand why cluster-scoped resources (Nodes, PersistentVolumes) don't belong to namespaces"
-  - "Explain the difference between namespace-scoped and cluster-scoped resources"
+  - Create a namespace and deploy a Pod into it
+  - Use -n flag with kubectl to target a specific namespace
+  - Set a ResourceQuota on a namespace to limit CPU and memory
+  - >-
+    Understand why cluster-scoped resources (Nodes, PersistentVolumes) don't
+    belong to namespaces
+  - Explain the difference between namespace-scoped and cluster-scoped resources
 ---
 
 A Kubernetes cluster is shared infrastructure — by default, everything lands in the `default` namespace and all workloads can see each other. Namespaces carve a cluster into isolated virtual spaces, each with its own resources, access controls, and limits. Getting this right from the start is much easier than retrofitting it later.

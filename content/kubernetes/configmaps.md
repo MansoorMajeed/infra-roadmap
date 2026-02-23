@@ -1,24 +1,31 @@
 ---
-id: "configmaps"
-title: "ConfigMaps"
-zone: "kubernetes"
+id: configmaps
+title: ConfigMaps
+zone: kubernetes
 edges:
-  from:
-    - id: "persistent-volume-claims"
-      question: "Storage is sorted. My app needs configuration — URLs, feature flags, environment-specific settings. Where do those go?"
-      detail: "Baking config into your container image means one image per environment and a rebuild for every config change. ConfigMaps store configuration as key-value pairs in Kubernetes, injected into Pods at runtime as environment variables or mounted config files."
   to:
-    - id: "secrets"
-      question: "ConfigMaps work for non-sensitive config. What about passwords, API keys, and certificates?"
-      detail: "I've put my database URL and feature flags in a ConfigMap, but now I need to add a database password and an API key. Those feel very different — I shouldn't just dump them in the same place as regular config. How does Kubernetes handle sensitive values?"
+    - id: secrets
+      question: >-
+        ConfigMaps work for non-sensitive config. What about passwords, API
+        keys, and certificates?
+      detail: >-
+        I've put my database URL and feature flags in a ConfigMap, but now I
+        need to add a database password and an API key. Those feel very
+        different — I shouldn't just dump them in the same place as regular
+        config. How does Kubernetes handle sensitive values?
 difficulty: 1
-tags: ["kubernetes", "configmap", "configuration", "environment-variables", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - configmap
+  - configuration
+  - environment-variables
+  - k8s
+category: practice
 milestones:
-  - "Create a ConfigMap and inject it as environment variables into a Pod"
-  - "Mount a ConfigMap as a config file inside a Pod"
-  - "Update a ConfigMap and understand when the change propagates to running Pods"
-  - "Explain why ConfigMaps are not appropriate for sensitive data"
+  - Create a ConfigMap and inject it as environment variables into a Pod
+  - Mount a ConfigMap as a config file inside a Pod
+  - Update a ConfigMap and understand when the change propagates to running Pods
+  - Explain why ConfigMaps are not appropriate for sensitive data
 ---
 
 ConfigMaps store non-sensitive configuration data in Kubernetes — database URLs, feature flags, environment-specific settings. They decouple configuration from your container image, so you can change config without rebuilding, and run the same image in dev and production with different settings.

@@ -1,28 +1,25 @@
 ---
-id: "gitops-with-argocd"
-title: "GitOps with ArgoCD"
-zone: "kubernetes"
+id: gitops-with-argocd
+title: GitOps with ArgoCD
+zone: kubernetes
 edges:
-  from:
-    - id: "deployments"
-      question: "I understand Deployments. How do I make updates happen automatically on every code push?"
-      detail: "Running kubectl apply manually works for one service. It doesn't scale to dozens. ArgoCD watches a Git repository and continuously reconciles the cluster to match what's declared there — a code push triggers a deployment, rollbacks are a git revert, and the audit trail is the git log."
-    - id: "deployment-strategies"
-      question: "I understand deployment strategies. How do I automate them?"
-      detail: "Understanding how to do a canary or blue-green manually makes it much clearer why GitOps tooling exists. ArgoCD automates the deployment loop; Argo Rollouts extends it with progressive delivery strategies as native Kubernetes resources — triggered by a Git push, not a human running commands."
-    - id: "jobs-and-cronjobs"
-      question: "Jobs and CronJobs are Kubernetes resources too — how do I manage them declaratively from Git?"
-      detail: "Jobs and CronJobs are just YAML like Deployments and Services. They belong in Git alongside everything else. ArgoCD syncs them the same way — database migration Jobs run as part of the same application as the Deployment they prepare, with the same audit trail and rollback capability."
   to: []
 difficulty: 2
-tags: ["gitops", "argocd", "kubernetes", "continuous-deployment", "declarative", "flux", "k8s"]
-category: "practice"
+tags:
+  - gitops
+  - argocd
+  - kubernetes
+  - continuous-deployment
+  - declarative
+  - flux
+  - k8s
+category: practice
 milestones:
-  - "Install ArgoCD and connect it to a Git repository"
-  - "Define an Application resource that syncs a Deployment manifest from Git"
-  - "Make a change in Git and watch ArgoCD detect and apply it"
-  - "Roll back by reverting a Git commit and watching the cluster follow"
-  - "Understand the difference between manual sync and automated sync policies"
+  - Install ArgoCD and connect it to a Git repository
+  - Define an Application resource that syncs a Deployment manifest from Git
+  - Make a change in Git and watch ArgoCD detect and apply it
+  - Roll back by reverting a Git commit and watching the cluster follow
+  - Understand the difference between manual sync and automated sync policies
 ---
 
 GitOps treats Git as the single source of truth for your cluster's desired state. ArgoCD watches a Git repository and continuously reconciles the cluster to match the manifests in it. A code push triggers a deployment; a git revert is a rollback; the git log is your audit trail.

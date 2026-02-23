@@ -1,23 +1,32 @@
 ---
-id: "signals-and-ipc"
-title: "Signals & Inter-Process Communication"
-zone: "foundations"
+id: signals-and-ipc
+title: Signals & Inter-Process Communication
+zone: foundations
 edges:
-  from:
-    - id: "what-is-a-process"
-      question: "Processes are running. How do they talk to each other?"
-      detail: "Processes do not exist in isolation. They need to communicate — a parent process needs to know when a child exits, a service manager needs to tell a service to reload its config, and your terminal needs to send a 'stop' signal when you press Ctrl+C. Signals and inter-process communication are the mechanisms the OS provides for processes to coordinate, and understanding them is how you gracefully manage services in production."
   to:
-    - id: "systemd-and-services"
-      question: "I know how processes communicate. Who manages all the services?"
-      detail: "I understand how to send signals to individual processes. But on a real server there are dozens of services — they all need to start when the machine boots, restart if they crash, and shut down gracefully. How does any of that happen automatically? Someone or something must be managing all of it."
+    - id: systemd-and-services
+      question: I know how processes communicate. Who manages all the services?
+      detail: >-
+        I understand how to send signals to individual processes. But on a real
+        server there are dozens of services — they all need to start when the
+        machine boots, restart if they crash, and shut down gracefully. How does
+        any of that happen automatically? Someone or something must be managing
+        all of it.
 difficulty: 1
-tags: ["signals", "ipc", "sigterm", "sigkill", "sighup", "pipes", "sockets", "kill"]
-category: "concept"
+tags:
+  - signals
+  - ipc
+  - sigterm
+  - sigkill
+  - sighup
+  - pipes
+  - sockets
+  - kill
+category: concept
 milestones:
-  - "Explain the difference between SIGTERM and SIGKILL"
-  - "Send signals to a process using kill and understand what happens"
-  - "Explain what happens when you press Ctrl+C in a terminal"
+  - Explain the difference between SIGTERM and SIGKILL
+  - Send signals to a process using kill and understand what happens
+  - Explain what happens when you press Ctrl+C in a terminal
 ---
 
 You press Ctrl+C and a running program stops. But how? Your terminal did not just yank the program out of existence — it sent a **signal**, a small message from the OS to the process saying "please stop." Signals are one of the oldest and most fundamental ways processes communicate on Linux. They are how you gracefully shut down services, reload configurations without downtime, and handle the unexpected. And as an SRE, you will send and reason about signals constantly.

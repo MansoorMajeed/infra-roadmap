@@ -1,27 +1,44 @@
 ---
-id: "secrets"
-title: "Secrets"
-zone: "kubernetes"
+id: secrets
+title: Secrets
+zone: kubernetes
 edges:
-  from:
-    - id: "configmaps"
-      question: "ConfigMaps handle non-sensitive config. What about passwords, API keys, and TLS certificates?"
-      detail: "Kubernetes Secrets are the resource for sensitive data. They look a lot like ConfigMaps — same injection patterns, same mounting options — but come with tighter access controls, audit logging, and optional encryption at rest. The one gotcha: Kubernetes Secrets are base64-encoded by default, not encrypted."
   to:
-    - id: "autoscaling"
-      question: "Config and secrets are managed. Now — how do I make my workloads scale automatically with traffic?"
-      detail: "My app is running and configured correctly. But right now I have to manually change the replica count when traffic spikes. I want it to just grow when load increases and shrink when it drops — without me touching anything. How does Kubernetes do that automatically?"
-    - id: "resource-requests-and-limits"
-      question: "Before I set up autoscaling — I've heard Kubernetes needs resource requests defined first. What are those?"
-      detail: "I want autoscaling to work, but I have a feeling I'm missing something. My Pods don't have resource requests set — does that matter? How does Kubernetes even know what 'high load' means for my app if I haven't told it how much CPU or memory each Pod is supposed to use?"
+    - id: autoscaling
+      question: >-
+        Config and secrets are managed. Now — how do I make my workloads scale
+        automatically with traffic?
+      detail: >-
+        My app is running and configured correctly. But right now I have to
+        manually change the replica count when traffic spikes. I want it to just
+        grow when load increases and shrink when it drops — without me touching
+        anything. How does Kubernetes do that automatically?
+    - id: resource-requests-and-limits
+      question: >-
+        Before I set up autoscaling — I've heard Kubernetes needs resource
+        requests defined first. What are those?
+      detail: >-
+        I want autoscaling to work, but I have a feeling I'm missing something.
+        My Pods don't have resource requests set — does that matter? How does
+        Kubernetes even know what 'high load' means for my app if I haven't told
+        it how much CPU or memory each Pod is supposed to use?
 difficulty: 1
-tags: ["kubernetes", "secrets", "security", "credentials", "encryption", "external-secrets", "k8s"]
-category: "practice"
+tags:
+  - kubernetes
+  - secrets
+  - security
+  - credentials
+  - encryption
+  - external-secrets
+  - k8s
+category: practice
 milestones:
-  - "Create a Secret and inject it as an environment variable into a Pod"
-  - "Understand why base64 encoding is not encryption"
-  - "Enable encryption at rest for Secrets in etcd"
-  - "Use the External Secrets Operator to sync a secret from AWS Secrets Manager or Vault"
+  - Create a Secret and inject it as an environment variable into a Pod
+  - Understand why base64 encoding is not encryption
+  - Enable encryption at rest for Secrets in etcd
+  - >-
+    Use the External Secrets Operator to sync a secret from AWS Secrets Manager
+    or Vault
 ---
 
 Kubernetes Secrets hold sensitive data — passwords, API keys, TLS certificates, tokens. They look and work like ConfigMaps but with tighter access controls and optional encryption at rest. The critical caveat: Kubernetes Secrets are base64-encoded by default, which is encoding, not encryption.

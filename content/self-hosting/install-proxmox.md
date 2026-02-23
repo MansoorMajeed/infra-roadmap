@@ -1,24 +1,29 @@
 ---
-id: "install-proxmox"
-title: "Installing Proxmox and Creating Your First VM"
-zone: "self-hosting"
+id: install-proxmox
+title: Installing Proxmox and Creating Your First VM
+zone: self-hosting
 edges:
-  from:
-    - id: "what-is-virtualization"
-      question: "Proxmox sounds good — I'll use that"
   to:
-    - id: "ssh-into-your-server"
-      question: "Proxmox is running and I have a Debian VM — now what?"
-      detail: "The VM shows as running in the Proxmox UI. How do I actually get into it? Do I use that console in the web interface, set up SSH, or something else?"
+    - id: ssh-into-your-server
+      question: Proxmox is running and I have a Debian VM — now what?
+      detail: >-
+        The VM shows as running in the Proxmox UI. How do I actually get into
+        it? Do I use that console in the web interface, set up SSH, or something
+        else?
 difficulty: 1
-tags: ["self-hosting", "proxmox", "virtualization", "homelab", "vm"]
-category: "practice"
+tags:
+  - self-hosting
+  - proxmox
+  - virtualization
+  - homelab
+  - vm
+category: practice
 milestones:
-  - "Download and flash the Proxmox ISO"
-  - "Complete the Proxmox installer"
-  - "Access the Proxmox web UI"
-  - "Create a Debian VM and boot it"
-  - "SSH into the VM successfully"
+  - Download and flash the Proxmox ISO
+  - Complete the Proxmox installer
+  - Access the Proxmox web UI
+  - Create a Debian VM and boot it
+  - SSH into the VM successfully
 ---
 
 Proxmox installs directly onto your hardware like any operating system — you boot from a USB drive, run through the installer, and the machine becomes a hypervisor. After that, you manage everything from a web browser.

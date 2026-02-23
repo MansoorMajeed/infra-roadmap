@@ -1,24 +1,30 @@
 ---
-id: "i-need-hardware"
-title: "I Need Somewhere to Run This"
-zone: "self-hosting"
+id: i-need-hardware
+title: I Need Somewhere to Run This
+zone: self-hosting
 edges:
-  from:
-    - id: "what-is-self-hosting"
-      question: "OK, I want to try this. Where do I actually run it?"
   to:
-    - id: "buying-homelab-hardware"
-      question: "I don't have any hardware — what should I buy?"
-      detail: "Do I need something powerful? And what about electricity — if this thing runs 24/7, is that going to cost me? I don't want to overspend on something I'm just experimenting with."
-    - id: "bare-machine-now-what"
-      question: "I have an old PC or laptop sitting around"
-      detail: "It's a few years old and pretty slow. Is that going to be a problem? And I'm not sure I want to dedicate the whole machine — I still use it sometimes."
+    - id: buying-homelab-hardware
+      question: I don't have any hardware — what should I buy?
+      detail: >-
+        Do I need something powerful? And what about electricity — if this thing
+        runs 24/7, is that going to cost me? I don't want to overspend on
+        something I'm just experimenting with.
+    - id: bare-machine-now-what
+      question: I have an old PC or laptop sitting around
+      detail: >-
+        It's a few years old and pretty slow. Is that going to be a problem? And
+        I'm not sure I want to dedicate the whole machine — I still use it
+        sometimes.
 difficulty: 1
-tags: ["self-hosting", "hardware", "homelab"]
-category: "concept"
+tags:
+  - self-hosting
+  - hardware
+  - homelab
+category: concept
 milestones:
-  - "Decide whether you're using existing hardware or buying something"
-  - "Know what specs matter (CPU, RAM, storage, power draw)"
+  - Decide whether you're using existing hardware or buying something
+  - 'Know what specs matter (CPU, RAM, storage, power draw)'
 ---
 
 The machine you run your services on doesn't need to be new, powerful, or expensive. That old laptop under your bed? That PC you replaced two years ago? Both are fine. Self-hosting workloads are not demanding — you're running a password manager or a file sync, not training neural networks.
