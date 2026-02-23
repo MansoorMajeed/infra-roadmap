@@ -3,7 +3,16 @@ id: pod-scheduling-spread
 title: 'Pod Affinity, Anti-Affinity, and Spread'
 zone: kubernetes-production
 edges:
-  to: []
+  to:
+    - id: pod-disruption-budgets
+      question: >-
+        My pods are spread across nodes. But can Kubernetes still drain all of
+        them at once during an upgrade and cause an outage anyway?
+      detail: >-
+        I've set up topology spread so replicas land on different nodes. But if
+        Kubernetes decides to drain three nodes simultaneously for a version
+        upgrade, I'd still lose everything. Is there a way to tell it how many
+        pods it's allowed to take down at a time?
 difficulty: 3
 tags:
   - kubernetes

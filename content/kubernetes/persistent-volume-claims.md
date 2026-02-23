@@ -14,6 +14,15 @@ edges:
         baked into the container image — which means a rebuild every time
         something changes. There must be a way to inject configuration at
         runtime without rebuilding.
+    - id: statefulsets
+      question: >-
+        I want to run a database in Kubernetes. A Deployment doesn't feel right
+        — all the replicas would share the same PVC and fight over the same data.
+      detail: >-
+        With a Deployment, every pod is interchangeable and shares one PVC. But
+        a database replica needs its own storage, its own stable name so other
+        replicas know how to reach it, and it needs to come up in order. Is
+        there a different workload type built for this?
 difficulty: 1
 tags:
   - kubernetes

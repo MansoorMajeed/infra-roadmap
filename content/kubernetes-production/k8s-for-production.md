@@ -20,6 +20,14 @@ edges:
         I have staging and production and I've been copying and editing YAML
         between them. It's already drifting and I'm only two environments in.
         There has to be a better approach than copy-paste.
+    - id: rbac-k8s
+      question: >-
+        How do I control who can actually do what in my cluster — without giving
+        everyone admin access?
+      detail: >-
+        Right now anyone with the kubeconfig can do anything — delete namespaces,
+        read secrets, scale down production. I need a way to give developers just
+        enough access without handing them the keys to everything.
 difficulty: 2
 tags:
   - kubernetes

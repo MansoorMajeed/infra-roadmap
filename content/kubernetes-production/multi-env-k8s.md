@@ -21,6 +21,24 @@ edges:
         that's not great from a security standpoint. And when a request fails
         somewhere in the chain, I have no visibility into which service is
         responsible.
+    - id: namespace-strategy
+      question: >-
+        Should I use separate namespaces or separate clusters for each
+        environment?
+      detail: >-
+        I've been using namespaces to separate staging and production but I'm
+        not sure that's actually providing real isolation. What's actually
+        stopping a misconfigured staging pod from hitting the production
+        database?
+    - id: network-policies
+      question: >-
+        How do I stop services in one environment from accidentally talking to
+        services in another?
+      detail: >-
+        Staging and production are in the same cluster. I keep worrying that a
+        misconfigured service in staging could accidentally call the production
+        API or database. Right now there's nothing at the network level stopping
+        that from happening.
 difficulty: 3
 tags:
   - kubernetes

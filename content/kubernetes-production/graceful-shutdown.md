@@ -4,14 +4,15 @@ title: Graceful Pod Shutdown
 zone: kubernetes-production
 edges:
   to:
-    - id: pod-disruption-budgets
+    - id: pod-scheduling-spread
       question: >-
-        My app shuts down cleanly. But during a cluster upgrade, can Kubernetes
-        take all my pods offline at once?
+        My app shuts down cleanly, but I just realized all my replicas might be
+        running on the same node.
       detail: >-
-        I've handled SIGTERM so my app drains properly. But if Kubernetes is
-        upgrading nodes and decides to evict everything, what stops it from
-        taking all my replicas down simultaneously and causing a full outage?
+        I handle SIGTERM properly so my app drains. But if all my replicas land
+        on the same node and that node goes away — hardware failure, maintenance
+        drain, whatever — there's nothing left to serve traffic. How do I
+        actually guarantee they end up on different nodes?
 difficulty: 3
 tags:
   - kubernetes

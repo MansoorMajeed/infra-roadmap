@@ -13,6 +13,14 @@ edges:
         the same cluster separated by namespaces. I keep wondering whether
         that's actually good enough isolation or if I need separate clusters
         entirely.
+    - id: cluster-upgrades
+      question: >-
+        New Kubernetes versions keep dropping. How do I actually upgrade without
+        taking everything down?
+      detail: >-
+        My cluster is running 1.28 and I'm already two minor versions behind. I
+        have no idea what the upgrade process looks like — whether my workloads
+        survive it or whether there's a window of downtime I need to plan around.
 difficulty: 2
 tags:
   - kubernetes
