@@ -3,16 +3,7 @@ id: jobs-and-cronjobs
 title: Jobs and CronJobs
 zone: kubernetes
 edges:
-  to:
-    - id: gitops-with-argocd
-      question: >-
-        Jobs, CronJobs, Deployments — how do I manage all of this declaratively
-        from Git instead of applying manifests manually?
-      detail: >-
-        I'm still applying all my manifests manually — kubectl apply for my
-        Deployment, my Jobs, my CronJobs. As things grow that's not sustainable
-        and I keep losing track of what's actually applied. I want the cluster
-        to just reflect whatever's in Git, automatically.
+  to: []
 difficulty: 1
 tags:
   - kubernetes

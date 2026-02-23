@@ -3,16 +3,7 @@ id: autoscaling
 title: Autoscaling
 zone: kubernetes
 edges:
-  to:
-    - id: deployments
-      question: >-
-        Autoscaling manages how many Pods run. But how do I manage what they run
-        — updating my app without downtime?
-      detail: >-
-        I've got autoscaling working — the HPA adjusts my replica count. But now
-        I need to ship a new version of my app. Do I just delete all the pods
-        and start fresh? That feels wrong. How do I update what's running
-        without taking everything offline?
+  to: []
 difficulty: 2
 tags:
   - kubernetes

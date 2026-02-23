@@ -3,16 +3,7 @@ id: deployment-strategies
 title: Deployment Strategies
 zone: kubernetes
 edges:
-  to:
-    - id: gitops-with-argocd
-      question: >-
-        I understand deployment strategies. How do I automate all of this so
-        updates happen from a Git push?
-      detail: >-
-        I understand blue-green and canary deployments now — but I'm still
-        triggering all of this manually. I want a code push to be what kicks it
-        off, not me running kubectl commands. How does that actually get wired
-        up?
+  to: []
 difficulty: 2
 tags:
   - kubernetes

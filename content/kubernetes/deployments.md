@@ -4,15 +4,14 @@ title: Deployments
 zone: kubernetes
 edges:
   to:
-    - id: gitops-with-argocd
+    - id: services
       question: >-
-        I understand Deployments. How do I make updates happen automatically
-        when I push code, instead of running kubectl manually?
+        I have a Deployment running three replicas. How do I send traffic to all
+        of them instead of hitting one pod at a time?
       detail: >-
-        I'm running kubectl set image by hand every time I want to deploy. That
-        means I could forget, make a typo, deploy the wrong thing, and there's
-        no record of what changed or when. I need this to happen automatically —
-        something should watch my repo and deploy when I merge.
+        I can reach a single pod with port-forward, but now I have three
+        replicas. How does a real request actually get to any of them — and if
+        one pod goes down, does traffic automatically stop going to it?
     - id: deployment-strategies
       question: >-
         Rolling updates are the default. What other strategies exist for

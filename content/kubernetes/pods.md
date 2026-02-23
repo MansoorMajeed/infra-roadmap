@@ -29,6 +29,24 @@ edges:
         failing because the app wasn't actually ready yet. How does Kubernetes
         know when my app is genuinely ready to take traffic — not just
         technically started?
+    - id: deployments
+      question: >-
+        Managing individual Pods by hand seems wrong. How do I actually run my
+        app reliably?
+      detail: >-
+        I've been creating Pods directly but they don't restart when they crash,
+        I can't run multiple copies easily, and there's no way to roll out a
+        new version without downtime. There has to be a better way to run a
+        real service.
+    - id: init-containers
+      question: >-
+        My app keeps crashing on startup because the database isn't ready yet.
+        Is there a way to run a setup step before my main container starts?
+      detail: >-
+        I've added retry loops inside my app code but it feels like the wrong
+        place to put that logic. Other things too — I need to download some
+        config files, set up directory permissions — before the app can actually
+        start. Can I define pre-start steps at the Kubernetes level?
 difficulty: 1
 tags:
   - kubernetes
