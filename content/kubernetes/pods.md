@@ -47,6 +47,14 @@ edges:
         place to put that logic. Other things too — I need to download some
         config files, set up directory permissions — before the app can actually
         start. Can I define pre-start steps at the Kubernetes level?
+    - id: debugging-pods
+      question: >-
+        My pod is stuck in CrashLoopBackOff and I have no idea what's happening
+        inside it.
+      detail: >-
+        kubectl get pods shows CrashLoopBackOff but that tells me nothing about
+        why. I don't even know how to see the logs or get inside the container
+        to poke around. Where do I even start?
 difficulty: 1
 tags:
   - kubernetes

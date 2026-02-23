@@ -14,6 +14,15 @@ edges:
         gone. A pod's filesystem is ephemeral, which means I can't just write to
         disk the way I would on a regular server. How does Kubernetes handle
         data that needs to survive?
+    - id: debugging-ingress
+      question: >-
+        My Ingress is applied but I'm getting 404s — or sometimes 502s — and
+        nothing is reaching my app.
+      detail: >-
+        The Service works fine from inside the cluster, but hitting the domain
+        from the outside returns 404. Sometimes 502. I applied the Ingress
+        resource and it shows up in kubectl, but I have no idea what's actually
+        wrong or where to look.
 difficulty: 2
 tags:
   - kubernetes

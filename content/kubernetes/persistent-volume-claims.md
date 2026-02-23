@@ -23,6 +23,14 @@ edges:
         a database replica needs its own storage, its own stable name so other
         replicas know how to reach it, and it needs to come up in order. Is
         there a different workload type built for this?
+    - id: debugging-storage
+      question: >-
+        My pod is stuck in Pending and the PVC won't bind — nothing is
+        provisioning.
+      detail: >-
+        kubectl get pods shows Pending, but the container itself hasn't even
+        started trying. kubectl get pvc shows the claim is also Pending. I don't
+        know why the storage isn't provisioning or what I'm supposed to look at.
 difficulty: 1
 tags:
   - kubernetes

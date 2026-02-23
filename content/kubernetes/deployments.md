@@ -30,6 +30,23 @@ edges:
         to run database migrations, generate reports, process a queue of
         uploads. These aren't services, they have a start and an end. How does
         Kubernetes handle tasks that are supposed to finish?
+    - id: daemonsets
+      question: >-
+        I need something running on every single node — like a log collector. A
+        Deployment with a fixed replica count won't cut it.
+      detail: >-
+        I need a monitoring agent on every node. If I set replicas to 5 and a
+        new node joins the cluster, the agent won't be there. Is there a
+        workload type that automatically keeps exactly one pod running per node?
+    - id: debugging-deployments
+      question: >-
+        I deployed a new version and the rollout is stuck — new pods keep
+        crashing while old ones are still running.
+      detail: >-
+        I updated the image and ran kubectl apply, but the new pods are in
+        CrashLoopBackOff and the old pods are still serving traffic. The rollout
+        never finishes. I can't tell if it's a bad image, a wrong environment
+        variable, or something else.
 difficulty: 2
 tags:
   - kubernetes

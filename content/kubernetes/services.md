@@ -13,6 +13,15 @@ edges:
         from the internet. Is that a different type of Service, or a completely
         different kind of resource? I keep seeing 'Ingress' in the docs and I'm
         not sure where Services end and that begins.
+    - id: debugging-services
+      question: >-
+        I created a Service but I can't reach my app through it — requests just
+        time out.
+      detail: >-
+        kubectl get svc shows the Service is there with a ClusterIP. But when I
+        try to curl it from another pod, nothing comes back. I have no idea if
+        the problem is the Service itself, the labels on my pods, or something
+        else entirely.
 difficulty: 1
 tags:
   - kubernetes
