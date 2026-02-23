@@ -4,7 +4,7 @@ title: Container Registries
 zone: containers
 edges:
   to:
-    - id: running-containers-production
+    - id: deploying-to-a-server
       question: >-
         My image is stored and versioned. How do I get it running on a real
         server?
