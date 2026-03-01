@@ -13,12 +13,10 @@ edges:
     - id: users-and-permissions
       question: Linux is multi-user. Who controls what?
       detail: >-
-        Linux was designed from the ground up as a multi-user system. Every file
-        has an owner, every process runs as a user, and the root user has
-        god-mode access to everything. Understanding users, groups, and
-        permissions is not optional — it is the foundation of Linux security.
-        Get this wrong and you either lock yourself out or leave the door wide
-        open.
+        I've already hit "permission denied" and just slapped sudo in front of
+        things to make them go away. But I don't really know what's happening —
+        why am I being blocked? Is it about who I am, or what the file is? And
+        if I'm the only one on this server, why does any of it matter?
 difficulty: 1
 tags:
   - linux

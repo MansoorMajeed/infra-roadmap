@@ -8,18 +8,17 @@ edges:
       question: I know what an OS does. Which one matters for SRE?
       detail: >-
         I get what an OS does in abstract terms. But in practice, which one am I
-        actually going to be using? I know servers don't run Windows, but beyond
+        actually going to be using? I know most servers don't run Windows, but beyond
         that I'm fuzzy — is Linux one thing? Are there different versions? What
         am I actually going to encounter when I SSH into a server?
     - id: files-and-filesystems
       question: The OS manages files. How does that work?
       detail: >-
-        Everything on your computer is a file — your code, your configs, your
-        logs, even your devices. The OS organizes all of this through a
-        filesystem: a hierarchical structure that determines where things live,
-        who can access them, and how data is physically stored on disk.
-        Understanding the filesystem is essential because in SRE work, you'll
-        constantly be reading logs, editing configs, and managing storage.
+        I keep running into paths like /etc/nginx/nginx.conf and /var/log/syslog
+        but I don't really understand how any of this is organized. Why are there
+        so many folders? What does it even mean that "everything is a file"? When
+        I try to read a log or edit a config I feel like I'm just guessing at
+        where things live.
 difficulty: 1
 tags:
   - operating-system

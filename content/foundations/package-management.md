@@ -20,7 +20,7 @@ milestones:
   - Search for packages from the command line
 ---
 
-On Linux, you do not download installers from websites like you do on Windows or macOS. Software is managed through a **package manager** — a tool that installs, updates, and removes programs while automatically handling dependencies. It knows that installing Nginx also requires OpenSSL, and it fetches both for you. Every Linux distribution has one, and using it correctly is how you keep servers secure, reproducible, and maintainable.
+On Linux, you do not usually download installers from websites like you do on Windows or macOS. Software is managed through a **package manager** — a tool that installs, updates, and removes programs while automatically handling dependencies. It knows that installing Nginx also requires OpenSSL, and it fetches both for you. Every Linux distribution has one, and using it correctly is how you keep servers secure, reproducible, and maintainable.
 
 <!-- DEEP_DIVE -->
 
