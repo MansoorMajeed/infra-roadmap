@@ -4,24 +4,24 @@ title: Platform Engineering
 zone: platform
 edges:
   to:
-    - id: production-readiness
-      question: >-
-        I'm building an internal platform. How do I ensure every service that
-        ships on it is actually ready for production?
-      detail: >-
-        A platform lowers the barrier to deployment. That's also a risk: teams
-        can ship things faster than they can ship them well. Production
-        readiness reviews, service maturity models, and launch checklists are
-        how you maintain standards without being a bottleneck.
     - id: golden-paths
       question: >-
-        How do I actually build the standardised workflows and templates that
-        make the platform useful?
+        How do I make the right way to build a service the default — not
+        something teams have to discover for themselves?
       detail: >-
-        A platform without golden paths is just documentation and goodwill.
-        Golden paths are opinionated, supported, end-to-end workflows: clone
-        this template, run this command, get a service with CI/CD,
-        observability, secrets management, and a load balancer already wired up.
+        Teams are still starting from scratch and making the same mistakes. I
+        want something where if you follow the path we've laid out, you
+        automatically get CI/CD, observability, secrets management, and a
+        proper on-call setup — without having to figure it all out yourself.
+    - id: service-ownership
+      question: >-
+        All these tools are great. But when something breaks at 3am, who's
+        actually responsible?
+      detail: >-
+        We have great tooling now, but when something goes wrong it's still
+        unclear whose problem it is. The platform team gets pulled in, the
+        product team says it's infra, infra says it's the app. Nobody has clear
+        ownership and it slows everything down.
 difficulty: 2
 tags:
   - platform-engineering

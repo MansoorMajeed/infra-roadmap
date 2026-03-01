@@ -5,20 +5,23 @@ zone: platform
 edges:
   to:
     - id: post-mortems
-      question: The incident is resolved. What do we do next?
+      question: >-
+        The incident is resolved. How do I make sure we actually learn from it
+        instead of just moving on?
       detail: >-
-        Resolving the incident stops the bleeding. A post-mortem prevents it
-        from happening again. The blameless post-mortem is the SRE feedback
-        mechanism: understand what happened, why, what failed in your systems
-        and your processes, and what you'll change.
+        Every post-mortem I've seen either turns into a blame session or
+        produces a list of action items that nobody follows through on. I want
+        to run one that actually changes how we work — not just fills out a
+        document.
     - id: incident-communication
-      question: How do I communicate to stakeholders and users during the incident?
+      question: >-
+        While I'm trying to fix the incident, how do I keep stakeholders and
+        customers in the loop without it derailing the response?
       detail: >-
-        The technical team is debugging. Meanwhile, customers are seeing errors,
-        executives are asking for updates, and support is getting flooded.
-        Incident communication — status pages, internal updates, stakeholder
-        messaging — is a separate track that runs in parallel with the technical
-        response.
+        The responders need to focus on debugging. But I'm also getting pinged
+        by engineering leadership, the support team, and customers all at once.
+        All that communication is pulling focus away from the actual fix. I need
+        to handle both without sacrificing either.
 difficulty: 2
 tags:
   - incident-management

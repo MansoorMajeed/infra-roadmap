@@ -262,7 +262,7 @@ export function buildEdges(
       if (isPortal) {
         const portalId = `zone-portal-${edge.zone}`;
         edges.push({
-          id: `${node.frontmatter.id}-${portalId}`,
+          id: `${node.frontmatter.id}-${portalId}-${edge.id}`,
           source: node.frontmatter.id,
           target: portalId,
           markerEnd: { type: MarkerType.ArrowClosed, width: 16, height: 16, color: "#94a3b8" },

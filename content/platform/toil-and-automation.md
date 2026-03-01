@@ -4,22 +4,15 @@ title: Toil and Automation
 zone: platform
 edges:
   to:
-    - id: error-budgets-in-practice
+    - id: runbooks-and-playbooks
       question: >-
-        I'm automating away toil. How do I use error budgets to decide when to
-        prioritise reliability work vs new features?
+        Before I can automate any of this, I feel like I need to write down how
+        we actually handle things. Where do I start?
       detail: >-
-        Toil reduction is internal — it makes your team more efficient. Error
-        budgets are external — they govern the relationship between reliability
-        and feature velocity. When the error budget is healthy, you ship
-        features. When it's burning, you stop and fix things.
-    - id: on-call-health
-      question: A huge source of toil is bad on-call. How do I make on-call sustainable?
-      detail: >-
-        On-call is where toil hurts most: manual interventions at 3 AM, the same
-        alert for the sixth time this week, runbooks that don't actually work.
-        Sustainable on-call is a practice — measuring alert volume, requiring
-        actionable alerts, and enforcing toil budgets for the on-call rotation.
+        Half of our operational knowledge lives in people's heads. When
+        something breaks, whoever's on call figures it out from scratch every
+        time. I want to capture that, but I've seen runbooks that are out of
+        date the moment they're written — so what makes one actually useful?
 difficulty: 2
 tags:
   - toil

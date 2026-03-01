@@ -4,14 +4,15 @@ title: Blameless Post-Mortems
 zone: platform
 edges:
   to:
-    - id: chaos-engineering
+    - id: error-budgets-in-practice
       question: >-
-        We learn from incidents reactively. Can we find weaknesses before they
-        cause incidents?
+        The post-mortem is done. But now I have to explain to the product team
+        why we need to slow down on features.
       detail: >-
-        Post-mortems help us learn, but we only find out about a weakness after
-        it's already hurt us. Is there a way to actually stress-test the system
-        on purpose — before something breaks in production instead of after?
+        The action items are written and everyone nodded in the meeting. But
+        half of them are reliability investments that compete directly with the
+        feature roadmap, and product is pushing back. How do I make this a data
+        conversation instead of a political one?
 difficulty: 2
 tags:
   - post-mortem

@@ -4,6 +4,14 @@ title: Capacity Planning
 zone: platform
 edges:
   to:
+    - id: load-testing
+      question: >-
+        I have capacity estimates on paper. How do I actually verify them before
+        real traffic hits?
+      detail: >-
+        I've done the maths and we should handle 3x current traffic. But the
+        last time I said that, I was wrong. I want to actually simulate the load
+        and find the bottlenecks myself before users find them for me.
     - id: platform-engineering
       question: >-
         My systems are reliable and well-provisioned. How do I make the

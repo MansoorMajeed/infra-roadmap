@@ -4,15 +4,15 @@ title: Error Budgets in Practice
 zone: platform
 edges:
   to:
-    - id: incident-management
+    - id: reliability-roadmap
       question: >-
-        The error budget is burning. Something is seriously wrong. How do I
-        manage a major incident?
+        I have a pile of reliability problems to fix. How do I prioritize them
+        and make sure they don't just get deprioritized forever?
       detail: >-
-        Error budgets tell you when you have a reliability crisis. Incident
-        management is how you resolve it: a structured process with defined
-        roles, communication protocols, and a feedback loop that prevents the
-        same incident from happening twice.
+        The post-mortem generated eight action items and the error budget
+        analysis flagged five more. I don't know which ones matter most, how to
+        frame them for planning, or how to stop them from getting pushed to the
+        bottom of the backlog every sprint.
 difficulty: 2
 tags:
   - error-budget

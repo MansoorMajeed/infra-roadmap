@@ -4,15 +4,23 @@ title: Sustainable On-Call
 zone: platform
 edges:
   to:
-    - id: error-budgets-in-practice
+    - id: escalation-policies
       question: >-
-        On-call is healthier. How do I use error budgets to govern when we
-        prioritise reliability vs features?
+        When something goes wrong and the on-call engineer can't fix it alone,
+        who do they call? What are the actual rules?
       detail: >-
-        Sustainable on-call reduces the toil. Error budgets provide the policy:
-        they give the team a principled, quantitative way to decide when to stop
-        shipping and focus on reliability. The error budget is the bridge
-        between SLOs and engineering decisions.
+        Last week a P1 went on for 40 minutes because nobody knew whether to
+        call the database team or the platform team. We need a clear escalation
+        chain so people can ask for help without having to figure it out under
+        pressure.
+    - id: reliability-roadmap
+      question: >-
+        The rotation is sustainable. How do I turn this into a real plan for
+        improving reliability over time?
+      detail: >-
+        On-call is healthier now, but I'm still mostly reacting. I want to be
+        more systematic — actually prioritising reliability work, tracking
+        improvement, making it part of how the team operates permanently.
 difficulty: 2
 tags:
   - on-call
