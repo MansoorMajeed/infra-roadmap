@@ -32,7 +32,7 @@ function QuestionNode({ data }: NodeProps) {
   }, [open]);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} style={{ zIndex: open ? 1000 : "auto" }}>
       <Handle type="target" position={Position.Top} className="!bg-gray-300 !w-1.5 !h-1.5" />
       <div
         onClick={handleClick}
@@ -49,10 +49,22 @@ function QuestionNode({ data }: NodeProps) {
           ${open ? "border-blue-400 dark:border-blue-500 bg-blue-50 dark:bg-blue-950/60 shadow-md text-gray-700 dark:text-gray-300" : ""}
         `}
       >
-        <span className="line-clamp-2">{nodeData.question}</span>
-        <span className="ml-0.5 text-blue-400 dark:text-blue-500 not-italic text-[8px]">
-          {open ? "−" : "+"}
-        </span>
+        <div className="flex items-start justify-between gap-1">
+          <span className="line-clamp-2">{nodeData.question}</span>
+          <svg
+            width="8"
+            height="8"
+            viewBox="0 0 8 8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`shrink-0 mt-0.5 text-blue-400 dark:text-blue-500 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          >
+            <path d="M1.5 2.5 L4 5.5 L6.5 2.5" />
+          </svg>
+        </div>
       </div>
 
       {open && (
