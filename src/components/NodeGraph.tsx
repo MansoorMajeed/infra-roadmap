@@ -341,7 +341,7 @@ function NodeGraphInner({
     (_: React.MouseEvent, node: Node) => {
       if (node.id.startsWith("zone-portal-")) {
         const zoneId = node.id.slice("zone-portal-".length);
-        router.push(`/zone/${zoneId}`);
+        router.push(`/${zoneId}`);
         return;
       }
       if (node.id.startsWith("q-")) return; // Q nodes handle their own click
@@ -362,7 +362,7 @@ function NodeGraphInner({
           (e) => e.id === nodeId && e.zone
         );
         if (crossEdge?.zone) {
-          router.push(`/zone/${crossEdge.zone}`);
+          router.push(`/${crossEdge.zone}`);
           return;
         }
       }
@@ -580,7 +580,7 @@ function NodeGraphInner({
         <EntryPointSelector
           onSelect={(zone, nodeId) => {
             setShowEntrySelector(false);
-            router.push(`/zone/${zone}?node=${nodeId}`);
+            router.push(`/${zone}?node=${nodeId}`);
           }}
           onClose={() => setShowEntrySelector(false)}
         />

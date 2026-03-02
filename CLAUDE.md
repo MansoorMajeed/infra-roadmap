@@ -25,8 +25,8 @@ Non-obvious decisions are documented in `docs/adr/`. Read the relevant ADR befor
 | URL | Server Component | Client Component |
 |-----|-----------------|------------------|
 | `/` | `src/app/page.tsx` | `HomeClient.tsx` → `ZoneMap` |
-| `/zone/[zoneId]` | `src/app/zone/[zoneId]/page.tsx` | `ZoneClient.tsx` → `NodeGraph` |
-| `/zone/nonexistent` | → `not-found.tsx` (404) | — |
+| `/[zoneId]` | `src/app/[zoneId]/page.tsx` | `ZoneClient.tsx` → `NodeGraph` |
+| `/nonexistent` | → `not-found.tsx` (404) | — |
 
 ## Key Rules
 

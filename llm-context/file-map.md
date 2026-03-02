@@ -46,8 +46,8 @@ milestones:
 | `layout.tsx` | Server | Root layout. Geist fonts, metadata. |
 | `page.tsx` | Server | Home route `/`. Calls `validateEdgeReferences()`, loads zones config + node IDs, passes to HomeClient. |
 | `HomeClient.tsx` | Client | Renders `<ZoneMap>` in a full-screen div. |
-| `zone/[zoneId]/page.tsx` | Server | Dynamic route `/zone/:zoneId`. Validates zone exists + active, calls `notFound()` if invalid. Loads zone nodes. |
-| `zone/[zoneId]/ZoneClient.tsx` | Client | Reads `?node=` search param for highlighting. Wraps `<NodeGraph>` in Suspense. Back button → `router.push("/")`. |
+| `[zoneId]/page.tsx` | Server | Dynamic route `/:zoneId`. Validates zone exists + active, calls `notFound()` if invalid. Loads zone nodes. |
+| `[zoneId]/ZoneClient.tsx` | Client | Reads `?node=` search param for highlighting. Wraps `<NodeGraph>` in Suspense. Back button → `router.push("/")`. |
 | `error.tsx` | Client | Error boundary. Shows message + retry button. |
 | `not-found.tsx` | Server | Custom 404. "Back to Roadmap" link. |
 | `globals.css` | — | Tailwind imports + `.content-prose` styles. |

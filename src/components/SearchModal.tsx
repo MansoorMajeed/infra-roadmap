@@ -67,7 +67,7 @@ export default function SearchModal({ nodes, isOpen, onClose }: SearchModalProps
 
   const handleSelect = (node: SearchableNode) => {
     onClose();
-    router.push(`/zone/${node.zoneId}?focus=${node.id}`);
+    router.push(`/${node.zoneId}?focus=${node.id}`);
   };
 
   return (

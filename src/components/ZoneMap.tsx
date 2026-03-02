@@ -172,7 +172,7 @@ export default function ZoneMap({
     (_: React.MouseEvent, node: Node) => {
       const zone = zones.find((z) => z.id === node.id);
       if (zone?.active) {
-        router.push(`/zone/${zone.id}`);
+        router.push(`/${zone.id}`);
       }
     },
     [zones, router]
@@ -182,7 +182,7 @@ export default function ZoneMap({
     setShowEntrySelector(false);
     const targetZone = zones.find((z) => z.id === zone);
     if (targetZone?.active) {
-      router.push(`/zone/${zone}?node=${nodeId}`);
+      router.push(`/${zone}?node=${nodeId}`);
     }
   };
 
