@@ -21,23 +21,16 @@ const entryPoints: EntryPoint[] = [
   {
     icon: "💻",
     label: "I can code, but not ops",
-    description: "You build software but haven't run it on real servers yet",
-    startNode: "dynamic-web-app",
-    zone: "building",
+    description: "You build software but haven't run it on a real server yet",
+    startNode: "where-do-i-run-this",
+    zone: "running",
   },
   {
-    icon: "🖥️",
+    icon: "📈",
     label: "I know Linux, want cloud & DevOps",
-    description: "Comfortable on the command line, ready to deploy and scale",
-    startNode: "local-network",
-    zone: "networking",
-  },
-  {
-    icon: "⚙️",
-    label: "I want to automate deployments",
-    description: "You're deploying by hand and want CI/CD and infrastructure as code",
-    startNode: "what-is-ci-cd",
-    zone: "delivery",
+    description: "Comfortable on the command line, ready to scale and operate services",
+    startNode: "your-store-takes-off",
+    zone: "scaling",
   },
   {
     icon: "📊",
@@ -45,6 +38,20 @@ const entryPoints: EntryPoint[] = [
     description: "SLOs, incident management, on-call, and running things professionally",
     startNode: "what-is-sre",
     zone: "platform",
+  },
+  {
+    icon: "🏠",
+    label: "I want to self-host my own services",
+    description: "Run your own apps on hardware you control — no subscriptions, full privacy",
+    startNode: "what-is-self-hosting",
+    zone: "self-hosting",
+  },
+  {
+    icon: "🚢",
+    label: "I want to learn Kubernetes",
+    description: "Start with containers first, then move into orchestrating them at scale",
+    startNode: "containerization",
+    zone: "containers",
   },
 ];
 
