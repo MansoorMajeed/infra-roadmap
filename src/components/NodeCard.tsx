@@ -81,7 +81,7 @@ function NodeCard({ data }: NodeProps) {
 
   return (
     <div
-      className={`rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} ${catStyle.accent} ${catStyle.border || ""} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md hover:scale-[1.02] relative`}
+      className={`group rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} ${catStyle.accent} ${catStyle.border || ""} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md hover:scale-[1.02] hover:border-blue-400 dark:hover:border-blue-500 relative`}
       title="Click to read"
     >
       <Handle type="target" position={Position.Top} className="!bg-gray-400 !w-2 !h-2" />
@@ -92,9 +92,13 @@ function NodeCard({ data }: NodeProps) {
         </span>
         <span className={`w-2 h-2 rounded-full mt-1 shrink-0 ${diffDot}`} title={`Difficulty ${cardData.difficulty}`} />
       </div>
-      {cardData.status === "completed" && (
-        <div className="text-xs text-green-600 dark:text-green-400 mt-1 font-medium">
+      {cardData.status === "completed" ? (
+        <div className="text-xs text-green-600 dark:text-green-400 mt-1.5 font-medium">
           ✓ Completed
+        </div>
+      ) : (
+        <div className="text-[9px] text-blue-400/70 dark:text-blue-500/60 group-hover:text-blue-500 dark:group-hover:text-blue-400 mt-1.5 transition-colors font-medium">
+          Read →
         </div>
       )}
       {/* Bottom buttons: expand and/or collapse */}
