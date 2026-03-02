@@ -6,11 +6,11 @@ Quick reference for every file in the project and what it does.
 
 | File | Purpose |
 |------|---------|
-| `_zones.yaml` | 7 zone definitions: id, title, coreQuestion, description, color, position, active flag. Also `zoneEdges` array. Only `foundations` is `active: true`. |
-| `foundations/*.md` (10 files) | Node content. YAML frontmatter + markdown body split by `<!-- DEEP_DIVE -->` and `<!-- RESOURCES -->` markers. |
+| `_zones.yaml` | 12 zone definitions: id, title, coreQuestion, description, color, position, active flag. Also `zoneEdges` array. All zones are `active: true`. |
+| `<zone>/*.md` | Node content per zone. YAML frontmatter + markdown body split by `<!-- DEEP_DIVE -->` and `<!-- RESOURCES -->` markers. |
 
-### Foundations nodes (10)
-hello-world, how-computers-run-code, operating-system-basics, the-terminal, files-and-filesystems, processes-and-memory, version-control-git, programming-fundamentals, scripting-bash-python, text-editors-and-ides
+### Active zones (12)
+foundations, building, networking, running, scaling, delivery, containers, kubernetes, kubernetes-production, observability, platform, self-hosting
 
 ### Node frontmatter shape
 ```yaml
@@ -46,7 +46,7 @@ milestones:
 | `layout.tsx` | Server | Root layout. Geist fonts, metadata. |
 | `page.tsx` | Server | Home route `/`. Calls `validateEdgeReferences()`, loads zones config + node IDs, passes to HomeClient. |
 | `HomeClient.tsx` | Client | Renders `<ZoneMap>` in a full-screen div. |
-| `[zoneId]/page.tsx` | Server | Dynamic route `/:zoneId`. Validates zone exists + active, calls `notFound()` if invalid. Loads zone nodes. |
+| `[zoneId]/page.tsx` | Server | Dynamic route `/:zoneId` (e.g. `/foundations`, `/scaling`). Validates zone exists + active, calls `notFound()` if invalid. Loads zone nodes. |
 | `[zoneId]/ZoneClient.tsx` | Client | Reads `?node=` search param for highlighting. Wraps `<NodeGraph>` in Suspense. Back button → `router.push("/")`. |
 | `error.tsx` | Client | Error boundary. Shows message + retry button. |
 | `not-found.tsx` | Server | Custom 404. "Back to Roadmap" link. |
@@ -56,20 +56,21 @@ milestones:
 
 | File | Lines | Purpose |
 |------|-------|---------|
-| `ZoneMap.tsx` | ~190 | Bird's-eye zone view. Uses `useRouter()` for navigation (`router.push('/zone/...')`). Custom `ZoneNode` render with Handle components. `EntryPointSelector` integration navigates to `/zone/{id}?node={nodeId}`. |
-| `NodeGraph.tsx` | ~870 | Zone detail graph. **Biggest component.** Progressive disclosure: roots + 1 level visible initially. Expand/collapse via `+`/`-` buttons. Layout: dagre TB, ranksep=120. Q nodes injected between every content edge pair. Persists visible nodes + viewport to localStorage. Zoom controls bottom-right. Wrapped in `ReactFlowProvider`. |
-| `NodeCard.tsx` | ~125 | Custom React Flow node (type: `roadmapNode`). Shows: category icon, title, difficulty dot (green/yellow/red), completion status. Bottom buttons: expand (+, blue) if hasHiddenChildren, collapse (-, gray) if canCollapse. |
-| `QuestionNode.tsx` | ~80 | Custom React Flow node (type: `questionNode`). Small pill card between content nodes. Shows truncated italic question text. Click toggles a popover with full question + detail. |
-| `ContentPanel.tsx` | ~256 | Modal overlay. Sections: header (title, difficulty, category, tags), summary (markdown), expandable deep dive, milestones (checkboxes), resources (markdown), "where to go next" (edge navigation), footer (mark complete button). |
-| `EntryPointSelector.tsx` | ~96 | "Where do I start?" modal. 5 entry points mapping audience → zone + startNode. Calls `onSelect(zone, nodeId)`. |
-| `ZonePortalCard.tsx` | exists | Custom React Flow node (type: `zonePortalNode`). Rendered at the end of cross-zone edges. Clicking navigates to the target zone. |
-| `SearchModal.tsx` | exists | ⌘K search overlay. Filters nodes by title/tags. Focuses a node in the graph on select. |
+| `ZoneMap.tsx` | ~295 | Bird's-eye zone view. Uses `useRouter()` for navigation (`router.push('/{zoneId}')`). Custom `ZoneNode` render with Handle components. `EntryPointSelector` integration navigates to `/{id}?node={nodeId}`. |
+| `NodeGraph.tsx` | ~633 | Zone detail graph. **Biggest component.** Progressive disclosure: roots + 1 level visible initially. Expand/collapse via `+`/`-` buttons. Layout: dagre TB, ranksep=120. Q nodes injected between every content edge pair. Persists visible nodes + viewport to localStorage. Zoom controls bottom-right. Wrapped in `ReactFlowProvider`. |
+| `NodeCard.tsx` | ~128 | Custom React Flow node (type: `roadmapNode`). Shows: category icon, title, difficulty dot (green/yellow/red), completion status. Bottom buttons: expand (+, blue) if hasHiddenChildren, collapse (-, gray) if canCollapse. |
+| `QuestionNode.tsx` | ~95 | Custom React Flow node (type: `questionNode`). Small pill card between content nodes. Shows truncated italic question text. Click toggles a popover with full question + detail. |
+| `ContentPanel.tsx` | ~302 | Modal overlay. Sections: header (title, difficulty, category, tags), summary (markdown), expandable deep dive, milestones (checkboxes), resources (markdown), "where to go next" (edge navigation), footer (mark complete button). |
+| `EntryPointSelector.tsx` | ~130 | "Where do I start?" modal. 5 entry points mapping audience → zone + startNode. Calls `onSelect(zone, nodeId)`. |
+| `ZonePortalCard.tsx` | ~49 | Custom React Flow node (type: `zonePortalNode`). Rendered at the end of cross-zone edges. Clicking navigates to the target zone. |
+| `SearchModal.tsx` | ~168 | ⌘K search overlay. Filters nodes by title/tags across all zones. Focuses a node in the graph on select. |
+| `HelpModal.tsx` | ~138 | Keyboard shortcuts and usage hints modal. |
 
 ## Tests (`src/lib/__tests__/`)
 
 | File | Tests |
 |------|-------|
-| `content.test.ts` | getZonesConfig (3), getZone (2), getNodesByZone (3), getNode (2), content parsing (2), edge integrity (2) = 14 tests |
+| `content.test.ts` | getZonesConfig (3), getZone (2), getNodesByZone (2), getNode (2), content parsing (2), edge integrity (2) = 13 tests |
 | `progress.test.ts` | getProgress (1), setNodeStatus (2), toggleMilestone (2), getCompletedCount (2), resetProgress (1) = 8 tests |
 
 ## Config files

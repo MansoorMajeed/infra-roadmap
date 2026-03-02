@@ -12,9 +12,7 @@
 
 ## Cross-Zone Edges
 
-Nodes can reference nodes in other zones via `edges.to`. These are intentional "bridge" edges. Since inactive zones have no content files yet, validation and tests skip cross-zone edge references.
-
-Example: `programming-fundamentals` → `what-is-a-web-service` (foundations → building)
+Nodes can reference nodes in other zones via `edges.to`. These are intentional "bridge" edges. Validation and tests skip cross-zone edge reference checks (they don't verify the target node exists in the target zone).
 
 ## Content Validation
 
@@ -24,7 +22,7 @@ Example: `programming-fundamentals` → `what-is-a-web-service` (foundations →
 
 ## NodeGraph Complexity
 
-NodeGraph.tsx (~870 lines) is the largest component. Key state:
+NodeGraph.tsx (~633 lines) is the largest component. Key state:
 - `visibleIds: Set<string>` — which content nodes are shown
 - `progressMap: Map<string, NodeStatus>` — node completion status, re-computed when user marks progress
 - `selectedNode: RoadmapNode | null` — opens ContentPanel

@@ -8,7 +8,7 @@ content/*.md → content.ts (server, gray-matter + Zod) → page.tsx (server com
 
 - No API routes. All content loaded at build time via server components.
 - `/` route: `page.tsx` → `HomeClient` → `ZoneMap`
-- `/zone/[zoneId]` route: `page.tsx` → `ZoneClient` → `NodeGraph`
+- `/[zoneId]` route: `page.tsx` → `ZoneClient` → `NodeGraph`
 
 ## React Flow Usage
 

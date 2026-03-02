@@ -35,7 +35,7 @@ Non-obvious decisions are documented in `docs/adr/`. Read the relevant ADR befor
 - Zone nodes need invisible `<Handle>` components for edges
 - Next.js 16: `params` is a Promise — must `await params` in server components
 - `useSearchParams` requires a `<Suspense>` boundary
-- Cross-zone edges are valid — nodes can reference nodes in other (inactive) zones. They require an explicit `zone:` field on the `to` entry:
+- Cross-zone edges are valid — nodes can reference nodes in other zones. They require an explicit `zone:` field on the `to` entry:
   ```yaml
   to:
     - id: "installing-software"
@@ -136,7 +136,7 @@ Heading hierarchy:
 
 Reserve `**bold**` for emphasis within prose, not as section titles. The summary section (before `<!-- DEEP_DIVE -->`) is usually short prose with no headings needed.
 
-See `PLAN.md` for full architecture and `TASKS.md` for current work items.
+See `llm-context/` for architecture details.
 
 ## LLM Context Maintenance
 
