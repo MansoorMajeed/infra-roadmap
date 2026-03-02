@@ -60,5 +60,4 @@ That's the discipline this zone is about. Not more firefighting, but fewer fires
 <!-- RESOURCES -->
 
 - [Google SRE Book - Introduction](https://sre.google/sre-book/introduction/) -- type: book, time: 30m
-- [The Error Budget Policy - Increment Magazine](https://increment.com/reliability/error-budget-approach-to-reliability/) -- type: article, time: 15m
 - [The Calculus of Service Availability - Google](https://queue.acm.org/detail.cfm?id=3096459) -- type: article, time: 20m
