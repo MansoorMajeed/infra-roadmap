@@ -135,7 +135,7 @@ function NodeGraphInner({
   const [hydrated, setHydrated] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [showEntrySelector, setShowEntrySelector] = useState(false);
-  const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom } = useReactFlow();
+  const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom, getNodes } = useReactFlow();
 
   // After hydration, load saved state from localStorage
   useEffect(() => {
@@ -190,6 +190,22 @@ function NodeGraphInner({
       return next;
     });
   }, []);
+
+  const scrollToTop = useCallback(() => {
+    const rfNodes = getNodes();
+    if (rfNodes.length === 0) return;
+    const minY = Math.min(...rfNodes.map((n) => n.position.y));
+    const topNodes = rfNodes.filter((n) => n.position.y <= minY + 10);
+    fitView({ nodes: topNodes.map((n) => ({ id: n.id })), padding: 0.4, duration: 500 });
+  }, [getNodes, fitView]);
+
+  const scrollToBottom = useCallback(() => {
+    const rfNodes = getNodes();
+    if (rfNodes.length === 0) return;
+    const maxY = Math.max(...rfNodes.map((n) => n.position.y));
+    const bottomNodes = rfNodes.filter((n) => n.position.y >= maxY - 10);
+    fitView({ nodes: bottomNodes.map((n) => ({ id: n.id })), padding: 0.4, duration: 500 });
+  }, [getNodes, fitView]);
 
   // Save viewport on changes and track zoom percentage
   const handleViewportChange = useCallback(
@@ -540,6 +556,25 @@ function NodeGraphInner({
               <path d="M5 7V5a3 3 0 0 1 6 0" />
             </svg>
           )}
+        </button>
+        <div className="w-px h-5 bg-gray-200 dark:bg-gray-700 mx-1" />
+        <button
+          onClick={scrollToTop}
+          className={`${btnClass} w-8 text-xs`}
+          title="Go to beginning"
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 2h10M8 14V5M4 9l4-4 4 4" />
+          </svg>
+        </button>
+        <button
+          onClick={scrollToBottom}
+          className={`${btnClass} w-8 text-xs`}
+          title="Go to end"
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 14h10M8 2v9M4 7l4 4 4-4" />
+          </svg>
         </button>
       </div>
 
