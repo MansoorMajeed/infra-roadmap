@@ -3,7 +3,22 @@ id: running-your-store
 title: Running Your Store
 zone: running
 edges:
-  to: []
+  to:
+    - id: one-server-is-not-enough
+      zone: scaling
+      question: My store is live — but it's on a single server. What happens when that isn't enough?
+      detail: >-
+        It's running and I'm proud of it. But I know this is fragile — one
+        server, one point of failure. If it goes down, the store goes down. And
+        if traffic actually grows, I have no idea how this handles it. What does
+        the next step look like?
+    - id: what-is-sre
+      zone: platform
+      question: My store is live. Now I'm responsible for keeping it up. How do people think about that?
+      detail: >-
+        I deployed it and it works. But now what? I have no idea how to know
+        if it's actually reliable, or what to do when it breaks at 2 AM, or
+        how to think about uptime as a goal. Is there a discipline for this?
 difficulty: 2
 tags:
   - deployment

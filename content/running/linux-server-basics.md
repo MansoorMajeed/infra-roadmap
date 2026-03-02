@@ -10,6 +10,29 @@ edges:
         I can SSH in and install packages. But my app code is still sitting on
         my laptop. How do I actually move it to the server, install what it
         needs, and get it running?
+    - id: users-and-permissions
+      zone: foundations
+      question: I keep hitting permission denied. What is actually going on with users and permissions?
+      detail: >-
+        I'm using chmod and chown but I'm mostly guessing. Why does 755 work
+        but 644 doesn't for my script? What does it mean that a file has an
+        owner and a group? I want to understand the model, not just copy
+        commands until something works.
+    - id: systemd-and-services
+      zone: foundations
+      question: I'm using systemctl but I don't really understand what systemd is doing.
+      detail: >-
+        I can start and stop services, but when something goes wrong I don't
+        know where to look or what the error means. What is systemd actually
+        doing under the hood — how does it manage processes, what are unit
+        files really, and how do I debug it properly?
+    - id: files-and-filesystems
+      zone: foundations
+      question: I keep seeing paths like /etc and /var — how is the Linux filesystem actually organized?
+      detail: >-
+        I know the paths by muscle memory but I don't really understand the
+        logic. Why is config in /etc? Why are logs in /var/log and not somewhere
+        else? Is there a system to this, or is it just historical accident?
 difficulty: 1
 tags:
   - linux
