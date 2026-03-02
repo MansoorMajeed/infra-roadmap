@@ -1,12 +1,12 @@
 ---
-id: localmart-the-stack
-title: 'LocalMart: The Stack We''ll Scale'
+id: your-store-takes-off
+title: Your Store Takes Off
 zone: scaling
 edges:
   to:
     - id: one-server-is-not-enough
       question: >-
-        LocalMart gets press coverage. Thousands of users show up at once. What
+        The store gets press coverage. Thousands of users show up at once. What
         breaks?
       detail: >-
         A single server has hard ceilings on CPU, memory, and connections. And
@@ -16,7 +16,6 @@ edges:
 difficulty: 1
 tags:
   - example
-  - localmart
   - python
   - mysql
   - single-vm
@@ -24,7 +23,7 @@ tags:
   - architecture
 category: concept
 milestones:
-  - 'Understand the LocalMart stack: Python (Flask/FastAPI), MySQL, single VM'
+  - 'Understand the baseline stack: Python (Flask/FastAPI), MySQL, single VM'
   - Identify what each component does and why it exists
   - Understand why this setup works fine at small scale
 ---

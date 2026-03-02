@@ -4,32 +4,38 @@ title: Application Caching with Memcache
 zone: scaling
 edges:
   to:
-    - id: vm-scaling-pain-points
-      question: >-
-        The stack is solid. App, sessions, database, cache — LocalMart handles
-        serious traffic. What's still painful?
-      detail: >-
-        I've added horizontal scaling, sessions, and caching — the stack handles
-        real traffic now. But I keep running into the same categories of pain.
-        Provisioning new VMs is slow. Configuration drift keeps creeping in.
-        Something always needs manual intervention. Are these fundamental VM
-        problems, or am I just doing it wrong?
     - id: cache-aside-pattern
       question: How exactly does my app code use Memcache? What's the pattern?
       detail: >-
-        The mechanics of using a cache correctly have a name: cache-aside (or
-        lazy loading). Check the cache first, fall back to the database on a
-        miss, populate the cache for next time. Getting this right — including
-        TTLs — is where most of the nuance lives.
+        I have Memcache running but I'm not confident my code is using it
+        correctly. Do I check the cache before every query? What happens on a
+        miss? How long should I keep things cached before they go stale? I feel
+        like I'm winging it and I'll regret it later.
     - id: cache-invalidation
       question: >-
         What happens when the underlying data changes? How do I keep the cache
         consistent?
       detail: >-
-        Adding a cache is easy. Keeping it fresh is where things get hard. If a
-        product price changes in MySQL but the old price is still in Memcache,
-        users see stale data. Cache invalidation is one of the genuinely hard
-        problems in distributed systems.
+        We updated a product price and users were still seeing the old one for
+        minutes. I flushed the cache to fix it, but that tanked the database
+        immediately. I don't have a good mental model for how to keep cached
+        data in sync when the source changes — and I'm worried it's going to
+        bite us again.
+    - id: reverse-proxy-caching
+      question: Object caching requires instrumenting every query in my code. But a lot of traffic is for the exact same pages — can I cache full HTTP responses without touching application code?
+      detail: >-
+        Memcache requires me to wrap every database call manually. But the
+        homepage, top category pages, and product listings are requested
+        thousands of times a minute and almost never change. A layer that caches
+        complete HTTP responses in front of the app would absorb all of that
+        before it ever reaches my Python process.
+    - id: browser-caching
+      question: My servers are still sending the same images, CSS, and JS on every single request. Can the browser just keep those?
+      detail: >-
+        Every page load fetches the same logo, stylesheet, and JavaScript bundle
+        — even if nothing has changed since yesterday. There has to be a way to
+        tell the browser it already has these and doesn't need to download them
+        again.
 difficulty: 2
 tags:
   - memcache

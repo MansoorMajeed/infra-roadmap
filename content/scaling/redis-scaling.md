@@ -4,13 +4,13 @@ title: Scaling Redis
 zone: scaling
 edges:
   to:
-    - id: managed-database
-      question: Redis is solid. Now the database is the slowest thing in the stack.
+    - id: connection-pooling
+      question: Redis is clustered and stable. Now the database is complaining — every app server is maintaining its own connection pool and I'm hitting the connection limit.
       detail: >-
-        With the app tier and Redis scaled out, MySQL on a single VM is the new
-        bottleneck. Every product page, every order lookup, every search — it
-        all hits one database. And if that database goes down, the store goes
-        down with it.
+        Fixing Redis took the session pressure off. But now I have a fleet of
+        app servers and each one maintains its own persistent connection pool
+        to the database. The connection count grows faster than the load, and
+        I keep hitting Postgres's hard max_connections ceiling.
 difficulty: 2
 tags:
   - redis

@@ -9,10 +9,10 @@ edges:
         We're on RDS/Cloud SQL. Now how do we scale reads and add high
         availability?
       detail: >-
-        Moving to a managed database is step one. Step two is adding read
-        replicas so read-heavy traffic — product listings, searches, category
-        pages — doesn't hammer the primary. And Multi-AZ / high availability
-        gives you automatic failover if the primary goes down.
+        We're on RDS now and it's much better than self-managing MySQL. But
+        the database is still a single point of failure — if it goes down,
+        everything goes down. And reads are starting to pile up. I don't know
+        if I need replicas, Multi-AZ, both, or something else entirely.
 difficulty: 2
 tags:
   - rds

@@ -19,6 +19,22 @@ edges:
         to just work — my app installed, configured, serving traffic within
         minutes. But how does a brand new blank VM know what to run? I can't SSH
         into every new instance manually every time the group scales out.
+    - id: connection-pooling
+      question: My app servers are scaling out, but now the database is throwing "too many connections" errors before they've even taken any load. What's happening?
+      detail: >-
+        Every app server opens its own persistent connection pool to the
+        database. With ten servers each holding twenty connections open, that's
+        already two hundred — and Postgres has a hard limit. When the ASG scales
+        out during a spike I start seeing connection errors before the new
+        servers have served a single request.
+    - id: async-job-queues
+      question: My servers scale fine for normal requests — but some operations take 10 seconds and block the whole request. What do I do with those?
+      detail: >-
+        Sending confirmation emails, resizing uploaded images, generating
+        invoices — these are slow no matter how many servers I have. They block
+        the web worker for the whole duration, and if they fail the user sees an
+        error. I keep thinking there must be a way to just hand them off and
+        respond immediately.
 difficulty: 2
 tags:
   - auto-scaling

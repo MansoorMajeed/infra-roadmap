@@ -9,10 +9,10 @@ edges:
         Browser caching helps repeat visitors. What about users loading the site
         for the first time, from far away?
       detail: >-
-        Cache headers eliminate redundant downloads for returning users. But a
-        first-time visitor in Singapore still has to download your assets from a
-        server in us-east-1. A CDN fixes this by serving those assets from an
-        edge location near the user.
+        Repeat visitors are faster now, but someone opening the site for the
+        first time from the other side of the world is still hitting my single
+        server. That initial load is slow and I don't know how to fix it
+        without moving the server closer to them somehow.
 difficulty: 1
 tags:
   - caching

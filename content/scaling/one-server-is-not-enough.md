@@ -5,12 +5,14 @@ zone: scaling
 edges:
   to:
     - id: horizontal-vs-vertical-scaling
-      question: What are my options for handling more traffic?
+      question: >-
+        My server can't keep up. Do I just make it bigger, or is that the
+        wrong approach?
       detail: >-
-        There are fundamentally two ways to scale: make the server bigger, or
-        add more servers. These have very different costs, limits, and
-        complexity trade-offs. Understanding both is the foundation of
-        everything else in this zone.
+        I've been bumping up CPU and RAM every few months but I feel like I'm
+        running out of road — and if this server goes down, everything goes
+        down. I don't know if I should keep scaling up or start thinking about
+        this completely differently.
 difficulty: 1
 tags:
   - scaling

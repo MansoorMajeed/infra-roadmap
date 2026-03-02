@@ -4,16 +4,6 @@ title: Database Replication
 zone: scaling
 edges:
   to:
-    - id: application-caching
-      question: >-
-        Read replicas help. But we're still querying the database for the same
-        product list on every request. What eliminates those round-trips
-        entirely?
-      detail: >-
-        Even with replicas, every request still hits the database. For data that
-        rarely changes — product listings, category pages, configuration —
-        you're doing the same work over and over. An application cache stores
-        results in memory so most requests never touch the database.
     - id: replication-internals
       question: >-
         How does the replica actually stay in sync? What's happening under the
@@ -23,16 +13,13 @@ edges:
         from the primary using a binary log. Understanding this mechanism —
         replication lag, async vs sync, what 'eventually consistent' really
         means — helps you reason about what you can and can't do with replicas.
-    - id: browser-caching
-      question: >-
-        My servers are still sending the same images, CSS, and JS on every
-        request. Can the browser just cache those?
+    - id: database-write-scaling
+      question: Read replicas handle my reads. But write traffic is growing and the primary is showing CPU pressure. Adding more replicas doesn't help writes at all. What are my options?
       detail: >-
-        Every page load fetches your logo, CSS, and JavaScript bundle — even if
-        nothing has changed. HTTP has built-in mechanisms for this: cache
-        headers that tell browsers to hold onto files they've already
-        downloaded. This reduces server load and makes pages load faster for
-        returning users.
+        All writes still go to one primary. I've offloaded reads to replicas
+        but the primary is now the bottleneck — CPU is climbing, replication
+        lag is growing. I can't just add another primary the way I added
+        replicas. What does horizontal write scaling actually look like?
 difficulty: 2
 tags:
   - replication
