@@ -7,33 +7,56 @@ interface HelpModalProps {
   onShowEntrySelector: () => void;
 }
 
+function StepIcon({ children, className }: { children: React.ReactNode; className: string }) {
+  return (
+    <span
+      className={`w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center shrink-0 ${className}`}
+    >
+      {children}
+    </span>
+  );
+}
+
 const steps = [
   {
-    icon: "🖱️",
-    title: "Click any node to open it",
+    icon: (
+      <StepIcon className="bg-blue-500 text-white">
+        →
+      </StepIcon>
+    ),
+    title: "Click any topic to open it",
     detail:
-      "Read the content, check off milestones, and open the deep dive for more detail.",
-  },
-  {
-    icon: "❓",
-    title: "Tap question nodes to choose your path",
-    detail:
-      "The small italic pills between nodes show a question you might have — tap to pick the direction that fits you.",
+      "Each box on the map is a topic. Click it to read the content and check off milestones.",
   },
   {
     icon: (
-      <span className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center">
-        +
-      </span>
+      <StepIcon className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+        ?
+      </StepIcon>
     ),
-    title: "Use + on nodes to reveal more topics",
+    title: "Use the question boxes to choose your path",
     detail:
-      "The graph starts compact. Expand any node to see what comes next and follow the threads that interest you.",
+      "The small boxes between topics are questions — click one to see where it leads and pick your next direction.",
   },
   {
-    icon: "✓",
-    title: "Progress is saved automatically",
-    detail: "No account needed — everything is stored in your browser.",
+    icon: (
+      <StepIcon className="bg-blue-500 text-white">
+        +
+      </StepIcon>
+    ),
+    title: "Use + to reveal more topics",
+    detail:
+      "The map starts compact. Click + on any topic box to expand and see what comes next.",
+  },
+  {
+    icon: (
+      <StepIcon className="bg-green-500 text-white">
+        ✓
+      </StepIcon>
+    ),
+    title: "Mark topics complete as you go",
+    detail:
+      "Open a topic and click 'Mark as Complete' when you're done. Your progress is saved in your browser.",
   },
 ];
 
@@ -61,7 +84,7 @@ export default function HelpModal({ onClose, onShowEntrySelector }: HelpModalPro
                 How this works
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                An interactive skill tree for infrastructure &amp; SRE
+                An interactive skill map for infrastructure &amp; SRE
               </p>
             </div>
             <button
@@ -79,9 +102,7 @@ export default function HelpModal({ onClose, onShowEntrySelector }: HelpModalPro
           <div className="p-6 space-y-5">
             {steps.map((step, i) => (
               <div key={i} className="flex gap-4 items-start">
-                <div className="text-xl w-8 shrink-0 flex justify-center mt-0.5">
-                  {step.icon}
-                </div>
+                <div className="mt-0.5">{step.icon}</div>
                 <div>
                   <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
                     {step.title}
