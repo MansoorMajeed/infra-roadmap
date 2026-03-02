@@ -25,6 +25,13 @@ edges:
         I keep having to edit files on the server and I have no idea what to
         open them with. I tried vim once and couldn't even figure out how to
         quit. Is there a sane way to approach this?
+    - id: essential-linux-commands
+      question: I have a shell — what commands do I actually need to know?
+      detail: >-
+        I can open a terminal but I don't know what to type beyond cd and ls.
+        I keep seeing commands like ps, df, find, kill mentioned everywhere but
+        I have no idea when to use which one. What are the commands I actually
+        need to survive on a Linux server?
 difficulty: 1
 tags:
   - terminal

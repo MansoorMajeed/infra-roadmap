@@ -3,7 +3,15 @@ id: log-files
 title: Log Files & Logging
 zone: foundations
 edges:
-  to: []
+  to:
+    - id: grep-and-searching
+      question: There are thousands of lines in these logs. How do I find what I need?
+      detail: >-
+        I found the log file but it's enormous — tens of thousands of lines and
+        the error I care about is somewhere in there. Scrolling is hopeless.
+        There must be a way to search for a specific message, watch for new
+        lines as they come in, or filter down to just the errors. How do I
+        actually work with this much output?
 difficulty: 1
 tags:
   - logs

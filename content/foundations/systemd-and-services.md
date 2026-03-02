@@ -11,6 +11,14 @@ edges:
         idea where to look. It crashed and restarted but I don't know why. There
         must be output from it somewhere, some record of what happened. How do I
         find that and actually make sense of it?
+    - id: cron-and-scheduling
+      question: My service runs continuously — but what if I need to run something on a schedule?
+      detail: >-
+        I know how to keep a service running. But some things I need to happen
+        at a specific time — clean up old files every night, run a backup every
+        hour, kick off a report every Monday morning. How do I tell the system
+        to run something automatically on a schedule without me having to
+        remember to do it?
 difficulty: 1
 tags:
   - systemd
