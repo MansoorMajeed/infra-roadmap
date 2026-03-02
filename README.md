@@ -1,6 +1,6 @@
 # Infra: Zero to Scale
 
-**SRE for everyone** — an interactive, graph-based roadmap for learning infrastructure, SRE, and DevOps.
+**SRE for everyone** — an interactive, graph-based roadmap for learning infrastructure, SRE, and DevOps. Live version at [roadmap.esc.sh](https://roadmap.esc.sh/)
 
 Software runs on infrastructure, but most engineers never learn how it works. Whether you're a frontend developer curious about what happens after `git push`, a vibe coder who wants to actually deploy and run their product, or a sysadmin looking to level up — this roadmap is for you.
 

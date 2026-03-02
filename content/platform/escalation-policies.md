@@ -4,6 +4,17 @@ title: Escalation Policies
 zone: platform
 edges:
   to:
+    - id: incident-management
+      question: >-
+        Escalation is sorted. But when an incident fires, the response itself
+        is still chaotic. What does a structured incident actually look like?
+      detail: >-
+        I know who to call and when — the escalation tree is clear. But the
+        actual incident response still feels like organised chaos. Everyone's
+        in a thread, there are duplicate fixes being attempted, nobody's
+        tracking what we've tried. The escalation plan assumes we'll hand it
+        up cleanly, but I'm not sure we're running the incident well in the
+        first place.
     - id: reliability-roadmap
       question: >-
         Escalation is sorted. How do I now build a real plan for improving

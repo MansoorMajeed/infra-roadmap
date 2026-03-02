@@ -14,6 +14,17 @@ edges:
         there's a more organised way to handle this but I've never seen it done
         properly. What does good incident response actually look like from the
         inside?
+    - id: on-call-health
+      question: >-
+        Before we talk about running incidents better — the on-call rotation
+        itself is broken. People are burning out. Where do I fix that first?
+      detail: >-
+        Half the incidents feel bad because the on-call experience is already
+        miserable before anything even breaks. We're getting paged for things
+        that don't matter, ignoring things that do because we've been
+        desensitised, and nobody wants to be on rotation. I'm not sure fixing
+        the incident process helps if the alerts and the rotation are the
+        real problem.
 difficulty: 1
 tags:
   - incidents

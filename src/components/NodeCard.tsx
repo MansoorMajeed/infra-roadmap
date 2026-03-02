@@ -92,15 +92,13 @@ function NodeCard({ data }: NodeProps) {
         </span>
         <span className={`w-2 h-2 rounded-full mt-1 shrink-0 ${diffDot}`} title={`Difficulty ${cardData.difficulty}`} />
       </div>
-      {cardData.status === "completed" ? (
-        <div className="text-xs text-green-600 dark:text-green-400 mt-1.5 font-medium">
-          ✓ Completed
-        </div>
-      ) : (
-        <div className="text-[9px] text-blue-400/70 dark:text-blue-500/60 group-hover:text-blue-500 dark:group-hover:text-blue-400 mt-1.5 transition-colors font-medium">
-          Read →
-        </div>
-      )}
+      <div className="flex justify-end mt-1">
+        {cardData.status === "completed" ? (
+          <span className="text-[9px] text-green-600 dark:text-green-400 font-medium">✓ Done</span>
+        ) : (
+          <span className="text-[9px] text-blue-400/60 dark:text-blue-500/50 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors font-medium">Read →</span>
+        )}
+      </div>
       {/* Bottom buttons: expand and/or collapse */}
       <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10">
         {cardData.canCollapse && (
