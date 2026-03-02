@@ -18,6 +18,7 @@ import type { Zone, ZoneEdge, SearchableNode } from "@/lib/types";
 import { getCompletedCount } from "@/lib/progress";
 import EntryPointSelector from "./EntryPointSelector";
 import SearchModal from "./SearchModal";
+import HelpModal from "./HelpModal";
 
 interface ZoneMapProps {
   zones: Zone[];
@@ -90,6 +91,7 @@ export default function ZoneMap({
 }: ZoneMapProps) {
   const router = useRouter();
   const [showEntrySelector, setShowEntrySelector] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [completedCounts, setCompletedCounts] = useState<Record<string, number>>({});
 
@@ -100,6 +102,25 @@ export default function ZoneMap({
     }
     setCompletedCounts(counts);
   }, [zoneNodeIds]);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("infra-roadmap-help-seen") !== "true") {
+        setShowHelp(true);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const dismissHelp = () => {
+    try {
+      localStorage.setItem("infra-roadmap-help-seen", "true");
+    } catch {
+      // ignore
+    }
+    setShowHelp(false);
+  };
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -203,6 +224,14 @@ export default function ZoneMap({
             <kbd className="hidden sm:inline text-xs border border-gray-200 dark:border-gray-600 rounded px-1">⌘K</kbd>
           </button>
           <button
+            onClick={() => setShowHelp(true)}
+            className="pointer-events-auto w-9 h-9 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 shadow-sm transition-colors flex items-center justify-center font-semibold"
+            title="Help"
+            aria-label="Help"
+          >
+            ?
+          </button>
+          <button
             onClick={() => setShowEntrySelector(true)}
             className="pointer-events-auto px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg"
           >
@@ -249,6 +278,16 @@ export default function ZoneMap({
         <EntryPointSelector
           onSelect={handleEntrySelect}
           onClose={() => setShowEntrySelector(false)}
+        />
+      )}
+
+      {showHelp && (
+        <HelpModal
+          onClose={dismissHelp}
+          onShowEntrySelector={() => {
+            dismissHelp();
+            setShowEntrySelector(true);
+          }}
         />
       )}
     </div>

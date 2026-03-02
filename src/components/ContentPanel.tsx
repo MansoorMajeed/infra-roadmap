@@ -4,6 +4,14 @@ import { useState, useEffect, useCallback } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { RoadmapNode, NodeProgress } from "@/lib/types";
+
+const markdownComponents = {
+  a: ({ href, children, ...props }: React.ComponentPropsWithoutRef<"a">) => (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  ),
+};
 import { getNodeProgress, setNodeStatus, toggleMilestone } from "@/lib/progress";
 
 interface ContentPanelProps {
@@ -147,7 +155,7 @@ export default function ContentPanel({
           <div className={`space-y-6 ${isExpanded ? "max-w-3xl mx-auto" : ""}`}>
             {/* Summary */}
             <div className="content-prose">
-              <Markdown remarkPlugins={[remarkGfm]}>{summary}</Markdown>
+              <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{summary}</Markdown>
             </div>
 
             {/* Deep Dive */}
@@ -170,7 +178,7 @@ export default function ContentPanel({
                 {showDeepDive && (
                   <div className="mt-4 pl-4 border-l-2 border-blue-200 dark:border-blue-800">
                     <div className="content-prose">
-                      <Markdown remarkPlugins={[remarkGfm]}>{deepDive}</Markdown>
+                      <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{deepDive}</Markdown>
                     </div>
                   </div>
                 )}
@@ -219,7 +227,7 @@ export default function ContentPanel({
                   Resources
                 </h3>
                 <div className="content-prose content-prose-links">
-                  <Markdown remarkPlugins={[remarkGfm]}>{resources}</Markdown>
+                  <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{resources}</Markdown>
                 </div>
               </div>
             )}

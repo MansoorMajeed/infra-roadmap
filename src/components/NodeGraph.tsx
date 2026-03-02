@@ -22,6 +22,8 @@ import ZonePortalCard from "./ZonePortalCard";
 import ContentPanel from "./ContentPanel";
 import QuestionNode from "./QuestionNode";
 import SearchModal from "./SearchModal";
+import HelpModal from "./HelpModal";
+import EntryPointSelector from "./EntryPointSelector";
 
 interface NodeGraphProps {
   nodes: RoadmapNode[];
@@ -131,7 +133,8 @@ function NodeGraphInner({
   const [zoomLocked, setZoomLocked] = useState(true);
   const [zoomPercent, setZoomPercent] = useState(100);
   const [hydrated, setHydrated] = useState(false);
-  const [hintDismissed, setHintDismissed] = useState(true); // default true avoids flash before localStorage loads
+  const [showHelp, setShowHelp] = useState(false);
+  const [showEntrySelector, setShowEntrySelector] = useState(false);
   const { fitView, setViewport, zoomIn, zoomOut, zoomTo, getZoom } = useReactFlow();
 
   // After hydration, load saved state from localStorage
@@ -144,11 +147,12 @@ function NodeGraphInner({
       if (filtered.size > 0) setVisibleIds(filtered);
     }
 
-    // Load saved zoom lock preference and hint dismissal
+    // Load saved zoom lock preference and help/hint state
     try {
       const savedLock = localStorage.getItem("infra-roadmap-zoom-lock");
       if (savedLock !== null) setZoomLocked(savedLock === "true");
-      setHintDismissed(localStorage.getItem("infra-roadmap-hint-dismissed") === "true");
+      const helpSeen = localStorage.getItem("infra-roadmap-help-seen") === "true";
+      if (!helpSeen) setShowHelp(true);
     } catch {
       // ignore
     }
@@ -379,9 +383,9 @@ function NodeGraphInner({
     setProgressMap(computeProgressMap(roadmapNodes));
   }, [roadmapNodes]);
 
-  const dismissHint = useCallback(() => {
-    try { localStorage.setItem("infra-roadmap-hint-dismissed", "true"); } catch { /* ignore */ }
-    setHintDismissed(true);
+  const dismissHelp = useCallback(() => {
+    try { localStorage.setItem("infra-roadmap-help-seen", "true"); } catch { /* ignore */ }
+    setShowHelp(false);
   }, []);
 
   const allVisible = roadmapNodes.every((n) => visibleIds.has(n.frontmatter.id));
@@ -539,20 +543,15 @@ function NodeGraphInner({
         </button>
       </div>
 
-      {/* First-visit hint banner */}
-      {hydrated && !hintDismissed && (
-        <div className="absolute top-16 right-4 z-20 flex items-start gap-2 max-w-[200px] sm:max-w-[240px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 shadow-md">
-          <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-snug">
-            <strong className="text-gray-700 dark:text-gray-200">Tap nodes</strong> to read content.{" "}
-            <strong className="text-gray-700 dark:text-gray-200">Tap question nodes</strong> to explore decision paths.
-          </p>
-          <button
-            onClick={dismissHint}
-            className="shrink-0 w-5 h-5 flex items-center justify-center rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors text-sm leading-none"
-            title="Got it, don't show again"
-          >×</button>
-        </div>
-      )}
+      {/* Help button — bottom left */}
+      <button
+        onClick={() => setShowHelp(true)}
+        className="absolute bottom-4 left-4 w-9 h-9 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors flex items-center justify-center font-semibold text-base"
+        title="Help"
+        aria-label="Help"
+      >
+        ?
+      </button>
 
       {/* Content Modal */}
       {selectedNode && (
@@ -564,6 +563,26 @@ function NodeGraphInner({
           }}
           onNavigate={handleNavigate}
           onProgressChange={handleProgressChange}
+        />
+      )}
+
+      {showHelp && (
+        <HelpModal
+          onClose={dismissHelp}
+          onShowEntrySelector={() => {
+            dismissHelp();
+            setShowEntrySelector(true);
+          }}
+        />
+      )}
+
+      {showEntrySelector && (
+        <EntryPointSelector
+          onSelect={(zone, nodeId) => {
+            setShowEntrySelector(false);
+            router.push(`/zone/${zone}?node=${nodeId}`);
+          }}
+          onClose={() => setShowEntrySelector(false)}
         />
       )}
     </div>

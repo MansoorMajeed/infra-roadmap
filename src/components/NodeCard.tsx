@@ -81,7 +81,8 @@ function NodeCard({ data }: NodeProps) {
 
   return (
     <div
-      className={`rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} ${catStyle.accent} ${catStyle.border || ""} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md relative`}
+      className={`rounded-lg border-2 ${status.border} ${status.bg} ${status.extra} ${catStyle.accent} ${catStyle.border || ""} px-4 py-3 shadow-sm min-w-[160px] max-w-[200px] cursor-pointer transition-all hover:shadow-md hover:scale-[1.02] relative`}
+      title="Click to read"
     >
       <Handle type="target" position={Position.Top} className="!bg-gray-400 !w-2 !h-2" />
       <div className="flex items-start gap-2">
