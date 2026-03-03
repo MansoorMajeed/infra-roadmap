@@ -10,9 +10,7 @@ edges:
         at scale?
       detail: >-
         Every code change triggers a slow cycle: bake a new machine image, wait
-        minutes, update the template, roll it out across the fleet. AMI baking
-        is one of the clearest examples of the operational overhead that comes
-        with VM-based scaling.
+        minutes, update the template, roll it out across the fleet. Can't we do better?
 difficulty: 2
 tags:
   - ami
