@@ -5,12 +5,12 @@ zone: scaling
 edges:
   to:
     - id: managed-database
-      question: Connection pooling is handling the pressure. But I'm still managing MySQL on a VM myself — backups, patching, failover. What does a managed database actually buy me?
+      question: Connection pooling is handling the pressure. But I'm still managing MySQL on a VM myself — backups, patching, failover. It is a lot of work and we don't even have any database admins. Is there something easier?
       detail: >-
         PgBouncer is absorbing the connection spikes. But I'm still on call for
         the database itself — schema migrations at 2 AM, manual backups I keep
-        forgetting to test, no automatic failover. What does handing this to
-        a managed service actually look like?
+        forgetting to test, no automatic failover. Database stores the most important
+        data but it also feel like the most fragile. I am willing to pay to not have to manage it
 difficulty: 2
 tags:
   - connection-pooling
@@ -26,8 +26,6 @@ milestones:
   - Know what PgBouncer does and how connection multiplexing works
   - Explain the difference between transaction mode and session mode pooling
   - Know what max_connections is in Postgres and why it is a hard limit
-  - Set up PgBouncer (or RDS Proxy) in front of a database
-  - Measure connection count before and after adding a pool
 ---
 
 Each application server maintains a pool of persistent database connections. With one app server, this is fine. With ten app servers, each holding twenty connections open, you're at two hundred connections — and when the ASG scales out during a spike, you can hit Postgres's connection ceiling before the new servers have handled a single user request. Connection pooling solves this by multiplexing many application connections through far fewer actual database connections.
