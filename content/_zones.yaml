@@ -79,8 +79,8 @@ zones:
     position: { x: 0, y: 1950 }
     active: true
 
-  - id: "platform"
-    title: "Platform & SRE Practices"
+  - id: "sre"
+    title: "SRE"
     coreQuestion: "How do I do this professionally?"
     description: "SRE philosophy, SLOs, incident management, chaos engineering, and building platforms that other engineers love."
     color: "#ec4899"
@@ -121,6 +121,6 @@ zoneEdges:
   - from: "kubernetes-production"
     to: "observability"
   - from: "kubernetes-production"
-    to: "platform"
+    to: "sre"
   - from: "observability"
-    to: "platform"
+    to: "sre"

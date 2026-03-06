@@ -37,7 +37,7 @@ const entryPoints: EntryPoint[] = [
     label: "I want SRE & reliability practices",
     description: "SLOs, incident management, on-call, and running things professionally",
     startNode: "what-is-sre",
-    zone: "platform",
+    zone: "sre",
   },
   {
     icon: "🏠",
