@@ -13,7 +13,7 @@ edges:
         if traffic actually grows, I have no idea how this handles it. What does
         the next step look like?
     - id: what-is-sre
-      zone: platform
+      zone: sre
       question: My store is live. Now I'm responsible for keeping it up. How do people think about that?
       detail: >-
         I deployed it and it works. But now what? I have no idea how to know

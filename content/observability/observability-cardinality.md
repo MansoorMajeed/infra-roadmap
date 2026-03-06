@@ -5,7 +5,7 @@ zone: observability
 edges:
   to:
     - id: chaos-engineering
-      zone: platform
+      zone: sre
       question: >-
         I've got solid observability now. But I only know it works because of
         the last incident. How do I verify it before the next emergency?
