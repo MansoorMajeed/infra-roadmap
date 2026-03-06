@@ -79,6 +79,8 @@ Both give you a real Kubernetes cluster locally. Start with kind — it's the fa
 <!-- RESOURCES -->
 
 - [Kubernetes Documentation - What is Kubernetes](https://kubernetes.io/docs/concepts/overview/) -- type: docs, time: 20m
+- [How Kubernetes runs pods under the hood](https://blog.esc.sh/kubernetes-containers-linux-processes/) -- type: docs, time: 10m
+- [A dumb container orchestration tool](https://github.com/MansoorMajeed/Dubernetes) -- type: tool, time: 10m
 - [kind - Kubernetes in Docker](https://kind.sigs.k8s.io/) -- type: tool, time: 15m
 - [minikube - Run Kubernetes Locally](https://minikube.sigs.k8s.io/docs/start/) -- type: tool, time: 15m
 - [The Illustrated Children's Guide to Kubernetes](https://www.cncf.io/phippy/the-childrens-illustrated-guide-to-kubernetes/) -- type: article, time: 15m

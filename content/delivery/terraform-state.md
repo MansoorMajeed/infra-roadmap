@@ -3,7 +3,18 @@ id: terraform-state
 title: Managing Terraform State
 zone: delivery
 edges:
-  to: []
+  to:
+    - id: why-kubernetes
+      zone: kubernetes
+      question: >-
+        My infrastructure is automated now. But managing individual servers
+        still feels wrong — I just want to say "run five copies of my app
+        and keep them healthy."
+      detail: >-
+        Terraform handles the infrastructure, CI/CD handles the code. But I'm
+        still thinking in terms of servers — which machine runs what, how
+        many do I need, what happens when one dies. I want to just declare
+        what my app needs and let something else figure out where to run it.
 difficulty: 2
 tags:
   - terraform

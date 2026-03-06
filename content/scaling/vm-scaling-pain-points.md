@@ -13,6 +13,16 @@ edges:
         I'm patching the OS on every machine in the fleet. I keep hearing that
         containers solve this — but I don't really understand how or whether
         the migration is worth the effort.
+    - id: manual-deploy-is-painful
+      zone: delivery
+      question: >-
+        Even if I stick with VMs, deploying changes by hand to a fleet of
+        servers is not going to work. How do I automate this?
+      detail: >-
+        I can't SSH into every server and pull code manually — not with an
+        auto-scaling group spinning machines up and down. I need the deploy
+        to happen automatically, tested before it goes out, and rolled back
+        if something breaks. Where do I even start with that?
 difficulty: 1
 tags:
   - vms

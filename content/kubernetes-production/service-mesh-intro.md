@@ -3,7 +3,19 @@ id: service-mesh-intro
 title: Service Meshes
 zone: kubernetes-production
 edges:
-  to: []
+  to:
+    - id: always-firefighting
+      zone: sre
+      question: >-
+        The infrastructure is sorted — GitOps, autoscaling, security,
+        networking. But we're still scrambling every time something breaks.
+        Is there a more structured way to run all of this?
+      detail: >-
+        We have great tooling now. But incidents are still chaos — nobody
+        knows who's in charge, we keep having the same problems, and there's
+        no process for learning from failures. The technology is solid but
+        the way we operate feels broken. How do teams actually do this
+        professionally?
 difficulty: 3
 tags:
   - kubernetes
