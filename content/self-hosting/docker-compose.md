@@ -10,6 +10,24 @@ edges:
         I have to remember which port maps to which service, and when I add a
         new one I have to pick a free port and hope nothing conflicts. Typing
         192.168.1.33:8083 every time is not how I want to use this.
+    - id: backup-strategy
+      question: If my server dies right now, I lose everything — how do I prevent that?
+      detail: >-
+        I've been setting up services and not once thought about what happens
+        if the disk fails. All my configs, all my data — just gone. That
+        can't be the plan.
+    - id: monitoring-your-server
+      question: Everything works... until it doesn't. How do I know when something breaks?
+      detail: >-
+        I found out Vaultwarden was down because I couldn't log into a
+        website. That was three days after it crashed. There has to be a
+        better way to know when things go wrong.
+    - id: storage-planning
+      question: All my data is on one disk — what happens when it fills up or fails?
+      detail: >-
+        I'm running everything off the boot drive. Photos, media, databases —
+        all on the same disk. That feels like a ticking time bomb but I don't
+        know what the alternative looks like.
 difficulty: 1
 tags:
   - self-hosting

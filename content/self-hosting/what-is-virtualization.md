@@ -15,6 +15,12 @@ edges:
       detail: >-
         I don't need VMs for what I'm doing right now. But am I going to regret
         this later? What am I actually giving up by skipping virtualization?
+    - id: unraid
+      question: I want storage, VMs, and Docker all in one — is there something for that?
+      detail: >-
+        I keep hearing about Unraid. It sounds like it handles storage and
+        runs containers and VMs too. Is it an alternative to Proxmox or
+        something different entirely?
 difficulty: 1
 tags:
   - self-hosting
