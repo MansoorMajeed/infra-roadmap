@@ -12,6 +12,15 @@ edges:
         Everything looked fine after I added the load balancer, but now users
         keep complaining they're getting signed out mid-session. I didn't change
         any auth code — why is this suddenly happening?
+    - id: application-caching
+      question: >-
+        The site is slow even though the servers aren't overloaded. Every
+        request hits the database for the same data over and over.
+      detail: >-
+        I watched the queries — the same product pages, the same category
+        listings, the same results being fetched from the database on every
+        single request. The servers have capacity but the database is the
+        bottleneck. Can I just keep frequently-used data somewhere faster?
     - id: rate-limiting
       question: The load balancer is distributing traffic. But bots and badly-written clients are hammering my API with hundreds of requests a second. How do I protect against that?
       detail: >-

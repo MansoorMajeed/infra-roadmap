@@ -3,7 +3,16 @@ id: package-management
 title: Package Management
 zone: foundations
 edges:
-  to: []
+  to:
+    - id: scripting-bash-python
+      question: >-
+        I keep typing the same install commands over and over on every new
+        server. Can I just write a script to do all of this?
+      detail: >-
+        Every time I set up a machine I'm running the same twenty apt install
+        commands, copying the same config files, setting the same permissions.
+        It's tedious and I keep forgetting steps. There has to be a way to
+        just write this down once and run it.
 difficulty: 1
 tags:
   - apt

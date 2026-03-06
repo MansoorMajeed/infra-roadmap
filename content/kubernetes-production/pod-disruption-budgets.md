@@ -3,7 +3,19 @@ id: pod-disruption-budgets
 title: Pod Disruption Budgets
 zone: kubernetes-production
 edges:
-  to: []
+  to:
+    - id: you-cant-debug-what-you-cant-see
+      zone: observability
+      question: >-
+        My cluster handles disruptions gracefully now. But when something
+        does go wrong, I'm still flying blind — I have no idea what's
+        happening inside my services.
+      detail: >-
+        The infrastructure is solid. Pods survive node drains, autoscaling
+        works, deploys are safe. But last week a service started returning
+        errors and I had nothing — no logs I could search, no metrics to
+        look at, no way to tell which request was failing or why. I need
+        to actually see what's going on inside these things.
 difficulty: 3
 tags:
   - kubernetes

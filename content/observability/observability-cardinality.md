@@ -4,16 +4,18 @@ title: Observability Cardinality
 zone: observability
 edges:
   to:
-    - id: chaos-engineering
+    - id: always-firefighting
       zone: sre
       question: >-
-        I've got solid observability now. But I only know it works because of
-        the last incident. How do I verify it before the next emergency?
+        I can see everything now — dashboards, alerts, traces. But when
+        an incident hits, it's still chaos. We keep having the same problems
+        over and over.
       detail: >-
-        Everything looks good in theory — dashboards, alerts, runbooks. But
-        the last real outage revealed that half our alerts were wrong and our
-        runbooks were stale. I want to find those gaps before the next 3am page,
-        not during it.
+        The observability is solid. I can find the problem. But the response
+        is a mess — everyone scrambling, nobody knows who's in charge, no
+        process for what happens after. And the same types of failures keep
+        recurring because nothing changes. How do teams actually get ahead
+        of this instead of just reacting?
 difficulty: 3
 tags:
   - metrics

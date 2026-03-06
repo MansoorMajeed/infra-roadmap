@@ -4,7 +4,7 @@ title: Running Your Store
 zone: running
 edges:
   to:
-    - id: one-server-is-not-enough
+    - id: your-store-takes-off
       zone: scaling
       question: My store is live — but it's on a single server. What happens when that isn't enough?
       detail: >-
@@ -12,6 +12,16 @@ edges:
         server, one point of failure. If it goes down, the store goes down. And
         if traffic actually grows, I have no idea how this handles it. What does
         the next step look like?
+    - id: manual-deploy-is-painful
+      zone: delivery
+      question: >-
+        Deploying was exciting the first time. Now I dread it — too many
+        manual steps and I always forget something.
+      detail: >-
+        I SSH in, pull the code, restart the service, check the logs, hope
+        nothing broke. Every deploy is stressful and I've already shipped a
+        broken config once because I forgot a step. There has to be a way to
+        make this automatic and repeatable.
     - id: what-is-sre
       zone: sre
       question: My store is live. Now I'm responsible for keeping it up. How do people think about that?

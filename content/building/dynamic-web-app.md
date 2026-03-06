@@ -29,6 +29,24 @@ edges:
         But I want a mobile app too, or maybe to let someone else integrate with
         my service. The backend can't keep generating HTML for everything —
         there must be a cleaner way to expose what my app does.
+    - id: authentication-basics
+      question: >-
+        Anyone can access everything in my app right now. How do I make it
+        so only the right people can see the right things?
+      detail: >-
+        There's no login, no accounts, nothing. Anyone who visits the URL
+        sees everything. I need users to sign up, log in, and only see their
+        own data. But I don't even know how login actually works under the
+        hood — cookies? Tokens? Sessions?
+    - id: app-configuration
+      question: >-
+        I have database passwords and API keys hardcoded in my source code.
+        That can't be right.
+      detail: >-
+        My database URL says localhost, my API key is on line 42, and if I
+        ever push this to GitHub the whole world can see my credentials.
+        Plus, none of this will work on a real server because everything is
+        hardcoded for my laptop. How do I separate config from code?
     - id: testing-basics
       question: How do I know my code actually works before I ship it?
       detail: >-

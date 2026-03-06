@@ -10,6 +10,17 @@ tags:
   - records
   - dig
   - resolution
+edges:
+  to:
+    - id: dns-and-domain-names
+      zone: running
+      question: >-
+        I understand how DNS works now. How do I actually get a domain name
+        and point it at my own server?
+      detail: >-
+        I get the theory — resolvers, authoritative nameservers, A records.
+        But I've never actually bought a domain or configured DNS records for
+        something I'm running. How does that actually work in practice?
 category: concept
 milestones:
   - >-

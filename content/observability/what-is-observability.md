@@ -11,6 +11,15 @@ edges:
         where to actually begin. Do I try to set up all three at once? If I
         only have time for one right now, which gives me the most value? I
         don't want to spend a week on the wrong thing.
+    - id: metrics-and-monitoring
+      question: >-
+        I already know how logging works. How do I measure what my systems
+        are actually doing over time?
+      detail: >-
+        I've set up logging before — I know about log levels, structured
+        logs, aggregation. What I don't have is numbers — request rates,
+        error percentages, latency. I want graphs that show me whether things
+        are getting better or worse, not just a wall of text to search through.
 difficulty: 1
 tags:
   - observability

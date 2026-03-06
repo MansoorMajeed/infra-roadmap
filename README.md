@@ -2,9 +2,11 @@
 
 **SRE for everyone** — an interactive, graph-based roadmap for learning infrastructure, SRE, and DevOps. Live version at [roadmap.esc.sh](https://roadmap.esc.sh/)
 
-Software runs on infrastructure, but most engineers never learn how it works. Whether you're a frontend developer curious about what happens after `git push`, a vibe coder who wants to actually deploy and run their product, or a sysadmin looking to level up — this roadmap is for you.
+Software runs on infrastructure, but most engineers never learn how it works. Whether you're a frontend developer curious about what happens after `git push`, a vibe coder who wants to actually deploy and run their product, or a sysadmin looking to level up, or even a fellow self-hosting enthusiast who wants to learn more — this roadmap is for you.
 
-Instead of handing you a flat checklist of 200 tools to memorize, topics connect through natural questions like *"VMs are heavy... is there something lighter?"* — guiding you from first principles to production-grade infrastructure, one curiosity-driven step at a time.
+Instead of handing you a flat checklist of 200 tools to memorize, topics connect through natural questions like *"I keep SSHing in to fix things manually — there has to be a better way, right?"* — guiding you from first principles to production-grade infrastructure, one curiosity-driven step at a time.
+
+<!-- TODO: Add a short demo video here -->
 
 ## Features
 
@@ -22,9 +24,8 @@ Instead of handing you a flat checklist of 200 tools to memorize, topics connect
 - **Next.js** (App Router, TypeScript, Tailwind CSS v4)
 - **@xyflow/react** (React Flow) for graph visualization
 - **gray-matter** + **react-markdown** for markdown content
-- **Zod** for content validation
 
-## Getting Started Locally
+## Getting Started
 
 ```bash
 npm install
@@ -33,62 +34,13 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the roadmap.
 
-## Commands
+Other commands: `npm run build` | `npm run lint` | `npm run test`
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Production build |
-| `npm run lint` | ESLint |
-| `npm run test` | Run unit tests |
-| `npm run test:watch` | Run tests in watch mode |
+## Contributing
 
-## Project Structure
+Contributions welcome! The easiest way to contribute is by adding or improving content.
 
-```
-content/
-  _zones.yaml             # Zone definitions (id, title, color, position, active flag)
-  foundations/            # Markdown files per zone
-  building/
-  networking/
-  running/
-  scaling/
-  delivery/
-  containers/
-  kubernetes/
-  kubernetes-production/
-  observability/
-  platform/
-  self-hosting/
-src/
-  app/
-    page.tsx              # Home — zone map (server component)
-    HomeClient.tsx        # Client wrapper for ZoneMap
-    [zoneId]/
-      page.tsx            # Server component — loads zone data
-      ZoneClient.tsx      # Client wrapper for NodeGraph
-    error.tsx             # Error boundary
-    not-found.tsx         # Custom 404
-  components/
-    ZoneMap.tsx           # Bird's-eye view of all zones
-    NodeGraph.tsx         # Zone detail — progressive disclosure graph
-    NodeCard.tsx          # Custom React Flow node component
-    QuestionNode.tsx      # Edge question pill shown between content nodes
-    ContentPanel.tsx      # Slide-in panel for node content, milestones, resources
-    EntryPointSelector.tsx  # "Where do I start?" audience-based entry point modal
-    SearchModal.tsx       # ⌘K search across all zones and nodes
-    ZonePortalCard.tsx    # Cross-zone edge destination node
-    HelpModal.tsx         # Keyboard shortcuts and usage hints
-  lib/
-    content.ts            # Server-side content parsing
-    validation.ts         # Zod schemas for content validation
-    progress.ts           # localStorage progress tracking
-    types.ts              # TypeScript types
-```
-
-## Adding Content
-
-**New node in an existing zone:**
+**Add a node to an existing zone:**
 1. Create `content/<zone-id>/<node-slug>.md` with YAML frontmatter (id, title, zone, edges, difficulty, tags, category, milestones)
 2. Add body content with `<!-- DEEP_DIVE -->` and `<!-- RESOURCES -->` section markers
 3. Ensure edge references match existing node IDs

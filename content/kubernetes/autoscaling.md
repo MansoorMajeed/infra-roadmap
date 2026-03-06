@@ -3,7 +3,17 @@ id: autoscaling
 title: Autoscaling
 zone: kubernetes
 edges:
-  to: []
+  to:
+    - id: k8s-for-production
+      zone: kubernetes-production
+      question: >-
+        My cluster scales itself now. But I built all of this by following
+        tutorials — is this actually ready for real traffic?
+      detail: >-
+        I have deployments, services, ingress, autoscaling — it all works
+        in my test cluster. But I have no idea if this setup would survive
+        a real production workload. What does it take to run Kubernetes for
+        real — not just as a learning exercise?
 difficulty: 2
 tags:
   - kubernetes

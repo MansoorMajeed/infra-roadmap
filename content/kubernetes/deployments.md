@@ -38,6 +38,15 @@ edges:
         I need a monitoring agent on every node. If I set replicas to 5 and a
         new node joins the cluster, the agent won't be there. Is there a
         workload type that automatically keeps exactly one pod running per node?
+    - id: configmaps
+      question: >-
+        My app needs different config for dev and production — database URLs,
+        feature flags, settings. Where do those go in Kubernetes?
+      detail: >-
+        Right now I'm baking config into the container image, which means I
+        need a different image for every environment. That can't be right —
+        the image should be the same everywhere and just pick up the right
+        config at runtime. How does Kubernetes handle that?
     - id: debugging-deployments
       question: >-
         I deployed a new version and the rollout is stuck — new pods keep
