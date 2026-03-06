@@ -6,7 +6,7 @@ Software runs on infrastructure, but most engineers never learn how it works. Wh
 
 Instead of handing you a flat checklist of 200 tools to memorize, topics connect through natural questions like *"I keep SSHing in to fix things manually — there has to be a better way, right?"* — guiding you from first principles to production-grade infrastructure, one curiosity-driven step at a time.
 
-<!-- TODO: Add a short demo video here -->
+<video src="https://github.com/user-attachments/assets/e595f900-894a-45eb-9769-0874b0708791" controls width="100%"></video>
 
 ## Features
 
