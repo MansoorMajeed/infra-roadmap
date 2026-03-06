@@ -36,6 +36,23 @@ Open [http://localhost:3000](http://localhost:3000) to see the roadmap.
 
 Other commands: `npm run build` | `npm run lint` | `npm run test`
 
+## Self-Hosting
+
+```bash
+docker compose up -d
+```
+
+That's it. The image is pre-built and published to GitHub Container Registry — no build step required.
+
+By default no analytics are included. If you want to use your own [Plausible](https://plausible.io) instance, build the image yourself and pass your values:
+
+```bash
+docker build \
+  --build-arg NEXT_PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com \
+  --build-arg NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL=https://your-plausible-instance/js/script.js \
+  -t infra-roadmap .
+```
+
 ## Contributing
 
 Contributions welcome! The easiest way to contribute is by adding or improving content.
