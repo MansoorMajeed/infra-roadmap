@@ -26,7 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script defer data-domain="roadmap.esc.sh" src="https://plaus.esc.sh/js/script.js" />
+        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL && (
+          <script defer data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN} src={process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL} />
+        )}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
