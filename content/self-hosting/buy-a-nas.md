@@ -43,15 +43,6 @@ These two dominate the consumer/prosumer NAS market. Both are solid, but the com
 
 **Network** — Most NAS devices come with 1GbE. If you're transferring large files regularly (video editing, large media libraries), look for 2.5GbE or 10GbE. For typical homelab use, 1GbE is fine.
 
-## Popular models (as of 2025)
-
-| Use case | Synology | QNAP |
-|---|---|---|
-| Budget 2-bay | DS224+ | TS-264 |
-| 4-bay mainstream | DS423 | TS-464 |
-| Performance | DS1524+ | TS-473A |
-
-Prices vary, but expect $200–400 for a 2-bay and $400–700 for a 4-bay (without drives). Drives are separate — budget $50–100 per drive for NAS-rated 4–8TB drives.
 
 ## Initial setup
 

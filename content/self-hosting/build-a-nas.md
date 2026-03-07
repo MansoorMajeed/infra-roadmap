@@ -29,7 +29,7 @@ It's more hands-on than buying a Synology, but it's cheaper, more flexible, and 
 
 **RAM** — 8GB minimum. If you're using ZFS (which you should consider), more RAM helps — ZFS uses RAM for caching (ARC). 16GB is comfortable for a homelab NAS.
 
-**The ECC debate** — ECC (Error-Correcting Code) RAM catches and fixes memory bit flips. ZFS purists will tell you it's mandatory. In practice, non-ECC RAM works fine for a homelab. ECC is nice to have, not a dealbreaker.
+**The ECC debate** — ECC (Error-Correcting Code) RAM catches and fixes memory bit flips. ZFS purists will tell you it's mandatory. In practice, non-ECC RAM works fine for a homelab. ECC is nice to have, not a dealbreaker. I personally don't have any ECC RAM.
 
 **Drives** — NAS-rated drives (WD Red Plus, Seagate IronWolf) are designed for 24/7 operation and vibration tolerance in multi-drive setups. They cost a bit more than desktop drives but last longer in NAS use. For a homelab, regular drives work too — just keep backups.
 

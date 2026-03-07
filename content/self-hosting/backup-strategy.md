@@ -48,7 +48,7 @@ The simplest backup strategy that actually works:
 
 - **3** copies of your data (the original + 2 backups)
 - **2** different types of storage (e.g., your server's SSD + an external drive or NAS)
-- **1** copy offsite (somewhere physically different — a cloud provider, a friend's house, a VPS)
+- **1** copy offsite (somewhere physically different — a cloud provider, a friend's house)
 
 You don't need all three on day one. A single backup to another machine in your house is already infinitely better than nothing. But the goal is to get to 3-2-1 over time.
 

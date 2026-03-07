@@ -61,7 +61,7 @@ What the flags do:
 - `-a`: archive mode — preserves permissions, timestamps, symlinks
 - `-v`: verbose — shows what's being transferred
 - `-z`: compress during transfer
-- `--delete`: remove files from the destination that no longer exist on the source (keeps your backup a true mirror)
+- `--delete`: remove files from the destination that no longer exist on the source (keeps your backup a true mirror. Be careful here though. Make sure you don't accidentally delete the whole backup)
 
 The first run copies everything. Every run after that only transfers changed files.
 
