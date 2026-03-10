@@ -37,6 +37,16 @@ The layout function (`layoutNodes`) is called in `useMemo`. It injects synthetic
 - `handleNodeClick` returns early for `q-` nodes; the component handles its own click state
 - Do NOT inject a question node for portal edges (cross-zone) — those go direct source → portal
 
+## Resume Feature
+
+- `ContentPanel` now requires `zoneId` and `zoneTitle` props — it calls `setLastNode()` whenever a node is opened.
+- Resume uses `sessionStorage` (`infra-roadmap-session-active`) to distinguish returning users from in-session back-navigation.
+- **New session**: `ResumeModal` (bottom notification card) appears if pref=`"ask"`. Auto-navigates if pref=`"always"`.
+- **In-session (back from zone)**: A "Continue" button appears in the top bar instead of the modal.
+- Resume navigates with `?focus=` (centers on node) not `?node=` (which opens ContentPanel).
+- Settings page (`/settings`) is all client-side — server component only passes `allNodeIds` for stats display.
+- Export/import uses a versioned JSON format (`version: 1`). `importAllData` replaces all localStorage keys.
+
 ## Pre-existing ESLint Warnings
 
 The following lint errors exist in the codebase and are not new:

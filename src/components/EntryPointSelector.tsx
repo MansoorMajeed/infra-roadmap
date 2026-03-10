@@ -69,12 +69,12 @@ export default function EntryPointSelector({ onSelect, onClose }: EntryPointSele
   return (
     <>
       <div className="fixed inset-0 bg-black/50 z-50" onClick={onClose} />
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 pointer-events-none">
         <div
-          className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full pointer-events-auto"
+          className="bg-white dark:bg-gray-900 rounded-t-2xl sm:rounded-2xl shadow-2xl max-w-md w-full max-h-[85dvh] sm:max-h-[85vh] flex flex-col pointer-events-auto"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex justify-between items-start p-6 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <div className="flex justify-between items-start p-6 pb-4 border-b border-gray-100 dark:border-gray-800 shrink-0">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                 Where do you want to start?
@@ -94,7 +94,7 @@ export default function EntryPointSelector({ onSelect, onClose }: EntryPointSele
             </button>
           </div>
 
-          <div className="p-6 space-y-2.5">
+          <div className="p-6 space-y-2.5 overflow-y-auto overscroll-contain">
             {entryPoints.map((ep) => (
               <button
                 key={ep.startNode}

@@ -6,7 +6,8 @@
       "WebFetch(domain:blog.esc.sh)",
       "Bash(grep:*)",
       "Bash(npx tsc:)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)"
     ]
   }
 }
