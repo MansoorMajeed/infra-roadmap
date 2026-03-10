@@ -36,7 +36,7 @@ milestones:
 | `types.ts` | All TypeScript interfaces | `EdgeConnection`, `NodeFrontmatter`, `RoadmapNode`, `Zone`, `ZoneEdge`, `ZonesConfig`, `NodeStatus`, `NodeProgress`, `ProgressData` |
 | `content.ts` | Server-side content parsing. Reads filesystem, parses with gray-matter, validates with Zod. | `getZonesConfig()`, `getZone(id)`, `getNodesByZone(zoneId)`, `getNode(zoneId, nodeId)`, `getAllNodes()`, `getZoneNodeCount(zoneId)`, `validateEdgeReferences()` |
 | `validation.ts` | Zod schemas for content validation | `NodeFrontmatterSchema`, `ZonesConfigSchema` |
-| `progress.ts` | Client-side localStorage helper (`"use client"`). Key: `infra-roadmap-progress`. | `getProgress()`, `getNodeProgress(id)`, `setNodeStatus(id, status)`, `toggleMilestone(id, idx)`, `setEntryPoint(ep)`, `getCompletedCount(ids)`, `resetProgress()` |
+| `progress.ts` | Client-side localStorage helper (`"use client"`). Keys: `infra-roadmap-progress`, `infra-roadmap-last-node`, `infra-roadmap-resume-pref`. | `getProgress()`, `getNodeProgress(id)`, `setNodeStatus(id, status)`, `toggleMilestone(id, idx)`, `setEntryPoint(ep)`, `getCompletedCount(ids)`, `resetProgress()`, `getLastNode()`, `setLastNode(nodeId, zoneId, nodeTitle, zoneTitle)`, `getResumePref()`, `setResumePref(pref)`, `exportAllData()`, `importAllData(save)`, `resetAllData()`, `getProgressStats(nodeIds)` |
 | `layout.ts` | Pure layout functions, no React hooks. Imported by `NodeGraph.tsx`. | `layoutNodes()`, `buildEdges()`, `findRoots()`, `getChildren()`, `getDescendants()`, `getInitialVisibleNodes()` |
 
 ## Pages (`src/app/`)
@@ -46,6 +46,8 @@ milestones:
 | `layout.tsx` | Server | Root layout. Geist fonts, metadata. |
 | `page.tsx` | Server | Home route `/`. Calls `validateEdgeReferences()`, loads zones config + node IDs, passes to HomeClient. |
 | `HomeClient.tsx` | Client | Renders `<ZoneMap>` in a full-screen div. |
+| `settings/page.tsx` | Server | Settings route `/settings`. Collects all active node IDs, passes to SettingsClient. |
+| `settings/SettingsClient.tsx` | Client | Settings page UI. Resume pref radio, progress stats + reset, export/import JSON files, reset-everything danger zone. |
 | `[zoneId]/page.tsx` | Server | Dynamic route `/:zoneId` (e.g. `/foundations`, `/scaling`). Validates zone exists + active, calls `notFound()` if invalid. Loads zone nodes. |
 | `[zoneId]/ZoneClient.tsx` | Client | Reads `?node=` search param for highlighting. Wraps `<NodeGraph>` in Suspense. Back button → `router.push("/")`. |
 | `error.tsx` | Client | Error boundary. Shows message + retry button. |
@@ -65,6 +67,7 @@ milestones:
 | `ZonePortalCard.tsx` | ~49 | Custom React Flow node (type: `zonePortalNode`). Rendered at the end of cross-zone edges. Clicking navigates to the target zone. |
 | `SearchModal.tsx` | ~168 | ⌘K search overlay. Filters nodes by title/tags across all zones. Focuses a node in the graph on select. |
 | `HelpModal.tsx` | ~138 | Keyboard shortcuts and usage hints modal. |
+| `ResumeModal.tsx` | ~100 | "Continue where you left off?" modal. Shows last node info + time ago. Four actions: Yes / No / Always / Never. |
 
 ## Tests (`src/lib/__tests__/`)
 

@@ -59,7 +59,9 @@ markdown file → gray-matter (frontmatter + body) → Zod validate frontmatter 
 | `infra-roadmap-visible-nodes` | Which nodes are expanded per zone |
 | `infra-roadmap-viewport` | Zoom/pan position per zone |
 | `infra-roadmap-zoom-lock` | Boolean: lock zoom on expand |
-| `infra-roadmap-hint-dismissed` | Boolean: hide first-visit hint banner |
+| `infra-roadmap-help-seen` | Boolean: hide first-visit help modal |
+| `infra-roadmap-last-node` | Last opened node: `{ nodeId, zoneId, nodeTitle, zoneTitle, timestamp }` |
+| `infra-roadmap-resume-pref` | Resume preference: `"ask"` (default) / `"always"` / `"never"` |
 
 ## Styling
 

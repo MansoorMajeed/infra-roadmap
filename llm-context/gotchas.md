@@ -37,6 +37,14 @@ The layout function (`layoutNodes`) is called in `useMemo`. It injects synthetic
 - `handleNodeClick` returns early for `q-` nodes; the component handles its own click state
 - Do NOT inject a question node for portal edges (cross-zone) — those go direct source → portal
 
+## Resume Feature
+
+- `ContentPanel` now requires `zoneId` and `zoneTitle` props — it calls `setLastNode()` whenever a node is opened.
+- `ResumeModal` only appears on the home page (ZoneMap) when `resume-pref` is `"ask"` and a `last-node` entry exists.
+- When `resume-pref` is `"always"`, ZoneMap auto-navigates with a brief toast — no modal shown.
+- Settings page (`/settings`) is all client-side — server component only passes `allNodeIds` for stats display.
+- Export/import uses a versioned JSON format (`version: 1`). `importAllData` replaces all localStorage keys.
+
 ## Pre-existing ESLint Warnings
 
 The following lint errors exist in the codebase and are not new:

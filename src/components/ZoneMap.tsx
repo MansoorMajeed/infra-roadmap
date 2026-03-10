@@ -15,10 +15,12 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import type { Zone, ZoneEdge, SearchableNode } from "@/lib/types";
-import { getCompletedCount } from "@/lib/progress";
+import { getCompletedCount, getLastNode, getResumePref, setResumePref } from "@/lib/progress";
+import type { LastNode } from "@/lib/progress";
 import EntryPointSelector from "./EntryPointSelector";
 import SearchModal from "./SearchModal";
 import HelpModal from "./HelpModal";
+import ResumeModal from "./ResumeModal";
 
 interface ZoneMapProps {
   zones: Zone[];
@@ -94,6 +96,8 @@ export default function ZoneMap({
   const [showHelp, setShowHelp] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [completedCounts, setCompletedCounts] = useState<Record<string, number>>({});
+  const [resumeCandidate, setResumeCandidate] = useState<LastNode | null>(null);
+  const [showResumeToast, setShowResumeToast] = useState(false);
 
   useEffect(() => {
     const counts: Record<string, number> = {};
@@ -102,6 +106,25 @@ export default function ZoneMap({
     }
     setCompletedCounts(counts);
   }, [zoneNodeIds]);
+
+  // Resume logic — check on mount
+  useEffect(() => {
+    const pref = getResumePref();
+    const lastNode = getLastNode();
+    if (!lastNode) return;
+
+    if (pref === "always") {
+      setShowResumeToast(true);
+      const timer = setTimeout(() => {
+        router.push(`/${lastNode.zoneId}?node=${lastNode.nodeId}`);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+    if (pref === "ask") {
+      setResumeCandidate(lastNode);
+    }
+    // pref === "never" — do nothing
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     try {
@@ -232,6 +255,17 @@ export default function ZoneMap({
             ?
           </button>
           <button
+            onClick={() => router.push("/settings")}
+            className="pointer-events-auto w-9 h-9 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 shadow-sm transition-colors flex items-center justify-center"
+            title="Settings"
+            aria-label="Settings"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </button>
+          <button
             onClick={() => setShowEntrySelector(true)}
             className="pointer-events-auto px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg"
           >
@@ -289,6 +323,32 @@ export default function ZoneMap({
             setShowEntrySelector(true);
           }}
         />
+      )}
+
+      {resumeCandidate && (
+        <ResumeModal
+          lastNode={resumeCandidate}
+          onResume={() => {
+            setResumeCandidate(null);
+            router.push(`/${resumeCandidate.zoneId}?node=${resumeCandidate.nodeId}`);
+          }}
+          onDismiss={() => setResumeCandidate(null)}
+          onAlways={() => {
+            setResumePref("always");
+            setResumeCandidate(null);
+            router.push(`/${resumeCandidate.zoneId}?node=${resumeCandidate.nodeId}`);
+          }}
+          onNever={() => {
+            setResumePref("never");
+            setResumeCandidate(null);
+          }}
+        />
+      )}
+
+      {showResumeToast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-xl bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium shadow-lg">
+          Resuming where you left off...
+        </div>
       )}
     </div>
   );

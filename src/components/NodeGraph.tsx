@@ -598,6 +598,8 @@ function NodeGraphInner({
           }}
           onNavigate={handleNavigate}
           onProgressChange={handleProgressChange}
+          zoneId={zoneId}
+          zoneTitle={zoneTitle}
         />
       )}
 

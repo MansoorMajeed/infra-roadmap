@@ -12,13 +12,15 @@ const markdownComponents = {
     </a>
   ),
 };
-import { getNodeProgress, setNodeStatus, toggleMilestone } from "@/lib/progress";
+import { getNodeProgress, setNodeStatus, toggleMilestone, setLastNode } from "@/lib/progress";
 
 interface ContentPanelProps {
   node: RoadmapNode | null;
   onClose: () => void;
   onNavigate: (nodeId: string) => void;
   onProgressChange: () => void;
+  zoneId: string;
+  zoneTitle: string;
 }
 
 export default function ContentPanel({
@@ -26,6 +28,8 @@ export default function ContentPanel({
   onClose,
   onNavigate,
   onProgressChange,
+  zoneId,
+  zoneTitle,
 }: ContentPanelProps) {
   const [showDeepDive, setShowDeepDive] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -43,7 +47,10 @@ export default function ContentPanel({
   useEffect(() => {
     refreshProgress();
     setShowDeepDive(false);
-  }, [refreshProgress]);
+    if (node) {
+      setLastNode(node.frontmatter.id, zoneId, node.frontmatter.title, zoneTitle);
+    }
+  }, [refreshProgress, node, zoneId, zoneTitle]);
 
   // Close on Escape
   useEffect(() => {
