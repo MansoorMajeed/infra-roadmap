@@ -23,6 +23,15 @@ edges:
         from the outside returns 404. Sometimes 502. I applied the Ingress
         resource and it shows up in kubectl, but I have no idea what's actually
         wrong or where to look.
+    - id: ingress-controllers
+      question: >-
+        I applied an Ingress but nothing happened until I installed something
+        called an 'ingress controller' — what is that?
+      detail: >-
+        I wrote an Ingress YAML, applied it, and... nothing. Traffic didn't
+        route. Then someone told me I need an 'ingress controller' installed
+        first. Turns out the Ingress resource is just a config file — it
+        doesn't actually handle traffic. What does, and how do I pick one?
 difficulty: 2
 tags:
   - kubernetes

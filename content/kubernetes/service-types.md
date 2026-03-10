@@ -13,6 +13,16 @@ edges:
         get expensive fast. I have a frontend, an API, a docs site — I don't
         want three separate load balancers. There must be a smarter way to route
         HTTP traffic to different services from a single entry point.
+    - id: load-balancer-integration
+      question: >-
+        I set my Service to type LoadBalancer — on the cloud it got an IP
+        instantly, but locally it just says 'pending.' What's going on?
+      detail: >-
+        On my cloud cluster, I changed the Service type to LoadBalancer and an
+        external IP appeared within a minute. But on my local kind cluster, the
+        same thing just hangs at 'pending' forever. Something is clearly talking
+        to the cloud provider to make it work there — what is it, and what do I
+        do when there's no cloud?
 difficulty: 1
 tags:
   - kubernetes
