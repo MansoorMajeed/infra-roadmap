@@ -129,11 +129,13 @@ export default function ZoneMap({
       }
       if (pref === "ask") {
         setResumeCandidate(lastNode);
+        setContinueTarget(lastNode); // fallback if modal dismissed
       }
-      // pref === "never" — show continue button below
+      // pref === "never" — no UI at all
+      return;
     }
 
-    // In-session (back from zone) or pref="never" — show continue button
+    // In-session (back from zone) — show continue button
     setContinueTarget(lastNode);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
