@@ -36,8 +36,9 @@ milestones:
     Understand that CNI (Container Network Interface) is a spec — it defines the
     interface between container runtimes and network plugins
   - >-
-    Know the lifecycle: when kubelet starts a pod, it calls the CNI plugin to
-    assign an IP and wire up the network
+    Know the lifecycle: when kubelet starts a pod, the container runtime
+    (containerd/CRI-O) calls the CNI plugin to assign an IP and wire up the
+    network
   - >-
     Understand what IPAM (IP Address Management) does: allocates pod IPs from a
     configured range, tracks which IPs are in use
@@ -57,11 +58,13 @@ CNI stands for Container Network Interface. It's not a product — it's a specif
 
 CNI is a spec maintained by the CNCF. It defines a simple interface: when a container is created, the runtime calls the CNI plugin with "add this container to the network." When the container is deleted, it calls "remove this container from the network."
 
-The plugin is just a binary on the node. Kubelet finds it in `/opt/cni/bin/` and calls it with the container's network namespace as an argument. The plugin does whatever it needs to — create a veth pair, assign an IP, program routes — and returns the assigned IP address.
+The plugin is just a binary on the node, stored in `/opt/cni/bin/`. When kubelet needs to create a pod, it tells the container runtime (containerd or CRI-O) to set up a pod sandbox. The container runtime then calls the CNI plugin with the container's network namespace as an argument. The plugin does whatever it needs to — create a veth pair, assign an IP, program routes — and returns the assigned IP address.
 
 ```
-Pod starts → kubelet → calls CNI plugin binary → plugin assigns IP, creates veth, configures routes → pod has networking
+Pod starts → kubelet → containerd (CRI) → calls CNI plugin binary → plugin assigns IP, creates veth, configures routes → pod has networking
 ```
+
+This distinction matters for debugging: CNI errors show up in the container runtime's logs (containerd), not just kubelet's.
 
 ## How IP addresses get assigned
 

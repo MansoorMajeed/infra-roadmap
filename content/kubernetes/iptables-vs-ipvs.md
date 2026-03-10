@@ -26,8 +26,9 @@ tags:
 category: concept
 milestones:
   - >-
-    Understand the iptables scaling problem: every Service adds ~5 rules, 10k
-    Services means 50k+ rules with O(n) chain scanning
+    Understand the iptables scaling problem: every Service adds 8–15 rules
+    across multiple chains, thousands of Services means tens of thousands of
+    rules with O(n) chain scanning
   - >-
     Know what IPVS mode is: a real L4 load balancer in the kernel with
     hash-based O(1) lookup instead of linear chain scanning
@@ -50,7 +51,7 @@ kube-proxy's default iptables mode works fine for small clusters. But iptables w
 
 ## The iptables scaling problem
 
-Every Kubernetes Service creates roughly 5 iptables rules (more if the Service has multiple ports). With 1,000 Services, that's 5,000+ rules. With 5,000 Services, it's 25,000+ rules.
+Every Kubernetes Service creates roughly 8–15 iptables rules (entries across KUBE-SERVICES, KUBE-SVC, and KUBE-SEP chains — more with additional endpoints and ports). With 1,000 Services, that's easily 10,000+ rules. With 5,000 Services, you're looking at 50,000–100,000+ rules.
 
 The problem is how iptables processes packets:
 

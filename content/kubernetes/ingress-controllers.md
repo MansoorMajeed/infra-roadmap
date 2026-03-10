@@ -97,7 +97,7 @@ spec:
 
 **Good for:** Most use cases. Familiar if you know nginx. Rich annotation-based configuration. Largest community and most Stack Overflow answers.
 
-**Limitations:** Configuration through annotations can get messy. nginx reloads can cause brief connection drops on config changes (though newer versions handle this better).
+**Limitations:** Configuration through annotations can get messy. Config changes trigger nginx reloads — nginx handles these gracefully (existing connections drain, new workers pick up new connections), but high-churn environments may see brief latency spikes during reloads.
 
 ## Traefik
 

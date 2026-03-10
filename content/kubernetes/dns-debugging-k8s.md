@@ -16,7 +16,7 @@ category: practice
 milestones:
   - >-
     Understand the ndots:5 problem: why a lookup for `api.stripe.com` generates
-    5 failed queries before the real one succeeds
+    multiple failed queries across search domains before the real one succeeds
   - >-
     Know how search domains in /etc/resolv.conf work and how Kubernetes
     configures them

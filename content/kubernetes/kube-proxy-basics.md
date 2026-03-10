@@ -45,7 +45,7 @@ When you create a Kubernetes Service, it gets a ClusterIP — a virtual IP that 
 
 ## What kube-proxy does
 
-kube-proxy is a DaemonSet-like component that runs on every node in the cluster. It watches the Kubernetes API server for two things:
+kube-proxy runs as a DaemonSet on every node in the cluster. It watches the Kubernetes API server for two things:
 
 1. **Services** — their ClusterIPs and ports
 2. **EndpointSlices** — which pods are currently backing each Service

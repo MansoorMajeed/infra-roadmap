@@ -86,6 +86,8 @@ Cilium uses eBPF to handle networking at the kernel level instead of relying on 
 - Optional transparent encryption (WireGuard or IPsec)
 - Can act as an ingress controller and even a service mesh
 
+GKE Autopilot uses Cilium's eBPF data plane under the hood (called "Dataplane V2"), though it's not a full Cilium install — no Hubble or CiliumNetworkPolicy CRDs out of the box.
+
 **Limitations:** Requires a relatively modern Linux kernel (5.4+). More complex to operate than Flannel or basic Calico. The breadth of features means more to learn.
 
 ## Canal

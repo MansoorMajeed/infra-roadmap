@@ -69,7 +69,7 @@ When it sees a new Service of type LoadBalancer, it:
 3. Adds all cluster nodes as targets
 4. Reports the external IP back to Kubernetes
 
-You can influence the load balancer type with annotations:
+You can influence the load balancer type with annotations. On AWS, modern clusters use the AWS Load Balancer Controller (a separate install) instead of the in-tree cloud provider:
 
 ```yaml
 apiVersion: v1
@@ -77,10 +77,11 @@ kind: Service
 metadata:
   name: my-app
   annotations:
-    # AWS: use an NLB instead of a Classic ELB
-    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    # AWS: make it internal (no public IP)
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    # AWS Load Balancer Controller: create an NLB
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    # With target-type "ip", traffic goes directly to pod IPs
+    # bypassing NodePort and kube-proxy entirely
 spec:
   type: LoadBalancer
   ports:
@@ -89,6 +90,10 @@ spec:
   selector:
     app: my-app
 ```
+
+With the `ip` target type, the traffic path is shorter: `Internet → NLB → Pod IP` directly, skipping NodePort and kube-proxy. The NLB registers pod IPs as targets instead of routing through node ports. This gives better performance and more predictable load balancing.
+
+The older in-tree approach (`service.beta.kubernetes.io/aws-load-balancer-type: "nlb"`) still works but is deprecated. You'll see it in older tutorials.
 
 ## The cost problem
 

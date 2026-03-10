@@ -138,7 +138,7 @@ helm install cilium cilium/cilium \
   --set hubble.relay.enabled=true
 ```
 
-On managed clusters (EKS, AKS), Cilium can replace the default CNI. GKE already uses Cilium as its default data plane (Dataplane V2).
+On managed clusters (EKS, AKS), Cilium can replace the default CNI. GKE Autopilot uses Cilium's eBPF data plane under the hood (called "Dataplane V2"), though it's a slimmed-down integration — not a full Cilium install with Hubble and CiliumNetworkPolicy CRDs. On GKE Standard clusters, you opt into it explicitly.
 
 <!-- RESOURCES -->
 
