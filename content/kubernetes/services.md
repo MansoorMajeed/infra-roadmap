@@ -22,6 +22,15 @@ edges:
         try to curl it from another pod, nothing comes back. I have no idea if
         the problem is the Service itself, the labels on my pods, or something
         else entirely.
+    - id: k8s-networking-model
+      question: >-
+        I create a Service and traffic just reaches my pods. But how does it
+        actually work underneath?
+      detail: >-
+        I've been using Services and they route traffic. But I have no idea
+        what's happening at the network level. How does a pod on one node talk
+        to a pod on a different node? There's no port mapping like Docker, no
+        NAT — pods just reach each other by IP. That can't be magic.
 difficulty: 1
 tags:
   - kubernetes
