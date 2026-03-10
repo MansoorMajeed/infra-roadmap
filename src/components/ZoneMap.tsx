@@ -240,11 +240,11 @@ export default function ZoneMap({
 
       {/* Top bar */}
       <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        <div className="shrink-0">
+          <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
             Infra: Zero to Scale
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 hidden sm:block">
             SRE for everyone — click a zone to explore
           </p>
         </div>
@@ -279,7 +279,7 @@ export default function ZoneMap({
           {continueTarget && !resumeCandidate && (
             <button
               onClick={() => router.push(`/${continueTarget.zoneId}?focus=${continueTarget.nodeId}`)}
-              className="pointer-events-auto px-4 py-2 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-blue-300 dark:border-blue-700 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 shadow-sm transition-colors flex items-center gap-1.5"
+              className="pointer-events-auto hidden sm:flex px-4 py-2 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-blue-300 dark:border-blue-700 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 shadow-sm transition-colors items-center gap-1.5"
             >
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -291,7 +291,8 @@ export default function ZoneMap({
             onClick={() => setShowEntrySelector(true)}
             className="pointer-events-auto px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg"
           >
-            Where do I start?
+            <span className="hidden sm:inline">Where do I start?</span>
+            <span className="sm:hidden">Start</span>
           </button>
         </div>
       </div>
@@ -323,6 +324,21 @@ export default function ZoneMap({
           Newsletter
         </a>
       </div>
+
+      {/* Mobile continue button — bottom */}
+      {continueTarget && !resumeCandidate && (
+        <div className="absolute bottom-4 left-4 right-4 sm:hidden flex justify-center pointer-events-none">
+          <button
+            onClick={() => router.push(`/${continueTarget.zoneId}?focus=${continueTarget.nodeId}`)}
+            className="pointer-events-auto px-5 py-2.5 rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-blue-300 dark:border-blue-700 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 shadow-lg transition-colors flex items-center gap-2"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+            Continue: {continueTarget.nodeTitle}
+          </button>
+        </div>
+      )}
 
       <SearchModal
         nodes={searchableNodes}
