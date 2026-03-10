@@ -98,6 +98,7 @@ export default function ZoneMap({
   const [completedCounts, setCompletedCounts] = useState<Record<string, number>>({});
   const [resumeCandidate, setResumeCandidate] = useState<LastNode | null>(null);
   const [showResumeToast, setShowResumeToast] = useState(false);
+  const [continueTarget, setContinueTarget] = useState<LastNode | null>(null);
 
   useEffect(() => {
     const counts: Record<string, number> = {};
@@ -109,21 +110,31 @@ export default function ZoneMap({
 
   // Resume logic — check on mount
   useEffect(() => {
-    const pref = getResumePref();
     const lastNode = getLastNode();
     if (!lastNode) return;
 
-    if (pref === "always") {
-      setShowResumeToast(true);
-      const timer = setTimeout(() => {
-        router.push(`/${lastNode.zoneId}?node=${lastNode.nodeId}`);
-      }, 800);
-      return () => clearTimeout(timer);
+    const SESSION_KEY = "infra-roadmap-session-active";
+    const isReturningUser = !sessionStorage.getItem(SESSION_KEY);
+    sessionStorage.setItem(SESSION_KEY, "1");
+
+    if (isReturningUser) {
+      // New session — show modal or auto-navigate based on pref
+      const pref = getResumePref();
+      if (pref === "always") {
+        setShowResumeToast(true);
+        const timer = setTimeout(() => {
+          router.push(`/${lastNode.zoneId}?focus=${lastNode.nodeId}`);
+        }, 800);
+        return () => clearTimeout(timer);
+      }
+      if (pref === "ask") {
+        setResumeCandidate(lastNode);
+      }
+      // pref === "never" — show continue button below
     }
-    if (pref === "ask") {
-      setResumeCandidate(lastNode);
-    }
-    // pref === "never" — do nothing
+
+    // In-session (back from zone) or pref="never" — show continue button
+    setContinueTarget(lastNode);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -265,6 +276,17 @@ export default function ZoneMap({
               <circle cx="12" cy="12" r="3" />
             </svg>
           </button>
+          {continueTarget && !resumeCandidate && (
+            <button
+              onClick={() => router.push(`/${continueTarget.zoneId}?focus=${continueTarget.nodeId}`)}
+              className="pointer-events-auto px-4 py-2 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-blue-300 dark:border-blue-700 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 shadow-sm transition-colors flex items-center gap-1.5"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+              Continue
+            </button>
+          )}
           <button
             onClick={() => setShowEntrySelector(true)}
             className="pointer-events-auto px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg"
@@ -330,13 +352,13 @@ export default function ZoneMap({
           lastNode={resumeCandidate}
           onResume={() => {
             setResumeCandidate(null);
-            router.push(`/${resumeCandidate.zoneId}?node=${resumeCandidate.nodeId}`);
+            router.push(`/${resumeCandidate.zoneId}?focus=${resumeCandidate.nodeId}`);
           }}
           onDismiss={() => setResumeCandidate(null)}
           onAlways={() => {
             setResumePref("always");
             setResumeCandidate(null);
-            router.push(`/${resumeCandidate.zoneId}?node=${resumeCandidate.nodeId}`);
+            router.push(`/${resumeCandidate.zoneId}?focus=${resumeCandidate.nodeId}`);
           }}
           onNever={() => {
             setResumePref("never");

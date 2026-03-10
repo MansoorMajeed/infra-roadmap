@@ -40,8 +40,10 @@ The layout function (`layoutNodes`) is called in `useMemo`. It injects synthetic
 ## Resume Feature
 
 - `ContentPanel` now requires `zoneId` and `zoneTitle` props — it calls `setLastNode()` whenever a node is opened.
-- `ResumeModal` only appears on the home page (ZoneMap) when `resume-pref` is `"ask"` and a `last-node` entry exists.
-- When `resume-pref` is `"always"`, ZoneMap auto-navigates with a brief toast — no modal shown.
+- Resume uses `sessionStorage` (`infra-roadmap-session-active`) to distinguish returning users from in-session back-navigation.
+- **New session**: `ResumeModal` (bottom notification card) appears if pref=`"ask"`. Auto-navigates if pref=`"always"`.
+- **In-session (back from zone)**: A "Continue" button appears in the top bar instead of the modal.
+- Resume navigates with `?focus=` (centers on node) not `?node=` (which opens ContentPanel).
 - Settings page (`/settings`) is all client-side — server component only passes `allNodeIds` for stats display.
 - Export/import uses a versioned JSON format (`version: 1`). `importAllData` replaces all localStorage keys.
 

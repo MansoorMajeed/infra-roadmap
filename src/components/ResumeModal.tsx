@@ -38,62 +38,60 @@ export default function ResumeModal({
   }, [onDismiss]);
 
   return (
-    <>
-      <div className="fixed inset-0 bg-black/50 z-50" onClick={onDismiss} />
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-        <div
-          className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-sm w-full pointer-events-auto"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Header */}
-          <div className="p-6 pb-4 border-b border-gray-100 dark:border-gray-800">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
-              Continue where you left off?
-            </h2>
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md animate-slide-up">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div className="p-4">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center shrink-0 mt-0.5">
+              <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                Pick up where you left off?
+              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5 truncate">
+                {lastNode.nodeTitle}
+                <span className="text-gray-400 dark:text-gray-500"> in {lastNode.zoneTitle}</span>
+              </p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                {timeAgo(lastNode.timestamp)}
+              </p>
+            </div>
+            <button
+              onClick={onDismiss}
+              className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors shrink-0"
+              aria-label="Dismiss"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
 
-          {/* Content */}
-          <div className="p-6">
-            <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 mb-5">
-              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                {lastNode.nodeTitle}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                in {lastNode.zoneTitle} &middot; {timeAgo(lastNode.timestamp)}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <button
-                onClick={onResume}
-                className="w-full py-2.5 px-4 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
-              >
-                Yes, take me there
-              </button>
-              <button
-                onClick={onDismiss}
-                className="w-full py-2.5 px-4 rounded-xl border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              >
-                No thanks
-              </button>
-              <div className="flex gap-2 pt-1">
-                <button
-                  onClick={onAlways}
-                  className="flex-1 py-2 px-3 rounded-xl text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  Always resume
-                </button>
-                <button
-                  onClick={onNever}
-                  className="flex-1 py-2 px-3 rounded-xl text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  Never ask
-                </button>
-              </div>
-            </div>
+          <div className="flex items-center gap-2 mt-3 ml-11">
+            <button
+              onClick={onResume}
+              className="px-4 py-1.5 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
+            >
+              Continue
+            </button>
+            <button
+              onClick={onAlways}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              Always
+            </button>
+            <button
+              onClick={onNever}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              Never ask
+            </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
