@@ -96,6 +96,6 @@ That is where protocols come in. The physical connection is step one — but wit
 <!-- RESOURCES -->
 
 - [Cloudflare - What is a LAN?](https://www.cloudflare.com/learning/network-layer/what-is-a-lan/) -- type: article, time: 10m
-- [How WiFi Works - Explain That Stuff](https://www.explainthatstuff.com/howwifiworks.html) -- type: article, time: 15m
+- [Wireless Internet - Explain That Stuff](https://www.explainthatstuff.com/wirelessinternet.html) -- type: article, time: 15m
 - [Practical Networking - Networking Fundamentals](https://www.practicalnetworking.net/series/packet-traveling/packet-traveling/) -- type: series, time: 1h
 - [Cloudflare - What is Ethernet?](https://www.cloudflare.com/learning/network-layer/what-is-ethernet/) -- type: article, time: 10m
